@@ -27,14 +27,16 @@ services:
     expose:
       - 80
     volumes:
-      - /Users/nkthanh/code/zingme/data/uchome.com/admin/UploadFiles/:/var/www/admin/UploadFiles/:rw
-      - ./www/home/config.php:/var/www/home/config.php
-
-      - ./www/home/fish.php:/var/www/home/fish.php
-      - ./www/home/fish:/var/www/home/fish:rw
-      - ./www/home/qqfarm.php:/var/www/home/qqfarm.php
-      - ./www/home/qqfarm:/var/www/home/qqfarm:rw
+      - ./data/uchome.com/admin/UploadFiles/:/var/www/admin/UploadFiles/:rw
+      - ./data/home/config.php:/var/www/home/config.php
+      - ./data/home/attachment:/var/www/home/attachment:rw
+      - ./data/home/data:/var/www/home/data:rw
+      - ./data/home/uc_client/data:/var/www/home/uc_client/data:rw
+      - ./data/home/fish/data:/var/www/home/fish/data:rw
+      - ./data/home/qqfarm/core/data:/var/www/home/qqfarm/core/data:rw
+      - ./data/ucenter/data:/var/www/ucenter/data:rw
+      - ./data/bbs/attachments:/var/www/bbs/attachments:rw
+      - ./data/bbs/forumdata:/var/www/bbs/forumdata:rw
+      - ./data/bbs/uc_client/data:/var/www/bbs/uc_client/data:rw
     environment:
       - HTTPS_METHOD=noredirect
-    env_file:
-      - .env

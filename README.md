@@ -1,46 +1,139 @@
-# UCenter+UCHome+Discuz
+# UCenter + UCHome + Discuz!
 
-UCenter1.5.1/UCHome2.0/Discuz!7.2 集成安装包  
+Gói tích hợp **UCenter 1.5.1**, **UCHome 2.0**, **Discuz! 7.2** (SC UTF-8), chạy bằng Docker. Dữ liệu cấu hình và upload được persist qua volume.
 
-GitHub Repo: <https://github.com/zixia/ucenter-home>
+---
 
-## Screenshot
+## Yêu cầu
 
-![UCenter Home](https://raw.githubusercontent.com/17salsa/ucenter-home/master/uchome.gif)
+- Docker, Docker Compose
+- Port 80 (web), 8081 (Adminer, tùy chọn)
 
-## Download (Mirror from)
+---
 
-* http://www.comsenz.com/downloads/install/uchome
-* http://download.comsenz.com/UC_UCH_DZ/UC1.5.1_UCH2.0_DZ7.2_SC_UTF8.zip
+## Chạy nhanh (Docker)
 
-## Install
-
-1. read "readme.txt" first
-1. fix file permission:
-
-    ```bash
-    sudo chmod -R 777 ucenter/data/ home/config.php home/attachment/ home/data/ home/uc_client/data/ bbs/config.inc.php bbs/attachments/ bbs/templates/ bbs/forumdata/ bbs/uc_client/data/
-    ```
-
-1. setup by visit http://ip/
- 1. /install
- 1. /home/install
- 1. /bbs/install
-
-## Docker
-
-```sh
-docker-compose up
+```bash
+docker-compose up -d
 ```
 
-## Maintainer
+Truy cập: **http://127.0.0.1/** (hoặc hostname tương ứng).
 
-[Huan](https://github.com/huan) [(李卓桓)](http://linkedin.com/in/zixia), Chair of [17SALSA](https://www.17salsa.com), <zixia@zixia.net>
+Các bước cài đặt bên dưới thực hiện **theo đúng thứ tự** qua trình duyệt.
 
-[![Profile of Huan LI (李卓桓) on StackOverflow](https://stackoverflow.com/users/flair/1123955.png)](https://stackoverflow.com/users/1123955/huan)
+---
 
-## Copyright & License
+## Cài đặt (theo thứ tự)
 
-- Code & Docs © 2010-2021 Comsenz & 17SALSA
-- Code released under the Apache-2.0 License
-- Docs released under Creative Commons
+### 1. UCenter
+
+- **URL:** http://127.0.0.1/ucenter/install/
+
+| Mục | Giá trị |
+|-----|--------|
+| DB host | `db` |
+| DB user | `root` |
+| DB pass | `uchome` |
+| DB name | `uchome` |
+
+---
+
+### 2. UCHome (Trang chủ)
+
+- **URL:** http://127.0.0.1/home/install/
+
+**Kết nối UCenter**
+
+| Mục | Giá trị |
+|-----|--------|
+| UCenter URL | http://127.0.0.1/ucenter |
+| Mật khẩu Founder UCenter | `uchome` |
+
+**Kết nối database**
+
+| Mục | Giá trị |
+|-----|--------|
+| DB host | `db` |
+| DB user | `root` |
+| DB pass | `uchome` |
+| DB name | `uchome` |
+
+---
+
+### 3. Discuz! BBS
+
+- **URL:** http://127.0.0.1/bbs/install/
+
+**Kết nối UCenter**
+
+| Mục | Giá trị |
+|-----|--------|
+| UCenter URL | http://127.0.0.1/ucenter |
+| Mật khẩu Founder UCenter | `uchome` |
+
+**Kết nối database:** DB host `db`, cùng user/pass/database như trên (ví dụ `uchome`).
+
+---
+
+### 4. Ứng dụng UCHome
+
+Sau khi UCHome và UCenter đã cài xong:
+
+| Ứng dụng | URL cài đặt |
+|----------|-------------|
+| **QQFarm** | http://127.0.0.1/home/qqfarm/core/install/ |
+| **Fish (Ao cá)** | http://127.0.0.1/home/fish/install/ |
+
+**Lưu ý:** `UC_KEY` trong **Home** (`config.php`), **Fish** và **QQFarm** (trong `data/` của từng app) phải **giống nhau**. Như vậy Fish và QQFarm mới đọc được cookie đăng nhập do Home (host app) set và auth đúng khi user vào game.
+
+---
+
+## Thư mục / file trong `data/` (persist)
+
+Các path được mount trong `docker-compose.yml`:
+
+```
+data/
+├── uchome.com/
+│   └── admin/
+│       └── UploadFiles/
+├── home/
+│   ├── config.php
+│   ├── attachment/
+│   ├── data/
+│   ├── uc_client/
+│   │   └── data/
+│   ├── fish/
+│   │   └── data/
+│   └── qqfarm/
+│       └── core/
+│           └── data/
+├── ucenter/
+│   └── data/
+└── bbs/
+    ├── attachments/
+    ├── forumdata/
+    └── uc_client/
+        └── data/
+```
+
+---
+
+## Cấu trúc thư mục (tóm tắt)
+
+```
+.
+├── conf/              # Apache virtualhost
+├── www/               # Code (ucenter, home, bbs, install)
+├── data/              # Dữ liệu persist (cây thư mục bên trên)
+├── docker-compose.yml
+├── Dockerfile
+├── readme.txt         # Hướng dẫn cài đặt gốc
+└── README.md
+```
+
+---
+
+## Adminer
+
+Quản lý DB tại **http://127.0.0.1:8081** (server: `db`, user: `root`, password: `uchome`).
