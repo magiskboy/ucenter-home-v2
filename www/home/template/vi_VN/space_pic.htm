@@ -1,16 +1,16 @@
 
 <div class="h_status">
 	<div class="r_option">
-		<a href="$theurl&goto=up">上一张</a><span class="pipe">|</span>
-		<a href="$theurl&goto=down" id="nextlink">下一张</a><span class="pipe">|</span>
+		<a href="$theurl&goto=up">Ảnh trước</a><span class="pipe">|</span>
+		<a href="$theurl&goto=down" id="nextlink">Ảnh sau</a><span class="pipe">|</span>
 		<!--{if $_GET['play']}-->
-		<a href="javascript:;" id="playid" onclick="playNextPic(false);">停止播放</a>
+		<a href="javascript:;" id="playid" onclick="playNextPic(false);">Dừng phát</a>
 		<!--{else}-->
-		<a href="javascript:;" id="playid" onclick="playNextPic(true);">幻灯播放</a>
+		<a href="javascript:;" id="playid" onclick="playNextPic(true);">Trình chiếu</a>
 		<!--{/if}--><span id="displayNum"></span>
 	</div>
 
-	<!--{if $album[picnum]}-->当前第 $sequence 张<span class="pipe">|</span>共 $album[picnum] 张图片<!--{/if}-->&nbsp;
+	<!--{if $album[picnum]}-->Ảnh thứ $sequence<span class="pipe">|</span>Tổng $album[picnum] ảnh<!--{/if}-->&nbsp;
 	<!--{if $album['friend']}-->
 	<span class="locked gray">{$friendsname[$value[friend]]}</span>
 	<!--{/if}-->
@@ -48,17 +48,17 @@
 		<!--{if $topic}-->
 		<p>
 			<img src="image/app/topic.gif" align="absmiddle">
-			凑个热闹：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a></p>
+			Tham gia cho vui：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a></p>
 		<!--{/if}-->
 
 		<!--{if $do!='event' && $event[title]}-->
-		<p>来自活动：<a href="space.php?do=event&id=$event[eventid]&view=pic">$event[title]</a></p>
+		<p>Từ sự kiện：<a href="space.php?do=event&id=$event[eventid]&view=pic">$event[title]</a></p>
 		<!--{/if}-->
 
 		<p class="gray">
-			<!--{if $pic[hot]}--><span class="hot"><em>热</em>$pic[hot]</span><!--{/if}-->
+			<!--{if $pic[hot]}--><span class="hot"><em>Hot</em>$pic[hot]</span><!--{/if}-->
 			<!--{if $do=='event'}--><a href="space.php?uid=$pic[uid]" target="_blank">$_SN[$pic[uid]]</a><!--{/if}-->
-			上传于 <!--{date('Y-m-d H:i',$pic[dateline])}--> ($pic[size])
+			Tải lên lúc <!--{date('Y-m-d H:i',$pic[dateline])}--> ($pic[size])
 		</p>
 
 		<!--{if isset($_GET['exif'])}-->
@@ -67,7 +67,7 @@
 					<!--{if $value}--><p>$key : $value</p><!--{/if}-->
 				<!--{/loop}-->
 			<!--{else}-->
-				<p>无EXIF信息</p>
+				<p>Không có thông tin EXIF</p>
 			<!--{/if}-->
 		<!--{/if}-->
 	</div>
@@ -75,9 +75,9 @@
 
 	<table width="100%">
 	<tr><td align="left">
-		<a href="$pic[pic]" target="_blank">查看原图</a>
+		<a href="$pic[pic]" target="_blank">Xem ảnh gốc</a>
 		<!--{if !isset($_GET['exif'])}-->
-		<span class="pipe">|</span><a href="$theurl&exif">查看EXIF信息</a>
+		<span class="pipe">|</span><a href="$theurl&exif">Xem thông tin EXIF</a>
 		<!--{/if}-->
 	</td>
 	<td align="right">
@@ -87,25 +87,25 @@
 		<!--{if $_SGLOBAL[magic][frame]}-->
 			<img src="image/magic/frame.small.gif" class="magicicon">
 			<!--{if $pic[magicframe]}-->
-			<a id="a_magic_frame" href="cp.php?ac=magic&op=cancelframe&idtype=picid&id=$pic[picid]" onclick="ajaxmenu(event,this.id)">取消相框</a>
+			<a id="a_magic_frame" href="cp.php?ac=magic&op=cancelframe&idtype=picid&id=$pic[picid]" onclick="ajaxmenu(event,this.id)">Hủy khung ảnh</a>
 			<!--{else}-->
-			<a id="a_magic_frame" href="magic.php?mid=frame&idtype=picid&id=$pic[picid]" onclick="ajaxmenu(event,this.id, 1)">加相框</a>
+			<a id="a_magic_frame" href="magic.php?mid=frame&idtype=picid&id=$pic[picid]" onclick="ajaxmenu(event,this.id, 1)">Thêm khung ảnh</a>
 			<!--{/if}-->
 			<span class="pipe">|</span>
 		<!--{/if}-->
-		<a href="cp.php?ac=album&op=editpic&albumid=$pic[albumid]&picid=$pic[picid]">管理图片</a><span class="pipe">|</span>
+		<a href="cp.php?ac=album&op=editpic&albumid=$pic[albumid]&picid=$pic[picid]">Quản lý ảnh</a><span class="pipe">|</span>
 		<!--{/if}-->
 
 		<!--{if $_SGLOBAL[supe_uid] == $pic[uid] || checkperm('managealbum')}-->
-		<a href="cp.php?ac=album&op=edittitle&albumid=$pic[albumid]&picid=$pic[picid]" id="a_set_title" onclick="ajaxmenu(event, this.id)">编辑说明</a><span class="pipe">|</span>
-		<a href="cp.php?ac=topic&op=join&id=$pic[picid]&idtype=picid" id="a_topicjoin_$pic[picid]" onclick="ajaxmenu(event, this.id)">凑热闹</a><span class="pipe">|</span>
-		<a href="admincp.php?ac=pic&picid=$pic[picid]" target="_blank">删除</a><span class="pipe">|</span>
+		<a href="cp.php?ac=album&op=edittitle&albumid=$pic[albumid]&picid=$pic[picid]" id="a_set_title" onclick="ajaxmenu(event, this.id)">Sửa mô tả</a><span class="pipe">|</span>
+		<a href="cp.php?ac=topic&op=join&id=$pic[picid]&idtype=picid" id="a_topicjoin_$pic[picid]" onclick="ajaxmenu(event, this.id)">Tham gia cho vui</a><span class="pipe">|</span>
+		<a href="admincp.php?ac=pic&picid=$pic[picid]" target="_blank">Xóa</a><span class="pipe">|</span>
 		<!--{/if}-->
 
 		<!--{if checkperm('managealbum')}-->
-		<a href="cp.php?ac=album&picid=$pic[picid]&op=edithot" id="a_hot_$pic[picid]" onclick="ajaxmenu(event, this.id)">热度</a><span class="pipe">|</span>
+		<a href="cp.php?ac=album&picid=$pic[picid]&op=edithot" id="a_hot_$pic[picid]" onclick="ajaxmenu(event, this.id)">Độ hot</a><span class="pipe">|</span>
 		<!--{/if}-->
-		<a href="cp.php?ac=common&op=report&idtype=picid&id=$pic[picid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a>
+		<a href="cp.php?ac=common&op=report&idtype=picid&id=$pic[picid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Báo cáo</a>
 	</td></tr>
 	</table>
 </div>
@@ -117,12 +117,12 @@
 
 <div style="padding-top:20px; width:100%; overflow:hidden;" id="pic_comment">
 
-	<h2>评论</h2>
+	<h2>Bình luận</h2>
 	<div class="page">$multi</div>
 	<div class="comments_list" id="comment">
 		<!--{if $cid}-->
 		<div class="notice">
-			当前只显示与你操作相关的单个评论，<a href="$theurl#comment">点击此处查看全部评论</a>
+			Hiện chỉ hiển thị bình luận liên quan đến thao tác của bạn, <a href="$theurl#comment">nhấn vào đây để xem toàn bộ bình luận</a>
 		</div>
 		<!--{/if}-->
 
@@ -139,7 +139,7 @@
 				<td>
 					<a href="###" id="comment_face" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 					<!--{if $_SGLOBAL['magic']['doodle']}-->
-					<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+					<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ</a>
 					<!--{/if}-->
 					<br />
 					<textarea id="comment_message" onkeydown="ctrlEnter(event, 'commentsubmit_btn');" name="message" rows="5" cols="60" style="width: 380px;"></textarea>
@@ -151,7 +151,7 @@
 				<input type="hidden" name="id" value="$picid">
 				<input type="hidden" name="idtype" value="picid">
 				<input type="hidden" name="commentsubmit" value="true">
-				<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="评论" onclick="ajaxpost('quickcommentform_{$picid}', 'comment_add')" />
+				<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="Bình luận" onclick="ajaxpost('quickcommentform_{$picid}', 'comment_add')" />
 				<span id="__quickcommentform_{$picid}"></span>
 				</td>
 			</tr>
@@ -181,15 +181,15 @@
 		if(stat || replay) {
 			derId = window.setInterval('derivativeNum();', 1000);
 			$('displayNum').innerHTML = '[' + (interval/1000 - num) + ']';
-			$('playid').innerHTML = '停止播放';
+			$('playid').innerHTML = 'Dừng phát';
 			timerId = window.setInterval('forward();', interval);
 		} else {
 			replay = true;
 			num = 0;
 			if(endPlay) {
-				$('playid').innerHTML = '重新播放';
+				$('playid').innerHTML = 'Phát lại';
 			} else {
-				$('playid').innerHTML = '幻灯播放';
+				$('playid').innerHTML = 'Trình chiếu';
 			}
 			$('displayNum').innerHTML = '';
 			window.clearInterval(timerId);

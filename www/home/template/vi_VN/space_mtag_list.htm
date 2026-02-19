@@ -1,9 +1,9 @@
-<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], '讨论区');}-->
+<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], 'Thảo luận');}-->
 <!--{template header}-->
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="搜索话题" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm chủ đề" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="tagid" value="$mtag[tagid]" />
 	<input type="hidden" name="do" value="mtag" />
@@ -17,23 +17,23 @@
 
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>首页</span></a></li>
-		<li$actives[list]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>讨论区</span></a></li>
-		<li$actives[digest]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>精华区</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>Trang chủ</span></a></li>
+		<li$actives[list]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>Thảo luận</span></a></li>
+		<li$actives[digest]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>Bài hay</span></a></li>
 		<!--{if $eventnum}-->
-		<li$actives[event]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>群组活动</span></a></li>
+		<li$actives[event]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>Sự kiện nhóm</span></a></li>
 		<!--{/if}-->
-		<li$actives[member]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>成员列表</span></a></li>
+		<li$actives[member]><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>Thành viên</span></a></li>
 		<!--{if empty($mtag['ismember']) && $mtag['joinperm'] < 2}-->
-		<li class="null"><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">加入该群组</a></li>	
+		<li class="null"><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">Tham gia nhóm này</a></li>	
 		<!--{elseif $mtag['allowpost']}-->
-		<li class="null"><a href="cp.php?ac=thread&tagid=$mtag[tagid]">发起新话题</a></li>
+		<li class="null"><a href="cp.php?ac=thread&tagid=$mtag[tagid]">Tạo chủ đề mới</a></li>
 		<!--{/if}-->
 	</ul>
 </div>
 
 <!--{if $searchkey}-->
-<div class="h_status">以下是搜索话题 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+<div class="h_status">Dưới đây là kết quả tìm kiếm cho chủ đề có từ khóa <span style="color:red;font-weight:bold;">$searchkey</span></div>
 <!--{/if}-->
 
 <!--{if $list}-->
@@ -41,10 +41,10 @@
 	<table cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
-				<td class="subject">主题</td>
-				<!--{if !$mtag}--><td class="mtag">群组</td><!--{/if}-->
-				<td class="author">作者 (回应/阅读)</td>
-				<td class="lastpost">最后更新</td>
+				<td class="subject">Chủ đề</td>
+				<!--{if !$mtag}--><td class="mtag">Nhóm</td><!--{/if}-->
+				<td class="author">Tác giả (Phản hồi/Xem)</td>
+				<td class="lastpost">Cập nhật cuối</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -53,13 +53,13 @@
 				<!--{eval if($value[magicegg]) for($i=0; $i<$value[magicegg]; $i++) $magicegg .= '<img src="image/magic/egg/'.mt_rand(1,6).'.gif" />';}-->
 			<tr<!--{if $key%2==1}--> class="alt"<!--{/if}-->>
 				<td class="subject">
-				<!--{if $value[displayorder]}--> [顶] <!--{/if}-->
-				<!--{if $value[digest]}--> [精] <!--{/if}-->
-				<!--{if $value[eventid]}--> [活] <!--{/if}-->
+				<!--{if $value[displayorder]}--> [Ghim] <!--{/if}-->
+				<!--{if $value[digest]}--> [Hay] <!--{/if}-->
+				<!--{if $value[eventid]}--> [Sự kiện] <!--{/if}-->
 				$magicegg
 				<a href="space.php?uid=$value[uid]&do=thread&id=$value[tid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a>
 				<!--{if $value[hot]}-->
-				<br><span class="gray">$value[hot] 人推荐</span>
+				<br><span class="gray">$value[hot] người đề cử</span>
 				<!--{/if}-->
 				</td>
 				<!--{if !$mtag}--><td class="mtag"><a href="space.php?do=mtag&tagid=$value[tagid]">$value[tagname]</a></td><!--{/if}-->
@@ -72,7 +72,7 @@
 </div>	
 <div class="page">$multi</div>
 <!--{else}-->
-<div class="c_form">还没有相关话题。</div>
+<div class="c_form">Chưa có chủ đề tương quan.</div>
 <!--{/if}-->
 
 <!--{template footer}-->

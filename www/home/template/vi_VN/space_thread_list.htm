@@ -1,11 +1,11 @@
-<!--{eval $_TPL['titles'] = array('群组话题');}-->
+<!--{eval $_TPL['titles'] = array('Chủ đề nhóm');}-->
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_photo">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=thread" class="r_option" target="_blank">发表话题</a>
-			群组话题(共 $count 个)</h3>
+			<a href="cp.php?ac=thread" class="r_option" target="_blank">Tạo bài mới</a>
+			Chủ đề nhóm (tổng $count chủ đề)</h3>
 		<!--{if $list}-->
 		<ul class="line_list">
 		<!--{loop $list $key $value}-->
@@ -15,7 +15,7 @@
 		</ul>
 		<div class="page">$multi</div>
 		<!--{else}-->
-		<div class="c_form">还没有话题列表。</div>
+		<div class="c_form">Chưa có chủ đề nào.</div>
 		<!--{/if}-->
 	</div><br>
 <!--{else}-->
@@ -24,40 +24,40 @@
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="搜索话题" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm chủ đề" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="thread" />
 	<input type="hidden" name="view" value="all" />
 </form>
 </div>
-<h2 class="title"><img src="image/app/mtag.gif">群组 - 话题</h2>
+<h2 class="title"><img src="image/app/mtag.gif">Nhóm - Chủ đề</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li class="active"><a href="space.php?uid=$space[uid]&do=thread"><span>群组话题</span></a></li>
-		<li><a href="space.php?do=mtag&view=me"><span>我参与的群组</span></a></li>
-		<li><a href="space.php?do=mtag&view=manage"><span>我管理的群组</span></a></li>
-		<li><a href="space.php?do=mtag&view=hot"><span>热门群组</span></a></li>
-		<li><a href="space.php?do=mtag&view=recommend"><span>推荐群组</span></a></li>
-		<li class="null"><a href="cp.php?ac=thread">发起新话题</a></li>
-		<li class="null"><a href="cp.php?ac=mtag">创建群组</a></li>
+		<li class="active"><a href="space.php?uid=$space[uid]&do=thread"><span>Chủ đề nhóm</span></a></li>
+		<li><a href="space.php?do=mtag&view=me"><span>Nhóm của tôi</span></a></li>
+		<li><a href="space.php?do=mtag&view=manage"><span>Nhóm quản lý</span></a></li>
+		<li><a href="space.php?do=mtag&view=hot"><span>Nhóm Hot</span></a></li>
+		<li><a href="space.php?do=mtag&view=recommend"><span>Nhóm đề cử</span></a></li>
+		<li class="null"><a href="cp.php?ac=thread">Tạo chủ đề mới</a></li>
+		<li class="null"><a href="cp.php?ac=mtag">Tạo nhóm mới</a></li>
 	</ul>
 </div>
 <div class="h_status">
-	<a href="space.php?uid=$space[uid]&do=thread&view=hot"$actives[hot]>热门话题</a><span class="pipe">|</span>
-	<a href="space.php?uid=$space[uid]&do=thread&view=new"$actives[new]>最新话题</a><span class="pipe">|</span>
-	<a href="space.php?uid=$space[uid]&do=thread&view=me"$actives[me]>我的话题</a>
+	<a href="space.php?uid=$space[uid]&do=thread&view=hot"$actives[hot]>Chủ đề Hot</a><span class="pipe">|</span>
+	<a href="space.php?uid=$space[uid]&do=thread&view=new"$actives[new]>Chủ đề mới</a><span class="pipe">|</span>
+	<a href="space.php?uid=$space[uid]&do=thread&view=me"$actives[me]>Chủ đề của tôi</a>
 </div>
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "话题";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=thread&view=me\">TA的所有话题</a>";
+	$_TPL['spacetitle'] = "Chủ đề";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=thread&view=me\">Tất cả chủ đề của TA</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">按照发布时间排序</div>
+<div class="h_status">Sắp xếp theo thời gian đăng</div>
 <!--{/if}-->
 
 <!--{if $searchkey}-->
-<div class="h_status">以下是搜索话题 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+<div class="h_status">Dưới đây là kết quả tìm kiếm cho chủ đề có từ khóa <span style="color:red;font-weight:bold;">$searchkey</span></div>
 <!--{/if}-->
 
 <!--{if $list}-->
@@ -65,10 +65,10 @@
 	<table cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
-				<td class="subject">主题</td>
-				<td class="mtag">群组</td>
-				<td class="author"><!--{if $_GET[view]!='me'}-->作者 <!--{/if}-->(回应/阅读)</td>
-				<td class="lastpost">最后更新</td>
+				<td class="subject">Tiêu đề</td>
+				<td class="mtag">Nhóm</td>
+				<td class="author"><!--{if $_GET[view]!='me'}-->Tác giả <!--{/if}-->(Phản hồi/Xem)</td>
+				<td class="lastpost">Cập nhật cuối</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -79,7 +79,7 @@
 				<td class="subject">
 					$magicegg <a href="space.php?uid=$value[uid]&do=thread&id=$value[tid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a>
 					<!--{if $value[hot]}-->
-					<br><span class="gray">$value[hot] 人推荐</span>
+					<br><span class="gray">$value[hot] người đề cử</span>
 					<!--{/if}-->
 				</td>
 				<td><a href="space.php?do=mtag&tagid=$value[tagid]">$value[tagname]</a></td>
@@ -92,15 +92,15 @@
 	<div class="page">$multi</div>
 </div>
 <!--{else}-->
-<div class="c_form">还没有话题列表。</div>
+<div class="c_form">Chưa có chủ đề nào.</div>
 <!--{/if}-->
 
 
 <!--{if $rlist}-->
 	<div style="padding-bottom:10px;">
 		<h3 class="l_status">
-			<div class="r_option"><a href="space.php?do=mtag&view=hot">查看更多</a></div>
-			热门群组
+			<div class="r_option"><a href="space.php?do=mtag&view=hot">Xem thêm</a></div>
+			Nhóm Hot
 		</h3>
 		<ul class="thread_list">
 		<!--{loop $rlist $value}-->
@@ -113,9 +113,9 @@
 				<td>
 					<a href="space.php?do=mtag&tagid=$value[tagid]" style="font-weight:bold;">$value[tagname]</a>
 					<div class="gray">$value[title]</div>
-					已有 <span class="num">$value[membernum]</span> 人加入
+					Có <span class="num">$value[membernum]</span> người tham gia
 					<div class="gray">
-						话题: $value[threadnum], 回帖: $value[postnum]
+						Chủ đề: $value[threadnum], Phản hồi: $value[postnum]
 					</div>
 				</td>
 				</tr></table>

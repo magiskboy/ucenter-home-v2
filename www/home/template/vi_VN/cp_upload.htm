@@ -4,27 +4,27 @@
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
 	<!--{if $eventid}-->
-	<h2 class="title"><img src="image/app/event.gif">活动 - <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
+	<h2 class="title"><img src="image/app/event.gif">Sự kiện - <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
 	<!--{else}-->
-	<h2 class="title"><img src="image/app/album.gif">相册</h2>
+	<h2 class="title"><img src="image/app/album.gif">Album</h2>
 	<!--{/if}-->
 	<div class="tabs_header">
 		<!--{if $_SGLOBAL['magic']['doodle']}-->
-		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ</a>
 		<!--{/if}-->
 		<ul class="tabs">
 		<!--{if $albumid}-->
-			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>编辑相册信息</span></a></li>
-			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>编辑图片</span></a></li>
+			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>Sửa thông tin album</span></a></li>
+			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>Sửa ảnh</span></a></li>
 		<!--{/if}-->
 		<!--{if $eventid}-->
-			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>普通上传</span></a></li>
-			<li><a href="space.php?do=event&id=$eventid"><span>返回活动首页</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>Tải lên thường</span></a></li>
+			<li><a href="space.php?do=event&id=$eventid"><span>Quay lại sự kiện</span></a></li>
 		<!--{else}-->
-			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>普通上传</span></a></li>
-			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>批量上传</span></a></li>
-			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>大头帖</span></a></li>
-			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>返回我的相册</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>Tải lên thường</span></a></li>
+			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>Tải lên hàng loạt</span></a></li>
+			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>Chụp ảnh web</span></a></li>
+			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>Quay lại album của tôi</span></a></li>
 		<!--{/if}-->
 		</ul>
 	</div>
@@ -34,12 +34,12 @@
 
 <!--{if $haveattachsize}-->
 <div class="borderbox">
-	您当前图片空间还剩余容量 <strong>$haveattachsize</strong>
+	Dung lượng lưu trữ ảnh còn trống của bạn là <strong>$haveattachsize</strong>
 	<!--{if $_SGLOBAL[magic][attachsize]}-->
 	<p>
 		<img src="image/magic/attachsize.small.gif" class="magicicon"/>
-		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)">我要增加空间</a>
-		(您可以购买道具“{$_SGLOBAL[magic][attachsize]}”来增加附件容量，上传更多的图片)
+		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)">Tôi muốn tăng dung lượng</a>
+		(Bạn có thể mua đạo cụ "{$_SGLOBAL[magic][attachsize]}" để tăng dung lượng lưu trữ, tải lên nhiều ảnh hơn)
 	</p>
 	<!--{/if}-->
 </div><br>
@@ -48,8 +48,8 @@
 <!--{if empty($_GET['op'])}-->
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>选择图片</h2>
-		<p>从电脑中选择你要上传的图片。<br>提示：选择一张图片后，你可以继续选择下一张图片，这样就可以一次上传多张图片了。</p>
+		<h2>Chọn ảnh</h2>
+		<p>Chọn ảnh bạn muốn tải lên từ máy tính.<br>Gợi ý: Sau khi chọn một ảnh, bạn có thể tiếp tục chọn ảnh tiếp theo, như vậy có thể tải lên nhiều ảnh cùng lúc.</p>
 	</caption>
 	<tbody id="attachbodyhidden" style="display:none">
 		<tr>
@@ -92,8 +92,8 @@
 <!--{if $albums}-->
 	<caption>
 		<h2>
-		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">添加到现有相册</label> &nbsp;
-		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">新建一个相册</label>
+		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">Thêm vào album hiện có</label> &nbsp;
+		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">Tạo album mới</label>
 		</h2>
 	</caption>
 
@@ -101,7 +101,7 @@
 	<tr><td>
 		<table width="100%">
 		<tr>
-			<th width="60">选择相册</th>
+			<th width="60">Chọn album</th>
 			<td>
 			<select name="albumid" id="uploadalbumid">
 			<!--{loop $albums $value}-->
@@ -122,7 +122,7 @@
 	<tbody id="creatalbum" style="display:none;">
 <!--{else}-->
 	<caption>
-		<h2>新建一个相册</h2>
+		<h2>Tạo album mới</h2>
 		<input type="hidden" name="albumop" value="creatalbum">
 	</caption>
 	<tbody id="creatalbum">
@@ -130,39 +130,39 @@
 	<tr><td>
 		<table width="100%">
 			<tr>
-				<th width="60">相册名</th>
-				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="我的相册"></td>
+				<th width="60">Tên album</th>
+				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="Album của tôi"></td>
 			</tr>
 			<tr>
-				<th>隐私设置</th>
+				<th>Quyền xem</th>
 				<td>
 					<select name="friend" id="uploadfriend" onchange="passwordShow(this.value);">
-						<option value="0">全站用户可见</option>
+						<option value="0">Tất cả người dùng</option>
 						<!--{if empty($_GET[topicid])}-->
-						<option value="1">全好友可见</option>
-						<option value="2">仅指定的好友可见</option>
-						<option value="3">仅自己可见</option>
-						<option value="4">凭密码查看</option>
+						<option value="1">Chỉ bạn bè</option>
+						<option value="2">Chỉ định bạn bè</option>
+						<option value="3">Chỉ mình tôi</option>
+						<option value="4">Cần mật khẩu</option>
 						<!--{/if}-->
 					</select>
-					<span id="span_password" style="display:none;">密码:<input type="text" id="uploadpassword" name="password" value="" size="10"></span>
+					<span id="span_password" style="display:none;">Mật khẩu:<input type="text" id="uploadpassword" name="password" value="" size="10"></span>
 				</td>
 			</tr>
 			<tbody id="tb_selectgroup" style="display:none;">
 			<tr>
-				<th>指定好友</th>
+				<th>Bạn bè</th>
 				<td><select name="selectgroup" onchange="getgroup(this.value);">
-					<option value="">从好友组选择好友</option>
+					<option value="">Chọn từ nhóm bạn bè</option>
 					<!--{loop $groups $key $value}-->
 					<option value="$key">$value</option>
 					<!--{/loop}-->
-					</select> 多次选择会累加到下面的好友名单</td>
+					</select> Chọn nhiều lần sẽ cộng dồn danh sách bên dưới</td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
 				<td>
 				<textarea name="target_names" id="target_names" style="width:85%;" rows="3"></textarea>
-				<br>(可以填写多个好友名，请用空格进行分割)</td>
+				<br>(Có thể điền nhiều tên bạn bè, dùng dấu cách để phân cách)</td>
 			</tr>
 		</table>
 	</td></tr>
@@ -173,7 +173,7 @@
 	<br>
 	<input type="hidden" name="albumsubmit" id="albumsubmit" value="true" />
 	<input type="hidden" name="topicid" value="$_GET[topicid]" />
-	<input type="submit" name="uploadsubmit" id="btnupload" value="开始上传" class="submit" />
+	<input type="submit" name="uploadsubmit" id="btnupload" value="Bắt đầu tải lên" class="submit" />
 	</td>
 	</tr>
 </table>

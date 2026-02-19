@@ -9,33 +9,33 @@
 		max-width: 200px; max-height: 260px;}
 </style>
 <div id="mainarea">
-    <h2 class="title"><img src="image/app/event.gif" />活动 <!--{if $eventid}-->- <a href="space.php?do=event&id=$event[eventid]">$event[title]</a><!--{/if}--></h2>
+    <h2 class="title"><img src="image/app/event.gif" />Hoạt động <!--{if $eventid}-->- <a href="space.php?do=event&id=$event[eventid]">$event[title]</a><!--{/if}--></h2>
     <div class="tabs_header">
         <ul class="tabs">
 			<!--{if $eventid}-->
 				<!--{if $allowmanage}-->
-	            <li $menus[edit]><a href="cp.php?ac=event&op=edit&id=$eventid"><span>修改活动</span></a></li>
+	            <li $menus[edit]><a href="cp.php?ac=event&op=edit&id=$eventid"><span>Sửa hoạt động</span></a></li>
 				<!--{/if}-->
 				<!--{if $_SGLOBAL[supe_userevent][status] > 1 && ($_SGLOBAL[supe_userevent][status] >= 3 || $event[allowinvite])}-->
-				<li $menus[invite]><a href="cp.php?ac=event&op=invite&id=$eventid"><span>邀请好友</span></a></li>
+				<li $menus[invite]><a href="cp.php?ac=event&op=invite&id=$eventid"><span>Mời bạn bè</span></a></li>
 				<!--{/if}-->
 				<!--{if  $_SGLOBAL[supe_userevent][status] >= 3}-->
-				<li $menus[members]><a href="cp.php?ac=event&op=members&id=$eventid"><span>成员管理</span></a></li>
+				<li $menus[members]><a href="cp.php?ac=event&op=members&id=$eventid"><span>Quản lý thành viên</span></a></li>
 				<!--{/if}-->
 				<!--{if $allowmanage}-->
-				<li $menus[pic]><a href="cp.php?ac=event&op=pic&id=$eventid"><span>照片管理</span></a></li>
+				<li $menus[pic]><a href="cp.php?ac=event&op=pic&id=$eventid"><span>Quản lý ảnh</span></a></li>
 					<!--{if $event[tagid]}-->
-				<li $menus[thread]><a href="cp.php?ac=event&op=thread&id=$eventid"><span>话题管理</span></a></li>
+				<li $menus[thread]><a href="cp.php?ac=event&op=thread&id=$eventid"><span>Quản lý thảo luận</span></a></li>
 					<!--{/if}-->
 				<!--{/if}-->
 			<!--{else}-->
 				<!--{if "eventinvite"==$op}-->
-				<li class="active"><a href="cp.php?ac=event&op=eventinvite"><span>活动邀请</span></a></li>
+				<li class="active"><a href="cp.php?ac=event&op=eventinvite"><span>Mời tham gia</span></a></li>
 				<!--{else}-->
-				<li class="active"><a href="cp.php?ac=event"><span>发起活动</span></a></li>
+				<li class="active"><a href="cp.php?ac=event"><span>Tạo hoạt động</span></a></li>
 				<!--{/if}-->
 			<!--{/if}-->
-			<li><a href="space.php?do=event&id=$eventid"><span>返回活动首页</span></a></li>
+			<li><a href="space.php?do=event&id=$eventid"><span>Quay lại trang chủ</span></a></li>
         </ul>
         <!--{if $menus[members]}-->
         <form action="cp.php" method="get" id="searchform" name="searchform">
@@ -43,8 +43,8 @@
 		<table cellspacing="0" cellpadding="0">
 		<tbody>
 		<tr>
-		<td style="padding: 0pt;"><input type="text" style="border-right: medium none; width: 160px;" tabindex="1" class="t_input" onfocus="if(this.value=='搜索成员')this.value='';" value="搜索成员" name="key" id="key"/></td>
-		<td style="padding: 0pt;"><a href="javascript:$('searchform').submit();"><img alt="搜索" src="image/search_btn.gif"/></a></td>
+		<td style="padding: 0pt;"><input type="text" style="border-right: medium none; width: 160px;" tabindex="1" class="t_input" onfocus="if(this.value=='Tìm thành viên')this.value='';" value="Tìm thành viên" name="key" id="key"/></td>
+		<td style="padding: 0pt;"><a href="javascript:$('searchform').submit();"><img alt="Tìm kiếm" src="image/search_btn.gif"/></a></td>
 		</tr>
 		</tbody>
 		</table>
@@ -62,24 +62,24 @@
 <!--{if "join"==$op}-->
 	<!--{if $event[allowfellow] || $event[template]}-->
 	<div>
-		<h1>填写报名信息</h1>
+		<h1>Điền thông tin đăng ký</h1>
 		<form action="cp.php?ac=event&op=join&id=$event[eventid]" method="post" style="padding: 5px 10px;">
 			<!--{if $event[allowfellow]}-->
 			<p>
-				<span>携带人数</span>
+				<span>Số người đi cùng</span>
 				<input name="fellow" type="text" size="4" value="<!--{if  empty($_SGLOBAL[supe_userevent][fellow])}-->0<!--{else}-->$_SGLOBAL[supe_userevent][fellow]<!--{/if}-->" />
-				<span class="tiptext">（如果你带朋友参加，请注明携带人数）</span>
+				<span class="tiptext">（Nếu dẫn theo bạn bè, vui lòng ghi rõ số người）</span>
 			</p>
 			<!--{/if}-->
 			<!--{if $event[template]}-->
 			<p>
-				<span>报名信息</span><span class="tiptext">（请按活动发起者给出的模板填写）</span><br />
+				<span>Thông tin đăng ký</span><span class="tiptext">（Vui lòng điền theo mẫu của người tạo hoạt động）</span><br />
 				<textarea name="template" rows="4" style="width: 320px;"><!--{if  empty($_SGLOBAL[supe_userevent][template])}-->$event[template]<!--{else}-->$_SGLOBAL[supe_userevent][template]<!--{/if}--></textarea>
 			</p>
 			<!--{/if}-->
 			<p class="btn_line"><br />
-				<input type="submit" class="submit" name="joinsubmit" value="确定" />
-				<input type="button" class="button" value="取消" onclick="hideMenu()" />
+				<input type="submit" class="submit" name="joinsubmit" value="Hoàn tất" />
+				<input type="button" class="button" value="Hủy" onclick="hideMenu()" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -87,11 +87,11 @@
 	<!--{else}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=join&id=$eventid">
-			<h1>您确定<!--{if $event[verify]}-->报名<!--{else}-->参加<!--{/if}-->此活动吗？</h1>
+			<h1>Bạn chắc chắn muốn <!--{if $event[verify]}-->đăng ký<!--{else}-->tham gia<!--{/if}--> hoạt động này chứ?</h1>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="joinsubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="joinsubmit" value="Xác nhận" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -100,11 +100,11 @@
 <!--{elseif $op == "follow"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=follow&id=$eventid">
-			<h1>您确定关注此活动吗？</h1>
+			<h1>Bạn chắc chắn muốn theo dõi hoạt động này chứ?</h1>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-				<input type="submit" name="followsubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="followsubmit" value="Theo dõi" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->">
 		</form>
@@ -112,11 +112,11 @@
 <!--{elseif $op == "cancelfollow"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=cancelfollow&id=$eventid">
-			<h1>您确定取消关注此活动吗？</h1>
+			<h1>Bạn chắc chắn muốn bỏ theo dõi hoạt động này chứ?</h1>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="cancelfollowsubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="cancelfollowsubmit" value="Đồng ý" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -124,11 +124,11 @@
 <!--{elseif $op == "quit"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=quit&id=$eventid">
-			<h1>您确定退出此活动吗？</h1>
+			<h1>Bạn chắc chắn muốn rời khỏi hoạt động này chứ?</h1>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="quitsubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="quitsubmit" value="Đồng ý" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -136,64 +136,63 @@
 <!--{elseif $op == "delete"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=delete&id=$eventid">
-			<h1>您确定取消此活动吗？</h1>
-			<p>活动取消将删除所有活动相关信息。<br />此操作不可恢复！</p>
+			<h1>Bạn chắc chắn muốn hủy hoạt động này chứ?</h1>
+			<p>Hủy hoạt động sẽ xóa toàn bộ thông tin liên quan.<br />Thao tác này không thể hoàn tác!</p>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="deletesubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="deletesubmit" value="Hoàn tất" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
 	</div>
 <!--{elseif $op == "member"}-->
 	<div id="memberevent">
-		<div><a class="float_del" title="关闭" href="javascript:hideMenu();">关闭</a></div>
+		<div><a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a></div>
 		<br clear="both" />
 		<form method="post" name="eventform" id="eventmember_$uid" action="cp.php?ac=event&op=member&id=$eventid">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 			<input type="hidden" name="uid" value="$userevent[uid]">
 			<p>
-				设为：
+				Đặt thành：
 				<select name="status">
-					<option value="2">普通成员</option>
+					<option value="2">Thành viên thường</option>
 					<!--{if $_SGLOBAL[supe_uid]==$event[uid]}-->
-					<option value="3">组织者</option>
+					<option value="3">Người tổ chức</option>
 					<!--{/if}-->
 					<!--{if $event[verify]}-->
-					<option value="0">待审核</option>
+					<option value="0">Chờ duyệt</option>
 					<!--{/if}-->
-					<option value="-1">踢出成员</option>
+					<option value="-1">Mời ra khỏi hoạt động</option>
 				</select> &nbsp;
-				<input type="submit" name="membersubmit" value="提交" class="submit" />
+				<input type="submit" name="membersubmit" value="Gửi" class="submit" />
 			</p>
 		</form>
 	</div>
 <!--{elseif $op == "print"}-->
 	<div>
-		<div><a class="float_del" title="关闭" href="javascript:hideMenu();">关闭</a></div>
+		<div><a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a></div>
 		<br clear="both" />
 		<form method="post" target="_blank" name="eventform" action="cp.php?ac=event&op=print&id=$eventid">
-			<h2>设置打印选项</h2>
-			<p>内容：
-				<!--input type="checkbox" id="ckavatarbig" name="avatarbig" /> <lable for="ckavatarbig">大头像</lable-->
-				<input type="checkbox" id="ckavatarbig" name="avatarsmall" checked="checked" /> <lable for="ckavatarsmall">头像</lable>
-				<input type="checkbox" id="ckusername" name="username" checked="checked" /> <lable for="ckusername">姓名</lable>
+			<h2>Cài đặt in ấn</h2>
+			<p>Nội dung：
+				<input type="checkbox" id="ckavatarbig" name="avatarsmall" checked="checked" /> <lable for="ckavatarsmall">Ảnh đại diện</lable>
+				<input type="checkbox" id="ckusername" name="username" checked="checked" /> <lable for="ckusername">Họ tên</lable>
 				<!--{if $event[allowfellow]}-->
-				<input type="checkbox" id="ckfellow" name="fellow" checked="checked" /> <lable for="ckfellow">携带人数</lable>
+				<input type="checkbox" id="ckfellow" name="fellow" checked="checked" /> <lable for="ckfellow">Số người đi cùng</lable>
 				<!--{/if}-->
 				<!--{if $event[template]}-->
-				<input type="checkbox" id="cktemplate" name="template" checked="checked" /> <lable for="cktemplate">报名信息</lable>
+				<input type="checkbox" id="cktemplate" name="template" checked="checked" /> <lable for="cktemplate">Thông tin đăng ký</lable>
 				<!--{/if}-->
 			</p>
-			<p>选项：
-				<input type="checkbox" id="ckadmin" name="admin" /> <lable for="ckadmin">包括组织者</lable>
+			<p>Tùy chọn：
+				<input type="checkbox" id="ckadmin" name="admin" /> <lable for="ckadmin">Bao gồm người tổ chức</lable>
 			</p>
 			<p class="btn_line">
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="printsubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="printsubmit" value="Xác nhận" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -201,12 +200,12 @@
 <!--{elseif $op == "close"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=close&id=$eventid">
-			<h1>您确定要关闭活动吗？</h1>
-			<p>活动关闭之后将只允许进行浏览。</p>
+			<h1>Bạn chắc chắn muốn đóng hoạt động này chứ?</h1>
+			<p>Sau khi đóng, hoạt động này sẽ chỉ cho phép xem thông tin.</p>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="closesubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="closesubmit" value="Đồng ý" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -214,11 +213,11 @@
 <!--{elseif $op == "open"}-->
 	<div>
 		<form method="post" name="eventform" action="cp.php?ac=event&op=open&id=$eventid">
-			<h1>您确定要重新开启活动吗？</h1>
+			<h1>Bạn có chắc chắn muốn mở lại hoạt động không?</h1>
 			<p class="btn_line"><br />
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-				<input type="submit" name="opensubmit" value="确定" class="submit" />
-				<input type="button" name="btnclose" value="取消" onclick="hideMenu();" class="button" />
+				<input type="submit" name="opensubmit" value="Đồng ý" class="submit" />
+				<input type="button" name="btnclose" value="Hủy" onclick="hideMenu();" class="button" />
 			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -227,15 +226,15 @@
 	<div class="calendar">
 		<div id="calendar_pre" class="floatleft"><a href="#" onclick="showcalendar('$premonth'); this.blur(); return false;">&lt;&lt;</a></div>
 		<div id="calendar_next" class="floatright"><a href="#" onclick="showcalendar('$nextmonth'); this.blur(); return false;">&gt;&gt;</a></div>
-		<span id="thecalendar_year">$year</span>年 <span id="thecalendar_month">$month</span>月
+		<span id="thecalendar_year">$year</span> Năm <span id="thecalendar_month">$month</span> Tháng
 		<ul>
-			<li class="calendarli calendarweek">日</li>
-			<li class="calendarli calendarweek">一</li>
-			<li class="calendarli calendarweek">二</li>
-			<li class="calendarli calendarweek">三</li>
-			<li class="calendarli calendarweek">四</li>
-			<li class="calendarli calendarweek">五</li>
-			<li class="calendarli calendarweek">六</li>	
+			<li class="calendarli calendarweek">CN</li>
+			<li class="calendarli calendarweek">T2</li>
+			<li class="calendarli calendarweek">T3</li>
+			<li class="calendarli calendarweek">T4</li>
+			<li class="calendarli calendarweek">T5</li>
+			<li class="calendarli calendarweek">T6</li>
+			<li class="calendarli calendarweek">T7</li>	
 			<!--{eval echo str_repeat('<li class="calendarblank">&nbsp;</li>', $week)}-->
 			<!--{loop $days $key $value}-->		
 				<!--{if $value[count]}-->		
@@ -258,26 +257,26 @@
 <!--{elseif $op == "invite"}-->
 	<!--{if $event[grade] == -2}-->
 	<div id="content">
-		<p>您现在不能给好友发送邀请，因为此活动已经关闭。</p>
+		<p>Bạn không thể gửi lời mời vì hoạt động này đã đóng.</p>
 	</div>
 	<!--{elseif $event[grade] <= 0}-->	
 	<div id="content">
-		<p>您现在不能给好友发送邀请，因为活动还未通过审核。</p>
+		<p>Bạn không thể gửi lời mời vì hoạt động chưa được phê duyệt.</p>
 	</div>
 	<!--{elseif $_SGLOBAL[timestamp] > $event[deadline]}-->
 	<div id="content">
-		<p>您现在不能给好友发送邀请，因为活动已经截止报名了。</p>
+		<p>Bạn không thể gửi lời mời vì đã hết hạn đăng ký.</p>
 	</div>
 	<!--{elseif $event[limitnum]>0 && $event[limitnum]<=$event[membernum]}-->
 	<div id="content">
-		<p>您现在不能给好友发送邀请，因为活动人数已满。</p>
+		<p>Bạn không thể gửi lời mời vì số người tham gia đã đủ.</p>
 	</div>
 	<!--{else}-->
 	<div id="content" style="width: 640px;">
 		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=invite&id=$event[eventid]&group=$_GET[group]&page=$page">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 			<div class="h_status">
-				您可以给未加入本活动的好友们发送邀请。
+				Bạn có thể gửi lời mời đến những bạn bè chưa gia nhập hoạt động này.
 			</div>
 			<div class="h_status">
 				<!--{if $list}-->
@@ -287,27 +286,27 @@
 						<p>
 						<a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}">{$_SN[$value[fuid]]}</a>
 						</p>
-						<p><!--{if empty($joins[$value[fuid]])}--><input type="hidden" name="names[]" value="$value[fusername]"><input type="checkbox" name="ids[]" value="$value[fuid]">选定<!--{else}-->已邀请<!--{/if}--></p>
+						<p><!--{if empty($joins[$value[fuid]])}--><input type="hidden" name="names[]" value="$value[fusername]"><input type="checkbox" name="ids[]" value="$value[fuid]">Chọn<!--{else}-->Đã mời<!--{/if}--></p>
 					</li>
 				<!--{/loop}-->
 				</ul>
 				<div class="page">$multi</div>
 				<!--{else}-->
-				<div class="c_form">还没有好友。</div>
+				<div class="c_form">Chưa có bạn bè nào.</div>
 				<!--{/if}-->
 			</div>
 			<p>
-				<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">全选</label> &nbsp;
+				<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">Chọn tất cả</label> &nbsp;
 				<input type="hidden" name="invitesubmit" value="1" />
-				<input type="submit" name="bnt_invitesubmit" value="邀请" class="submit" />
+				<input type="submit" name="bnt_invitesubmit" value="Mời" class="submit" />
 			</p>
 		</form>
 	</div>
 	<div id="sidebar" style="width: 150px;">
 		<div class="cat">
-			<h3>好友分类</h3>
+			<h3>Phân loại bạn bè</h3>
 			<ul class="post_list line_list">
-				<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&id=$eventid&op=invite&group=-1">全部好友</a></li>
+				<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&id=$eventid&op=invite&group=-1">Tất cả bạn bè</a></li>
 				<!--{loop $groups $key $value}-->
 				<li<!--{if $_GET[group]==$key}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&id=$eventid&op=invite&group=$key">$value</a></li>
 				<!--{/loop}-->
@@ -320,8 +319,8 @@
 		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=members&status=$_GET[status]&id=$event[eventid]">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />	
 			<div class="h_status">
-				选择相应的用户进行用户状态变更。
-				<!--{if $event[limitnum]}--><span style="color:#f00">剩余 <!--{eval echo $event[limitnum]-$event[membernum]}-->  个活动成员名额</span><!--{/if}-->
+				Chọn người dùng tương ứng để thay đổi trạng thái tham gia.
+				<!--{if $event[limitnum]}--><span style="color:#f00">Còn lại <!--{eval echo $event[limitnum]-$event[membernum]}--> vị trí thành viên</span><!--{/if}-->
 			</div>	
 			<div class="h_status">
 				<!--{if $list}-->
@@ -335,9 +334,9 @@
 							<p><a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a></p>
 						</td>
 						<td>
-							<!--{if $event[allowfellow]}--><h2>携带人数：<!--{eval echo intval($value[fellow])}--></h2><!--{/if}-->
+							<!--{if $event[allowfellow]}--><h2>Số người đi cùng：<!--{eval echo intval($value[fellow])}--></h2><!--{/if}-->
 							<!--{if $event[template]}-->
-							<h2>报名信息：</h2>
+							<h2>Thông tin đăng ký：</h2>
 							<p><!--{eval echo nl2br(htmlspecialchars($value[template]))}--></p>
 							<!--{/if}-->
 						</td>
@@ -347,50 +346,50 @@
 				</table>
 				<div class="page">$multi</div>
 				<!--{else}-->
-				<div class="c_form">还没有相关成员。</div>
+				<div class="c_form">Chưa có thành viên nào.</div>
 				<!--{/if}-->
 			</div>
 			<p>
-				<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">全选</label> &nbsp;
-				设为：
+				<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">Chọn tất cả</label> &nbsp;
+				Đặt thành：
 				<select name="status">
-					<option value="2">普通成员</option>
+					<option value="2">Thành viên thường</option>
 					<!--{if $_SGLOBAL[supe_uid]==$event[uid]}-->
-					<option value="3">组织者</option>
+					<option value="3">Người tổ chức</option>
 					<!--{/if}-->
 					<!--{if $event[verify]}-->
-					<option value="0">待审核</option>
+					<option value="0">Chờ duyệt</option>
 					<!--{/if}-->
-					<option value="-1">踢出成员</option>
+					<option value="-1">Mời ra khỏi hoạt động</option>
 				</select>
-				<input type="submit" name="memberssubmit" value="提交" class="submit" />
+				<input type="submit" name="memberssubmit" value="Gửi" class="submit" />
 			</p>
 		</form>
 	</div>
 	
 	<div id="sidebar" style="width: 150px;">
 		<div class="cat">
-			<h3>成员状态</h3>
+			<h3>Trạng thái thành viên</h3>
 			<ul class="post_list line_list">
-				<li<!--{if $_GET[status]==0}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=0">待审核</a></li>
-				<li<!--{if $_GET[status]==2}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=2">普通成员</a></li>
-				<li<!--{if $_GET[status]==3}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=3">组织者</a></li>
+				<li<!--{if $_GET[status]==0}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=0">Chờ duyệt</a></li>
+				<li<!--{if $_GET[status]==2}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=2">Thành viên thường</a></li>
+				<li<!--{if $_GET[status]==3}--> class="current"<!--{/if}-->><a href="cp.php?ac=event&op=members&id=$eventid&status=3">Người tổ chức</a></li>
 			</ul>
 		</div>
 	</div>
 <!--{elseif $op == "thread"}-->
 	<div id="d_edit_form">
-		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=thread&id=$event[eventid]" onsubmit="return confirm('此操作不可恢复，确认吗?')">
+		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=thread&id=$event[eventid]" onsubmit="return confirm('Thao tác này không thể hoàn tác, bạn chắc chắn chứ?')">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 			<!--{if $threadlist}-->
 			<div class="topic_list">
 				<table cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<td width="30">选择</td>
-							<td class="subject">主题</td>
-							<td class="author">作者 (回应/阅读)</td>
-							<td class="lastpost">最后更新</td>
+							<td width="30">Chọn</td>
+							<td class="subject">Chủ đề</td>
+							<td class="author">Tác giả (Phản hồi/Xem)</td>
+							<td class="lastpost">Cập nhật cuối</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -409,27 +408,27 @@
 					</tbody>
 				</table>
 				<p>
-					<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">全选</label> &nbsp;
-					<input type="submit" name="delthreadsubmit" value="删除" class="submit" />
+					<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">Chọn tất cả</label> &nbsp;
+					<input type="submit" name="delthreadsubmit" value="Xóa" class="submit" />
 				</p>
 			</div>
 			<!--{else}-->
-			<div class="c_form" style="text-align:center;">还没有相关话题。</div>
+			<div class="c_form" style="text-align:center;">Chưa có chủ đề nào.</div>
 			<!--{/if}-->
 		</form>
 	</div>
 		
 <!--{elseif $op == 'edithot'}-->
 
-<h1>调整热度</h1>
-<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<h1>Điều chỉnh độ nóng</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner">
 	<form method="post" action="cp.php?ac=event&op=edithot&id=$eventid">
 		<p class="btn_line">
-			新的热度：<input type="text" name="hot" value="$event[hot]" size="5"> 
+			Độ nóng mới：<input type="text" name="hot" value="$event[hot]" size="5"> 
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 			<input type="hidden" name="hotsubmit" value="true" />
-			<input type="submit" name="btnsubmit" value="确定" class="submit" />
+			<input type="submit" name="btnsubmit" value="Xác nhận" class="submit" />
 		</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -437,7 +436,7 @@
 
 <!--{elseif $op == "pic"}-->
 	<div id="d_edit_form">
-		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=pic&id=$event[eventid]" onsubmit="return confirm('此操作不可恢复，确认吗?')">
+		<form id="edit_form" name="edit_form" class="c_form" method="post" action="cp.php?ac=event&op=pic&id=$event[eventid]" onsubmit="return confirm('Thao tác này không thể hoàn tác, bạn chắc chắn chứ?')">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 			<div id="album" class="article">
 				<!--{if sizeof($photolist) > 0}-->
@@ -448,7 +447,7 @@
 							<td>
 								<a href="space.php?do=event&id=$eventid&view=pic&picid=$value[picid]"><img src="$value[pic]" alt="$value[title]" /></a>
 								<br />
-								<input type="checkbox" value="$value[picid]" name="ids[]"/>选定
+								<input type="checkbox" value="$value[picid]" name="ids[]"/>Chọn
 							</td>
 							<!--{if $key%4==3}--></tr><tr><!--{/if}-->
 						<!--{/loop}-->
@@ -457,21 +456,21 @@
 				</table>
 				<div class="page">$multi</div>
 				<p>
-					<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">全选</label> &nbsp;
-					<input type="submit" name="deletepicsubmit" value="删除选定" class="submit" />
+					<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">Chọn tất cả</label> &nbsp;
+					<input type="submit" name="deletepicsubmit" value="Xóa đã chọn" class="submit" />
 				</p>
 				<!--{else}-->
-				<p align="center">还没有活动照片</p>
+				<p align="center">Chưa có ảnh nào</p>
 				<!--{/if}-->
 				</div>
 		</form>
 	</div>
 <!--{elseif $op == "eventinvite"}-->
 	<div class="h_status">
-		您的好友邀请您加入以下活动
+		Bạn bè mời bạn tham gia hoạt động sau:
 		<!--{if !empty($eventinvites)}-->
 			<span class="pipe">|</span>
-			<a href="cp.php?ac=event&op=eventinvite&&r=1"><span>忽略所有邀请</span></a>
+			<a href="cp.php?ac=event&op=eventinvite&&r=1"><span>Bỏ qua tất cả</span></a>
 		<!--{/if}-->
 	</div>
 	
@@ -490,20 +489,20 @@
 			<td class="h_status">
 				<p><a href="space.php?do=event&id=$value[eventid]" target="_blank" style="font-size:14px;font-weight:bold;">
 				$value[title]</a></p>
-				<br>活动时间：<!--{eval echo sgmdate("n月d日 G:i", $value[starttime])}--> - <!--{eval echo sgmdate("n月d日 G:i", $value[endtime])}-->
+				<br>Thời gian：<!--{eval echo sgmdate("d/m G:i", $value[starttime])}--> - <!--{eval echo sgmdate("d/m G:i", $value[endtime])}-->
 							<!--{if $value[endtime]<$_SGLOBAL[timestamp]}-->
-							<span class="event_state"> 已结束</span>
+							<span class="event_state"> Đã kết thúc</span>
 							<!--{elseif $value[deadline]<$_SGLOBAL[timestamp]}-->
-							<span class="event_state"> 报名截止</span>
+							<span class="event_state"> Hết hạn đăng ký</span>
 							<!--{/if}-->
-				<br>活动地点：$value[province] - $value[city] $value[location]
-				<br>发起人：<a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a>
+				<br>Địa điểm：$value[province] - $value[city] $value[location]
+				<br>Người tạo：<a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a>
 				<div id="eventinvite_$value[eventid]" style="padding:0.5em 0 0.5em 0;">
-					邀请好友：<a href="space.php?uid=$value[uid]" target="_blank">{$_SN[$value[uid]]}</a>
-					<br>邀请时间：<!--{eval echo sgmdate('Y-m-d H:i', $value[invitetime], 1)}-->
+					Mời bạn bè：<a href="space.php?uid=$value[uid]" target="_blank">{$_SN[$value[uid]]}</a>
+					<br>Thời gian mời：<!--{eval echo sgmdate('Y-m-d H:i', $value[invitetime], 1)}-->
 					<p style="padding:1em 0 0 0;">
-						<a id="a_accept" href="cp.php?ac=event&op=acceptinvite&id=$value[eventid]" class="submit" onclick="ajaxget(this.href, 'eventinvite_$value[eventid]'); return false;">接受邀请</a>
-						<a href="cp.php?ac=event&op=eventinvite&id=$value[eventid]&r=1" class="button">忽略</a>
+						<a id="a_accept" href="cp.php?ac=event&op=acceptinvite&id=$value[eventid]" class="submit" onclick="ajaxget(this.href, 'eventinvite_$value[eventid]'); return false;">Chấp nhận</a>
+						<a href="cp.php?ac=event&op=eventinvite&id=$value[eventid]&r=1" class="button">Bỏ qua</a>
 					</p>
 				</div>
 			</td>
@@ -511,7 +510,7 @@
 		<!--{/loop}-->
 		</table>
 		<!--{else}-->
-		暂时没有新的活动邀请。
+		Tạm thời không có lời mời nào.
 		<!--{/if}-->
 	</div>
 <!--{else}-->
@@ -525,13 +524,13 @@
 			<table class="infotable" width="100%" cellspacing="4" cellpadding="4">				
 				<tbody>					
 					<tr>
-						<th>活动名称 *</th>
+						<th>Tên hoạt động *</th>
 						<td>
 							<input class="t_input" id="title" name="title" value="$event[title]" size="56" type="text" maxlength="80">
 						</td>
 					</tr>
 					<tr>
-						<th>活动城市 *</th>
+						<th>Thành phố *</th>
 						<td id="citybox">
 							<script type="text/javascript" src="source/script_city.js" charset="$_SC[charset]"></script>
                             <script type="text/javascript" charset="$_SC[charset]">
@@ -541,32 +540,32 @@
 						</td>
 					</tr>
 					<tr>
-						<th>活动地点</th>
+						<th>Địa điểm</th>
 						<td>
 							<input class="t_input" id="location" name="location" value="$event[location]" size="56" type="text" maxlength="80">
 						</td>
 					</tr>
 					<tr>
-						<th>活动时间 *</th>
+						<th>Thời gian *</th>
 						<td>
 							<script type="text/javascript" src="source/script_calendar.js" charset="$_SC[charset]"></script>
 							<input type="text" name="starttime" id="starttime" value="<!--{eval echo sgmdate('Y-m-d H:i', $event[starttime])}-->"  onclick="showcalendar(event,this,1,'<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp])}-->', '<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp] + 3600 * 24 * 60)}-->')" />
-						 至
+						 Đến
 							<input type="text" name="endtime" id="endtime" value="<!--{eval echo sgmdate('Y-m-d H:i', $event[endtime])}-->"  onclick="showcalendar(event,this,1,'<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp])}-->', '<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp] + 3600 * 24 * 60)}-->')" />
 						</td>
 					</tr>
 					<tr>
-						<th>报名截止 *</th>
+						<th>Hạn đăng ký *</th>
 						<td>
 							<input type="text" name="deadline" id="deadline" value="<!--{eval echo sgmdate('Y-m-d H:i', $event[deadline])}-->"  onclick="showcalendar(event,this,1,'<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp])}-->', '<!--{eval echo sgmdate('Y-m-d H:i', $_SGLOBAL[timestamp] + 3600 * 24 * 60)}-->')" />
 						</td>
 					</tr>
 					<tr>
-						<th width="100" style="vertical-align: top;">活动分类 *</th>
+						<th width="100" style="vertical-align: top;">Phân loại *</th>
 						<td>
 							<select name="classid" id="classid" onchange="reset_eventclass(this.value)">
 								<option value="-1">
-									请选择活动分类
+									Vui lòng chọn phân loại
 								</option>
 								<!--{loop $_SGLOBAL[eventclass] $key $value}-->
 								<option value="$key" <!--{if $event[classid] == $key}--> selected<!--{/if}--> >$value[classname]</option>
@@ -582,24 +581,24 @@
 						<iframe src="editor.php?charset=$_SC[charset]&allowhtml=0&doodle=<!--{if isset($_SGLOBAL[magic][doodle])}-->1<!--{/if}-->" name="uchome-ifrHtmlEditor" id="uchome-ifrHtmlEditor" scrolling="no" border="0" frameborder="0" style="width:100%;border: 1px solid #C5C5C5;" height="400"></iframe></td>
 					</tr>
 					<tr>
-						<th style="vertical-align: top;">活动海报</th>
+						<th style="vertical-align: top;">Poster</th>
 						<td>
-							<input type="file" name="poster" /> 图片将上传到您的默认相册。<br />
+							<input type="file" name="poster" /> Ảnh sẽ được tải lên album mặc định của bạn.<br />
 							<input type="checkbox" id="sharepic" name="sharepic" value="1" />
-							<label for="sharepic">同时把海报共享到活动相册</label>
+							<label for="sharepic">Đồng thời chia sẻ poster vào album hoạt động</label>
 						</td>
 					</tr>
 					<!--{if $mtags}-->
 					<tr>
-						<th>关联群组</th>
+						<th>Liên kết nhóm</th>
 						<td>
 							<select name="tagid">
-							<option value="">选择关联群组</option>
+							<option value="">Chọn nhóm liên kết</option>
 							<!--{loop $mtags $value}-->
 							<option value="$value[tagid]" <!--{if $value[tagid]==$event[tagid]}-->selected<!--{/if}--> >$value[tagname]</option>
 							<!--{/loop}-->
 							</select>
-							必须是您自己创建的群组，关联后活动话题会同步到该群组。
+							Phải là nhóm do bạn tạo, sau khi liên kết các thảo luận hoạt động sẽ đồng bộ vào nhóm đó.
 						</td>
 					</tr>
 					<!--{/if}-->
@@ -610,7 +609,7 @@
 				<tr>
 					<td colspan="2">
 						<a id="toggle_advanced" href="#" onclick="toggle_advanced(); this.blur(); return false;">
-						展开高级设置</a>						
+						Mở thiết lập nâng cao</a>						
 					</td>
 				</tr>
 				</tbody>
@@ -618,57 +617,57 @@
 			<table id="advanced_info" class="infotable" width="100%" cellspacing="4" cellpadding="4" style="display:none">
 				<tbody>
 					<tr>
-						<th width="100">活动人数</th>
+						<th width="100">Số người</th>
 						<td>
 							<input name="limitnum" value="$event[limitnum]" id="limitnum" type="text" size="4" maxlength="8">
                             <span class="tiptext">
-                                活动参加人数限制，设为 0 表示无限制。
+                                Giới hạn số người tham gia, đặt là 0 nếu không giới hạn.
                             </span>
 						</td>
 					</tr>
 					<tr>
-						<th width="100" style="vertical-align: top;">活动隐私</th>
+						<th width="100" style="vertical-align: top;">Quyền riêng tư</th>
 						<td>
 							<select name="public" id="public">
-								<option <!--{if $event[public]==2}-->selected="selected"<!--{/if}--> value="2">公开活动，所有人可见可加入</option>
-								<option <!--{if $event[public]==1}-->selected="selected"<!--{/if}--> value="1">半公开活动，所有人可见, 邀请才能加入</option>
-								<option <!--{if $event[public]==0}-->selected="selected"<!--{/if}--> value="0">私密活动，被邀请者可见</option>
+								<option <!--{if $event[public]==2}-->selected="selected"<!--{/if}--> value="2">Công khai, mọi người đều thấy và tham gia được</option>
+								<option <!--{if $event[public]==1}-->selected="selected"<!--{/if}--> value="1">Bán công khai, mọi người thấy nhưng cần mời mới tham gia được</option>
+								<option <!--{if $event[public]==0}-->selected="selected"<!--{/if}--> value="0">Riêng tư, chỉ những người được mời mới thấy</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<th width="100" style="vertical-align: top;">活动选项</th>
+						<th width="100" style="vertical-align: top;">Tùy chọn</th>
 						<td>
 							<input name="allowinvite" id="allowinvite" value="1" type="checkbox"<!--{if $event[allowinvite]}--> checked="checked"<!--{/if}-->>
                             <label for="allowinvite">
-                                允许参与者邀请好友，被邀请者加入活动不需要审核
+                                Cho phép người tham gia mời bạn bè, người được mời không cần phê duyệt
                             </label>
                             <br>
 							<input name="allowpic" id="allowpic" value="1" type="checkbox"<!--{if $event[allowpic]}--> checked="checked"<!--{/if}-->>
                             <label for="allowpic">
-                                允许参与者共享活动照片
+                                Cho phép người tham gia chia sẻ ảnh hoạt động
                             </label>
                             <br>
 							<input name="allowpost" id="allowpost" value="1" type="checkbox"<!--{if $event[allowpost]}--> checked="checked"<!--{/if}-->>
                             <label for="allowpost">
-                                允许所有人发布留言
+                                Cho phép mọi người gửi lời nhắn
                             </label>
                             <br>
                             <input name="verify" id="verify" value="1" type="checkbox"<!--{if $event[verify]}--> checked="checked"<!--{/if}-->>
                             <label for="verify">
-                                参加活动需要审批
+                                Tham gia hoạt động cần phê duyệt
                             </label>
 							<br>
                             <input name="allowfellow" id="allowfellow" value="1" type="checkbox"<!--{if $event[allowfellow]}--> checked="checked"<!--{/if}-->>
                             <label for="allowfellow">
-                                允许参加者携带朋友，携带朋友数会占用活动参与者名额
+                                Cho phép người tham gia dẫn theo bạn bè, số người đi cùng sẽ tính vào giới hạn số người tham gia.
                             </label>
 						</td>
 					</tr>
 					<tr>
-						<th width="100" style="vertical-align: top;">报名信息</th>
+						<th width="100" style="vertical-align: top;">Thông tin đăng ký</th>
 						<td>
-							如果要求参加者填写报名信息（最多255个字符），你可以在此处给出一个格式模板。留空表示不要求填写。<br />
+							Nếu yêu cầu người tham gia điền thông tin thêm (tối đa 255 ký tự), bạn có thể đưa ra một mẫu tại đây. Để trống nếu không yêu cầu.<br />
                             <textarea id="template" name="template" rows="4" cols="72">$event[template]</textarea>
 						</td>
 					</tr>
@@ -680,7 +679,7 @@
 				<tbody>
 				<!--{if $_SCONFIG['questionmode']}-->
 				<tr>
-					<th width="100" style="vertical-align: top;">请回答验证问题</th>
+					<th width="100" style="vertical-align: top;">Vui lòng trả lời câu hỏi bảo mật</th>
 					<td>
 						<p><!--{eval question();}--></p>
 						<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
@@ -688,10 +687,10 @@
 				</tr>
 				<!--{else}-->
 				<tr>
-					<th width="100" style="vertical-align: top;">请填写验证码</th>
+					<th width="100" style="vertical-align: top;">Vui lòng nhập mã bảo mật</th>
 					<td>
 						<script type="text/javascript" charset="$_SC[charset]">seccode();</script>
-						<p>请输入上面的4位字母或数字，看不清可<a href="javascript:updateseccode()">更换一张</a></p>
+						<p>Vui lòng nhập 4 ký tự trên, nếu không rõ vui lòng <a href="javascript:updateseccode()">thay đổi hình ảnh</a></p>
 						<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
 					</td>
 				</tr>
@@ -703,9 +702,9 @@
 				<tbody>
 					<!--{if empty($eventid)}-->
 					<tr>
-						<th width="100">动态选项</th>
+						<th width="100">Tùy chọn động thái</th>
 						<td>
-							<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('event', 1)}--> checked<!--{/if}-->> 产生动态 (<a href="cp.php?ac=privacy#feed" target="_blank">更改默认设置</a>)
+							<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('event', 1)}--> checked<!--{/if}-->> Tạo động thái (<a href="cp.php?ac=privacy#feed" target="_blank">Thay đổi thiết lập mặc định</a>)
 						</td>
 					</tr>
 					<!--{/if}-->
@@ -715,7 +714,7 @@
 							<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
                             <input type="hidden" name="topicid" value="$topicid" />
                             <input type="hidden" name="eventsubmit" value="1" />
-                            <input class="submit" value="<!--{if $_GET[id]}-->保存<!--{else}-->提交<!--{/if}-->" type="button" onclick="check_eventpost()"/>
+                            <input class="submit" value="<!--{if $_GET[id]}-->Lưu<!--{else}-->Gửi<!--{/if}-->" type="button" onclick="check_eventpost()"/>
 						</td>
 					</tr>
 				</tbody>
@@ -725,7 +724,7 @@
 
 	<script type="text/javascript" src="image/editor/editor_function.js" charset="$_SC[charset]"></script>
 	<script type="text/javascript" charset="$_SC[charset]">
-		//活动分类
+		//Phân loại hoạt động
 		var eventclass = [];
 		<!--{loop $_SGLOBAL[eventclass] $key $value}-->
 		eventclass["$key"] = {};
@@ -736,83 +735,83 @@
 		function reset_eventclass(classid){
 			var selclass = eventclass[classid];
 			var o = $("uchome-ifrHtmlEditor").contentWindow.document.getElementById("HtmlEditor").contentWindow.document.body;
-			var append =false;// 是否添加
-			if(selclass && selclass['template'] && (trim(o.innerHTML.replace(/<br[ \/]*>|<div><\/div>/img, '')) == "" || confirm("要添加站长设定的活动分类模板到活动介绍吗？"))){
+			var append =false;// Có thêm không?
+			if(selclass && selclass['template'] && (trim(o.innerHTML.replace(/<br[ \/]*>|<div><\/div>/img, '')) == "" || confirm("Thêm mẫu phân loại của người quản trị vào phần giới thiệu hoạt động?"))){
 				append = true;
 			}
 			if (append){
 				o.innerHTML = selclass['template'] + "<br/>" + o.innerHTML;				
-				$("classid_info").innerHTML = "请参考站长设定的模板填写活动介绍";				
+				$("classid_info").innerHTML = "Vui lòng tham khảo mẫu của người quản trị để điền giới thiệu hoạt động";				
 			}
 		}
 		
-		//展开高级设置
+		//Mở thiết lập nâng cao
 		function toggle_advanced(){
 			var el = $("advanced_info");
 			if (el.style.display == "none"){
 				el.style.display = "";
-				$("toggle_advanced").innerHTML = "隐藏高级设置";
+				$("toggle_advanced").innerHTML = "Ẩn thiết lập nâng cao";
 			} else {
 				el.style.display = "none";
-				$("toggle_advanced").innerHTML = "展开高级设置";
+				$("toggle_advanced").innerHTML = "Mở thiết lập nâng cao";
 			}
 		}
 		
-		//检查提交
+		//Kiểm tra gửi tin
 		function check_eventpost(){			
-			// 活动类型
+			// Phân loại hoạt động
 			if (parseInt($("classid").value) < 0){
-				alert("活动类型必须选择。");
+				alert("Vui lòng chọn phân loại hoạt động.");
 				$("classid").focus();
 				return false;
 			}	
-			// 标题
+			// Tiêu đề
 			var val = trim($("title").value);
 			if ( val == "" ){
-				alert("活动标题不能为空！");
+				alert("Tiêu đề không được để trống!");
 				$("title").focus();
 				return false;
 			} else if (val.replace(/[^\x00-\xff]/g, "**").length > 80){
-				alert("活动标题太长，请限制在80个字符内！");
+				alert("Tiêu đề quá dài, vui lòng giới hạn trong 80 ký tự!");
 				$("title").focus();
 				return false;
 			}	
-			// 活动地点
+			// Địa điểm tổ chức
 			if($('city').value == ""){
-				alert("活动举办城市不能为空。");
+				alert("Vui lòng chọn thành phố tổ chức.");
 				$("city").focus();
 				return false;
 			}			
-			// 报名时间，起始-结束时间
+			// Thời gian đăng ký, bắt đầu - kết thúc
 			var deadline = parsedate($("deadline").value).getTime();
 			var starttime = parsedate($("starttime").value).getTime();
 			var endtime = parsedate($("endtime").value).getTime();
 			<!--{if !$eventid}-->
 			var nowtime = new Date().getTime();
 			if (starttime < nowtime){
-				alert("活动开始时间不能早于现在。");
+				alert("Thời gian bắt đầu không được sớm hơn hiện tại.");
 				$("starttime").focus();
 				return false;
 			}
 			<!--{/if}-->
 			if (endtime - deadline < 0){
-				alert("报名截止时间不能晚于活动结束时间。");
+				alert("Hạn đăng ký không được muộn hơn thời gian kết thúc.");
 				$("deadline").focus();
 				return false;
 			}
 			if (endtime - starttime < 0){
-				alert("活动结束时间不能早于开始时间。");
+				alert("Thời gian kết thúc không được sớm hơn thời gian bắt đầu.");
 				$("endtime").focus();
 				return false;
 			}
 			if (endtime - starttime > 60 * 24 * 3600 * 1000){
-				alert("活动持续时间不能超过 60 天。");
+				alert("Thời gian diễn ra hoạt động không được quá 60 ngày.");
 				$("endtime").focus();
 				return false;
 			}
-			// 限制人数
+			// Giới hạn số người
 			if (! /^[0-9]{1,8}$/.test($("limitnum").value)){
-				alert("活动人数输入不正确。");
+				alert("Số lượng người nhập không chính xác.");
 				$("limitnum").focus();
 				return false;
 			}
@@ -820,21 +819,21 @@
 		    var makefeed = $('makefeed');
 		    if(makefeed) {
 		    	if(makefeed.checked == false) {
-		    		if(!confirm("友情提醒：您确定此次发布不产生动态吗？\n有了动态，好友才能及时看到你的更新。")) {
+		    		if(!confirm("Nhắc nhở: Bạn có chắc chắn không tạo động thái cho lần đăng này không?\nCó động thái, bạn bè mới có thể thấy cập nhật của bạn kịp thời.")) {
 		    			return false;
 		    		}
 		    	}
 		    }
 		    
-		    // 编辑器内容同步
+		    // Đồng bộ nội dung trình soạn thảo
 			edit_save();
-			// 活动描述，默认可能有一个<br/>或<div></div>，需要去掉再判断
+			// Mô tả hoạt động, mặc định có thể có <br/> hoặc <div></div>, cần loại bỏ trước khi kiểm tra
 			val = trim($("uchome-ttHtmlEditor").value.replace(/<br[ \/]*>|<div><\/div>/img,''));
 			if (val == ""){
-				alert("活动描述不能为空。");
+				alert("Mô tả hoạt động không được để trống.");
 				return false;
 			}						
-			//验证码
+			// Mã xác nhận
 			if($('seccode')) {
 				var code = $('seccode').value;
 				var x = new Ajax();
@@ -855,7 +854,7 @@
 	</script>
 <!--{/if}-->
 <!--{if in_array($op,array("edit", "pic", "thread", "members", "comment", "invite", "eventinvite"))}-->
-<!--//管理页面页尾//-->
+<!--// Kết thúc trang quản lý //-->
 </div>
 <!--{/if}-->
 <!--{template footer}-->
