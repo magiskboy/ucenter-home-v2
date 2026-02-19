@@ -29,9 +29,9 @@
 			<div style="width:100%; overflow:hidden;">
 			<img src="image/magic/superstar.small.gif" class="magicicon" />
 			<!--{if $space[magicstar] && $space[magicexpire]>$_SGLOBAL[timestamp]}-->
-			<a id="a_magic_superstar" href="cp.php?ac=magic&op=cancelsuperstar" onclick="ajaxmenu(event, this.id)">取消超级明星</a>
+			<a id="a_magic_superstar" href="cp.php?ac=magic&op=cancelsuperstar" onclick="ajaxmenu(event, this.id)">Hủy bỏ Siêu sao</a>
 			<!--{else}-->
-			<a id="a_magic_superstar" href="magic.php?mid=superstar" onclick="ajaxmenu(event, this.id, 1)">我要变超级明星</a>
+			<a id="a_magic_superstar" href="magic.php?mid=superstar" onclick="ajaxmenu(event, this.id, 1)">Tôi muốn trở thành Siêu sao</a>
 			<!--{/if}-->
 			</div>
 		</div><br />
@@ -40,27 +40,27 @@
 		<div class="borderbox">
 			<ul class="spacemenu_list" style="width:100%; overflow:hidden;">
 		<!--{if $space[self]}-->
-			<li><a href="cp.php?ac=avatar">我的头像</a></li>
-			<li><a href="cp.php?ac=profile">个人资料</a></li>
-			<li><a href="cp.php?ac=theme">主页风格</a></li>
+			<li><a href="cp.php?ac=avatar">Ảnh đại diện</a></li>
+			<li><a href="cp.php?ac=profile">Thông tin cá nhân</a></li>
+			<li><a href="cp.php?ac=theme">Giao diện trang chủ</a></li>
 			<li><a href="cp.php?ac=credit">Điểm của tôi</a></li>
 			<!--{if $_SCONFIG[sendmailday]}-->
-			<li><a href="cp.php?ac=sendmail">邮件提醒</a></li>
+			<li><a href="cp.php?ac=sendmail">Nhắc nhở qua email</a></li>
 			<!--{/if}-->
-			<li><a href="cp.php?ac=privacy">隐私筛选</a></li>
+			<li><a href="cp.php?ac=privacy">Cài đặt riêng tư</a></li>
 		<!--{else}-->
 			<!--{if !$space['isfriend']}-->
-			<li><img src="image/icon/friend.gif"><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend_li" onclick="ajaxmenu(event, this.id, 1)">加为好友</a></li>
+			<li><img src="image/icon/friend.gif"><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend_li" onclick="ajaxmenu(event, this.id, 1)">Kết bạn</a></li>
 			<!--{/if}-->
 			<li><img src="image/icon/wall.gif"><a href="#comment">Gửi lời nhắn</a></li>
-			<li><img src="image/icon/poke.gif"><a href="cp.php?ac=poke&op=send&uid=$space[uid]" id="a_poke" onclick="ajaxmenu(event, this.id, 1)">打个招呼</a></li>
-			<li><img src="image/icon/pm.gif"><a href="cp.php?ac=pm&uid=$space[uid]" id="a_pm" onclick="ajaxmenu(event, this.id, 1)">发送消息</a></li>
+			<li><img src="image/icon/poke.gif"><a href="cp.php?ac=poke&op=send&uid=$space[uid]" id="a_poke" onclick="ajaxmenu(event, this.id, 1)">Chào hỏi</a></li>
+			<li><img src="image/icon/pm.gif"><a href="cp.php?ac=pm&uid=$space[uid]" id="a_pm" onclick="ajaxmenu(event, this.id, 1)">Gửi tin nhắn</a></li>
 			<!--{if $space['isfriend']}-->
-			<li><img src="image/icon/friend.gif"><a href="cp.php?ac=friend&op=ignore&uid=$space[uid]" id="a_ignore" onclick="ajaxmenu(event, this.id)">解除好友</a></li>
+			<li><img src="image/icon/friend.gif"><a href="cp.php?ac=friend&op=ignore&uid=$space[uid]" id="a_ignore" onclick="ajaxmenu(event, this.id)">Hủy kết bạn</a></li>
 			<!--{/if}-->
-			<li><img src="image/icon/report.gif"><a href="cp.php?ac=common&op=report&idtype=uid&id=$space[uid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">违规举报</a></li>
+			<li><img src="image/icon/report.gif"><a href="cp.php?ac=common&op=report&idtype=uid&id=$space[uid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Báo cáo vi phạm</a></li>
 			<!--{if checkperm('managename')||checkperm('managespacegroup')||checkperm('managespaceinfo')||checkperm('managespacecredit')||checkperm('managespacenote')}-->
-			<li><img src="image/icon/profile.gif"><a href="admincp.php?ac=space&op=manage&uid=$space[uid]" id="a_manage">管理用户</a></li>
+			<li><img src="image/icon/profile.gif"><a href="admincp.php?ac=space&op=manage&uid=$space[uid]" id="a_manage">Quản lý người dùng</a></li>
 			<!--{/if}-->
 		<!--{/if}-->
 			</ul>
@@ -133,7 +133,7 @@
 		<div id="space_app_$value[appid]">
 			<h2>
 				<!--{if $space[self]}-->
-				<a href="cp.php?ac=space&op=delete&appid=$value[appid]" id="user_app_$value[appid]" class="r_option float_del" onclick="ajaxmenu(event, this.id)" title="删除">删除</a>
+				<a href="cp.php?ac=space&op=delete&appid=$value[appid]" id="user_app_$value[appid]" class="r_option float_del" onclick="ajaxmenu(event, this.id)" title="Xóa">Xóa</a>
 				<!--{/if}-->
 				<a href="$value[appurl]">$value[appname]</a>
 			</h2>
@@ -151,26 +151,26 @@
 			
 		<h3 id="spaceindex_name">
 		<!--{if $_SCONFIG[realname]}-->
-			<!--{if $space[name]}--><a href="space.php?uid=$space[uid]"<!--{eval g_color($space[groupid]);}-->>$space[name]</a><!--{else}-->未填写实名<!--{/if}-->
-			&nbsp;<em>(用户名: $space[username])</em>
+			<!--{if $space[name]}--><a href="space.php?uid=$space[uid]"<!--{eval g_color($space[groupid]);}-->>$space[name]</a><!--{else}-->Chưa điền tên thật<!--{/if}-->
+			&nbsp;<em>(Tên đăng nhập: $space[username])</em>
 		<!--{else}-->
 			<a href="space.php?uid=$space[uid]"<!--{eval g_color($space[groupid]);}-->>$space[username]</a>
-			<!--{if $space[name]}-->&nbsp;<em>(姓名: $space[name])</em><!--{/if}-->
+			<!--{if $space[name]}-->&nbsp;<em>(Tên: $space[name])</em><!--{/if}-->
 		<!--{/if}-->
 
 		<!--{if $_SCONFIG[realname]}-->
 			<!--{if $space[namestatus]}-->
-				&nbsp;<img src="image/realname_yes.gif" align="absmiddle" alt="已通过实名认证">
+				&nbsp;<img src="image/realname_yes.gif" align="absmiddle" alt="Đã xác minh tên thật">
 			<!--{else}-->
-				&nbsp;<img src="image/realname_no.gif" align="absmiddle" alt="未通过实名认证"> <span class="gray">实名未认证</span>
+				&nbsp;<img src="image/realname_no.gif" align="absmiddle" alt="Chưa xác minh tên thật"> <span class="gray">Tên chưa xác minh</span>
 			<!--{/if}-->
 		<!--{/if}-->
 			
 		<!--{if $_SCONFIG[videophoto]}-->	
 			<!--{if $space[videostatus]}-->
-				&nbsp;<img src="image/videophoto_yes.gif" align="absmiddle" alt="已通过视频认证"> <a id="a_space_videophoto" href="space.php?uid=$space[uid]&do=videophoto" onclick="ajaxmenu(event, this.id, 1)"><span style="color:red;font-weight:bold;font-size:12px;">查看视频认证照</span></a>
+				&nbsp;<img src="image/videophoto_yes.gif" align="absmiddle" alt="Đã xác minh video"> <a id="a_space_videophoto" href="space.php?uid=$space[uid]&do=videophoto" onclick="ajaxmenu(event, this.id, 1)"><span style="color:red;font-weight:bold;font-size:12px;">Xem ảnh xác minh video</span></a>
 			<!--{else}-->
-				&nbsp; <img src="image/videophoto_no.gif" align="absmiddle" alt="未通过视频认证"> <span class="gray"><a href="cp.php?ac=videophoto">视频未认证</a></span>
+				&nbsp; <img src="image/videophoto_no.gif" align="absmiddle" alt="Chưa xác minh video"> <span class="gray"><a href="cp.php?ac=videophoto">Video chưa xác minh</a></span>
 			<!--{/if}-->
 		<!--{/if}-->
 		</h3>
@@ -236,7 +236,7 @@
 			<li><em>Quê quán:</em>$space[birthcity]</li>
 			<!--{/if}-->
 			<!--{if $space[mobile]}-->
-				<li><em>手机:</em>$space[mobile]</li>
+				<li><em>Điện thoại:</em>$space[mobile]</li>
 			<!--{/if}-->
 			<!--{if $space[qq]}-->
 				<li><em>QQ:</em>$space[qq]</li>
@@ -293,7 +293,7 @@
 		<div id="space_blog" class="feed">
 			<h3 class="feed_header">
 				<a href="space.php?uid=$space[uid]&do=blog&view=me" class="r_option">Tất cả</a>
-				日志
+				Nhật ký
 			</h3>
 			<ul class="line_list">
 			<!--{loop $bloglist $value}-->
@@ -318,7 +318,7 @@
 		<div id="space_app_$value[appid]" class="appbox">
 			<h3 class="feed_header">
 				<!--{if $space[self]}-->
-				<a href="cp.php?ac=space&op=delete&appid=$value[appid]" id="user_app_$value[appid]" class="r_option float_del" onclick="ajaxmenu(event, this.id)" title="删除">删除</a>
+				<a href="cp.php?ac=space&op=delete&appid=$value[appid]" id="user_app_$value[appid]" class="r_option float_del" onclick="ajaxmenu(event, this.id)" title="Xóa">Xóa</a>
 				<!--{/if}-->
 				<a href="$value[appurl]">$value[appname]</a>
 			</h3>
@@ -373,7 +373,7 @@
 
 			<!--{if $space['magiccredit']}-->
 			<div class="magichongbao" id="div_magic_gift">
-				<a id="a_magic_gift" href="cp.php?&ac=magic&op=receive&uid=$space[uid]" onclick="ajaxmenu(event, this.id)">送你 <span>$space[magiccredit]</span> 积分大红包</a>
+				<a id="a_magic_gift" href="cp.php?&ac=magic&op=receive&uid=$space[uid]" onclick="ajaxmenu(event, this.id)">Tặng bạn <span>$space[magiccredit]</span> điểm thưởng</a>
 			</div>
 			<!--{/if}-->
 
@@ -392,9 +392,9 @@
 			<!--{if $_SGLOBAL[magic][gift]}-->
 			<div class="magichongbao" id="div_magic_gift">				
 				<!--{if $space['magiccredit']}-->
-				<a id="a_magic_retrieve" href="cp.php?ac=magic&op=retrieve" onclick="ajaxmenu(event,this.id)">回收埋下的积分</a>
+				<a id="a_magic_retrieve" href="cp.php?ac=magic&op=retrieve" onclick="ajaxmenu(event,this.id)">Thu hồi điểm đã đặt</a>
 				<!--{else}-->
-				<a id="a_magic_gift" href="magic.php?mid=gift" onclick="ajaxmenu(event,this.id,1)">给来访者埋个红包</a>
+				<a id="a_magic_gift" href="magic.php?mid=gift" onclick="ajaxmenu(event,this.id,1)">Đặt điểm thưởng cho khách truy cập</a>
 				<!--{/if}-->				
 			</div>
 			<!--{/if}-->
@@ -405,22 +405,22 @@
 		<div class="sidebox">
 			<h2 class="title">
 				<a href="space.php?uid=$space[uid]&do=friend&view=visitor" class="r_option">Tất cả</a>
-				最近来访
+				Khách truy cập gần đây
 				<!--{if !$space[self] && $_SGLOBAL[magic][anonymous]}-->
-				<span class="gray"><img title="$_SGLOBAL[magic][anonymous]" src="image/magic/anonymous.small.gif"/><a id="a_magic_anonymous" href="magic.php?mid=anonymous&idtype=uid&id=$space[uid]" onclick="ajaxmenu(event,this.id,1)">匿名</a></span>
+				<span class="gray"><img title="$_SGLOBAL[magic][anonymous]" src="image/magic/anonymous.small.gif"/><a id="a_magic_anonymous" href="magic.php?mid=anonymous&idtype=uid&id=$space[uid]" onclick="ajaxmenu(event,this.id,1)">Ẩn danh</a></span>
 				<!--{/if}-->
 			</h2>
 			<ul class="avatar_list">
 				<!--{loop $visitorlist $key $value}-->
 				<li>
 					<!--{if $value[vusername] == ''}-->
-					<div class="avatar48"><img src="image/magic/hidden.gif" alt="匿名" /></div>
-					<p>匿名</p>
-					<p class="gray"><!--{date('n月j日',$value[dateline],1)}--></p>
+					<div class="avatar48"><img src="image/magic/hidden.gif" alt="Ẩn danh" /></div>
+					<p>Ẩn danh</p>
+					<p class="gray"><!--{date('j/n',$value[dateline],1)}--></p>
 					<!--{else}-->
 					<div class="avatar48"><a href="space.php?uid=$value[vuid]"><!--{avatar($value[vuid],small)}--></a></div>
 					<p<!--{if $ols[$value[vuid]]}--> class="online_icon_p"<!--{/if}-->><a href="space.php?uid=$value[vuid]" title="{$_SN[$value[vuid]]}">{$_SN[$value[vuid]]}</a></p>
-					<p class="gray"><!--{date('n月j日',$value[dateline],1)}--></p>
+					<p class="gray"><!--{date('j/n',$value[dateline],1)}--></p>
 					<!--{/if}-->
 				</li>
 				<!--{/loop}-->
@@ -435,7 +435,7 @@
 			<span class="r_option">
 				<a href="space.php?uid=$space[uid]&do=friend&view=me" class="action">Tất cả ($space[friendnum])</a>
 			</span>
-			好友
+			Bạn bè
 			</h2>
 			<ul class="avatar_list">
 				<!--{loop $friendlist $value}-->
@@ -452,7 +452,7 @@
 
 </div>
 
-<!--{if $_GET['theme']}--><div class="nn">您是否想使用这款个性风格?<br /><a href="cp.php?ac=theme&op=use&dir=<!--{$_GET['theme']}-->">[应用]</a><a href="cp.php?ac=theme">[取消]</a></div><!--{/if}-->
+<!--{if $_GET['theme']}--><div class="nn">Bạn có muốn sử dụng phong cách này không?<br /><a href="cp.php?ac=theme&op=use&dir=<!--{$_GET['theme']}-->">[Sử dụng]</a><a href="cp.php?ac=theme">[Hủy]</a></div><!--{/if}-->
 <!--{template footer}-->
 
 <script>
@@ -462,7 +462,7 @@ function getindex(type) {
 	ajaxget('space.php?uid=$space[uid]&do='+type+'&view=me'+plus+'&ajaxdiv=maincontent', 'maincontent');
 }
 
-//彩虹炫
+// Hiệu ứng cầu vồng
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);
