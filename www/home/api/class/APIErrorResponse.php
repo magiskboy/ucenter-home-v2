@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-// æœåŠ¡å™¨è¿”å›ç»“æœå¯¹è±¡
+// ·şÎñÆ÷·µ»Ø½á¹û¶ÔÏó
 class APIErrorResponse {
 
 	var $errCode = 0;

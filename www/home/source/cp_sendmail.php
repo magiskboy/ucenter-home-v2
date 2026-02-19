@@ -11,7 +11,7 @@ if(!defined('IN_UCHOME')) {
 $_GET['op'] = empty($_GET['op']) ? '' : trim($_GET['op']);
 
 if(submitcheck('setsendemailsubmit')) {
-	//é‚®ç®±æé†’è®¾ç½®
+	//ÓÊÏäÌáĞÑÉèÖÃ
 	if(empty($_SCONFIG['sendmailday'])) {
 		showmessage('no_privilege');
 	}
@@ -25,7 +25,7 @@ if(empty($_SCONFIG['sendmailday'])) {
 	showmessage('no_privilege');
 }
 
-//å¡«å†™é‚®ç®±
+//ÌîĞ´ÓÊÏä
 if(empty($space['email'])) {
 	showmessage('email_input');
 }

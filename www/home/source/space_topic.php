@@ -195,7 +195,7 @@ if(empty($topicid)) {
 		}
 	}
 	
-	//鍙備笌鐨勪汉
+	//参与的人
 	if($perpages['space']) {
 		if($_GET['view'] == 'space') {
 			$count = getcount('topicuser', array('topicid'=>$topicid));

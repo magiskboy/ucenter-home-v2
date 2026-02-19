@@ -40,7 +40,7 @@ if(submitcheck('threadsubmit')) {
 		showmessage('event_mtag_not_match');
 	}
 	
-	//æ·»åŠ 
+	//Ìí¼Ó
 	if(!checkperm('allowthread')) {
 		ckspacelog();
 		showmessage('no_privilege');
@@ -48,29 +48,29 @@ if(submitcheck('threadsubmit')) {
 		
 	if(empty($_POST['tid'])) {
 		
-		//éªŒè¯ç 
+		//ÑéÖ¤Âë
 		if(checkperm('seccode') && !ckseccode($_POST['seccode'])) {
 			showmessage('incorrect_code');
 		}
 		
-		//å®åè®¤è¯
+		//ÊµÃûÈÏÖ¤
 		ckrealname('thread');
 		
-		//è§†é¢‘è®¤è¯
+		//ÊÓÆµÈÏÖ¤
 		ckvideophoto('thread');
 		
-		//æ–°ç”¨æˆ·è§ä¹ 
+		//ĞÂÓÃ»§¼ûÏ°
 		cknewuser();
 		
-		//å‘æ–°è¯é¢˜
+		//·¢ĞÂ»°Ìâ
 		$mtag = ckmtagspace($tagid);
 		
-		//æ˜¯å¦å…è®¸å‘
+		//ÊÇ·ñÔÊĞí·¢
 		if(empty($mtag['allowthread'])) {
 			showmessage('no_privilege');
 		}
 	
-		//åˆ¤æ–­æ˜¯å¦æ“ä½œå¤ªå¿«
+		//ÅĞ¶ÏÊÇ·ñ²Ù×÷Ì«¿ì
 		$waittime = interval_check('post');
 		if($waittime > 0) {
 			showmessage('operating_too_fast','',1,array($waittime));
@@ -81,7 +81,7 @@ if(submitcheck('threadsubmit')) {
 			showmessage('no_privilege');
 		}
 	
-		//æ£€æŸ¥æƒé™
+		//¼ì²éÈ¨ÏŞ
 		$tagid = $thread['tagid'];
 		$mtag = ckmtagspace($thread['tagid']);
 		if($mtag['grade']<8 && $thread['uid']!=$_SGLOBAL['supe_uid'] && $userevent['status']<3) {
@@ -97,10 +97,10 @@ if(submitcheck('threadsubmit')) {
 	$_POST['message'] = preg_replace("/\<div\>\<\/div\>/i", '', $_POST['message']);	
 	$message = $_POST['message'];
 	
-	//æ ‡é¢˜å›¾ç‰‡
+	//±êÌâÍ¼Æ¬
 	$titlepic = '';
 	
-	//è·å–ä¸Šä¼ çš„å›¾ç‰‡
+	//»ñÈ¡ÉÏ´«µÄÍ¼Æ¬
 	$uploads = array();
 	if(!empty($_POST['picids'])) {
 		$picids = array_keys($_POST['picids']);
@@ -116,7 +116,7 @@ if(submitcheck('threadsubmit')) {
 		}
 	}
 	
-	//æ’å…¥æ–‡ç« 
+	//²åÈëÎÄÕÂ
 	if($uploads) {
 		preg_match_all("/\<img\s.*?\_uchome\_localimg\_([0-9]+).+?src\=\"(.+?)\"/i", $message, $mathes);
 		if(!empty($mathes[1])) {
@@ -135,27 +135,27 @@ if(submitcheck('threadsubmit')) {
 				$message = str_replace($idsearchs, 'uchomelocalimg[]', $message);
 			}
 		}
-		//æœªæ’å…¥æ–‡ç« 
+		//Î´²åÈëÎÄÕÂ
 		foreach ($uploads as $value) {
 			$picurl = pic_get($value['filepath'], $value['thumb'], $value['remote'], 0);
 			$message .= "<div class=\"uchome-message-pic\"><img src=\"$picurl\"><p>$value[title]</p></div>";
 		}
 	}
 	
-	//æ²¡æœ‰å¡«å†™ä»»ä½•ä¸œè¥¿
+	//Ã»ÓĞÌîĞ´ÈÎºÎ¶«Î÷
 	$ckmessage = preg_replace("/(\<div\>|\<\/div\>|\s)+/is", '', $message);
 	if(strlen($message) < 2) {
 		showmessage('content_is_not_less_than_four_characters');
 	}
 	
-	//æ·»åŠ slashes
+	//Ìí¼Óslashes
 	$message = addslashes($message);
 	
 	if(empty($_POST['tid'])) {
 		
 		$_POST['topicid'] = topic_check($_POST['topicid'], 'thread');
 		
-		//ä»å†…å®¹ä¸­è¯»å–å›¾ç‰‡
+		//´ÓÄÚÈİÖĞ¶ÁÈ¡Í¼Æ¬
 		if(empty($titlepic)) {
 			$titlepic = getmessagepic($message);
 		}
@@ -174,7 +174,7 @@ if(submitcheck('threadsubmit')) {
 			$setarr['eventid'] = $eventid;
 		}
 		$tid = inserttable('thread', $setarr, 1);
-		if($eventid) {//æ›´æ–°è¯é¢˜æ•°ç›®å’Œæ—¶é—´
+		if($eventid) {//¸üĞÂ»°ÌâÊıÄ¿ºÍÊ±¼ä
 			$_SGLOBAL['db']->query("UPDATE ".tname("event")." SET threadnum=threadnum+1, updatetime='$_SGLOBAL[timestamp]' WHERE eventid='$eventid'");
 		}
 		$psetarr = array(
@@ -187,23 +187,23 @@ if(submitcheck('threadsubmit')) {
 			'message' => $message,
 			'isthread' => 1
 		);
-		//æ·»åŠ 
+		//Ìí¼Ó
 		inserttable('post', $psetarr);
 		
-		//æ›´æ–°ç¾¤ç»„ç»Ÿè®¡
+		//¸üĞÂÈº×éÍ³¼Æ
 		$_SGLOBAL['db']->query("UPDATE ".tname("mtag")." SET threadnum=threadnum+1 WHERE tagid='$tagid'");
 		
-		//ç»Ÿè®¡
+		//Í³¼Æ
 		updatestat('thread');
 		
-		//æ›´æ–°ç”¨æˆ·ç»Ÿè®¡
+		//¸üĞÂÓÃ»§Í³¼Æ
 		if(empty($space['threadnum'])) {
 			$space['threadnum'] = getcount('thread', array('uid'=>$space['uid']));
 			$threadnumsql = "threadnum=".$space['threadnum'];
 		} else {
 			$threadnumsql = 'threadnum=threadnum+1';
 		}
-		//ç§¯åˆ†
+		//»ı·Ö
 		$reward = getreward('publishthread', 0);
 		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET {$threadnumsql}, lastpost='$_SGLOBAL[timestamp]', updatetime='$_SGLOBAL[timestamp]', credit=credit+$reward[credit], experience=experience+$reward[experience] WHERE uid='$_SGLOBAL[supe_uid]'");
 
@@ -227,7 +227,7 @@ if(submitcheck('threadsubmit')) {
 		updatetable('post', $psetarr, array('tid'=>$_POST['tid'], 'isthread'=>1));
 	}
 	
-	//äº‹ä»¶
+	//ÊÂ¼ş
 	if($_POST['makefeed']) {
 		include_once(S_ROOT.'./source/function_feed.php');
 		feed_publish($tid, 'tid', empty($_POST['tid'])?1:0);
@@ -252,22 +252,22 @@ if(submitcheck('threadsubmit')) {
 		showmessage('no_privilege');
 	}
 
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('post');
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	ckvideophoto('post');
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ĞÂÓÃ»§¼ûÏ°
 	cknewuser();
 
-	//åˆ¤æ–­æ˜¯å¦æ“ä½œå¤ªå¿«
+	//ÅĞ¶ÏÊÇ·ñ²Ù×÷Ì«¿ì
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast','',1,array($waittime));
 	}
 
-	//è·å¾—è¯é¢˜
+	//»ñµÃ»°Ìâ
 	$tid = empty($_POST['tid'])?0:intval($_POST['tid']);
 	$thread = array();
 	if($tid) {
@@ -279,21 +279,21 @@ if(submitcheck('threadsubmit')) {
 	}
 	if(empty($thread)) showmessage('the_discussion_topic_does_not_exist');
 
-	//é»‘åå•
+	//ºÚÃûµ¥
 	if(isblacklist($thread['uid'])) {
 		showmessage('is_blacklist');
 	}
 			
-	//æƒé™
+	//È¨ÏŞ
 	$mtag = ckmtagspace($thread['tagid']);
 	
-	//æ˜¯å¦å…è®¸å‘
+	//ÊÇ·ñÔÊĞí·¢
 	if(empty($mtag['allowpost'])) {
 		showmessage('no_privilege');
 	}
 		
 	$message = $_POST['message'];
-	//å¤„ç†ç½‘ç»œå›¾ç‰‡
+	//´¦ÀíÍøÂçÍ¼Æ¬
 	if(!empty($_POST['pics'])) {
 		foreach($_POST['pics'] as $key => $pic) {
 			$picurl = picurl_get($pic);
@@ -308,28 +308,28 @@ if(submitcheck('threadsubmit')) {
 		showmessage('content_is_not_less_than_four_characters');
 	}
 
-	//æ‘˜è¦
+	//ÕªÒª
 	$summay = getstr($message, 150, 1, 1);
 
-	//å¼•ç”¨å›å¤
+	//ÒıÓÃ»Ø¸´
 	$pid = empty($_POST['pid'])?0:intval($_POST['pid']);
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('post')." WHERE pid='$pid' AND tid='$tid' AND isthread='0'");
 	
 	$post = $_SGLOBAL['db']->fetch_array($query);
 	if($post) {
-		//é»‘åå•
+		//ºÚÃûµ¥
 		if(isblacklist($post['uid'])) {
 			showmessage('is_blacklist');
 		}
 		
-		//å®å
+		//ÊµÃû
 		realname_set($post['uid'], $post['username']);
 		realname_get();
 		
 		$post['message'] = preg_replace("/\<div class=\"quote\"\>\<span class=\"q\"\>.*?\<\/span\>\<\/div\>/is", '', $post['message']);
-		//ç§»é™¤ç¼–è¾‘è®°å½•
+		//ÒÆ³ı±à¼­¼ÇÂ¼
 		$post['message'] = preg_replace("/<ins class=\"modify\".+?<\/ins>/is", '',$post['message']);
-		$post['message'] = html2bbcode($post['message']);//æ˜¾ç¤ºç”¨
+		$post['message'] = html2bbcode($post['message']);//ÏÔÊ¾ÓÃ
 		$message = addslashes("<div class=\"quote\"><span class=\"q\"><b>".$_SN[$post['uid']]."</b>: ".getstr($post['message'], 150, 0, 0, 0, 2, 1).'</span></div>').$message;
 	}
 
@@ -344,21 +344,21 @@ if(submitcheck('threadsubmit')) {
 	);
 	$pid = inserttable('post', $setarr, 1);
 
-	//é‚®ä»¶é€šçŸ¥
+	//ÓÊ¼şÍ¨Öª
 	smail($thread['uid'], '', cplang('mtag_reply',array($_SN[$space['uid']], shtmlspecialchars(getsiteurl()."space.php?uid=$thread[uid]&do=thread&id=$thread[tid]"))), '', 'mtag_reply');
 
-	//æ›´æ–°ç»Ÿè®¡æ•°æ®
+	//¸üĞÂÍ³¼ÆÊı¾İ
 	$_SGLOBAL['db']->query("UPDATE ".tname('thread')."
 		SET replynum=replynum+1, lastpost='$_SGLOBAL[timestamp]', lastauthor='$_SGLOBAL[supe_username]', lastauthorid='$_SGLOBAL[supe_uid]'
 		WHERE tid='$tid'");
 	
-	//æ›´æ–°ç¾¤ç»„ç»Ÿè®¡
+	//¸üĞÂÈº×éÍ³¼Æ
 	$_SGLOBAL['db']->query("UPDATE ".tname("mtag")." SET postnum=postnum+1 WHERE tagid='$thread[tagid]'");
 
-	//æ™®é€šå›å¤
+	//ÆÕÍ¨»Ø¸´
 	if(empty($post) && $thread['uid'] != $_SGLOBAL['supe_uid']) {
 		
-		//ç§¯åˆ†
+		//»ı·Ö
 		getreward('replythread', 1, 0, $thread['tid']);
 	
 		realname_set($thread['uid'], $thread['username']);
@@ -380,7 +380,7 @@ if(submitcheck('threadsubmit')) {
 			}
 		}
 
-		//é€šçŸ¥
+		//Í¨Öª
 		$note = cplang('note_thread_reply')." <a href=\"space.php?uid=$thread[uid]&do=thread&id=$thread[tid]&pid=$pid\" target=\"_blank\">$thread[subject]</a>";
 		notification_add($thread['uid'], 'post', $note);
 
@@ -390,15 +390,15 @@ if(submitcheck('threadsubmit')) {
 		notification_add($post['uid'], 'post', $note);
 	}
 	
-	//çƒ­ç‚¹
+	//ÈÈµã
 	if($thread['uid'] != $_SGLOBAL['supe_uid']) {
 		hot_update('tid', $thread['tid'], $thread['hotuser']);
 	}
 	
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	updatestat('post');
 
-	//è·³è½¬
+	//Ìø×ª
 	showmessage('do_success', "space.php?uid=$_SGLOBAL[supe_uid]&do=thread&id=$tid&pid=$pid", 0);
 
 } elseif(submitcheck('posteditsubmit')) {
@@ -409,7 +409,7 @@ if(submitcheck('threadsubmit')) {
 		showmessage('no_privilege');
 	}
 
-	//æ£€æŸ¥æƒé™
+	//¼ì²éÈ¨ÏŞ
 	$tagid = $post['tagid'];
 	$mtag = ckmtagspace($post['tagid']);
 	if($mtag['grade']<8 && $post['uid']!=$_SGLOBAL['supe_uid'] && $userevent['status']<3) {
@@ -417,7 +417,7 @@ if(submitcheck('threadsubmit')) {
 	}
 	
 	$message = $_POST['message'];
-	//å¤„ç†ç½‘ç»œå›¾ç‰‡
+	//´¦ÀíÍøÂçÍ¼Æ¬
 	if(!empty($_POST['pics'])) {
 		foreach($_POST['pics'] as $key => $pic) {
 			$picurl = picurl_get($pic);
@@ -429,12 +429,12 @@ if(submitcheck('threadsubmit')) {
 	$message = getstr($message, 0, 1, 1, 1, 2);
 	if(strlen($message) < 2) showmessage('content_is_too_short');
 	
-	//å¼€å¯ç¼–è¾‘è®°å½•
+	//¿ªÆô±à¼­¼ÇÂ¼
 	if(checkperm('edittrail') || ($post['uid'] && $post['uid'] != $space['uid'])) {
 		$message = $message.saddslashes(cplang('thread_edit_trail', array($_SN[$_SGLOBAL['supe_uid']], sgmdate('Y-m-d H:i:s'))));
 	}
 	
-	//å†…å®¹
+	//ÄÚÈİ
 	updatetable('post', array('message'=>$message), array('pid'=>$pid));
 
 	showmessage('do_success', $_POST['refer'], 0);
@@ -445,24 +445,24 @@ $tid = empty($_GET['tid'])?0:intval($_GET['tid']);
 $tagid = empty($_GET['tagid'])?0:intval($_GET['tagid']);
 $thread = $post = array();
 
-//å›å¸–ç¼–è¾‘
+//»ØÌû±à¼­
 if($_GET['op'] == 'edit') {
 
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('post')." WHERE pid='$pid'");
 	if(!$post = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('no_privilege');
 	}
-	//ç§»é™¤ç¼–è¾‘è®°å½•
+	//ÒÆ³ı±à¼­¼ÇÂ¼
 	$post['message'] = preg_replace("/<ins class=\"modify\".+?<\/ins>/is", '',$post['message']);
 	
-	//æ£€æŸ¥æƒé™
+	//¼ì²éÈ¨ÏŞ
 	$tagid = $post['tagid'];
 	$mtag = ckmtagspace($post['tagid']);
 	if($mtag['grade']<8 && $post['uid']!=$_SGLOBAL['supe_uid'] && $userevent['status']<3) {
 		showmessage('no_privilege');
 	}
 
-	//ä¸»é¢˜å¸–
+	//Ö÷ÌâÌû
 	if($post['isthread']) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('thread')." WHERE tid='$post[tid]'");
 		$thread = $_SGLOBAL['db']->fetch_array($query);
@@ -478,7 +478,7 @@ if($_GET['op'] == 'edit') {
 			$post['message'] .= "<div><img src=\"$post[pic]\"></div>";
 		}
 	} else {
-		$post['message'] = html2bbcode($post['message']);//æ˜¾ç¤ºç”¨
+		$post['message'] = html2bbcode($post['message']);//ÏÔÊ¾ÓÃ
 	}
 
 } elseif($_GET['op'] == 'delete') {
@@ -527,7 +527,7 @@ if($_GET['op'] == 'edit') {
 	showmessage('do_success');
 
 } elseif($_GET['op'] == 'edithot') {
-	//æƒé™
+	//È¨ÏŞ
 	if(!checkperm('managethread')) {
 		showmessage('no_privilege');
 	}
@@ -558,28 +558,28 @@ if($_GET['op'] == 'edit') {
 		ckspacelog();
 		showmessage('no_privilege');
 	}
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('thread');
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	ckvideophoto('thread');
 
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ĞÂÓÃ»§¼ûÏ°
 	cknewuser();
 	
-	//å‘èµ·è¯é¢˜
+	//·¢Æğ»°Ìâ
 	$tagid = empty($_GET['tagid'])?0:intval($_GET['tagid']);
 	
 	if($tagid) {
 		$mtag = ckmtagspace($tagid);
 		
-		//æ˜¯å¦å…è®¸å‘
+		//ÊÇ·ñÔÊĞí·¢
 		if(empty($mtag['allowthread'])) {
 			showmessage('no_privilege');
 		}
 	}
 	
-	//è·å–ç›¸å†Œ
+	//»ñÈ¡Ïà²á
 	$albums = getalbums($_SGLOBAL['supe_uid']);
 
 	if(!$mtag) {
@@ -587,7 +587,7 @@ if($_GET['op'] == 'edit') {
 
 		$tagid = 0;
 		
-		//æˆ‘çš„ç¾¤ç»„åˆ—è¡¨
+		//ÎÒµÄÈº×éÁĞ±í
 		$mtaglist = array();
 		$query = $_SGLOBAL['db']->query("SELECT main.*,field.tagname,field.membernum,field.fieldid,field.close FROM ".tname('tagspace')." main
 			LEFT JOIN ".tname('mtag')." field ON field.tagid=main.tagid
@@ -609,7 +609,7 @@ if($_GET['op'] == 'edit') {
 		}
 	}
 	
-	//çƒ­ç‚¹
+	//ÈÈµã
 	$topic = array();
 	$topicid = $_GET['topicid'] = intval($_GET['topicid']);
 	if($topicid) {
@@ -619,14 +619,14 @@ if($_GET['op'] == 'edit') {
 	
 }
 
-//æ¨¡æ¿
+//Ä£°å
 include template('cp_thread');
 
-//åˆ¤è¯»æ˜¯å¦æ˜¯ç»„å‘˜
+//ÅĞ¶ÁÊÇ·ñÊÇ×éÔ±
 function ckmtagspace($tagid) {
 	global $_SGLOBAL, $_SCONFIG, $event, $userevent;
 
-	if($event) {//æ´»åŠ¨è¯é¢˜å•ç‹¬å¤„ç†
+	if($event) {//»î¶¯»°Ìâµ¥¶À´¦Àí
 		if(empty($userevent) || $userevent['status'] < 2) {
 			showmessage('event_only_allows_member_thread');
 		}
@@ -645,15 +645,15 @@ function ckmtagspace($tagid) {
 	if($tagid) {
 		$mtag = getmtag($tagid);
 		if($mtag) {
-			//åˆ¤æ–­æ˜¯å¦å…³é—­
+			//ÅĞ¶ÏÊÇ·ñ¹Ø±Õ
 			if($mtag['close']) {
 				showmessage('mtag_close');
 			}
-			//æ˜¯å¦å…è®¸æµè§ˆ
+			//ÊÇ·ñÔÊĞíä¯ÀÀ
 			if(empty($mtag['allowview'])) {
 				showmessage('mtag_not_allow_to_do');
 			}
-			//åˆ¤æ–­æ˜¯å¦æ»¡è¶³äººæ•°è¦æ±‚
+			//ÅĞ¶ÏÊÇ·ñÂú×ãÈËÊıÒªÇó
 			if($mtag['field']['mtagminnum'] && $mtag['membernum'] < $mtag['field']['mtagminnum']) {
 				showmessage('mtag_minnum_erro', '', 1, array($mtag['field']['mtagminnum']));
 			}

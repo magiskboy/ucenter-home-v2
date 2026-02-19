@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//å¼ºåˆ¶ä½¿ç”¨å­—ç¬¦é›†
+//Ç¿ÖÆÊ¹ÓÃ×Ö·û¼¯
 if(!$_SCONFIG['headercharset']) {
 	@header('Content-Type: text/html; charset='.$_SC['charset']);
 }
@@ -31,7 +31,7 @@ if($data) {
 	foreach($values as $valuearray) {
 		if($valuearray['tag'] == 'kw' || $valuearray['tag'] == 'ekw') {
 			if(PHP_VERSION > '5' && $_SC['charset'] != 'utf-8') {
-				$kws[] = siconv(trim($valuearray['value']), $_SC['charset'], 'utf-8');//ç¼–ç è½¬æ¢
+				$kws[] = siconv(trim($valuearray['value']), $_SC['charset'], 'utf-8');//±àÂë×ª»»
 			} else {
 				$kws[] = trim($valuearray['value']);
 			}

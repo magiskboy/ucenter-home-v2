@@ -1,13 +1,13 @@
-<!--{eval $_TPL['titles'] = array('日志');}-->
-<!--{eval $friendsname = array(1 => '仅好友可见',2 => '指定好友可见',3 => '仅自己可见',4 => '凭密码可见');}-->
+<!--{eval $_TPL['titles'] = array('Blog');}-->
+<!--{eval $friendsname = array(1 => 'Just Friend',2 => 'Selected Peoples',3 => 'Just Myself',4 => 'Password protected');}-->
 
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_blog" class="feed">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=blog" class="r_option" target="_blank">发表日志</a>
-			日志(共 $count 篇)
+			<a href="space.php?uid=$space[uid]" class="r_option"> space</a> 
+			Blogs($count)
 		</h3>
 		<!--{if $count}-->
 		<ul class="line_list">
@@ -22,11 +22,11 @@
 		<!--{/loop}-->
 		</ul>
 		<!--{if $pricount}-->
-		<div class="c_form">本页有 $pricount 篇日志因作者的隐私设置而隐藏</div>
+		<div class="c_form">This page has $pricount Blogs, may be some of them you can't view due to it's privacy setting</div>
 		<!--{/if}-->
 		<div class="page">$multi</div>
 		<!--{else}-->
-		<div class="c_form">还没有相关的日志。</div>
+		<div class="c_form">No Reatled blog found!</div>
 		<!--{/if}-->
 	</div>
 <!--{else}-->
@@ -35,48 +35,48 @@
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="搜索日志" class="submit" type="submit">
+	<input name="searchsubmit" value="Search Blog" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="blog" />
 	<input type="hidden" name="view" value="all" />
 	<input type="hidden" name="orderby" value="dateline" />
 </form>
 </div>
-<h2 class="title"><img src="image/app/blog.gif" />日志</h2>
+<h2 class="title"><img src="image/app/blog.gif" />Blog</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>好友最新日志</span></a></li><!--{/if}-->
-		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>大家的日志</span></a></li>
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的日志</span></a></li>
-		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>我表态过的日志</span></a></li>
-		<li class="null"><a href="cp.php?ac=blog">发表新日志</a></li>
+		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Friends latest Blog</span></a></li><!--{/if}-->
+		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>All Blog</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Blog</span></a></li>
+		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>My stated Blog</span></a></li>
+		<li class="null"><a href="cp.php?ac=blog">Publish New Blog</a></li>
 	</ul>
 </div>		
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "日志";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">TA的所有日志</a>";
+	$_TPL['spacetitle'] = "Blog";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">List of blog</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">按照发布时间排序</div>
+<div class="h_status">Order by date/time</div>
 <!--{/if}-->
 		
 <div id="content" style="width:640px;">
 	<!--{if $_GET['orderby'] && $_GET['orderby'] != 'dateline'}-->
 	<div class="h_status">
-		排行时间范围：
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]"{$day_actives[0]}>全部</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=1"{$day_actives[1]}>最近一天</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=2"{$day_actives[2]}>最近两天</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=7"{$day_actives[7]}>最近七天</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=30"{$day_actives[30]}>最近三十天</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=90"{$day_actives[90]}>最近三个月</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=120"{$day_actives[120]}>最近六个月</a>
+		Top Blog by Rank��
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]"{$day_actives[0]}>All</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=1"{$day_actives[1]}>Recently</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=2"{$day_actives[2]}>Last Two Days</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=7"{$day_actives[7]}>Winthin Last week</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=30"{$day_actives[30]}>Within One Month</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=90"{$day_actives[90]}>Within 3 months</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=120"{$day_actives[120]}>Within 6 months</a>
 	</div>
 	<!--{/if}-->
 	
 	<!--{if $searchkey}-->
-	<div class="h_status">以下是搜索日志 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+	<div class="h_status">The following blog <span style="color:red;font-weight:bold;">$searchkey</span> search results</div>
 	<!--{/if}-->
 	
 	<!--{if $count}-->
@@ -90,13 +90,13 @@
 				</div>
 				
 				<div class="title">
-					<a href="cp.php?ac=share&type=blog&id=$value[blogid]" id="a_share_$value[blogid]" onclick="ajaxmenu(event, this.id, 1)" class="a_share">分享</a>
+					<a href="cp.php?ac=share&type=blog&id=$value[blogid]" id="a_share_$value[blogid]" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Share</a>
 					<h4><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a></h4>
 					<div>
 					<!--{if $value['friend']}-->
 					<span class="r_option locked gray"><a href="$theurl&friend=$value[friend]" class="gray">{$friendsname[$value[friend]]}</a></span>
 					<!--{/if}-->
-					<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a> <span class="gray"><!--{date('Y-m-d H:i',$value[dateline],1)}--></span>
+					<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a> <span class="gray"><!--{date('d-m-y H:i',$value[dateline],1)}--></span>
 					</div>
 				</div>
 				<div class="detail image_right l_text s_clear" id="blog_article_$value[blogid]">
@@ -104,15 +104,15 @@
 					$value[message]
 				</div>
 				<div class="gray">
-					<!--{if $classarr[$value[classid]]}-->分类: <a href="space.php?uid=$value[uid]&do=blog&classid=$value[classid]">{$classarr[$value[classid]]}</a><span class="pipe">|</span><!--{/if}-->
-					<!--{if $value[viewnum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]">$value[viewnum] 次阅读</a><span class="pipe">|</span><!--{/if}-->
-					<!--{if $value[replynum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]#comment">$value[replynum] 个评论</a><!--{else}-->没有评论<!--{/if}-->
+					<!--{if $classarr[$value[classid]]}-->Category: <a href="space.php?uid=$value[uid]&do=blog&classid=$value[classid]">{$classarr[$value[classid]]}</a><span class="pipe">|</span><!--{/if}-->
+					<!--{if $value[viewnum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]">$value[viewnum]  Views</a><span class="pipe">|</span><!--{/if}-->
+					<!--{if $value[replynum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]#comment">$value[replynum] Comments</a><!--{else}-->No Comments<!--{/if}-->
 				</div>
 			</li>
 		<!--{/loop}-->
 		<!--{if $pricount}-->
 			<li>
-				<div class="title">本页有 $pricount 篇日志因作者的隐私设置而隐藏</div>
+				<div class="title">This page has $pricount Blogs, because of privacy setting can not view</div>
 			</li>
 		<!--{/if}-->
 		</ul>
@@ -121,7 +121,7 @@
 	<div class="page">$multi</div>
 	
 	<!--{else}-->
-	<div class="c_form">还没有相关的日志。</div>
+	<div class="c_form">No related blog found.!</div>
 	<!--{/if}-->
 
 </div>
@@ -130,12 +130,12 @@
 
 <!--{if $userlist}-->
 	<div class="cat">
-	<h3>按好友查看</h3>
+	<h3>By Just Friends View</h3>
 	<ul class="post_list line_list">
 		<li>
-			选择好友:<br>
+			Select Freinds: <br>
 			<select name="fuidsel" onchange="fuidgoto(this.value);">
-			<option value="">全部好友</option>
+			<option value="">All Friends</option>
 			<!--{loop $userlist $value}-->
 			<option value="$value[fuid]"{$fuid_actives[$value[fuid]]}>{$_SN[$value[fuid]]}</option>
 			<!--{/loop}-->
@@ -147,14 +147,15 @@
 	
 <!--{if $classarr}-->
 	<div class="cat">
-	<h3>日志分类</h3>
+	<h3>BLog Categories</h3>
 	<ul class="post_list line_list">
-		<li<!--{if !$_GET[classid]}--> class="current"<!--{/if}-->><a href="space.php?uid=$space[uid]&do=blog&view=me">全部日志</a></li>
+		<li<!--{if !$_GET[classid]}--> class="current"<!--{/if}-->><a href="space.php?uid=$space[uid]&do=blog&view=me">All Blogs</a></li>
 		<!--{loop $classarr $classid $classname}-->
 		<li<!--{if $_GET[classid]==$classid}--> class="current"<!--{/if}-->>
+			<a href="space.php?uid=$space[uid]&do=blog&classid=$classid&view=me">$classname</a>
 			<!--{if $space[self]}-->
-				<a href="cp.php?ac=class&op=edit&classid=$classid" id="c_edit_$classid" onclick="ajaxmenu(event, this.id)" class="c_edit">编辑</a>
-				<a href="cp.php?ac=class&op=delete&classid=$classid" id="c_delete_$classid" onclick="ajaxmenu(event, this.id)" class="c_delete">删除</a>
+				<a href="cp.php?ac=class&op=edit&classid=$classid" id="c_edit_$classid" onclick="ajaxmenu(event, this.id)" class="c_edit">Edit</a>
+				<a href="cp.php?ac=class&op=delete&classid=$classid" id="c_delete_$classid" onclick="ajaxmenu(event, this.id)" class="c_delete">Delete</a>
 			<!--{/if}-->
 			<a href="space.php?uid=$space[uid]&do=blog&classid=$classid&view=me">$classname</a>
 		</li>
@@ -165,9 +166,9 @@
 
 <!--{if $_GET['view'] == 'click'}-->
 	<div class="cat">
-	<h3>表态动作</h3>
+	<h3>Stated Action</h3>
 	<ul class="post_list line_list">
-		<li$click_actives[all]><a href="space.php?do=blog&view=click">全部动作</a></li>
+		<li$click_actives[all]><a href="space.php?do=blog&view=click">All Action</a></li>
 		<!--{loop $clicks $value}-->
 		<li{$click_actives[$value[clickid]]}>
 			<a href="space.php?do=blog&view=click&clickid=$value[clickid]">$value[name]</a>
@@ -177,15 +178,15 @@
 	</div>
 <!--{elseif $_GET['view'] == 'all'}-->
 	<div class="cat">
-	<h3>排行榜</h3>
+	<h3>Top</h3>
 	<ul class="post_list line_list">
-		<li$all_actives[all]><a href="space.php?do=blog&view=all">推荐阅读</a></li>
-		<li$all_actives[dateline]><a href="space.php?do=blog&view=all&orderby=dateline">最新发表</a></li>
-		<li$all_actives[hot]><a href="space.php?do=blog&view=all&orderby=hot&day=$_GET[hotday]">人气排行</a></li>
-		<li$all_actives[replynum]><a href="space.php?do=blog&view=all&orderby=replynum&day=$_GET[hotday]">评论排行</a></li>
-		<li$all_actives[viewnum]><a href="space.php?do=blog&view=all&orderby=viewnum&day=$_GET[hotday]">查看排行</a></li>
+		<li$all_actives[all]><a href="space.php?do=blog&view=all">Recommended</a></li>
+		<li$all_actives[dateline]><a href="space.php?do=blog&view=all&orderby=dateline">Latest</a></li>
+		<li$all_actives[hot]><a href="space.php?do=blog&view=all&orderby=hot&day=$_GET[hotday]">Popular</a></li>
+		<li$all_actives[replynum]><a href="space.php?do=blog&view=all&orderby=replynum&day=$_GET[hotday]">Most Commented</a><li>
+		<li$all_actives[viewnum]><a href="space.php?do=blog&view=all&orderby=viewnum&day=$_GET[hotday]">In-Demand</a></li>
 		<!--{loop $clicks $value}-->
-		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=blog&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">{$value[name]}排行</a></li>
+		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=blog&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">{$value[name]}Top List</a></li>
 		<!--{/loop}-->
 	</ul>
 	

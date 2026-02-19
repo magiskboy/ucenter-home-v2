@@ -8,22 +8,22 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//æ£€æŸ¥å‚æ•°
+//¼ì²é²ÎÊı
 $blog = magic_check_idtype($id, $idtype);
 
-//æ—¶ç©ºæœº
+//Ê±¿Õ»ú
 if(submitcheck("usesubmit")) {
 
 	$newdateline = sstrtotime($_POST['newdateline']);
 	if(!$_POST['newdateline'] || $newdateline < sstrtotime('1970-1-1') || $newdateline > $blog['dateline']) {
-		showmessage('magicuse_bad_dateline');//è¾“å…¥çš„æ—¶é—´æ— æ•ˆ
+		showmessage('magicuse_bad_dateline');//ÊäÈëµÄÊ±¼äÎŞĞ§
 	}
 
-	//ä¿®æ”¹å¯¹è±¡æ—¶é—´
+	//ĞŞ¸Ä¶ÔÏóÊ±¼ä
 	$tablename = gettablebyidtype($idtype);
 	$_SGLOBAL['db']->query("UPDATE ".tname($tablename)." SET dateline='$newdateline' WHERE $idtype='$id' AND uid='$_SGLOBAL[supe_uid]'");
 
-	//åŒæ—¶ä¿®æ”¹feedçš„æ—¶é—´
+	//Í¬Ê±ĞŞ¸ÄfeedµÄÊ±¼ä
 	$_SGLOBAL['db']->query("UPDATE ".tname('feed')." SET dateline='$newdateline' WHERE id='$id' AND idtype='$idtype' AND uid='$_SGLOBAL[supe_uid]'");
 
 	magic_use($mid, array('id'=>$id, 'idtype'=>$idtype), true);

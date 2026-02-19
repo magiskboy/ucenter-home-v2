@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//è·å–é™åˆ¶æ¡ä»¶
+//»ñÈ¡ÏŞÖÆÌõ¼ş
 function getwheres($intkeys, $strkeys, $randkeys, $likekeys, $pre='') {
 	
 	$wherearr = array();
@@ -54,7 +54,7 @@ function getwheres($intkeys, $strkeys, $randkeys, $likekeys, $pre='') {
 	return array('wherearr'=>$wherearr, 'urls'=>$urls);
 }
 
-//è·å–æ’åº
+//»ñÈ¡ÅÅĞò
 function getorders($alloworders, $default, $pre='') {
 	$orders = array('sql'=>'', 'urls'=>array());
 	if(empty($_GET['orderby']) || !in_array($_GET['orderby'], $alloworders)) {
@@ -74,26 +74,24 @@ function getorders($alloworders, $default, $pre='') {
 	return $orders;
 }
 
-//å¯¹è¯æ¡†
+//¶Ô»°¿ò
 function cpmessage($msgkey, $url_forward='', $second=1, $values=array()) {
 	global $_SGLOBAL, $_SC, $_SCONFIG, $_TPL, $_SN, $space;
 	
-	//å»æ‰å¹¿å‘Š
+	//È¥µô¹ã¸æ
 	$_SGLOBAL['ad'] = array();
 
-	global $_SC;
-	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_cpmessage.php') ? $_SC['language'] : 'zh_CN';
-	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_cpmessage.php');
+	include_once(S_ROOT.'./language/lang_cpmessage.php');
 	if(isset($_SGLOBAL['cplang'][$msgkey])) {
 		$message = lang_replace($_SGLOBAL['cplang'][$msgkey], $values);
 	} else {
 		$message = $msgkey;
 	}
 	
-	//æ˜¾ç¤º
+	//ÏÔÊ¾
 	obclean();
 	
-	//èœå•æ¿€æ´»
+	//²Ëµ¥¼¤»î
 	$menuactive = array('index' => ' class="active"');
 	
 	if(!empty($url_forward)) {
@@ -104,15 +102,15 @@ function cpmessage($msgkey, $url_forward='', $second=1, $values=array()) {
 	exit();
 }
 
-//ç”Ÿæˆç«™ç‚¹key
+//Éú³ÉÕ¾µãkey
 function mksitekey() {
 	global $_SERVER, $_SC, $_SGLOBAL;
-	//16ä½
+	//16Î»
 	$sitekey = substr(md5($_SERVER['SERVER_ADDR'].$_SERVER['HTTP_USER_AGENT'].$_SC['dbhost'].$_SC['dbuser'].$_SC['dbpw'].$_SC['dbname'].substr($_SGLOBAL['timestamp'], 0, 6)), 8, 6).random(10);
 	return $sitekey;
 }
 
-//ç»Ÿè®¡æ•°æ®
+//Í³¼ÆÊı¾İ
 function getstatistics() {
 	global $_SGLOBAL, $_SC, $_SCONFIG;
 	
@@ -151,7 +149,7 @@ function getstatistics() {
 	return $statistics;
 }
 
-//æ—¥å¿—
+//ÈÕÖ¾
 function admincp_log() {
 	global $_GET, $_POST;
 	
@@ -175,7 +173,7 @@ function admincp_log() {
 	runlog('admincp', $log_message);
 }
 
-//é¢œè‰²äº¤å‰
+//ÑÕÉ«½»²æ
 function mkcolor($color1='#FFFFFF', $color2='#FCF9E6') {
 	global $_SGLOBAL;
 

@@ -10,7 +10,7 @@ $id = empty($_GET['id'])?0:intval($_GET['id']);
 $adid = empty($_GET['adid'])?0:intval($_GET['adid']);
 
 if($id) {
-	//æ¨¡å—
+	//Ä£¿é
 	include_once('./data/data_block.php');
 	if(!isset($_SGLOBAL['block'][$id])) {
 		echo 'document.write(\'No data.\')';
@@ -19,7 +19,7 @@ if($id) {
 	
 	$updatetime = $_SGLOBAL['block'][$id];
 	
-	//ç¼“å­˜
+	//»º´æ
 	$cachefile = "./data/block_cache/block_$id.js";
 	if($updatetime > 0 && file_exists($cachefile) && (time() - filemtime($cachefile) < $updatetime)) {
 		if(@$fp = fopen($cachefile, 'r')) {
@@ -32,13 +32,13 @@ if($id) {
 		exit();
 	}
 	
-	//è¯»å–æ•°æ®
+	//¶ÁÈ¡Êý¾Ý
 	include('./common.php');
 	
-	//å¤–é“¾æŽ¥ç¦æ­¢æ˜¾ç¤ºå¯¼èˆªæ¡
+	//ÍâÁ´½Ó½ûÖ¹ÏÔÊ¾µ¼º½Ìõ
 	$_SCONFIG['linkguide'] = 0;
 	
-	//ç¦æ­¢ç¼“å­˜
+	//½ûÖ¹»º´æ
 	$_SCONFIG['allowcache'] = 0;
 	
 	include template("data/blocktpl/$id");
@@ -64,7 +64,7 @@ if($id) {
 	echo $content;
 
 } elseif ($adid) {
-	//è¯»å–å¹¿å‘Šæ–‡ä»¶
+	//¶ÁÈ¡¹ã¸æÎÄ¼þ
 	$file = './data/adtpl/'.$adid.'.htm';
 	if(@$lines = file($file)) {
 		foreach ($lines as $line) {

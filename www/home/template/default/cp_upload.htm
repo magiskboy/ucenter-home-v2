@@ -4,27 +4,27 @@
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
 	<!--{if $eventid}-->
-	<h2 class="title"><img src="image/app/event.gif">活动 - <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
+	<h2 class="title"><img src="image/app/event.gif">Event-  <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
 	<!--{else}-->
-	<h2 class="title"><img src="image/app/album.gif">相册</h2>
+	<h2 class="title"><img src="image/app/album.gif">Albums</h2>
 	<!--{/if}-->
 	<div class="tabs_header">
 		<!--{if $_SGLOBAL['magic']['doodle']}-->
-		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Graffiti</a>
 		<!--{/if}-->
 		<ul class="tabs">
 		<!--{if $albumid}-->
-			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>编辑相册信息</span></a></li>
-			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>编辑图片</span></a></li>
+			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>Edit album</span></a></li>
+			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>Edit Image</span></a></li>
 		<!--{/if}-->
 		<!--{if $eventid}-->
-			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>普通上传</span></a></li>
-			<li><a href="space.php?do=event&id=$eventid"><span>返回活动首页</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>Simple upload</span></a></li>
+			<li><a href="space.php?do=event&id=$eventid"><span>My events</span></a></li>
 		<!--{else}-->
-			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>普通上传</span></a></li>
-			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>批量上传</span></a></li>
-			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>大头帖</span></a></li>
-			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>返回我的相册</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>Simple upload</span></a></li>
+			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>Bulk upload</span></a></li>
+			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>Thumbnail</span></a></li>
+			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>My Album</span></a></li>
 		<!--{/if}-->
 		</ul>
 	</div>
@@ -34,12 +34,12 @@
 
 <!--{if $haveattachsize}-->
 <div class="borderbox">
-	您当前图片空间还剩余容量 <strong>$haveattachsize</strong>
+	You have remaining space <strong>$haveattachsize</strong> for upload!
 	<!--{if $_SGLOBAL[magic][attachsize]}-->
 	<p>
 		<img src="image/magic/attachsize.small.gif" class="magicicon"/>
-		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)">我要增加空间</a>
-		(您可以购买道具“{$_SGLOBAL[magic][attachsize]}”来增加附件容量，上传更多的图片)
+		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)"> I would like to increase the space</a>
+		(You can by this props ��{$_SGLOBAL[magic][attachsize]}�� to increase your space to upload more images)
 	</p>
 	<!--{/if}-->
 </div><br>
@@ -48,15 +48,15 @@
 <!--{if empty($_GET['op'])}-->
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>选择图片</h2>
-		<p>从电脑中选择你要上传的图片。<br>提示：选择一张图片后，你可以继续选择下一张图片，这样就可以一次上传多张图片了。</p>
+		<h2>Select image</h2>
+		<p><font size="1">Please select the picture,which you want to upload from computer,<br>You can also select the bulk uploader to upload multiple picture same time</font></p>
 	</caption>
 	<tbody id="attachbodyhidden" style="display:none">
 		<tr>
 			<td>
 				<form method="post" id="upload" action="cp.php?ac=upload<!--{if $eventid}-->&eventid=$eventid<!--{/if}-->" enctype="multipart/form-data" target="uploadframe">
 					<input type="file" name="attach" size="25" style="padding:10px;" />
-					<span id="localfile"></span>					
+					<span id="localfile"></span>
 					<input type="hidden" name="uploadsubmit" id="uploadsubmit" value="true" />
 					<input type="hidden" name="albumid" id="albumid" value="0" />
 					<input type="hidden" name="topicid" id="topicid" value="0" />
@@ -92,8 +92,8 @@
 <!--{if $albums}-->
 	<caption>
 		<h2>
-		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">添加到现有相册</label> &nbsp;
-		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">新建一个相册</label>
+		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">Add to existing album</label> &nbsp;
+		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">Creaate new album</label>
 		</h2>
 	</caption>
 
@@ -101,7 +101,7 @@
 	<tr><td>
 		<table width="100%">
 		<tr>
-			<th width="60">选择相册</th>
+			<th width="60">Select Album</th>
 			<td>
 			<select name="albumid" id="uploadalbumid">
 			<!--{loop $albums $value}-->
@@ -122,7 +122,7 @@
 	<tbody id="creatalbum" style="display:none;">
 <!--{else}-->
 	<caption>
-		<h2>新建一个相册</h2>
+		<h2Create New Album</h2>
 		<input type="hidden" name="albumop" value="creatalbum">
 	</caption>
 	<tbody id="creatalbum">
@@ -130,39 +130,39 @@
 	<tr><td>
 		<table width="100%">
 			<tr>
-				<th width="60">相册名</th>
-				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="我的相册"></td>
+				<th width="80">Album Name</th>
+				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="My Album"></td>
 			</tr>
 			<tr>
-				<th>隐私设置</th>
+				<th>Privacy</th>
 				<td>
 					<select name="friend" id="uploadfriend" onchange="passwordShow(this.value);">
-						<option value="0">全站用户可见</option>
+						<option value="0">Public</option>
 						<!--{if empty($_GET[topicid])}-->
-						<option value="1">全好友可见</option>
-						<option value="2">仅指定的好友可见</option>
-						<option value="3">仅自己可见</option>
-						<option value="4">凭密码查看</option>
+						<option value="1">Friends</option>
+						<option value="2">Selected Friends</option>
+						<option value="3">Myself</option>
+						<option value="4">Password protected</option>
 						<!--{/if}-->
 					</select>
-					<span id="span_password" style="display:none;">密码:<input type="text" id="uploadpassword" name="password" value="" size="10"></span>
+					<span id="span_password" style="display:none;">Password: <input type="text" id="uploadpassword" name="password" value="" size="10"></span>
 				</td>
 			</tr>
 			<tbody id="tb_selectgroup" style="display:none;">
 			<tr>
-				<th>指定好友</th>
+				<th>Selected Friends</th>
 				<td><select name="selectgroup" onchange="getgroup(this.value);">
-					<option value="">从好友组选择好友</option>
+					<option value="">Select Friends from List</option>
 					<!--{loop $groups $key $value}-->
 					<option value="$key">$value</option>
 					<!--{/loop}-->
-					</select> 多次选择会累加到下面的好友名单</td>
+					</select> Select the friends name multiple times, it will add below list.</td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
 				<td>
 				<textarea name="target_names" id="target_names" style="width:85%;" rows="3"></textarea>
-				<br>(可以填写多个好友名，请用空格进行分割)</td>
+				<br>(Multiple friends name can be type, use space to separate)</td>
 			</tr>
 		</table>
 	</td></tr>
@@ -173,7 +173,7 @@
 	<br>
 	<input type="hidden" name="albumsubmit" id="albumsubmit" value="true" />
 	<input type="hidden" name="topicid" value="$_GET[topicid]" />
-	<input type="submit" name="uploadsubmit" id="btnupload" value="开始上传" class="submit" />
+	<input type="submit" name="uploadsubmit" id="btnupload" value="Start Uploading" class="submit" />
 	</td>
 	</tr>
 </table>

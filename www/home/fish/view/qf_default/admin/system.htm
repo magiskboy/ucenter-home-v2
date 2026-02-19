@@ -1,0 +1,38 @@
+<!--{tpl admin/header}-->
+
+<table border='0' cellspacing='10'>
+<form id="QSC" onsubmit="return submits();">
+	<tr>
+		<td width=20% align="right" height="25"><b>Danh sách quản lý</b></td>
+		<td><input type="text" name="adminer" value="{:implode($_QSC['adminer'], ',')}" style="width:300px;" /> [Định dạng: 1,2,3,4...]</td>
+	</tr>
+	<tr>
+		<td align="right"  height="25"><b>Danh mục bạn bè</b></td><td><input type="radio" name="friendType" value="1" {if $_QSC['friendType']==1}checked="checked"{/if}/>Mặc định bạn bè <input type="radio" name="friendType" value="2" {if $_QSC['friendType']==2}checked="checked"{/if}/>Tất cả bạn bè</td>
+	</tr>
+	<tr>
+		<td align="right"  height="25"><b>Music Player</b></td>
+		<td><input type="radio" name="view_player" value="0" {if $_QSC['view']['player']==0}checked="checked"{/if}/>Đóng lại <input type="radio" name="view_player" value="1" {if $_QSC['view']['player']==1}checked="checked"{/if}/>Mở</td>
+	</tr>
+	<tr>
+		<td align="right"  height="25"><b>Đóng ao</b></td>
+		<td><input type="radio" name="closefarm" value="0" {if $_QSC['closefarm']==0} checked="checked"{/if} />Đóng lại <input type="radio" name="closefarm" value="1" {if $_QSC['closefarm']==1} checked="checked"{/if}/>Mở</td>
+	</tr>
+	<tr>
+		<td align="right"><b>Trợ giúp đóng ao</b></td>
+		<td><textarea name="closeinfo" style="width:500px;height:100px;">{:$_QSC['closeinfo'] }</textarea></td>
+	</tr>		
+	<tr>
+		<td colspan="2" align="center"><input type="submit" value="提 交"><span id="state"></span></td>
+	</tr>
+</form>
+</table>
+
+<script type="text/javascript">
+	function submits(inputId) {
+		param = $.getForm('#QSC', 1);
+		request('admin.php?mod=system&submit=1', 'state', param);
+		return false;
+	}
+</script>
+
+<!--{tpl admin/footer}-->

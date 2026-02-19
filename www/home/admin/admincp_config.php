@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('manageconfig')) {
 	cpmessage('no_authority_management_operation');
 }
@@ -17,10 +17,10 @@ if(submitcheck('thevaluesubmit')) {
 
 	$setarr = array();
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	if($_POST['config']['videophoto'] && empty($_SCONFIG['my_status'])) $_POST['config']['videophoto'] = 0;
 
-	//UCenterè·¯å¾„
+	//UCenterÂ·¾¶
 	$_POST['config']['uc_dir'] = trim($_POST['config']['uc_dir']);
 	
 	if($_POST['config']['uc_dir']) {
@@ -55,21 +55,21 @@ if(submitcheck('thevaluesubmit')) {
 		$_SGLOBAL['db']->query("REPLACE INTO ".tname('data')." (var, datavalue) VALUES ".implode(',', $setarr));
 	}
 	
-	//dataè®¾ç½®
+	//dataÉèÖÃ
 	$datas = array();
 	foreach ($_POST['data'] as $var => $value) {
 		$datas[$var] = trim(stripslashes($value));
 	}
 	data_set('setting', $datas);
 	
-	//å‘é€é‚®ä»¶è®¾ç½®
+	//·¢ËÍÓÊ¼þÉèÖÃ
 	$mails = array();
 	foreach ($_POST['mail'] as $var => $value) {
 		$mails[$var] = trim(stripslashes($value));
 	}
 	data_set('mail', $mails);
 
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	config_cache();
 
@@ -97,7 +97,7 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 $datas = $datasets['setting'];
 $mails = $datasets['mail'];
 
-//æ¨¡æ¿ç›®å½•
+//Ä£°åÄ¿Â¼
 $templatearr = array('default' => 'default');
 $tpl_dir = sreaddir(S_ROOT.'./template');
 foreach ($tpl_dir as $dir) {

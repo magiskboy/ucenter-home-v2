@@ -22,7 +22,7 @@ if($op == 'comment') {
 		$ajax_edit = 0;
 	}
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$list = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE $cidsql authorid='$_SGLOBAL[supe_uid]' ORDER BY dateline DESC LIMIT 0,1");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -41,7 +41,7 @@ if($op == 'comment') {
 		$value = $_SGLOBAL['db']->fetch_array($query);
 	}
 	
-	//èŽ·å–ç”¨æˆ·
+	//»ñÈ¡ÓÃ»§
 	$groups = getfriendgroup();
 	
 	if(empty($value['gid'])) $value['gid'] = 0;
@@ -49,7 +49,7 @@ if($op == 'comment') {
 	
 } elseif($op == 'getfriendname') {
 	
-	//èŽ·å–ç”¨æˆ·çš„å¥½å‹åˆ†ç»„å
+	//»ñÈ¡ÓÃ»§µÄºÃÓÑ·Ö×éÃû
 	$groupname = '';
 	$group = intval($_GET['group']);
 	
@@ -61,13 +61,13 @@ if($op == 'comment') {
 	
 } elseif($op == 'getmtagmember') {
 	
-	//èŽ·å–ç”¨æˆ·çš„å¥½å‹åˆ†ç»„å
+	//»ñÈ¡ÓÃ»§µÄºÃÓÑ·Ö×éÃû
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$tagid' AND uid='$uid'");
 	$tagspace = $_SGLOBAL['db']->fetch_array($query);
 	
 } elseif($op == 'share') {
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$list = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('share')." WHERE uid='$_SGLOBAL[supe_uid]' ORDER BY dateline DESC LIMIT 0,1");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -90,7 +90,7 @@ if($op == 'comment') {
 		$ajax_edit = 0;
 	}
 	
-	//è¯„è®º
+	//ÆÀÂÛ
 	$list = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('post')." $pidsql ORDER BY dateline DESC LIMIT 0,1");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -110,7 +110,7 @@ if($op == 'comment') {
 	}
 	
 	$perpage = 10;
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êý
 	ckstart($start, $perpage);
 
 	$count = 0;
@@ -135,7 +135,7 @@ if($op == 'comment') {
 		if ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			realname_set($value['uid'], $value['username']);
 			$value['icon'] = 'plus';
-			//è‡ªåŠ¨å±•å¼€æœ€å¤š20ä¸ªè¯„è®º
+			//×Ô¶¯Õ¹¿ª×î¶à20¸öÆÀÂÛ
 			if($value['replynum'] > 0 && ($value['replynum'] < 20 || $doid == $value['doid'])) {
 				$doids[] = $value['doid'];
 				$value['icon'] = 'minus';
@@ -182,7 +182,7 @@ if($op == 'comment') {
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('myinvite')." WHERE hash='$hash' AND touid='$_SGLOBAL[supe_uid]'");
 		
-		//ç»Ÿè®¡æ›´æ–°
+		//Í³¼Æ¸üÐÂ
 		$myinvitenum = getcount('myinvite', array('touid'=>$_SGLOBAL['supe_uid']));
 		updatetable('space', array('myinvitenum'=>$myinvitenum), array('uid'=>$_SGLOBAL['supe_uid']));
 		

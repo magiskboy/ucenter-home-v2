@@ -10,35 +10,35 @@ if(!defined('IN_UCHOME')) {
 
 if(submitcheck('privacysubmit')) {
 
-	//éšç§
+	//ÒşË½
 	foreach ($_POST['privacy']['view'] as $key => $value) {
 		$space['privacy']['view'][$key] = intval($value);
 	}
-	//å‘é€åŠ¨æ€
+	//·¢ËÍ¶¯Ì¬
 	$space['privacy']['feed'] = array();
 	foreach ($_POST['privacy']['feed'] as $key => $value) {
 		$space['privacy']['feed'][$key] = 1;
 	}
 	privacy_update();
 
-	//å˜æ›´è®°å½•
+	//±ä¸ü¼ÇÂ¼
 	if($_SCONFIG['my_status']) inserttable('userlog', array('uid'=>$_SGLOBAL['supe_uid'], 'action'=>'update', 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 	showmessage('do_success', 'cp.php?ac=privacy');
 
 } elseif(submitcheck('privacy2submit')) {
 
-	//ç±»å‹ç­›é€‰
+	//ÀàĞÍÉ¸Ñ¡
 	$space['privacy']['filter_icon'] = array();
 	foreach ($_POST['privacy']['filter_icon'] as $key => $value) {
 		$space['privacy']['filter_icon'][$key] = 1;
 	}
-	//ç”¨æˆ·ç»„è®¾ç½®
+	//ÓÃ»§×éÉèÖÃ
 	$space['privacy']['filter_gid'] = array();
 	foreach ($_POST['privacy']['filter_gid'] as $key => $value) {
 		$space['privacy']['filter_gid'][$key] = intval($value);
 	}
 	
-	//é€šçŸ¥ç­›é€‰
+	//Í¨ÖªÉ¸Ñ¡
 	$space['privacy']['filter_note'] = array();
 	foreach ($_POST['privacy']['filter_note'] as $key => $value) {
 		$space['privacy']['filter_note'][$key] = 1;
@@ -46,17 +46,17 @@ if(submitcheck('privacysubmit')) {
 		
 	privacy_update();
 
-	//æ›´æ–°å¥½å‹ç¼“å­˜
+	//¸üĞÂºÃÓÑ»º´æ
 	friend_cache($_SGLOBAL['supe_uid']);
 
 	showmessage('do_success', 'cp.php?ac=privacy&op=view');
 }
 
 if($_GET['op'] == 'view') {
-	//å¥½å‹ç»„
+	//ºÃÓÑ×é
 	$groups = getfriendgroup();
 
-	//å±è”½
+	//ÆÁ±Î
 	$filter_icons = empty($space['privacy']['filter_icon'])?array():$space['privacy']['filter_icon'];
 	$filter_note = empty($space['privacy']['filter_note'])?array():$space['privacy']['filter_note'];
 	$iconnames = $appids = $icons = $uids = $users = array();
@@ -68,7 +68,7 @@ if($_GET['op'] == 'view') {
 			$appids[$key] = $icon;
 		}
 	}
-	//é€šçŸ¥æ•´ç†
+	//Í¨ÖªÕûÀí
 	foreach ($filter_note as $key => $value) {
 		list($type, $uid) = explode('|', $key);
 		$types[$key] = $type;
@@ -83,7 +83,7 @@ if($_GET['op'] == 'view') {
 			$users[$value['uid']] = $value['username'];
 		}
 	}
-	//è·å–åº”ç”¨åç§°
+	//»ñÈ¡Ó¦ÓÃÃû³Æ
 	if($appids) {
 		$query = $_SGLOBAL['db']->query("SELECT appid, appname FROM ".tname('myapp')." WHERE appid IN (".simplode($appids).")");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -102,11 +102,11 @@ if($_GET['op'] == 'view') {
 		$users[] = $value['fusername'];
 	}
 	$ustr = empty($users)?'':shtmlspecialchars(implode(' ', $users));
-	showmessage($ustr);//è¿”å›
+	showmessage($ustr);//·µ»Ø
 
 } else {
 
-	//é¡µé¢é€‰æ‹©
+	//Ò³ÃæÑ¡Ôñ
 	$_GET['op'] = '';
 
 	$sels = array();

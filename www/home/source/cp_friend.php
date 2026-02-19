@@ -22,7 +22,7 @@ if($op == 'add') {
 		showmessage('no_privilege');
 	}
 
-	//æ£€æµ‹ç”¨æˆ·
+	//¼ì²âÓÃ»§
 	if($uid == $_SGLOBAL['supe_uid']) {
 		showmessage('friend_self_error');
 	}
@@ -31,7 +31,7 @@ if($op == 'add') {
 		showmessage('you_have_friends');
 	}
 	
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('friend');
 
 	$tospace = getspace($uid);
@@ -39,20 +39,20 @@ if($op == 'add') {
 		showmessage('space_does_not_exist');
 	}
 
-	//é»‘åå•
+	//ºÚÃûµ¥
 	if(isblacklist($tospace['uid'])) {
 		showmessage('is_blacklist');
 	}
 
-	//ç”¨æˆ·ç»„
+	//ÓÃ»§×é
 	$groups = getfriendgroup();
 
-	//æ£€æµ‹ç°åœ¨çŠ¶æ€
+	//¼ì²âÏÖÔÚ×´Ì¬
 	$status = getfriendstatus($_SGLOBAL['supe_uid'], $uid);
 	if($status == 1) {
 		showmessage('you_have_friends');
 	} else {
-		//æ£€æŸ¥æ•°ç›®
+		//¼ì²éÊıÄ¿
 		$maxfriendnum = checkperm('maxfriendnum');
 		if($maxfriendnum && $space['friendnum'] >= $maxfriendnum + $space['addfriend']) {
 			if($_SGLOBAL['magic']['friendnum']) {
@@ -62,18 +62,18 @@ if($op == 'add') {
 			}
 		}
 				
-		//å¯¹æ–¹æ˜¯å¦æŠŠè‡ªå·±åŠ ä¸ºäº†å¥½å‹
+		//¶Ô·½ÊÇ·ñ°Ñ×Ô¼º¼ÓÎªÁËºÃÓÑ
 		$fstatus = getfriendstatus($uid, $_SGLOBAL['supe_uid']);
 		if($fstatus == -1) {
-			//å¯¹æ–¹æ²¡æœ‰åŠ å¥½å‹ï¼Œæˆ‘åŠ åˆ«äºº
+			//¶Ô·½Ã»ÓĞ¼ÓºÃÓÑ£¬ÎÒ¼Ó±ğÈË
 			if($status == -1) {
 				
-				//è§†é¢‘è®¤è¯
+				//ÊÓÆµÈÏÖ¤
 				if($tospace['videostatus']) {
 					ckvideophoto('friend', $tospace);
 				}
 				
-				//æ·»åŠ å•å‘å¥½å‹
+				//Ìí¼Óµ¥ÏòºÃÓÑ
 				if(submitcheck('addsubmit')) {
 					$setarr = array(
 						'uid' => $_SGLOBAL['supe_uid'],
@@ -85,10 +85,10 @@ if($op == 'add') {
 					);
 					inserttable('friend', $setarr);
 					
-					//å‘é€é‚®ä»¶é€šçŸ¥
+					//·¢ËÍÓÊ¼şÍ¨Öª
 					smail($uid, '', cplang('friend_subject',array($_SN[$space['uid']], getsiteurl().'cp.php?ac=friend&amp;op=request')), '', 'friend_add');
 
-					//å¢åŠ å¯¹æ–¹å¥½å‹ç”³è¯·æ•°
+					//Ôö¼Ó¶Ô·½ºÃÓÑÉêÇëÊı
 					$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum+1 WHERE uid='$uid'");
 					
 					showmessage('request_has_been_sent');
@@ -100,15 +100,15 @@ if($op == 'add') {
 				showmessage('waiting_for_the_other_test');
 			}
 		} else {
-			//å¯¹æ–¹åŠ äº†æˆ‘ä¸ºå¥½å‹ï¼Œæˆ‘å®¡æ ¸é€šè¿‡
+			//¶Ô·½¼ÓÁËÎÒÎªºÃÓÑ£¬ÎÒÉóºËÍ¨¹ı
 			if(submitcheck('add2submit')) {
-				//æˆä¸ºå¥½å‹
+				//³ÉÎªºÃÓÑ
 				$gid = intval($_POST['gid']);
 
 				friend_update($space['uid'], $space['username'], $tospace['uid'], $tospace['username'], 'add', $gid);
 
-				//äº‹ä»¶å‘å¸ƒ
-				//åŠ å¥½å‹ä¸å‘å¸ƒäº‹ä»¶
+				//ÊÂ¼ş·¢²¼
+				//¼ÓºÃÓÑ²»·¢²¼ÊÂ¼ş
 				if(ckprivacy('friend', 1)) {
 					$fs = array();
 					$fs['icon'] = 'friend';
@@ -123,10 +123,10 @@ if($op == 'add') {
 					feed_add($fs['icon'], $fs['title_template'], $fs['title_data'], $fs['body_template'], $fs['body_data'], $fs['body_general']);
 				}
 				
-				//æˆ‘çš„å¥½å‹ç”³è¯·æ•°è¿›è¡Œå˜åŒ–
+				//ÎÒµÄºÃÓÑÉêÇëÊı½øĞĞ±ä»¯
 				$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum-1 WHERE uid='$space[uid]' AND addfriendnum>0");
 
-				//é€šçŸ¥
+				//Í¨Öª
 				notification_add($uid, 'friend', cplang('note_friend_add'));
 
 				showmessage('friends_add', $_POST['refer'], 1, array($_SN[$tospace['uid']]));
@@ -140,13 +140,13 @@ if($op == 'add') {
 
 } elseif($op == 'ignore') {
 
-	//æ£€æµ‹ç”¨æˆ·
+	//¼ì²âÓÃ»§
 	if($uid) {
 		if(submitcheck('friendsubmit')) {
-			//å¯¹æ–¹ä¸æˆ‘çš„å…³ç³»
+			//¶Ô·½ÓëÎÒµÄ¹ØÏµ
 			$fstatus = getfriendstatus($uid, $space['uid']);
 			if($fstatus == 1) {
-				//å–æ¶ˆåŒå‘å¥½å‹å…³ç³»
+				//È¡ÏûË«ÏòºÃÓÑ¹ØÏµ
 				friend_update($_SGLOBAL['supe_uid'], $_SGLOBAL['supe_username'], $uid, '', 'ignore');
 			} elseif ($fstatus == 0) {
 				request_ignore($uid);
@@ -154,10 +154,10 @@ if($op == 'add') {
 			showmessage('do_success', 'cp.php?ac=friend&op=request', 0);
 		}
 	} elseif($_GET['key'] == $space['key']) {
-		//æ‰¹é‡å¿½ç•¥å¥½å‹è¯·æ±‚
+		//ÅúÁ¿ºöÂÔºÃÓÑÇëÇó
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('friend')." WHERE fuid='$space[uid]' AND status='0' LIMIT 0,1");
 		if($value = $_SGLOBAL['db']->fetch_array($query)) {
-			//åˆ é™¤
+			//É¾³ı
 			$uid = $value['uid'];
 			$username = getcount('space', array('uid'=>$uid), 'username');
 			request_ignore($uid);
@@ -172,7 +172,7 @@ if($op == 'add') {
 
 	if($_GET['key'] == $space['key']) {
 		
-		//æ£€æŸ¥æ•°ç›®
+		//¼ì²éÊıÄ¿
 		$maxfriendnum = checkperm('maxfriendnum');
 		if($maxfriendnum && $space['friendnum'] >= $maxfriendnum + $space['addfriend']) {
 			if($_SGLOBAL['magic']['friendnum']) {
@@ -182,7 +182,7 @@ if($op == 'add') {
 			}
 		}
 		
-		//æ‰¹é‡å®¡æ ¸
+		//ÅúÁ¿ÉóºË
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('friend')." WHERE fuid='$space[uid]' AND status='0' LIMIT 0,1");
 		if($value = $_SGLOBAL['db']->fetch_array($query)) {
 			
@@ -191,10 +191,10 @@ if($op == 'add') {
 			
 			friend_update($space['uid'], $space['username'], $uid, $tospace['username'], 'add', 0);
 			
-			//æˆ‘çš„å¥½å‹ç”³è¯·æ•°è¿›è¡Œå˜åŒ–
+			//ÎÒµÄºÃÓÑÉêÇëÊı½øĞĞ±ä»¯
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum-1 WHERE uid='$space[uid]' AND addfriendnum>0");
 
-			//ä¸äº§ç”Ÿfeed
+			//²»²úÉúfeed
 			showmessage('friend_addconfirm_next', 'cp.php?ac=friend&op=addconfirm&key='.$space['key'], 1, array($username));
 		}
 	}
@@ -203,13 +203,13 @@ if($op == 'add') {
 
 } elseif($op == 'syn') {
 
-	//è·å–ç”¨æˆ·ä¸­å¿ƒæˆ‘çš„fansåˆ—è¡¨
+	//»ñÈ¡ÓÃ»§ÖĞĞÄÎÒµÄfansÁĞ±í
 	if(isset($_SCOOKIE['synfriend']) || empty($_SCONFIG['uc_status'])) {
 		exit();
 	}
 
 	include_once S_ROOT.'./uc_client/client.php';
-	$buddylist = uc_friend_ls($_SGLOBAL['supe_uid'], 1, 999, 999, 2);//åˆ«äººåŠ äº†æˆ‘
+	$buddylist = uc_friend_ls($_SGLOBAL['supe_uid'], 1, 999, 999, 2);//±ğÈË¼ÓÁËÎÒ
 
 	$havas = array();
 	if($buddylist && is_array($buddylist)) {
@@ -232,7 +232,7 @@ if($op == 'add') {
 		}
 	}
 
-	//æŸ¥æ‰¾å½“å‰å¥½å‹
+	//²éÕÒµ±Ç°ºÃÓÑ
 	if($havas) {
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('friend')." WHERE fuid='$_SGLOBAL[supe_uid]'");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -242,24 +242,24 @@ if($op == 'add') {
 		}
 	}
 	
-	//æˆ‘çš„é»‘åå•
+	//ÎÒµÄºÚÃûµ¥
 	$blacklist = array();
 	$query = $_SGLOBAL['db']->query("SELECT buid FROM ".tname('blacklist')." WHERE uid='$_SGLOBAL[supe_uid]'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$blacklist[$value['buid']] = $value['buid'];
 	}
 
-	//æ·»åŠ å¥½å‹
+	//Ìí¼ÓºÃÓÑ
 	$addnum = 0;
 	$inserts = array();
 	if($havas) {
 		foreach ($havas as $value) {
 			if($_SGLOBAL['supe_uid'] != $value['uid'] && empty($blacklist[$value['uid']])) {
 				$value['username'] = addslashes($value['username']);
-				if($value['direction'] == 3) {//åŒå‘
+				if($value['direction'] == 3) {//Ë«Ïò
 					$inserts[] = "('$_SGLOBAL[supe_uid]','$value[uid]','$value[username]','1','$_SGLOBAL[timestamp]')";
 					$inserts[] = "('$value[uid]','$_SGLOBAL[supe_uid]','$_SGLOBAL[supe_username]','1','$_SGLOBAL[timestamp]')";
-				} else {//åˆ«äººåŠ æˆ‘
+				} else {//±ğÈË¼ÓÎÒ
 					$addnum++;
 					$inserts[] = "('$value[uid]','$_SGLOBAL[supe_uid]','$_SGLOBAL[supe_username]','0','$_SGLOBAL[timestamp]')";
 				}
@@ -274,18 +274,18 @@ if($op == 'add') {
 		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum+$addnum WHERE uid='$_SGLOBAL[supe_uid]'");
 	}
 
-	ssetcookie('synfriend', 1, 1800);//30åˆ†é’Ÿæ£€æŸ¥ä¸€æ¬¡
+	ssetcookie('synfriend', 1, 1800);//30·ÖÖÓ¼ì²éÒ»´Î
 	exit();
 
 } elseif($op == 'find') {
 
-	//è‡ªåŠ¨æ‰¾å¥½å‹
+	//×Ô¶¯ÕÒºÃÓÑ
 	$maxnum = 18;
 	
 	$nouids = $space['friends'];
 	$nouids[] = $space['uid'];
 
-	//å°±åœ¨æ‚¨é™„è¿‘çš„
+	//¾ÍÔÚÄú¸½½üµÄ
 	$nearlist = array();
 	$i=0;
 	$myip = getonlineip(1);
@@ -300,7 +300,7 @@ if($op == 'add') {
 		}
 	}
 	
-	//å¥½å‹çš„å¥½å‹
+	//ºÃÓÑµÄºÃÓÑ
 	$i = 0;
 	$friendlist = array();
 	if($space['feedfriend']) {
@@ -316,7 +316,7 @@ if($op == 'add') {
 		}
 	}
 
-	//å½“å‰åœ¨çº¿çš„å¥½å‹
+	//µ±Ç°ÔÚÏßµÄºÃÓÑ
 	$i = 0;
 	$onlinelist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." LIMIT 0,200");
@@ -329,7 +329,7 @@ if($op == 'add') {
 		}
 	}
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 } elseif($op == 'changegroup') {
@@ -340,7 +340,7 @@ if($op == 'add') {
 		showmessage('do_success', $_SGLOBAL['refer']);
 	}
 
-	//è·å¾—å½“å‰ç”¨æˆ·group
+	//»ñµÃµ±Ç°ÓÃ»§group
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$_SGLOBAL[supe_uid]' AND fuid='$uid'");
 	if(!$friend = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('specified_user_is_not_your_friend');
@@ -357,7 +357,7 @@ if($op == 'add') {
 		showmessage('do_success', $_SGLOBAL['refer'], 0);
 	}
 
-	//è·å¾—å½“å‰ç”¨æˆ·group
+	//»ñµÃµ±Ç°ÓÃ»§group
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$_SGLOBAL[supe_uid]' AND fuid='$uid'");
 	if(!$friend = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('specified_user_is_not_your_friend');
@@ -382,7 +382,7 @@ if($op == 'add') {
 	$start = ($page-1)*$perpage;
 
 	$list = array();
-	$multi = $wheresql = '';
+	$multi = '';
 	if($space['friendnum']) {
 		$groups = getfriendgroup();
 
@@ -410,7 +410,7 @@ if($op == 'add') {
 
 	$actives = array('group'=>' class="active"');
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 } elseif($op == 'request') {
@@ -424,7 +424,7 @@ if($op == 'add') {
 		$maxfriendnum = $maxfriendnum + $space['addfriend'];
 	}
 
-	//å¥½å‹è¯·æ±‚
+	//ºÃÓÑÇëÇó
 	$perpage = 20;
 	$page = empty($_GET['page'])?0:intval($_GET['page']);
 	if($page<1) $page = 1;
@@ -444,7 +444,7 @@ if($op == 'add') {
 			LIMIT $start,$perpage");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			realname_set($value['uid'], $value['username']);
-			//å…±æœ‰çš„å¥½å‹
+			//¹²ÓĞµÄºÃÓÑ
 			$cfriend = array();
 			$friend2 = empty($value['friend'])?array():explode(',',$value['friend']);
 			if($friend1 && $friend2) {
@@ -456,12 +456,12 @@ if($op == 'add') {
 		}
 	}
 	
-	//ç»Ÿè®¡æ›´æ–°
+	//Í³¼Æ¸üĞÂ
 	if($count != $space['addfriendnum']) {
 		updatetable('space', array('addfriendnum'=>$count), array('uid'=>$space['uid']));
 	}
 		
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "cp.php?ac=friend&op=request");
 	
 	realname_get();
@@ -494,7 +494,7 @@ if($op == 'add') {
 			$space['privacy']['filter_gid'][$group] = $group;
 		}
 		privacy_update();
-		friend_cache($_SGLOBAL['supe_uid']);//ç¼“å­˜æ›´æ–°
+		friend_cache($_SGLOBAL['supe_uid']);//»º´æ¸üĞÂ
 
 		showmessage('do_success', $_POST['refer'], 0);
 	}
@@ -516,7 +516,7 @@ if($op == 'add') {
 		if($tospace['uid'] == $space['uid']) {
 			showmessage('unable_to_manage_self');
 		}
-		//åˆ é™¤å¥½å‹
+		//É¾³ıºÃÓÑ
 		if($space['friends'] && in_array($tospace['uid'], $space['friends'])) {
 			friend_update($_SGLOBAL['supe_uid'], $_SGLOBAL['supe_username'], $tospace['uid'], '', 'ignore');
 		}
@@ -529,7 +529,7 @@ if($op == 'add') {
 	
 	$randuids = array();
 	if($space['friendnum']<5) {
-		//é™„è¿‘åœ¨çº¿çš„æœ‹å‹
+		//¸½½üÔÚÏßµÄÅóÓÑ
 		$onlinelist = array();
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('session')." LIMIT 0,100");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -552,7 +552,7 @@ if($op == 'add') {
 		if($value) $newfuids[$value] = $value;
 	}
 	
-	//å…±åŒçš„å¥½å‹
+	//¹²Í¬µÄºÃÓÑ
 	$list = array();
 	if($newfuids) {
 		$query = $_SGLOBAL['db']->query("SELECT uid,username,name,namestatus FROM ".tname('space')." WHERE uid IN (".simplode($newfuids).") LIMIT 0,15");
@@ -569,7 +569,7 @@ if($op == 'add') {
 		
 	if(!empty($_GET['searchsubmit']) || !empty($_GET['searchmode'])) {
 		$_GET['searchsubmit'] = $_GET['searchmode'] = 1;
-		//æ‰¾äºº
+		//ÕÒÈË
 		$wherearr = $fromarr = $uidjoin = array();
 		$fsql = '';
 		
@@ -584,7 +584,7 @@ if($op == 'add') {
 				}
 			}
 		}
-		//é™„è¡¨
+		//¸½±í
 		foreach (array('sex','qq','msn','birthyear','birthmonth','birthday','blood','marry','birthprovince','birthcity','resideprovince','residecity') as $value) {
 			if($_GET[$value]) {
 				$fromarr['spacefield'] = tname('spacefield').' sf';
@@ -593,7 +593,7 @@ if($op == 'add') {
 				$fsql .= ", sf.$value";
 			}
 		}
-		//è½¬æ¢æˆå®é™…çš„å¹´ä»½
+		//×ª»»³ÉÊµ¼ÊµÄÄê·İ
 		$startage = $endage = 0;
 		if($_GET['endage']) {
 			$startage = sgmdate('Y') - intval($_GET['endage']);
@@ -612,7 +612,7 @@ if($op == 'add') {
 		} else if(empty($startage) && $endage) {
 			$wherearr[] = 'sf.birthyear<='.$endage;
 		}
-		//è‡ªå®šä¹‰
+		//×Ô¶¨Òå
 		$havefield = 0;
 		foreach ($fields as $fkey => $fvalue) {
 			if($fvalue['allowsearch']) {
@@ -628,7 +628,7 @@ if($op == 'add') {
 			$wherearr['spacefield'] = "sf.uid=s.uid";
 		}
 		
-		//æ‰©å±•
+		//À©Õ¹
 		if($_GET['type'] == 'edu' || $_GET['type'] == 'work') {
 			foreach (array('type','title','subtitle','startyear') as $value) {
 				if($_GET[$value]) {
@@ -660,10 +660,10 @@ if($op == 'add') {
 			$yearhtml .= "<option value=\"$they\">$they</option>";
 		}
 		
-		//æ€§åˆ«
+		//ĞÔ±ğ
 		$sexarr = array($space['sex']=>' checked');
 		
-		//ç”Ÿæ—¥:å¹´
+		//ÉúÈÕ:Äê
 		$birthyeayhtml = '';
 		$nowy = sgmdate('Y');
 		for ($i=0; $i<100; $i++) {
@@ -671,28 +671,28 @@ if($op == 'add') {
 			if(empty($_GET['all'])) $selectstr = $they == $space['birthyear']?' selected':'';
 			$birthyeayhtml .= "<option value=\"$they\"$selectstr>$they</option>";
 		}
-		//ç”Ÿæ—¥:æœˆ
+		//ÉúÈÕ:ÔÂ
 		$birthmonthhtml = '';
 		for ($i=1; $i<13; $i++) {
 			if(empty($_GET['all'])) $selectstr = $i == $space['birthmonth']?' selected':'';
 			$birthmonthhtml .= "<option value=\"$i\"$selectstr>$i</option>";
 		}
-		//ç”Ÿæ—¥:æ—¥
+		//ÉúÈÕ:ÈÕ
 		$birthdayhtml = '';
 		for ($i=1; $i<29; $i++) {
 			if(empty($_GET['all'])) $selectstr = $i == $space['birthday']?' selected':'';
 			$birthdayhtml .= "<option value=\"$i\"$selectstr>$i</option>";
 		}
-		//è¡€å‹
+		//ÑªĞÍ
 		$bloodhtml = '';
 		foreach (array('A','B','O','AB') as $value) {
 			if(empty($_GET['all'])) $selectstr = $value == $space['blood']?' selected':'';
 			$bloodhtml .= "<option value=\"$value\"$selectstr>$value</option>";
 		}
-		//å©šå§»
+		//»éÒö
 		$marryarr = array($space['marry'] => ' selected');
 		
-		//è‡ªå®šä¹‰
+		//×Ô¶¨Òå
 		foreach ($fields as $fkey => $fvalue) {
 			if($fvalue['allowsearch']) {
 				if($fvalue['formtype'] == 'text') {

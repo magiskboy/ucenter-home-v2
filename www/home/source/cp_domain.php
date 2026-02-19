@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//浜岀骇鍩熷悕
+//二级域名
 $domainlength = checkperm('domainlength');
 
 if($_SCONFIG['allowdomain'] && $_SCONFIG['domainroot'] && $domainlength) {
@@ -20,11 +20,11 @@ if($_SCONFIG['allowdomain'] && $_SCONFIG['domainroot'] && $domainlength) {
 if(submitcheck('domainsubmit')) {
 
 	$setarr = array();
-	//浜岀骇鍩熷悕
+	//二级域名
 	$_POST['domain'] = strtolower(trim($_POST['domain']));
 	if($_POST['domain'] != $space['domain']) {
 		
-		//绉垎
+		//积分
 		if($space['domain'] && ($reward['credit'] || $reward['experience'])) {
 			if($space['experience'] >= $reward['experience']) {
 				$setarr['experience'] = $space['experience'] - $reward['experience'];

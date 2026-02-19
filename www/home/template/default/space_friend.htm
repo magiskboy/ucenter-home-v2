@@ -1,11 +1,11 @@
-<!--{eval $_TPL['titles'] = array('好友');}-->
+<!--{eval $_TPL['titles'] = array('����');}-->
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_friend">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=friend&op=search" class="r_option" target="_blank">寻找好友</a>
-			好友(共 $count 个)
+			<a href="cp.php?ac=friend&op=search" class="r_option" target="_blank">Find Friends</a>
+			Friends($count)
 		</h3><br>
 
 		<!--{if $list}-->
@@ -27,7 +27,7 @@
 					<div class="setti">
 
 					<!--{if !$value['isfriend']}-->
-					<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">加为好友</a>
+					<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">Add as Friend</a>
 					<!--{/if}-->
 					</div>
 					</td></tr></table>
@@ -39,7 +39,7 @@
 
 		<!--{else}-->
 		<div class="c_form">
-			没有相关用户列表。
+			Oops! List is empty, Why not use search function find some and add them?
 		</div>
 		<!--{/if}-->
 	</div><br />
@@ -52,7 +52,7 @@
 <form method="get" action="space.php">
 	<input type="hidden" name="do" value="friend">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="找好友" class="submit" type="submit">
+	<input name="searchsubmit" value="Find friends" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 </form>
 <!--{else}-->
@@ -60,70 +60,70 @@
 	<input type="hidden" name="ac" value="friend" />
 	<input type="hidden" name="op" value="search" />
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="找人" class="submit" type="submit">
+	<input name="searchsubmit" value="Find people" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 </form>
 <!--{/if}-->
 </div>
-<h2 class="title"><img src="image/icon/friend.gif" />好友</h2>
+<h2 class="title"><img src="image/icon/friend.gif" />Friends</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=friend"><span>好友列表</span></a></li>
-		<li><a href="cp.php?ac=friend&op=search"><span>查找好友</span></a></li>
-		<li><a href="cp.php?ac=friend&op=find"><span>可能认识的人</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=friend"><span>Friends List</span></a></li>
+		<li><a href="cp.php?ac=friend&op=search"><span>Find Friends</span></a></li>
+		<li><a href="cp.php?ac=friend&op=find"><span>Peoples May you know</span></a></li>
 		<!--{if empty($_SCONFIG['closeinvite'])}-->
-		<li><a href="cp.php?ac=invite"><span>邀请好友</span></a></li>
+		<li><a href="cp.php?ac=invite"><span>Invite Friends</span></a></li>
 		<!--{/if}-->
-		<li><a href="cp.php?ac=friend&op=request"><span>好友请求</span></a></li>
-		<li><a href="space.php?do=top"><span>排行榜</span></a></li>
+		<li><a href="cp.php?ac=friend&op=request"><span>Friends Request</span></a></li>
+		<li><a href="space.php?do=top"><span>Top List</span></a></li>
 	</ul>
 </div>
 <div id="content" style="width: 640px;">
 
 	<div class="c_mgs"><div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
 		<!--{if $_GET['view']=='blacklist'}-->
-			加入到黑名单的用户，将会从您的好友列表中删除。同时，对方将不能进行与您相关的打招呼、踩日志、加好友、评论、留言、短消息等互动行为。
+			People whome you don't want friend anymore, add them in blacklist, you and they will not able to view each other update and communicate such feed,blog,image,discussion, comments etc. 
 		<!--{elseif $_GET['view']=='me'}-->
 
-			当前共有 $space[friendnum] 个好友。
+			No Total $space[friendnum] Friends��
 
 
 			<!--{if $maxfriendnum}-->
-			(最多可以添加 $maxfriendnum 个好友)
+			(Max $maxfriendnum friends can add)
 			<p>
 				<!--{if $_SGLOBAL[magic][friendnum]}-->
 				<img src="image/magic/friendnum.small.gif" class="magicicon" />
-				<a id="a_magic_friendnum" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">我要扩容好友数</a>
-				(您可以购买道具“{$_SGLOBAL[magic][friendnum]}”来扩容，让自己可以添加更多的好友。)
+				<a id="a_magic_friendnum" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)"> Click here if you wanna expand your limit</a>
+				(You can buy props ��{$_SGLOBAL[magic][friendnum]}�� to expand limit, so can add more friends)
 				<!--{/if}-->
 			</p>
 			<!--{/if}-->
 
 			<p style="padding-top:10px;">
-			好友列表按照好友热度高低排序<br>
-			好友热度是系统根据您与好友之间交互的动作自动累计的一个参考值，数值越大，表示您与这位好友互动越频繁。
+			Sorted Friends list as per their ranking<br>
+			Friend Ranking system is based on interaction between you and your friends action, system automatic add the points, Who have greater value they're more frequent using the site.
 			</p>
 		<!--{elseif $_GET['view']=='online'}-->
 			<!--{if $_GET['type'] == 'friend'}-->
-			这些好友当前在线，赶快去拜访一下吧
+			These friends are currently online,poke them,let them know you are online too
 			<!--{elseif $_GET['type']=='near'}-->
-			通过系统匹配，这些朋友就在您附近，您可能认识他们
+			We found, these peoples are in your city, You may know them
 			<!--{else}-->
-			显示当前全部在线的用户
+			View all right now online users!
 			<!--{/if}-->
 		<!--{elseif $_GET['view']=='visitor'}-->
-			他们拜访过您，回访一下吧
+			These peoples have visited you, you can visit them in return, earn credits
 		<!--{elseif $_GET['view']=='trace'}-->
-			您曾经拜访过的用户列表
+			Users you have recently visited!
 		<!--{/if}-->
 	</div></div></div></div></div>
 
 	<!--{if $_GET['view']=='blacklist'}-->
 	<div class="h_status">
-		<h2>添加新黑名单用户</h2>
+		<h2>Add a new blacklist of users</h2>
 		<form method="post" name="blackform" action="cp.php?ac=friend&op=blacklist&start=$_GET[start]">
-			用户名：<input type="text" name="username" value="" size="15" class="t_input">
-			<input type="submit" name="blacklistsubmit_btn" id="moodsubmit_btn" value="添加" class="submit">
+			Username: <input type="text" name="username" value="" size="15" class="t_input">
+			<input type="submit" name="blacklistsubmit_btn" id="moodsubmit_btn" value="Add" class="submit">
 			<input type="hidden" name="blacklistsubmit" value="true" />
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		</form>
@@ -136,8 +136,8 @@
 		<!--{loop $list $key $value}-->
 			<li id="friend_{$value[uid]}_li">
 				<!--{if $value[username] == ''}-->
-				<div class="avatar48"><img src="image/magic/hidden.gif" alt="匿名" /></div>
-				<div class="thumbTitle"><p>匿名</p></div>
+				<div class="avatar48"><img src="image/magic/hidden.gif" alt="Anonymous" /></div>
+				<div class="thumbTitle"><p>Hide</p></div>
 				<!--{else}-->
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
 				<div class="thumbTitle">
@@ -152,20 +152,20 @@
 				<!--{/if}-->
 
 				<!--{if $_GET['view']=='blacklist'}-->
-					<div class="gray"><a href="cp.php?ac=friend&op=blacklist&subop=delete&uid=$value[uid]&start=$_GET[start]">黑名单除名</a></div>
+					<div class="gray"><a href="cp.php?ac=friend&op=blacklist&subop=delete&uid=$value[uid]&start=$_GET[start]">Remove Ban</a></div>
 				<!--{elseif $_GET['view']=='visitor' || $_GET['view'] == 'trace'}-->
-					<div class="gray"><!--{date('n月j号',$value[dateline],1)}--></div>
+					<div class="gray"><!--{date('n��j��',$value[dateline],1)}--></div>
 				<!--{elseif $_GET['view']=='online'}-->
 					<div class="gray"><!--{date('H:i',$ols[$value[uid]],1)}--></div>
 				<!--{else}-->
 					<!--{if $ols[$value[uid]]}--><div class="gray"><!--{date('H:i',$ols[$value[uid]],1)}--></div><!--{/if}-->
 					<div class="gray">
-					<!--{if $value['num']}--><a href="cp.php?ac=friend&op=changenum&uid=$value[uid]" id="friendnum_$value[uid]" onclick="ajaxmenu(event, this.id)">热度(<span id="spannum_$value[uid]">$value[num]</span>)</a><span class="pipe">|</span><!--{/if}-->
+					<!--{if $value['num']}--><a href="cp.php?ac=friend&op=changenum&uid=$value[uid]" id="friendnum_$value[uid]" onclick="ajaxmenu(event, this.id)">Popular(<span id="spannum_$value[uid]">$value[num]</span>)</a><span class="pipe">|</span><!--{/if}-->
 					<!--{if !$value['isfriend']}-->
-					<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">加为好友</a>
+					<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">Add as Friend</a>
 					<!--{else}-->
-					<a href="cp.php?ac=friend&op=changegroup&uid=$value[uid]" id="friend_group_$value[uid]" onclick="ajaxmenu(event, this.id)">分组</a><span class="pipe">|</span>
-					<a href="cp.php?ac=friend&op=ignore&uid=$value[uid]" id="a_ignore_$key" onclick="ajaxmenu(event, this.id)">删除</a>
+					<a href="cp.php?ac=friend&op=changegroup&uid=$value[uid]" id="friend_group_$value[uid]" onclick="ajaxmenu(event, this.id)">Group</a><span class="pipe">|</span>
+					<a href="cp.php?ac=friend&op=ignore&uid=$value[uid]" id="a_ignore_$key" onclick="ajaxmenu(event, this.id)">Remove</a>
 					<!--{/if}-->
 					</div>
 				<!--{/if}-->
@@ -177,7 +177,7 @@
 
 	<!--{else}-->
 	<div class="c_form">
-		没有相关用户列表。
+		No user found. List is empty!
 	</div>
 	<!--{/if}-->
 
@@ -185,7 +185,7 @@
 
 <div id="sidebar" style="width: 150px;">
 	<!--{if $_SCONFIG['my_status']}-->
-	<!-- 同步好友至Manyou 开始 -->
+	<!-Share MANYOU APPS to Friends-->
 	<script type="text/javascript">
 		function my_sync_tip(msg, close_time) {;
 			var my_tip = document.getElementById("my_tip");
@@ -201,7 +201,7 @@
 			}
 		}
 		function my_sync_friend() {
-			my_sync_tip('正在同步好友信息...', 0);
+			my_sync_tip('These Friends information are synchronized ...', 0);
 			var my_scri = document.createElement("script");
 			document.getElementsByTagName("head")[0].appendChild(my_scri);
 			my_scri.charset = "UTF-8";
@@ -210,41 +210,41 @@
 	</script>
 
 	<div class="c_mgs"><div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
-		<p>在游戏中找不到自己的好友？请点击下面的的按钮，将好友信息同步到里面。</p>
-		<p style="text-align: center;padding: 20px 0 0;"> <a href="#" onclick="my_sync_friend(); return false;" title="将好友关系同步至Manyou平台，以便在应用里看到他们"><img alt="刷新好友信息" src="image/syncfriend.gif"/></a> </p>
+		<p>In the apps platform can not find your friends? Please click this button we will help you!</p>
+		<p style="text-align: center;padding: 20px 0 0;"> <a href="#" onclick="my_sync_friend(); return false;" title="Begin retrieve the list of friends, who are also on MANYOU Apps Platform"><img alt="Refresh" src="image/syncfriend.gif"/></a> </p>
 	</div></div></div></div></div>
-	<!-- 同步好友至Manyou 结束 -->
+	<!-- Finally these are friend list -->
 	<!--{/if}-->
 
 	<div class="cat">
 		<h3>
-			好友菜单
+			Friends Menu
 		</h3>
 		<ul>
-			<li{$a_actives[me]}><a href="space.php?uid=$space[uid]&do=friend">全部好友列表</a></li>
-			<li{$a_actives[onlinefriend]}><a href="space.php?uid=$space[uid]&do=friend&view=online&type=friend">当前在线的好友</a></li>
-			<li{$a_actives[onlinenear]}><a href="space.php?uid=$space[uid]&do=friend&view=online&type=near">就在我附近的朋友</a></li>
-			<li{$a_actives[visitor]}><a href="space.php?uid=$space[uid]&do=friend&view=visitor">我的访客</a></li>
-			<li{$a_actives[trace]}><a href="space.php?uid=$space[uid]&do=friend&view=trace">我的足迹</a></li>
-			<li{$a_actives[blacklist]}><a href="space.php?uid=$space[uid]&do=friend&view=blacklist">我的黑名单</a></li>
+			<li{$a_actives[me]}><a href="space.php?uid=$space[uid]&do=friend">All Friends</a></li>
+			<li{$a_actives[onlinefriend]}><a href="space.php?uid=$space[uid]&do=friend&view=online&type=friend">Currently online</a></li>
+			<li{$a_actives[onlinenear]}><a href="space.php?uid=$space[uid]&do=friend&view=online&type=near">Peoples near to me</a></li>
+			<li{$a_actives[visitor]}><a href="space.php?uid=$space[uid]&do=friend&view=visitor">Visitors</a></li>
+			<li{$a_actives[trace]}><a href="space.php?uid=$space[uid]&do=friend&view=trace">My Visits</a></li>
+			<li{$a_actives[blacklist]}><a href="space.php?uid=$space[uid]&do=friend&view=blacklist">Black List</a></li>
 		</ul>
 	</div>
 
 	<!--{if $groups}-->
 	<div class="cat">
 		<h3>
-			<span class="r_option"><a href="cp.php?ac=friend&op=group">批量分组</a></span>
-			好友分组
+			<span class="r_option"><a href="cp.php?ac=friend&op=group">Sorting Friend</a></span>
+			Categories Friends
 		</h3>
 		<ul class="post_list line_list">
-			<li><a href="space.php?do=friend&group=-1">全部好友</a></li>
+			<li><a href="space.php?do=friend&group=-1">All Friends</a></li>
 			<!--{loop $groups $key $value}-->
 			<li{$groupselect[$key]}>
-				<a href="cp.php?ac=friend&op=groupignore&group=$key" id="c_ignore_$key" onclick="ajaxmenu(event, this.id)" title="屏蔽用户组动态" class="c_delete">屏蔽</a>
+				<a href="cp.php?ac=friend&op=groupignore&group=$key" id="c_ignore_$key" onclick="ajaxmenu(event, this.id)" title="Ignore Feeds" class="c_delete">Ignore</a>
 				<!--{if $key}-->
-				<a href="cp.php?ac=friend&op=groupname&group=$key" id="c_edit_$key" onclick="ajaxmenu(event, this.id, 1)" title="编辑用户组名" class="c_edit">编辑</a>
+				<a href="cp.php?ac=friend&op=groupname&group=$key" id="c_edit_$key" onclick="ajaxmenu(event, this.id, 1)" title="Edit Category" class="c_edit">Edit</a>
 				<!--{/if}-->
-				<!--{if isset($space['privacy']['filter_gid'][$key])}--><span class="gray">[屏蔽]</span><!--{/if}--> <a href="space.php?do=friend&group=$key"><span id="friend_groupname_$key">$value</span></a>
+				<!--{if isset($space['privacy']['filter_gid'][$key])}--><span class="gray">[Ignore]</span><!--{/if}--> <a href="space.php?do=friend&group=$key"><span id="friend_groupname_$key">$value</span></a>
 			</li>
 			<!--{/loop}-->
 		</ul>
@@ -256,11 +256,11 @@
 
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "好友";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=friend&view=me\">TA的好友列表</a>";
+	$_TPL['spacetitle'] = "Friends";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=friend&view=me\">Friends list</a>";
 }-->
 	<!--{template space_menu}-->
-	<div class="h_status">共有 $space[friendnum] 个好友</div>
+	<div class="h_status">Total $space[friendnum] friends</div>
 	<!--{template space_list}-->
 
 <!--{/if}-->

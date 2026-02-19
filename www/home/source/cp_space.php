@@ -31,15 +31,15 @@ include_once template("cp_space");
 
 
 /**
- * æ›´æ–°Manyouç«¯çš„UserAppä¿¡æ¯
+ * ¸üĞÂManyou¶ËµÄUserAppĞÅÏ¢
  *
- * @param integer $uId UCHomeé‡Œçš„ç”¨æˆ·id
- * @param integer $appId åº”ç”¨id
- * @param integer $privacy éšç§è®¾ç½®
- * @param boolean $allowProfileLink æ˜¯å¦å…è®¸åœ¨ä¸ªäººä¸»é¡µæ˜¾ç¤ºç›¸åº”é“¾æ¥
+ * @param integer $uId UCHomeÀïµÄÓÃ»§id
+ * @param integer $appId Ó¦ÓÃid
+ * @param integer $privacy ÒşË½ÉèÖÃ
+ * @param boolean $allowProfileLink ÊÇ·ñÔÊĞíÔÚ¸öÈËÖ÷Ò³ÏÔÊ¾ÏàÓ¦Á´½Ó
  * @return array
- * 		- errCode 0 æˆåŠŸï¼›å…¶ä»–ä»£è¡¨å¤±è´¥
- *		- errMessage å‡ºé”™ä¿¡æ¯
+ * 		- errCode 0 ³É¹¦£»ÆäËû´ú±íÊ§°Ü
+ *		- errMessage ³ö´íĞÅÏ¢
  */
 function my_userapp_update($uId, $appId, $privacy = null, $allowProfileLink = null) {
 	global $my_register_url, $_SC, $_SCONFIG;

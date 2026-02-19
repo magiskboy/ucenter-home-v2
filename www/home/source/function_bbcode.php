@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//澶勭悊妯″潡
+//处理模块
 function bbcode($message, $parseurl=0) {
 	global $_SGLOBAL;
 	
@@ -27,7 +27,7 @@ function bbcode($message, $parseurl=0) {
 		$_SGLOBAL['replace_str'] = array('<b>', '</b>', '<i>','</i>', '<u>', '</u>');
 	}
 	
-	if($parseurl==2) {//娣卞害瑙ｆ瀽
+	if($parseurl==2) {//深度解析
 		$_SGLOBAL['search_exp'][] = "/\[img\]\s*([^\[\<\r\n]+?)\s*\[\/img\]/ies";
 		$_SGLOBAL['replace_exp'][] = 'bb_img(\'\\1\')';
 		$message = parseurl($message);
@@ -36,12 +36,12 @@ function bbcode($message, $parseurl=0) {
 	return nl2br(str_replace(array("\t", '   ', '  '), array('&nbsp; &nbsp; &nbsp; &nbsp; ', '&nbsp; &nbsp;', '&nbsp;&nbsp;'), $message));
 }
 
-//鑷姩瑙ｆ瀽url
+//自动解析url
 function parseurl($message) {
 	return preg_replace("/(?<=[^\]a-z0-9-=\"'\\/])((https?|ftp|gopher|news|telnet|mms|rtsp):\/\/)([a-z0-9\/\-_+=.~!%@?#%&;:$\\()|]+)/i", "[url]\\1\\3[/url]", ' '.$message);
 }
 
-//html杞寲涓篵bcode
+//html转化为bbcode
 function html2bbcode($message) {
 	global $_SGLOBAL;
 	

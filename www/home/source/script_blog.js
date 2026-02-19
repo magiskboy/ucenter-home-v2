@@ -8,7 +8,7 @@ function validate_ajax(obj) {
     if (subject) {
     	var slen = strlen(subject.value);
         if (slen < 1 || slen > 80) {
-            alert("标题长度(1~80字符)不符合要求");
+            alert("Title should be between min 1~ Max 80 Characters");
             subject.focus();
             return false;
         }
@@ -41,7 +41,7 @@ function validate(obj) {
     if (subject) {
     	var slen = strlen(subject.value);
         if (slen < 1 || slen > 80) {
-            alert("标题长度(1~80字符)不符合要求");
+            alert("Title must be between min 1~ Max 80 Characters");
             subject.focus();
             return false;
         }
@@ -50,7 +50,7 @@ function validate(obj) {
     var makefeed = $('makefeed');
     if(makefeed) {
     	if(makefeed.checked == false) {
-    		if(!confirm("友情提醒：您确定此次发布不产生动态吗？\n有了动态，好友才能及时看到你的更新。")) {
+    		if(!confirm("Note: Are you sure you do not want Feed? \n via feed friends can get the real time update")) {
     			return false;
     		}
     	}

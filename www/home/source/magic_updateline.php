@@ -8,17 +8,17 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//æ£€æŸ¥å‚æ•°
+//¼ì²é²ÎÊý
 magic_check_idtype($id, $idtype);
 
-//æ•‘ç”Ÿåœˆ
+//¾ÈÉúÈ¦
 if(submitcheck("usesubmit")) {
 
-	//ä¿®æ”¹ä¿¡æ¯æ—¶é—´
+	//ÐÞ¸ÄÐÅÏ¢Ê±¼ä
 	$tablename = gettablebyidtype($idtype);
 	$_SGLOBAL['db']->query("UPDATE ".tname($tablename)." SET dateline = '$_SGLOBAL[timestamp]' WHERE $idtype = '$id' AND uid = '$_SGLOBAL[supe_uid]'");
 
-	//åŒæ—¶ä¿®æ”¹feedçš„æ—¶é—´
+	//Í¬Ê±ÐÞ¸ÄfeedµÄÊ±¼ä
 	$_SGLOBAL['db']->query("UPDATE ".tname('feed')." SET dateline = '$_SGLOBAL[timestamp]' WHERE id = '$id' AND idtype = '$idtype' AND uid = '$_SGLOBAL[supe_uid]'");
 
 	magic_use($mid, array('id'=>$id, 'idtype'=>$idtype), true);

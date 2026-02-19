@@ -10,7 +10,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 
 include_once(S_ROOT.'./source/function_cron.php');
 
-//鏉冮檺
+//权限
 if(!checkperm('managecron')) {
 	cpmessage('no_authority_management_operation');
 }
@@ -60,17 +60,17 @@ if(submitcheck('cronsubmit')) {
 		//ADD
 		$setarr['type'] = 'user';
 		$setarr['nextrun'] = $_SGLOBAL['timestamp'];
-		$setarr['cronid'] = inserttable('cron', $setarr, 1);//杩斿洖cronid
+		$setarr['cronid'] = inserttable('cron', $setarr, 1);//返回cronid
 	} else {
 		//UPDATE
 		updatetable('cron', $setarr, array('cronid'=>$cronid));
 		$setarr['cronid'] = $cronid;
 	}
 	
-	//閲嶆柊璁＄畻涓嬫鎵ц鏃堕棿
+	//重新计算下次执行时间
 	cronnextrun($setarr);
 	
-	//鏇存柊config
+	//更新config
 	cron_config();
 		
 	cpmessage('do_success', 'admincp.php?ac=cron');
@@ -89,7 +89,7 @@ if($_GET['op'] == 'edit') {
 
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('cron')." WHERE cronid='$cronid' AND type='user'");
 	
-	//鏇存柊缂撳瓨
+	//更新缓存
 	cron_config();
 	
 	cpmessage('do_success', 'admincp.php?ac=cron');
@@ -101,7 +101,7 @@ if($_GET['op'] == 'edit') {
 	cpmessage('do_success', 'admincp.php?ac=cron');
 	
 } else {
-	//鍒楄〃
+	//列表
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('cron')." ORDER BY type DESC");
 	while($cron = $_SGLOBAL['db']->fetch_array($query)) {
 		foreach(array('weekday', 'day', 'hour', 'minute') as $key) {

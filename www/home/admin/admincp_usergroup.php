@@ -8,12 +8,12 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('manageusergroup')) {
 	cpmessage('no_authority_management_operation');
 }
 
-//å–å¾—å•ä¸ªæ•°æ®
+//È¡µÃµ¥¸öÊý¾Ý
 $thevalue = $list = array();
 $_GET['gid'] = empty($_GET['gid'])?0:intval($_GET['gid']);
 if($_GET['gid']) {
@@ -26,19 +26,19 @@ if($_GET['gid']) {
 
 if(submitcheck('thevaluesubmit')) {
 
-	//ç”¨æˆ·ç»„å
+	//ÓÃ»§×éÃû
 	$_POST['set']['grouptitle'] = shtmlspecialchars($_POST['set']['grouptitle']);
 	if(empty($_POST['set']['grouptitle'])) cpmessage('user_group_were_not_empty');
 	$setarr = array('grouptitle' => $_POST['set']['grouptitle']);
 
-	//ç³»ç»Ÿ
+	//ÏµÍ³
 	if(isset($thevalue['system'])) {
 		$_POST['set']['system'] = $thevalue['system'];
 	} else {
 		$_POST['set']['system'] = intval($_POST['set']['system']);
 	}
 	if(empty($_POST['set']['system'])) {
-		//æ™®é€šç”¨æˆ·ç»„
+		//ÆÕÍ¨ÓÃ»§×é
 		$_POST['set']['explower'] = empty($_POST['set']['explower'])?0:intval($_POST['set']['explower']);
 		if($_POST['set']['explower'] > 999999999 || $_POST['set']['explower'] < -999999999) cpmessage('integral_limit_error');
 		$lowgid = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT gid FROM ".tname('usergroup')." where explower = '{$_POST['set']['explower']}'  AND system='0'"), 0);
@@ -47,14 +47,14 @@ if(submitcheck('thevaluesubmit')) {
 		} 
 		$setarr['explower'] = $_POST['set']['explower'];
 	} else {
-		//ç³»ç»Ÿç”¨æˆ·ç»„
+		//ÏµÍ³ÓÃ»§×é
 		$setarr['system'] = 1;
 	}
 	if($thevalue['system'] == '-1') {
 		$setarr['system'] = -1;
 	}
 	
-	//é“å…·å¥–åŠ±
+	//µÀ¾ß½±Àø
 	$setarr['magicaward'] = array();
 	if(!empty($_POST['magicaward'])) {
 		foreach ($_POST['magicaward'] as $value) {
@@ -64,7 +64,7 @@ if(submitcheck('thevaluesubmit')) {
 	}
 	$setarr['magicaward'] = serialize($setarr['magicaward']);
 	
-	//è¯¦ç»†æƒé™
+	//ÏêÏ¸È¨ÏÞ
 	$perms = array_keys($_POST['set']);
 	$nones = array('gid', 'grouptitle', 'system', 'explower');
 	foreach ($perms as $value) {
@@ -77,22 +77,22 @@ if(submitcheck('thevaluesubmit')) {
 	}
 	
 	if(empty($thevalue['gid'])) {
-		//æ·»åŠ 
+		//Ìí¼Ó
 		inserttable('usergroup', $setarr);
 	} else {
-		//æ›´æ–°
+		//¸üÐÂ
 		updatetable('usergroup', $setarr, array('gid'=>$thevalue['gid']));
 	}
 	
 	groupcredit_update();
 
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	usergroup_cache();
 
 	cpmessage('do_success', 'admincp.php?ac=usergroup');
 } elseif (submitcheck('updatesubmit')) {
-	//åˆ¤æ–­æ˜¯å¦æœ‰ä¸‹é™é‡å¤
+	//ÅÐ¶ÏÊÇ·ñÓÐÏÂÏÞÖØ¸´
 	if(count($_POST['explower']) != count(array_unique($_POST['explower']))) {
 		cpmessage('integral_limit_duplication_with_other_user_group');
 	} else {
@@ -103,7 +103,7 @@ if(submitcheck('thevaluesubmit')) {
 				$oldexplower[$thevalue['gid']] = $thevalue['explower'];
 			}
 			foreach($_POST['explower'] as $gidkey=>$gidvalue) {
-				//ä¸ŽåŽŸæ¥çš„ç”¨æˆ·ç»„ç§¯åˆ†æ¯”è¾ƒï¼Œæ˜¯å¦æœ‰æ›´æ–°
+				//ÓëÔ­À´µÄÓÃ»§×é»ý·Ö±È½Ï£¬ÊÇ·ñÓÐ¸üÐÂ
 				if($gidvalue == $oldexplower[$gidkey]) {
 					continue;
 				} else {
@@ -115,7 +115,7 @@ if(submitcheck('thevaluesubmit')) {
 		cpmessage('do_success', 'admincp.php?ac=usergroup');
 	}
 } elseif(submitcheck('copysubmit')) {
-	//ç§»é™¤ä¸éœ€è¦å¤åˆ¶çš„å˜é‡
+	//ÒÆ³ý²»ÐèÒª¸´ÖÆµÄ±äÁ¿
 	unset($thevalue['grouptitle']);
 	unset($thevalue['gid']);
 	unset($thevalue['explower']);
@@ -127,7 +127,7 @@ if(submitcheck('thevaluesubmit')) {
 		$groupid = intval($value);
 		updatetable('usergroup', $copyvalue, array('gid'=>$groupid));
 	}
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	usergroup_cache();
 
@@ -136,7 +136,7 @@ if(submitcheck('thevaluesubmit')) {
 
 if(empty($_GET['op'])) {
 	
-	//æµè§ˆåˆ—è¡¨
+	//ä¯ÀÀÁÐ±í
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('usergroup')." ORDER BY explower");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$list[$value['system']][] = $value;
@@ -145,16 +145,16 @@ if(empty($_GET['op'])) {
 	$actives = array('view' => ' class="active"');
 	
 } elseif ($_GET['op'] == 'add') {
-	//æ·»åŠ 
+	//Ìí¼Ó
 	$thevalue = array('gid' => 0, 'explower'=>0, 'maxattachsize'=>'10', 'maxfriendnum'=>50, 'postinterval'=>60, 'searchinterval'=>60, 'domainlength'=>0);
 	include_once(S_ROOT . "./data/data_magic.php");
 	
 } elseif ($_GET['op'] == 'edit') {
-	//ç¼–è¾‘
+	//±à¼­
 	include_once(S_ROOT . "./data/data_magic.php");
 	
 } elseif ($_GET['op'] == 'copy') {
-	//å¤åˆ¶
+	//¸´ÖÆ
 	$system = $thevalue['system'];
 	$from = $thevalue['grouptitle'];
 	$gid = $thevalue['gid'];
@@ -165,25 +165,25 @@ if(empty($_GET['op'])) {
 	}
 } elseif ($_GET['op'] == 'delete' && $thevalue) {
 
-	//åˆ é™¤
+	//É¾³ý
 	if(empty($thevalue['system'])) {
 
-		//åˆ é™¤
+		//É¾³ý
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('usergroup')." WHERE gid='$_GET[gid]'");
 
 		groupcredit_update();
 		
 	} elseif($thevalue['system'] == '1') {
-		//åˆ é™¤
+		//É¾³ý
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('usergroup')." WHERE gid='$_GET[gid]'");
 	} else {
 		cpmessage('system_user_group_could_not_be_deleted');
 	}
 
-	//æ›´æ–°ç”¨æˆ·æƒé™
+	//¸üÐÂÓÃ»§È¨ÏÞ
 	updatetable('space', array('groupid'=>0), array('groupid'=>$_GET['gid']));
 
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	usergroup_cache();
 
@@ -193,7 +193,7 @@ if(empty($_GET['op'])) {
 function groupcredit_update() {
 	global $_SGLOBAL;
 	
-	//èµ·å§‹ä¸º-999999999
+	//ÆðÊ¼Îª-999999999
 	$lowergid = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT gid FROM ".tname('usergroup')." WHERE system='0' ORDER BY explower LIMIT 1"), 0);
 	if($lowergid) updatetable('usergroup', array('explower'=>'-999999999'), array('gid'=>$lowergid));
 

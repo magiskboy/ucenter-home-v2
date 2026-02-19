@@ -8,10 +8,10 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//ä¸€æ¬¡å¤„ç†çš„ä¸ªæ•°ï¼Œé˜²æ­¢è¶…æ—¶
+//Ò»´Î´¦ÀíµÄ¸öÊý£¬·ÀÖ¹³¬Ê±
 $perbatch = 200;
 
-//æ›´æ–°ç»Ÿè®¡
+//¸üÐÂÍ³¼Æ
 $logs = array();
 $maxnum = $maxlogid = 0;
 $query = $_SGLOBAL['db']->query("SELECT logid, id, idtype FROM ".tname('log')." ORDER BY logid ASC LIMIT 0,$perbatch");
@@ -21,16 +21,16 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$maxlogid = $value['logid'];
 }
 
-//æ¸…ç©ºlogè¡¨
+//Çå¿Õlog±í
 if($maxnum) {
-	if($maxnum < $perbatch) {//å¤„ç†å®Œæ¯•
+	if($maxnum < $perbatch) {//´¦ÀíÍê±Ï
 		$_SGLOBAL['db']->query("TRUNCATE TABLE ".tname('log'));
-	} else {//æœªå¤„ç†å®Œ
+	} else {//Î´´¦ÀíÍê
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('log')." WHERE logid<='$maxlogid'");
 	}
 }
 
-//ç©ºé—´æŸ¥çœ‹æ•°
+//¿Õ¼ä²é¿´Êý
 if($logs['uid']) {
 	$nums = renum($logs['uid']);
 	foreach ($nums[0] as $num) {
@@ -38,7 +38,7 @@ if($logs['uid']) {
 	}
 }
 
-//ç¾¤ç»„è¯é¢˜æŸ¥çœ‹æ•°
+//Èº×é»°Ìâ²é¿´Êý
 if($logs['tid']) {
 	$nums = renum($logs['tid']);
 	foreach ($nums[0] as $num) {
@@ -46,7 +46,7 @@ if($logs['tid']) {
 	}
 }
 
-//æ—¥å¿—æŸ¥çœ‹æ•°
+//ÈÕÖ¾²é¿´Êý
 if($logs['blogid']) {
 	$nums = renum($logs['blogid']);
 	foreach ($nums[0] as $num) {

@@ -1,18 +1,18 @@
-<!--{eval $_TPL['titles'] = array($topic[subject],'热闹');}-->
+<!--{eval $_TPL['titles'] = array($topic[subject],'Popular');}-->
 <!--{template header}-->
 
 <h2 class="title">
-	<img src="image/app/topic.gif" />热闹 - <a href="space.php?do=topic&topicid=$topicid">$topic[subject]</a>
+	<img src="image/app/topic.gif" />Popular - <a href="space.php?do=topic&topicid=$topicid">$topic[subject]</a>
 </h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li class="active"><a href="space.php?do=topic&topicid=$topicid"><span>查看热闹</span></a></li>
-		<li><a href="space.php?do=topic"><span>热闹列表</span></a></li>
+		<li class="active"><a href="space.php?do=topic&topicid=$topicid"><span>View Hottest</span></a></li>
+		<li><a href="space.php?do=topic"><span>Popular List</span></a></li>
 	</ul>
 	<!--{if checkperm('managetopic') || $topic['uid']==$_SGLOBAL[supe_uid]}-->
 	<div class="r_option">
-		<a href="cp.php?ac=topic&op=edit&topicid=$topic[topicid]">编辑</a> | 
-		<a href="cp.php?ac=topic&op=delete&topicid=$topic[topicid]" id="a_delete_$topic[topicid]" onclick="ajaxmenu(event,this.id);" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)">删除</a>
+		<a href="cp.php?ac=topic&op=edit&topicid=$topic[topicid]">Edit</a> | 
+		<a href="cp.php?ac=topic&op=delete&topicid=$topic[topicid]" id="a_delete_$topic[topicid]" onclick="ajaxmenu(event,this.id);" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)">Remove</a>
 		</p>
 	</div>
 	<!--{/if}-->
@@ -26,11 +26,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=upload&topicid=$topicid" style="font-weight:bold;">我来添加图片</a><span class="pipe">|</span>
+				<a href="cp.php?ac=upload&topicid=$topicid" style="font-weight:bold;">add picture</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=pic">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=pic">All</a>
 			</div>
-			图片
+			Picture
 		</h3>
 		<!--{if $piclist}-->
 		<table cellspacing="6" cellpadding="0" width="100%" class="photo_list">
@@ -40,7 +40,7 @@
 						<a href="space.php?uid=$value[uid]&do=album&picid=$value[picid]"><img src="$value[pic]" alt="" width="100" /></a>
 						<p><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></p>
 						<p class="gray"><!--{date('m-d H:i',$value[dateline],1)}--></p>
-						<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[picid]&idtype=picid" id="a_ignore_picid_$value[picid]" onclick="ajaxmenu(event, this.id)">剔除</a></p><!--{/if}-->
+						<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[picid]&idtype=picid" id="a_ignore_picid_$value[picid]" onclick="ajaxmenu(event, this.id)">Removed</a></p><!--{/if}-->
 					</td>
 					<!--{if $key%3==2}--></tr><tr><!--{/if}-->
 				<!--{/loop}-->
@@ -48,7 +48,7 @@
 		</table>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关图片，您可以 <a href="cp.php?ac=upload&topicid=$topicid">上传图片</a> 来凑个热闹。
+			There is no related picture, you can <a href="cp.php?ac=upload&topicid=$topicid">upload picture</a> 
 		</div>
 		<!--{/if}-->
 	</div>
@@ -59,11 +59,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=blog&topicid=$topicid" style="font-weight:bold;">我来发表日志</a><span class="pipe">|</span>
+				<a href="cp.php?ac=blog&topicid=$topicid" style="font-weight:bold;">Create Blog</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=blog">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=blog">All</a>
 			</div>
-			日志
+			Blog
 		</h3>
 		<!--{if $bloglist}-->
 		<ul class="line_list">
@@ -76,7 +76,7 @@
 				<td width="120" align="center"><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></td>
 				<td width="80" align="right">
 					<!--{date('m-d H:i',$value[dateline],1)}-->
-					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[blogid]&idtype=blogid" id="a_ignore_blogid_$value[blogid]" onclick="ajaxmenu(event, this.id)">剔除</a></p><!--{/if}-->
+					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[blogid]&idtype=blogid" id="a_ignore_blogid_$value[blogid]" onclick="ajaxmenu(event, this.id)">Remove</a></p><!--{/if}-->
 				</td>
 			</tr></table>
 			</li>
@@ -84,7 +84,7 @@
 		</ul>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关日志，您可以 <a href="cp.php?ac=blog&topicid=$topicid">发表日志</a> 来凑个热闹。
+			There is no related blog, you can <a href="cp.php?ac=blog&topicid=$topicid">Publish one</a> to popular��
 		</div>
 		<!--{/if}-->
 	</div>
@@ -96,11 +96,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=thread&topicid=$topicid" style="font-weight:bold;">我来发起话题</a><span class="pipe">|</span>
+				<a href="cp.php?ac=thread&topicid=$topicid" style="font-weight:bold;">Create Discussion</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=thread">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=thread">All</a>
 			</div>
-			话题
+			Discussion
 		</h3>
 		<!--{if $threadlist}-->
 		<ul class="line_list">
@@ -114,7 +114,7 @@
 				<td width="120" align="center"><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></td>
 				<td width="80" align="right">
 					<!--{date('m-d H:i',$value[dateline],1)}-->
-					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[tid]&idtype=tid" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)">剔除</a></p><!--{/if}-->
+					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[tid]&idtype=tid" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)" id="a_ignore_tid_$value[tid]" onclick="ajaxmenu(event, this.id)">Remove</a></p><!--{/if}-->
 				</td>
 			</tr></table>
 			</li>
@@ -122,7 +122,7 @@
 		</ul>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关话题，您可以 <a href="cp.php?ac=thread&topicid=$topicid">发起话题</a> 来凑个热闹。
+			There is no related discussion, you can <a href="cp.php?ac=thread&topicid=$topicid">create discussion</a> to be popular
 		</div>
 		<!--{/if}-->
 	</div>
@@ -133,11 +133,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=poll&topicid=$topicid" style="font-weight:bold;">我来发起投票</a><span class="pipe">|</span>
+				<a href="cp.php?ac=poll&topicid=$topicid" style="font-weight:bold;">My Poll</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=poll">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=poll">All</a>
 			</div>
-			投票
+			Poll
 		</h3>
 		<!--{if $polllist}-->
 		<ul class="line_list">
@@ -147,13 +147,13 @@
 				<td>
 					<a href="space.php?uid=$value[uid]&do=poll&pid=$value[pid]">$value[subject]</a>
 					<p class="gray">
-					<!--{if $value[multiple]}-->多选<!--{else}-->单选<!--{/if}-->
+					<!--{if $value[multiple]}-->Simple Option<!--{else}-->Multiple option<!--{/if}-->
 					</p>
 				</td>
 				<td width="120" align="center"><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></td>
 				<td width="80" align="right">
 					<!--{date('m-d H:i',$value[dateline],1)}-->
-					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[pid]&idtype=pid" id="a_ignore_pid_$value[pid]" onclick="ajaxmenu(event, this.id)">剔除</a></p><!--{/if}-->
+					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[pid]&idtype=pid" id="a_ignore_pid_$value[pid]" onclick="ajaxmenu(event, this.id)">Remove</a></p><!--{/if}-->
 				</td>
 			</tr></table>
 			</li>
@@ -161,7 +161,7 @@
 		</ul>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关投票，您可以 <a href="cp.php?ac=poll&topicid=$topicid">发起投票</a> 来凑个热闹。
+			There is no relevant Poll now, you can <a href="cp.php?ac=poll&topicid=$topicid">Create a Poll</a> to be popular
 		</div>
 		<!--{/if}-->
 	</div>
@@ -172,11 +172,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=event&topicid=$topicid" style="font-weight:bold;">我来发起活动</a><span class="pipe">|</span>
+				<a href="cp.php?ac=event&topicid=$topicid" style="font-weight:bold;">My Event</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=event">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=event">All</a>
 			</div>
-			活动
+			Event
 		</h3>
 		<!--{if $eventlist}-->
 		<ul class="line_list">
@@ -186,13 +186,13 @@
 				<td>
 					<a href="space.php?uid=$value[uid]&do=event&id=$value[eventid]">$value[title]</a>
 					<p class="gray">
-						活动开始：<!--{date('m-d H:i',$value[starttime])}-->
+						Start: <!--{date('m-d H:i',$value[starttime])}-->
 					</p>
 				</td>
 				<td width="120" align="center"><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></td>
 				<td width="80" align="right">
 					<!--{date('m-d H:i',$value[dateline],1)}-->
-					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[eventid]&idtype=eventid" id="a_ignore_eventid_$value[eventid]" onclick="ajaxmenu(event, this.id)">剔除</a></p><!--{/if}-->
+					<!--{if $managetopic}--><p class="gray"><a href="cp.php?ac=topic&op=ignore&topicid=$value[topicid]&id=$value[eventid]&idtype=eventid" id="a_ignore_eventid_$value[eventid]" onclick="ajaxmenu(event, this.id)">Remove</a></p><!--{/if}-->
 				</td>
 			</tr></table>
 			</li>
@@ -200,7 +200,7 @@
 		</ul>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关活动，您可以 <a href="cp.php?ac=event&topicid=$topicid">发起活动</a> 来凑个热闹。
+			There is no Event yet, you can <a href="cp.php?ac=event&topicid=$topicid">Create a new event</a> to be popular
 		</div>
 		<!--{/if}-->
 	</div>
@@ -212,11 +212,11 @@
 		<h3 class="feed_header">
 			<div class="r_option">
 				<!--{if $topic[allowjoin]}-->
-				<a href="cp.php?ac=share&topicid=$topicid" style="font-weight:bold;">我来添加分享</a><span class="pipe">|</span>
+				<a href="cp.php?ac=share&topicid=$topicid" style="font-weight:bold;">My Share</a><span class="pipe">|</span>
 				<!--{/if}-->
-				<a href="space.php?do=topic&topicid=$topicid&view=share">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=share">All</a>
 			</div>
-			分享
+			Share
 		</h3>
 		<!--{if $sharelist}-->
 		<ul class="line_list">
@@ -226,7 +226,7 @@
 		</ul>
 		<!--{else}-->
 		<div class="c_form gray">
-			现在还没有相关分享，您可以 <a href="cp.php?ac=share&topicid=$topicid">添加分享</a> 来凑个热闹。
+			There is no relevant share, you can <a href="cp.php?ac=share&topicid=$topicid">Share</a> to be popular
 		</div>
 		<!--{/if}-->
 	</div>
@@ -236,15 +236,15 @@
 		<!--{if $spacelist}-->
 		<div class="feed">
 			<h3 class="feed_header">
-				<a href="space.php?do=topic&topicid=$topicid&view=space" class="r_option">全部</a>
-				用户
+				<a href="space.php?do=topic&topicid=$topicid&view=space" class="r_option">All</a>
+				Users
 			</h3>
 	
 			<!--{eval $list = $spacelist;}-->
 			<!--{template space_list}-->
 		</div>
 		<!--{else}-->
-		<div class="c_form">还没有相关列表。</div>
+		<div class="c_form">Not related  user in this list.</div>
 		<!--{/if}-->
 		
 	<!--{else}-->
@@ -256,28 +256,28 @@
 <div id="sidebar">
 
 	<div class="sidebox">
-	<h2 class="title">分类查看</h2>
+	<h2 class="title">View by Category</h2>
 	<ul class="post_list line_list">
-		<li$sub_actives[index]><a href="space.php?do=topic&topicid=$topicid&view=index"><span>全部</span></a></li>
+		<li$sub_actives[index]><a href="space.php?do=topic&topicid=$topicid&view=index"><span>All</span></a></li>
 		<!--{if in_array('blog', $topic['jointype'])}-->
-		<li$sub_actives[blog]><a href="space.php?do=topic&topicid=$topicid&view=blog"><span>日志</span></a></li>
+		<li$sub_actives[blog]><a href="space.php?do=topic&topicid=$topicid&view=blog"><span>Blog</span></a></li>
 		<!--{/if}-->
 		<!--{if in_array('pic', $topic['jointype'])}-->
-		<li$sub_actives[pic]><a href="space.php?do=topic&topicid=$topicid&view=pic"><span>图片</span></a></li>
+		<li$sub_actives[pic]><a href="space.php?do=topic&topicid=$topicid&view=pic"><span>Picture</span></a></li>
 		<!--{/if}-->
 		<!--{if in_array('thread', $topic['jointype'])}-->
-		<li$sub_actives[thread]><a href="space.php?do=topic&topicid=$topicid&view=thread"><span>话题</span></a></li>
+		<li$sub_actives[thread]><a href="space.php?do=topic&topicid=$topicid&view=thread"><span>Discussion</span></a></li>
 		<!--{/if}-->
 		<!--{if in_array('poll', $topic['jointype'])}-->
-		<li$sub_actives[poll]><a href="space.php?do=topic&topicid=$topicid&view=poll"><span>投票</span></a></li>
+		<li$sub_actives[poll]><a href="space.php?do=topic&topicid=$topicid&view=poll"><span>Poll</span></a></li>
 		<!--{/if}-->
 		<!--{if in_array('event', $topic['jointype'])}-->
-		<li$sub_actives[event]><a href="space.php?do=topic&topicid=$topicid&view=event"><span>活动</span></a></li>
+		<li$sub_actives[event]><a href="space.php?do=topic&topicid=$topicid&view=event"><span>Event</span></a></li>
 		<!--{/if}-->
 		<!--{if in_array('share', $topic['jointype'])}-->
-		<li$sub_actives[share]><a href="space.php?do=topic&topicid=$topicid&view=share"><span>分享</span></a></li>
+		<li$sub_actives[share]><a href="space.php?do=topic&topicid=$topicid&view=share"><span>Share</span></a></li>
 		<!--{/if}-->
-		<li$sub_actives[space]><a href="space.php?do=topic&topicid=$topicid&view=space"><span>用户</span></a></li>
+		<li$sub_actives[space]><a href="space.php?do=topic&topicid=$topicid&view=space"><span>Users</span></a></li>
 	</ul>
 	</div>
 	
@@ -285,9 +285,9 @@
 	<div class="sidebox">
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?do=topic&topicid=$topicid&view=space">全部</a>
+				<a href="space.php?do=topic&topicid=$topicid&view=space">All</a>
 			</p>
-			参与成员
+			Participator
 		</h2>
 		<ul class="avatar_list">
 			<!--{loop $spacelist $key $value}-->

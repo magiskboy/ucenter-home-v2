@@ -15,25 +15,25 @@ if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 $classid = empty($_GET['classid'])?0:intval($_GET['classid']);
 
-//è¡¨æ€åˆ†ç±»
+//±íÌ¬·ÖÀà
 @include_once(S_ROOT.'./data/data_click.php');
 $clicks = empty($_SGLOBAL['click']['blogid'])?array():$_SGLOBAL['click']['blogid'];
 
 if($id) {
-	//è¯»å–æ—¥å¿—
+	//¶ÁÈ¡ÈÕÖ¾
 	$query = $_SGLOBAL['db']->query("SELECT bf.*, b.* FROM ".tname('blog')." b LEFT JOIN ".tname('blogfield')." bf ON bf.blogid=b.blogid WHERE b.blogid='$id' AND b.uid='$space[uid]'");
 	$blog = $_SGLOBAL['db']->fetch_array($query);
-	//æ—¥å¿—ä¸å­˜åœ¨
+	//ÈÕÖ¾²»´æÔÚ
 	if(empty($blog)) {
 		showmessage('view_to_info_did_not_exist');
 	}
-	//æ£€æŸ¥å¥½å‹æƒé™
+	//¼ì²éºÃÓÑÈ¨ÏŞ
 	if(!ckfriend($blog['uid'], $blog['friend'], $blog['target_ids'])) {
-		//æ²¡æœ‰æƒé™
+		//Ã»ÓĞÈ¨ÏŞ
 		include template('space_privacy');
 		exit();
 	} elseif(!$space['self'] && $blog['friend'] == 4) {
-		//å¯†ç è¾“å…¥é—®é¢˜
+		//ÃÜÂëÊäÈëÎÊÌâ
 		$cookiename = "view_pwd_blog_$blog[blogid]";
 		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 		if($cookievalue != md5(md5($blog['password']))) {
@@ -43,16 +43,16 @@ if($id) {
 		}
 	}
 
-	//æ•´ç†
+	//ÕûÀí
 	$blog['tag'] = empty($blog['tag'])?array():unserialize($blog['tag']);
 
-	//å¤„ç†è§†é¢‘æ ‡ç­¾
+	//´¦ÀíÊÓÆµ±êÇ©
 	include_once(S_ROOT.'./source/function_blog.php');
 	$blog['message'] = blog_bbcode($blog['message']);
 
 	$otherlist = $newlist = array();
 
-	//æœ‰æ•ˆæœŸ
+	//ÓĞĞ§ÆÚ
 	if($_SCONFIG['uc_tagrelatedtime'] && ($_SGLOBAL['timestamp'] - $blog['relatedtime'] > $_SCONFIG['uc_tagrelatedtime'])) {
 		$blog['related'] = array();
 	}
@@ -73,7 +73,7 @@ if($id) {
 				$blog['related'] = uc_tag_get($b_tags[$tag_index], $_SGLOBAL['tagtpl']['limit']);
 			}
 		} else {
-			//è‡ªèº«TAG
+			//×ÔÉíTAG
 			$tag_blogids = array();
 			$query = $_SGLOBAL['db']->query("SELECT DISTINCT blogid FROM ".tname('tagblog')." WHERE tagid IN (".simplode($b_tagids).") AND blogid<>'$blog[blogid]' ORDER BY blogid DESC LIMIT 0,10");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -82,7 +82,7 @@ if($id) {
 			if($tag_blogids) {
 				$query = $_SGLOBAL['db']->query("SELECT uid,username,subject,blogid FROM ".tname('blog')." WHERE blogid IN (".simplode($tag_blogids).")");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-					realname_set($value['uid'], $value['username']);//å®å
+					realname_set($value['uid'], $value['username']);//ÊµÃû
 					$value['url'] = "space.php?uid=$value[uid]&do=blog&id=$value[blogid]";
 					$blog['related'][UC_APPID]['data'][] = $value;
 				}
@@ -112,12 +112,12 @@ if($id) {
 				}
 			}
 		}
-		updatetable('blogfield', array('related'=>addslashes(serialize(sstripslashes($blog['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('blogid'=>$blog['blogid']));//æ›´æ–°
+		updatetable('blogfield', array('related'=>addslashes(serialize(sstripslashes($blog['related']))), 'relatedtime'=>$_SGLOBAL['timestamp']), array('blogid'=>$blog['blogid']));//¸üĞÂ
 	} else {
 		$blog['related'] = empty($blog['related'])?array():unserialize($blog['related']);
 	}
 
-	//ä½œè€…çš„å…¶ä»–æœ€æ–°æ—¥å¿—
+	//×÷ÕßµÄÆäËû×îĞÂÈÕÖ¾
 	$otherlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('blog')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,6");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -126,7 +126,7 @@ if($id) {
 		}
 	}
 
-	//æœ€æ–°çš„æ—¥å¿—
+	//×îĞÂµÄÈÕÖ¾
 	$newlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('blog')." WHERE hot>=3 ORDER BY dateline DESC LIMIT 0,6");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -136,13 +136,13 @@ if($id) {
 		}
 	}
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$perpage = 30;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
 	$count = $blog['replynum'];
@@ -154,22 +154,22 @@ if($id) {
 
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE $csql id='$id' AND idtype='blogid' ORDER BY dateline LIMIT $start,$perpage");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-			realname_set($value['authorid'], $value['author']);//å®å
+			realname_set($value['authorid'], $value['author']);//ÊµÃû
 			$list[] = $value;
 		}
 	}
 
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "space.php?uid=$blog[uid]&do=$do&id=$id", '', 'content');
 
-	//è®¿é—®ç»Ÿè®¡
+	//·ÃÎÊÍ³¼Æ
 	if(!$space['self'] && $_SCOOKIE['view_blogid'] != $blog['blogid']) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('blog')." SET viewnum=viewnum+1 WHERE blogid='$blog[blogid]'");
-		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//å»¶è¿Ÿæ›´æ–°
+		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//ÑÓ³Ù¸üĞÂ
 		ssetcookie('view_blogid', $blog['blogid']);
 	}
 
-	//è¡¨æ€
+	//±íÌ¬
 	$hash = md5($blog['uid']."\t".$blog['dateline']);
 	$id = $blog['blogid'];
 	$idtype = 'blogid';
@@ -181,38 +181,38 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 
-	//ç‚¹è¯„
+	//µãÆÀ
 	$clickuserlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')."
 		WHERE id='$id' AND idtype='$idtype'
 		ORDER BY dateline DESC
 		LIMIT 0,18");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//å®å
+		realname_set($value['uid'], $value['username']);//ÊµÃû
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 	}
 
-	//çƒ­ç‚¹
+	//ÈÈµã
 	$topic = topic_get($blog['topicid']);
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 	$_TPL['css'] = 'blog';
 	include_once template("space_blog_view");
 
 } else {
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$perpage = 10;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
-	//æ‘˜è¦æˆªå–
+	//ÕªÒª½ØÈ¡
 	$summarylen = 300;
 
 	$classarr = array();
@@ -223,13 +223,13 @@ if($id) {
 	$ordersql = 'b.dateline';
 
 	if(empty($_GET['view']) && ($space['friendnum']<$_SCONFIG['showallfriendnum'])) {
-		$_GET['view'] = 'all';//é»˜è®¤æ˜¾ç¤º
+		$_GET['view'] = 'all';//Ä¬ÈÏÏÔÊ¾
 	}
 
-	//å¤„ç†æŸ¥è¯¢
+	//´¦Àí²éÑ¯
 	$f_index = '';
 	if($_GET['view'] == 'click') {
-		//è¸©è¿‡çš„æ—¥å¿—
+		//²È¹ıµÄÈÕÖ¾
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=click";
 		$actives = array('click'=>' class="active"');
 
@@ -254,19 +254,19 @@ if($id) {
 	} else {
 		
 		if($_GET['view'] == 'all') {
-			//å¤§å®¶çš„æ—¥å¿—
+			//´ó¼ÒµÄÈÕÖ¾
 			$wheresql = '1';
 
 			$actives = array('all'=>' class="active"');
 
-			//æ’åº
+			//ÅÅĞò
 			$orderarr = array('dateline','replynum','viewnum','hot');
 			foreach ($clicks as $value) {
 				$orderarr[] = "click_$value[clickid]";
 			}
 			if(!in_array($_GET['orderby'], $orderarr)) $_GET['orderby'] = '';
 
-			//æ—¶é—´
+			//Ê±¼ä
 			$_GET['day'] = intval($_GET['day']);
 			$_GET['hotday'] = 7;
 
@@ -301,11 +301,11 @@ if($id) {
 			if(empty($space['feedfriend']) || $classid) $_GET['view'] = 'me';
 			
 			if($_GET['view'] == 'me') {
-				//æŸ¥çœ‹ä¸ªäººçš„
+				//²é¿´¸öÈËµÄ
 				$wheresql = "b.uid='$space[uid]'";
 				$theurl = "space.php?uid=$space[uid]&do=$do&view=me";
 				$actives = array('me'=>' class="active"');
-				//æ—¥å¿—åˆ†ç±»
+				//ÈÕÖ¾·ÖÀà
 				$query = $_SGLOBAL['db']->query("SELECT classid, classname FROM ".tname('class')." WHERE uid='$space[uid]'");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					$classarr[$value['classid']] = $value['classname'];
@@ -317,7 +317,7 @@ if($id) {
 	
 				$fuid_actives = array();
 	
-				//æŸ¥çœ‹æŒ‡å®šå¥½å‹çš„
+				//²é¿´Ö¸¶¨ºÃÓÑµÄ
 				$fusername = trim($_GET['fusername']);
 				$fuid = intval($_GET['fuid']);
 				if($fusername) {
@@ -332,7 +332,7 @@ if($id) {
 	
 				$actives = array('we'=>' class="active"');
 	
-				//å¥½å‹åˆ—è¡¨
+				//ºÃÓÑÁĞ±í
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$space[uid]' AND status='1' ORDER BY num DESC, dateline DESC LIMIT 0,500");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					realname_set($value['fuid'], $value['fusername']);
@@ -341,20 +341,20 @@ if($id) {
 			}
 		}
 
-		//åˆ†ç±»
+		//·ÖÀà
 		if($classid) {
 			$wheresql .= " AND b.classid='$classid'";
 			$theurl .= "&classid=$classid";
 		}
 
-		//è®¾ç½®æƒé™
+		//ÉèÖÃÈ¨ÏŞ
 		$_GET['friend'] = intval($_GET['friend']);
 		if($_GET['friend']) {
 			$wheresql .= " AND b.friend='$_GET[friend]'";
 			$theurl .= "&friend=$_GET[friend]";
 		}
 
-		//æœç´¢
+		//ËÑË÷
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$wheresql .= " AND b.subject LIKE '%$searchkey%'";
 			$theurl .= "&searchkey=$_GET[searchkey]";
@@ -362,7 +362,7 @@ if($id) {
 		}
 
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('blog')." b WHERE $wheresql"),0);
-		//æ›´æ–°ç»Ÿè®¡
+		//¸üĞÂÍ³¼Æ
 		if($wheresql == "b.uid='$space[uid]'" && $space['blognum'] != $count) {
 			updatetable('space', array('blognum' => $count), array('uid'=>$space['uid']));
 		}
@@ -391,10 +391,10 @@ if($id) {
 		}
 	}
 
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, $theurl);
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 	$_TPL['css'] = 'blog';

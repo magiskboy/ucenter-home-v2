@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//åˆ†é¡µ
+//·ÖÒ³
 $perpage = 24;
 $perpage = mob_perpage($perpage);
 
@@ -18,7 +18,7 @@ $page = empty($_GET['page'])?0:intval($_GET['page']);
 if($page<1) $page = 1;
 $start = ($page-1)*$perpage;
 
-//æ£€æŸ¥å¼€å§‹æ•°
+//¼ì²é¿ªÊ¼Êý
 ckstart($start, $perpage);
 
 if($_GET['view'] == 'online') {
@@ -73,7 +73,7 @@ if($_GET['view'] == 'online') {
 	$theurl = "space.php?uid=$space[uid]&do=friend&view=$_GET[view]";
 	$actives = array('me'=>' class="active"');
 
-	if($_GET['view'] == 'visitor') {//è®¿å®¢
+	if($_GET['view'] == 'visitor') {//·Ã¿Í
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('visitor')." main WHERE main.uid='$space[uid]'"), 0);
 		$query = $_SGLOBAL['db']->query("SELECT f.resideprovince, f.residecity, f.note, f.spacenote, f.sex, main.vuid AS uid, main.vusername AS username, main.dateline
 			FROM ".tname('visitor')." main
@@ -81,7 +81,7 @@ if($_GET['view'] == 'online') {
 			WHERE main.uid='$space[uid]'
 			ORDER BY main.dateline DESC
 			LIMIT $start,$perpage");
-	} else {//è¶³è¿¹
+	} else {//×ã¼£
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('visitor')." main WHERE main.vuid='$space[uid]'"), 0);
 		$query = $_SGLOBAL['db']->query("SELECT s.username, s.name, s.namestatus, s.groupid, f.resideprovince, f.residecity, f.note, f.spacenote, f.sex, main.uid AS uid, main.dateline
 			FROM ".tname('visitor')." main
@@ -128,13 +128,13 @@ if($_GET['view'] == 'online') {
 
 } else {
 
-	//å¤„ç†æŸ¥è¯¢
+	//´¦Àí²éÑ¯
 	$theurl = "space.php?uid=$space[uid]&do=$do";
 	$actives = array('me'=>' class="active"');
 	
 	$_GET['view'] = 'me';
 
-	//å¥½å‹åˆ†ç»„
+	//ºÃÓÑ·Ö×é
 	$wheresql = '';
 	if($space['self']) {
 		$groups = getfriendgroup();
@@ -175,10 +175,10 @@ if($_GET['view'] == 'online') {
 			}
 		}
 
-		//åˆ†é¡µ
+		//·ÖÒ³
 		$multi = multi($count, $perpage, $page, $theurl);
 		$friends = array();
-		//å–100å¥½å‹ç”¨æˆ·å
+		//È¡100ºÃÓÑÓÃ»§Ãû
 		$query = $_SGLOBAL['db']->query("SELECT f.fusername, s.name, s.namestatus, s.groupid FROM ".tname('friend')." f
 			LEFT JOIN ".tname('space')." s ON s.uid=f.fuid
 			WHERE f.uid=$_SGLOBAL[supe_uid] AND f.status='1' ORDER BY f.num DESC, f.dateline DESC LIMIT 0,100");
@@ -192,7 +192,7 @@ if($_GET['view'] == 'online') {
 	if($space['self']) {
 		$groupselect = array($group => ' class="current"');
 
-		//å¥½å‹ä¸ªæ•°
+		//ºÃÓÑ¸öÊý
 		$maxfriendnum = checkperm('maxfriendnum');
 		if($maxfriendnum) {
 			$maxfriendnum = checkperm('maxfriendnum') + $space['addfriend'];
@@ -200,7 +200,7 @@ if($_GET['view'] == 'online') {
 	}
 }
 
-//åœ¨çº¿çŠ¶æ€
+//ÔÚÏß×´Ì¬
 if($fuids) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid IN (".simplode($fuids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {

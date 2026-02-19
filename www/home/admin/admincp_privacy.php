@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('manageconfig')) {
 	cpmessage('no_authority_management_operation');
 }
@@ -24,12 +24,12 @@ if(submitcheck('thevaluesubmit')) {
 		}
 	}
 	
-	//éšç§
+	//ÒþË½
 	$privacys = array();
 	foreach ($_POST['privacy']['view'] as $key => $value) {
 		$privacys['view'][$key] = intval($value);
 	}
-	//å‘é€åŠ¨æ€
+	//·¢ËÍ¶¯Ì¬
 	$privacys['feed'] = array();
 	foreach ($_POST['privacy']['feed'] as $key => $value) {
 		$privacys['feed'][$key] = 1;
@@ -40,7 +40,7 @@ if(submitcheck('thevaluesubmit')) {
 		$_SGLOBAL['db']->query("REPLACE INTO ".tname('config')." (var, datavalue) VALUES ".implode(',', $setarr));
 	}
 
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	config_cache();;
 
@@ -58,7 +58,7 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$configs[$value['var']] = $value['datavalue'];
 }
 
-//é¡µé¢é€‰æ‹©
+//Ò³ÃæÑ¡Ôñ
 $sels = array();
 foreach ($configs['privacy']['view'] as $key => $value) {
 	$sels['view'][$key] = array($value => ' selected');

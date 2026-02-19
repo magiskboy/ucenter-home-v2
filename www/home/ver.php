@@ -5,6 +5,6 @@
 */
 
 define('X_VER', '2.0');
-define('X_RELEASE', '20100106');
+define('X_RELEASE', '20090825');
 
 ?>

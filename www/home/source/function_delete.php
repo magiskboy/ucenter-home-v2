@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//åˆ é™¤è¯„è®º
+//É¾³ýÆÀÂÛ
 function deletecomments($cids) {
 	global $_SGLOBAL;
 
@@ -36,15 +36,15 @@ function deletecomments($cids) {
 			$blognums[$value['id']]++;
 		}
 		if($allowmanage && $value['authorid'] != $value['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[authorid]'");
 		}
 	}
 
-	//æ•°æ®åˆ é™¤
+	//Êý¾ÝÉ¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE cid IN (".simplode($newcids).")");
 
-	//ç»Ÿè®¡æ•°æ®
+	//Í³¼ÆÊý¾Ý
 	$nums = renum($blognums);
 	foreach ($nums[0] as $num) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('blog')." SET replynum=replynum-$num WHERE blogid IN (".simplode($nums[1][$num]).")");
@@ -54,13 +54,13 @@ function deletecomments($cids) {
 }
 
 
-//åˆ é™¤åšå®¢
+//É¾³ý²©¿Í
 function deleteblogs($blogids) {
 	global $_SGLOBAL;
 
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delblog', 0);
-	//èŽ·å–åšå®¢ä¿¡æ¯
+	//»ñÈ¡²©¿ÍÐÅÏ¢
 	$spaces = $blogs = $newblogids = array();
 	$allowmanage = checkperm('manageblog');
 	$managebatch = checkperm('managebatch');
@@ -79,7 +79,7 @@ function deleteblogs($blogids) {
 	foreach($blogs as $key => $value) {
 		$newblogids[] = $value['blogid'];
 		if($allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 		}
 		//tag
@@ -94,26 +94,26 @@ function deleteblogs($blogids) {
 		}
 	}
 
-	//æ•°æ®åˆ é™¤
+	//Êý¾ÝÉ¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('blog')." WHERE blogid IN (".simplode($newblogids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('blogfield')." WHERE blogid IN (".simplode($newblogids).")");
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE id IN (".simplode($newblogids).") AND idtype='blogid'");
 
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newblogids).") AND idtype='blogid'");
 
-	//åˆ é™¤feed
+	//É¾³ýfeed
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newblogids).") AND idtype='blogid'");
 	
-	//åˆ é™¤è„šå°
+	//É¾³ý½ÅÓ¡
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('clickuser')." WHERE id IN (".simplode($newblogids).") AND idtype='blogid'");
 
 	return $blogs;
 }
 
-//åˆ é™¤äº‹ä»¶
+//É¾³ýÊÂ¼þ
 function deletefeeds($feedids) {
 	global $_SGLOBAL;
 
@@ -124,7 +124,7 @@ function deletefeeds($feedids) {
 	$feeds = $newfeedids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('feed')." WHERE feedid IN (".simplode($feedids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//ç®¡ç†å‘˜/ä½œè€…
+		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//¹ÜÀíÔ±/×÷Õß
 			$newfeedids[] = $value['feedid'];
 			if(!$managebatch && $value['uid'] != $_SGLOBAL['supe_uid']) {
 				$delnum++;
@@ -141,19 +141,19 @@ function deletefeeds($feedids) {
 }
 
 
-//åˆ é™¤åˆ†äº«
+//É¾³ý·ÖÏí
 function deleteshares($sids) {
 	global $_SGLOBAL;
 
 	$allowmanage = checkperm('manageshare');
 	$managebatch = checkperm('managebatch');
 	$delnum = 0;
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delshare', 0);
 	$spaces = $shares = $newsids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('share')." WHERE sid IN (".simplode($sids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//ç®¡ç†å‘˜/ä½œè€…
+		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//¹ÜÀíÔ±/×÷Õß
 			$shares[] = $value;
 			if(!$managebatch && $value['uid'] != $_SGLOBAL['supe_uid']) {
 				$delnum++;
@@ -165,39 +165,39 @@ function deleteshares($sids) {
 	foreach($shares as $key => $value) {
 		$newsids[] = $value['sid'];
 		if($allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 		}
 	}
 
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('share')." WHERE sid IN (".simplode($newsids).")");
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE id IN (".simplode($newsids).") AND idtype='sid'");
 	
-	//åˆ é™¤feed
+	//É¾³ýfeed
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newsids).") AND idtype='sid'");
 
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newsids).") AND idtype='sid'");
 	
 	return $shares;
 }
 
 
-//åˆ é™¤è®°å½•
+//É¾³ý¼ÇÂ¼
 function deletedoings($ids) {
 	global $_SGLOBAL;
 
 	$allowmanage = checkperm('managedoing');
 	$managebatch = checkperm('managebatch');
 	$delnum = 0;
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('deldoing', 0);
 	$spaces = $doings = $newdoids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('doing')." WHERE doid IN (".simplode($ids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//ç®¡ç†å‘˜/ä½œè€…
+		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {//¹ÜÀíÔ±/×÷Õß
 			$doings[] = $value;
 			if(!$managebatch && $value['uid'] != $_SGLOBAL['supe_uid']) {
 				$delnum++;
@@ -210,21 +210,21 @@ function deletedoings($ids) {
 	foreach($doings as $key => $value) {
 		$newdoids[] = $value['doid'];
 		if($allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 		}
 	}
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('doing')." WHERE doid IN (".simplode($newdoids).")");
-	//åˆ é™¤è¯„è®º
+	//É¾³ýÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('docomment')." WHERE doid IN (".simplode($newdoids).")");
 	
-	//åˆ é™¤feed
+	//É¾³ýfeed
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newdoids).") AND idtype='doid'");
 
 	return $doings;
 }
 
-//åˆ é™¤è¯é¢˜
+//É¾³ý»°Ìâ
 function deletethreads($tagid, $tids) {
 	global $_SGLOBAL;
 
@@ -234,7 +234,7 @@ function deletethreads($tagid, $tids) {
 	$managebatch = checkperm('managebatch');
 	$delnum = 0;
 
-	//ç¾¤ä¸»
+	//ÈºÖ÷
 	$wheresql = '';
 	if(empty($allowmanage) && $tagid) {
 		$mtag = getmtag($tagid);
@@ -244,7 +244,7 @@ function deletethreads($tagid, $tids) {
 			$wheresql = " AND t.tagid='$tagid'";
 		}
 	}
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delthread', 0);
 	$query = $_SGLOBAL['db']->query("SELECT t.* FROM ".tname('thread')." t WHERE t.tid IN(".simplode($tids).") $wheresql");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -261,38 +261,38 @@ function deletethreads($tagid, $tids) {
 		$newids[] = $value['tid'];
 		$value['isthread'] = 1;
 		if($ismanager && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 		}
 	}
 	
-	//åˆ é™¤
+	//É¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('thread')." WHERE tid IN(".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('post')." WHERE tid IN(".simplode($newids).")");
 
-	//åˆ é™¤feed
+	//É¾³ýfeed
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newids).") AND idtype='tid'");
 	
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newids).") AND idtype='tid'");
 	
-	//åˆ é™¤è„šå°
+	//É¾³ý½ÅÓ¡
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('clickuser')." WHERE id IN (".simplode($newids).") AND idtype='tid'");
 
 	return $delthreads;
 }
 
-//åˆ é™¤è®¨è®º
+//É¾³ýÌÖÂÛ
 function deleteposts($tagid, $pids) {
 	global $_SGLOBAL;
 
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	$postnums = $mpostnums = $tids = $delposts = $newids = $spaces = array();
 	$ismanager = $allowmanage = checkperm('managethread');
 	$managebatch = checkperm('managebatch');
 	$delnum = 0;
 
-	//ç¾¤ä¸»
+	//ÈºÖ÷
 	$wheresql = '';
 	if(empty($allowmanage) && $tagid) {
 		$mtag = getmtag($tagid);
@@ -302,7 +302,7 @@ function deleteposts($tagid, $pids) {
 			$wheresql = " AND p.tagid='$tagid'";
 		}
 	}
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delcomment', 0);
 	$query = $_SGLOBAL['db']->query("SELECT p.* FROM ".tname('post')." p WHERE p.pid IN (".simplode($pids).") $wheresql ORDER BY p.isthread DESC");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -324,7 +324,7 @@ function deleteposts($tagid, $pids) {
 				$delposts[] = $value;
 				$postnums[$value['tid']]++;
 				if($ismanager && $value['uid'] != $_SGLOBAL['supe_uid']) {
-					//æ‰£é™¤ç§¯åˆ†
+					//¿Û³ý»ý·Ö
 					$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 				}
 			}
@@ -338,19 +338,19 @@ function deleteposts($tagid, $pids) {
 		return $delthreads;
 	}
 
-	//æ•´ç†
+	//ÕûÀí
 	$nums = renum($postnums);
 	foreach ($nums[0] as $pnum) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('thread')." SET replynum=replynum-$pnum WHERE tid IN (".simplode($nums[1][$pnum]).")");
 	}
 
-	//åˆ é™¤
+	//É¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('post')." WHERE pid IN (".simplode($newids).")");
 
 	return $delposts;
 }
 
-//åˆ é™¤ç©ºé—´
+//É¾³ý¿Õ¼ä
 function deletespace($uid, $force=0) {
 	global $_SGLOBAL, $_SC, $_SCONFIG;
 
@@ -360,7 +360,7 @@ function deletespace($uid, $force=0) {
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if($force || $allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
 			$delspace = $value;
-			//å¦‚æžœä¸æ˜¯å¼ºåˆ¶åˆ é™¤åˆ™å…¥åˆ é™¤è®°å½•è¡¨
+			//Èç¹û²»ÊÇÇ¿ÖÆÉ¾³ýÔòÈëÉ¾³ý¼ÇÂ¼±í
 			if(!$force) {
 				$setarr = array(
 					'uid' => $value['uid'],
@@ -376,7 +376,7 @@ function deletespace($uid, $force=0) {
 	}
 	if(empty($delspace)) return array();
 	
-	//å±¥ç›–æƒé™è®¾ç½®
+	//ÂÄ¸ÇÈ¨ÏÞÉèÖÃ
 	$_SGLOBAL['usergroup'][$_SGLOBAL['member']['groupid']]['managebatch'] = 1;
 
 	//space
@@ -387,7 +387,7 @@ function deletespace($uid, $force=0) {
 	//feed
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE uid='$uid' OR (id='$uid' AND idtype='uid')");
 
-	//è®°å½•
+	//¼ÇÂ¼
 	$doids =array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('doing')." WHERE uid='$uid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -396,58 +396,58 @@ function deletespace($uid, $force=0) {
 	
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('doing')." WHERE uid='$uid'");
 
-	//åˆ é™¤è®°å½•å›žå¤
+	//É¾³ý¼ÇÂ¼»Ø¸´
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('docomment')." WHERE doid IN (".simplode($doids).") OR uid='$uid'");
 
-	//åˆ†äº«
+	//·ÖÏí
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('share')." WHERE uid='$uid'");
 
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('album')." WHERE uid='$uid'");
 	
-	//åˆ é™¤ç§¯åˆ†è®°å½•
+	//É¾³ý»ý·Ö¼ÇÂ¼
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('creditlog')." WHERE uid='$uid'");
 
-	//åˆ é™¤é€šçŸ¥
+	//É¾³ýÍ¨Öª
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('notification')." WHERE (uid='$uid' OR authorid='$uid')");
 
-	//åˆ é™¤æ‰“æ‹›å‘¼
+	//É¾³ý´òÕÐºô
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('poke')." WHERE (uid='$uid' OR fromuid='$uid')");
 	
-	//åˆ é™¤ä»–ä»“å»ºçš„æŠ•ç¥¨
+	//É¾³ýËû²Ö½¨µÄÍ¶Æ±
 	$pollid = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('poll')." WHERE uid='$uid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$pollid[$value['pid']] = $value['pid'];
 	}
 	deletepolls($pollid);
-	//åˆ é™¤ä»–å‚ä¸Žçš„æŠ•ç¥¨
+	//É¾³ýËû²ÎÓëµÄÍ¶Æ±
 	$pollid = array();
 	$query = $_SGLOBAL['db']->query("SELECT pid FROM ".tname('polluser')." WHERE uid='$uid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$pollid[$value['pid']] = $value['pid'];
 	}
-	//æ‰£é™¤æŠ•ç¥¨æ•°
+	//¿Û³ýÍ¶Æ±Êý
 	if($pollid) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('poll')." SET voternum=voternum-1 WHERE pid IN (".simplode($pollid).")");
 	}
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('polluser')." WHERE uid='$uid'");
 	
-	//æ´»åŠ¨
+	//»î¶¯
 	$ids = array();
 	$query = $_SGLOBAL['db']->query('SELECT eventid FROM '.tname('event')." WHERE uid = '$uid'");
 	while($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$ids[] = $value['eventid'];
 	}
 	deleteevents($ids);
-	//åˆ é™¤ä»–å‚åŠ çš„æ´»åŠ¨
+	//É¾³ýËû²Î¼ÓµÄ»î¶¯
 	$ids = $ids1 = $ids2 = array();
 	$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('userevent')." WHERE uid = '$uid'");
 	while($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if($value['status'] == 1) {
-			$ids1[] = $value['eventid'];//å…³æ³¨
+			$ids1[] = $value['eventid'];//¹Ø×¢
 		} elseif($value['status'] > 1) {
-			$ids2[] = $value['eventid'];//å‚åŠ 
+			$ids2[] = $value['eventid'];//²Î¼Ó
 		}
 		$ids[] = $value['eventid'];
 	}
@@ -455,29 +455,29 @@ function deletespace($uid, $force=0) {
 		$_SGLOBAL['db']->query('UPDATE '.tname('event').' SET follownum = follownum - 1 WHERE eventid IN ('.simplode($ids1).')');
 	}
 	if($ids2) {
-		$_SGLOBAL['db']->query('UPDATE '.tname('event').' SET membernum = membernum - 1 WHERE eventid IN ('.simplode($ids2).')');// to to: æœ€å¥½è¿˜è¦æ£€æŸ¥å¹¶å‡åŽ»ä»–æºå¸¦çš„äººæ•°
+		$_SGLOBAL['db']->query('UPDATE '.tname('event').' SET membernum = membernum - 1 WHERE eventid IN ('.simplode($ids2).')');// to to: ×îºÃ»¹Òª¼ì²é²¢¼õÈ¥ËûÐ¯´øµÄÈËÊý
 	}
 	if($ids) {
 		$_SGLOBAL['db']->query('DELETE FROM '.tname('userevent').' WHERE eventid IN ('.simplode($ids).") AND uid = '$uid'");
 	}
-	//åˆ é™¤ç›¸å…³æ´»åŠ¨é‚€è¯·
+	//É¾³ýÏà¹Ø»î¶¯ÑûÇë
 	$_SGLOBAL['db']->query('DELETE FROM '.tname('eventinvite')." WHERE uid = '$uid' OR touid = '$uid'");
-	//åˆ é™¤ä¸Šä¼ çš„æ´»åŠ¨å›¾ç‰‡
-	$_SGLOBAL['db']->query('DELETE FROM '.tname('eventpic')." WHERE picid = '$uid'");//to do: æœ€å¥½åŒæ—¶æ›´æ–°æ´»åŠ¨å›¾ç‰‡æ•°å’Œæ´»åŠ¨è¯é¢˜æ•°
+	//É¾³ýÉÏ´«µÄ»î¶¯Í¼Æ¬
+	$_SGLOBAL['db']->query('DELETE FROM '.tname('eventpic')." WHERE picid = '$uid'");//to do: ×îºÃÍ¬Ê±¸üÐÂ»î¶¯Í¼Æ¬ÊýºÍ»î¶¯»°ÌâÊý
 	
-	//é“å…·
+	//µÀ¾ß
 	$_SGLOBAL['db']->query('DELETE FROM '.tname('usermagic')." WHERE uid = '$uid'");
 	$_SGLOBAL['db']->query('DELETE FROM '.tname('magicinlog')." WHERE uid = '$uid'");
 	$_SGLOBAL['db']->query('DELETE FROM '.tname('magicuselog')." WHERE uid = '$uid'");
 	
 	//pic
-	//åˆ é™¤å›¾ç‰‡é™„ä»¶
+	//É¾³ýÍ¼Æ¬¸½¼þ
 	$pics = array();
 	$query = $_SGLOBAL['db']->query("SELECT filepath FROM ".tname('pic')." WHERE uid='$uid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$pics[] = $value;
 	}
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('pic')." WHERE uid='$uid'");
 
 	//blog
@@ -496,42 +496,42 @@ function deletespace($uid, $force=0) {
 			$_SGLOBAL['db']->query("DELETE FROM ".tname('tagblog')." WHERE blogid='$value[blogid]'");
 		}
 	}
-	//æ•°æ®åˆ é™¤
+	//Êý¾ÝÉ¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('blog')." WHERE uid='$uid'");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('blogfield')." WHERE uid='$uid'");
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE (uid='$uid' OR authorid='$uid' OR (id='$uid' AND idtype='uid'))");
 
-	//è®¿å®¢
+	//·Ã¿Í
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('visitor')." WHERE (uid='$uid' OR vuid='$uid')");
 
-	//åˆ é™¤ä»»åŠ¡è®°å½•
+	//É¾³ýÈÎÎñ¼ÇÂ¼
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('usertask')." WHERE uid='$uid'");
 
 	//class
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('class')." WHERE uid='$uid'");
 
 	//friend
-	//å¥½å‹
+	//ºÃÓÑ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('friend')." WHERE (uid='$uid' OR fuid='$uid')");
 
 	//member
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('member')." WHERE uid='$uid'");
 
-	//åˆ é™¤è„šå°
+	//É¾³ý½ÅÓ¡
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('clickuser')." WHERE uid='$uid'");
 
-	//åˆ é™¤é»‘åå•
+	//É¾³ýºÚÃûµ¥
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('blacklist')." WHERE (uid='$uid' OR buid='$uid')");
 
-	//åˆ é™¤é‚€è¯·è®°å½•
+	//É¾³ýÑûÇë¼ÇÂ¼
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('invite')." WHERE (uid='$uid' OR fuid='$uid')");
 
-	//åˆ é™¤é‚®ä»¶é˜Ÿåˆ—
+	//É¾³ýÓÊ¼þ¶ÓÁÐ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('mailcron').", ".tname('mailqueue')." USING ".tname('mailcron').", ".tname('mailqueue')." WHERE ".tname('mailcron').".touid='$uid' AND ".tname('mailcron').".cid=".tname('mailqueue').".cid");
 
-	//æ¼«æ¸¸é‚€è¯·
+	//ÂþÓÎÑûÇë
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('myinvite')." WHERE (touid='$uid' OR fromuid='$uid')");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('userapp')." WHERE uid='$uid'");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('userappfield')." WHERE uid='$uid'");
@@ -562,10 +562,10 @@ function deletespace($uid, $force=0) {
 	//session
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$uid'");
 
-	//æŽ’è¡Œæ¦œ
+	//ÅÅÐÐ°ñ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('show')." WHERE uid='$uid'");
 
-	//ç¾¤ç»„
+	//Èº×é
 	$mtagids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE uid='$uid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -578,20 +578,20 @@ function deletespace($uid, $force=0) {
 
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE (uid='$uid' OR fromuid='$uid')");
 
-	//åˆ é™¤å›¾ç‰‡
-	deletepicfiles($pics);//åˆ é™¤å›¾ç‰‡
+	//É¾³ýÍ¼Æ¬
+	deletepicfiles($pics);//É¾³ýÍ¼Æ¬
 	
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id='$uid' AND idtype='uid'");
 	
 	
-	//å˜æ›´è®°å½•
+	//±ä¸ü¼ÇÂ¼
 	if($_SCONFIG['my_status']) inserttable('userlog', array('uid'=>$uid, 'action'=>'delete', 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 
 	return $delspace;
 }
 
-//åˆ é™¤å›¾ç‰‡
+//É¾³ýÍ¼Æ¬
 function deletepics($picids) {
 	global $_SGLOBAL, $_SC;
 
@@ -605,7 +605,7 @@ function deletepics($picids) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE picid IN (".simplode($picids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if($allowmanage || $value['uid'] == $_SGLOBAL['supe_uid']) {
-			//åˆ é™¤æ–‡ä»¶
+			//É¾³ýÎÄ¼þ
 			$pics[] = $value;
 			$newids[] = $value['picid'];
 			$delpics[] = $value;
@@ -626,7 +626,7 @@ function deletepics($picids) {
 	}
 	if(empty($delpics) || (!$managebatch && $delnum > 1)) return array();
 
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delimage', 0);
 	foreach ($spaces as $uid => $picnum) {
 		$attachsize = intval($sizes[$uid]);
@@ -643,10 +643,10 @@ function deletepics($picids) {
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE id IN (".simplode($newids).") AND idtype='picid'");
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newids).") AND idtype='picid'");
 
-		//åˆ é™¤ä¸¾æŠ¥
+		//É¾³ý¾Ù±¨
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newids).") AND idtype='picid'");
 			
-		//åˆ é™¤è„šå°
+		//É¾³ý½ÅÓ¡
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('clickuser')." WHERE id IN (".simplode($newids).") AND idtype='picid'");
 	}
 	if($albumnums) {
@@ -657,13 +657,13 @@ function deletepics($picids) {
 		}
 	}
 
-	//åˆ é™¤å›¾ç‰‡
+	//É¾³ýÍ¼Æ¬
 	deletepicfiles($pics);
 
 	return $delpics;
 }
 
-//åˆ é™¤å›¾ç‰‡æ–‡ä»¶
+//É¾³ýÍ¼Æ¬ÎÄ¼þ
 function deletepicfiles($pics) {
 	global $_SGLOBAL, $_SC;
 	$remotes = array();
@@ -682,7 +682,7 @@ function deletepicfiles($pics) {
 			}
 		}
 	}
-	//åˆ é™¤è¿œç¨‹é™„ä»¶
+	//É¾³ýÔ¶³Ì¸½¼þ
 	if($remotes) {
 		include_once(S_ROOT.'./data/data_setting.php');
 		include_once(S_ROOT.'./source/function_ftp.php');
@@ -706,7 +706,7 @@ function deletepicfiles($pics) {
 	}
 }
 
-//åˆ é™¤ç›¸å†Œ
+//É¾³ýÏà²á
 function deletealbums($albumids) {
 	global $_SGLOBAL, $_SC;
 
@@ -726,7 +726,7 @@ function deletealbums($albumids) {
 		}
 	}
 	if(empty($dels) || (!$managebatch && $delnum > 1)) return array();
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delimage', 0);
 	$pics = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE albumid IN (".simplode($newids).")");
@@ -735,7 +735,7 @@ function deletealbums($albumids) {
 		$pics[] = $value;
 		$setsql = '';
 		if($allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$setsql = $reward['credit']?(",credit=credit-$reward[credit]"):"";
 			$setsql .= $reward['experience']?(",experience=experience-$reward[experience]"):"";
 		}
@@ -749,31 +749,31 @@ function deletealbums($albumids) {
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('album')." WHERE albumid IN (".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newids).") AND idtype='albumid'");
 	
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newids).") AND idtype='albumid'");
 
-	//åˆ é™¤å›¾ç‰‡
+	//É¾³ýÍ¼Æ¬
 	if($pics) {
-		deletepicfiles($pics);//åˆ é™¤å›¾ç‰‡
+		deletepicfiles($pics);//É¾³ýÍ¼Æ¬
 	}
 
 	return $dels;
 }
 
-//åˆ é™¤tag
+//É¾³ýtag
 function deletetags($tagids) {
 	global $_SGLOBAL;
 	
 	if(!checkperm('managetag')) return false;
 
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tagblog')." WHERE tagid IN (".simplode($tagids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tag')." WHERE tagid IN (".simplode($tagids).")");
 
 	return true;
 }
 
-//åˆ é™¤mtag
+//É¾³ýmtag
 function deletemtag($tagids) {
 	global $_SGLOBAL;
 
@@ -787,27 +787,27 @@ function deletemtag($tagids) {
 	}
 	if(empty($newids)) return array();
 
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tagspace')." WHERE tagid IN (".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('mtag')." WHERE tagid IN (".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('thread')." WHERE tagid IN (".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('post')." WHERE tagid IN (".simplode($newids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE tagid IN (".simplode($newids).")");
 
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newids).") AND idtype='tagid'");
 	return $dels;
 }
 
-//åˆ é™¤ç”¨æˆ·æ ç›®
+//É¾³ýÓÃ»§À¸Ä¿
 function deleteprofilefield($fieldids) {
 	global $_SGLOBAL;
 
 	if(!checkperm('manageprofilefield')) return false;
 
-	//åˆ é™¤æ•°æ®
+	//É¾³ýÊý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('profilefield')." WHERE fieldid IN (".simplode($fieldids).")");
-	//æ›´æ”¹è¡¨ç»“æž„
+	//¸ü¸Ä±í½á¹¹
 	foreach ($fieldids as $id) {
 		$_SGLOBAL['db']->query("ALTER TABLE ".tname('spacefield')." DROP `field_$id`", 'SILENT');
 	}
@@ -815,22 +815,22 @@ function deleteprofilefield($fieldids) {
 	return true;
 }
 
-//åˆ é™¤æ ç›®
+//É¾³ýÀ¸Ä¿
 function deleteprofield($fieldids, $newfieldid) {
 	global $_SGLOBAL;
 
 	if(!checkperm('manageprofield')) return false;
 
-	//åˆ é™¤æ•°æ®
+	//É¾³ýÊý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('profield')." WHERE fieldid IN (".simplode($fieldids).")");
 
-	//æ›´æ–°æ ç›®
+	//¸üÐÂÀ¸Ä¿
 	$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET fieldid='$newfieldid' WHERE fieldid IN (".simplode($fieldids).")");
 
 	return true;
 }
 
-//å¹¿å‘Šåˆ é™¤
+//¹ã¸æÉ¾³ý
 function deleteads($adids) {
 	global $_SGLOBAL;
 
@@ -839,8 +839,8 @@ function deleteads($adids) {
 	$dels = $newids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('ad')." WHERE adid IN (".simplode($adids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		//åˆ é™¤æ¨¡æ¿ä¸Žæ¨¡æ¿ç¼–è¯‘æ–‡ä»¶
-		$tpl = S_ROOT."./data/adtpl/$value[adid].htm";//åŽŸå§‹
+		//É¾³ýÄ£°åÓëÄ£°å±àÒëÎÄ¼þ
+		$tpl = S_ROOT."./data/adtpl/$value[adid].htm";//Ô­Ê¼
 		swritefile($tpl, ' ');
 
 		$newids[] = $value['adid'];
@@ -848,13 +848,13 @@ function deleteads($adids) {
 	}
 	if(empty($dels)) return array();
 
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('ad')." WHERE adid IN (".simplode($newids).")");
 
 	return $dels;
 }
 
-//æ¨¡å—åˆ é™¤
+//Ä£¿éÉ¾³ý
 function deleteblocks($bids) {
 	global $_SGLOBAL;
 
@@ -863,8 +863,8 @@ function deleteblocks($bids) {
 	$dels = $newids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('block')." WHERE bid IN (".simplode($bids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		//åˆ é™¤æ¨¡æ¿ä¸Žæ¨¡æ¿ç¼–è¯‘æ–‡ä»¶
-		$tpl = S_ROOT."./data/blocktpl/$value[bid].htm";//åŽŸå§‹
+		//É¾³ýÄ£°åÓëÄ£°å±àÒëÎÄ¼þ
+		$tpl = S_ROOT."./data/blocktpl/$value[bid].htm";//Ô­Ê¼
 		swritefile($tpl, ' ');
 
 		$newids[] = $value['bid'];
@@ -872,17 +872,17 @@ function deleteblocks($bids) {
 	}
 	if(empty($dels)) return array();
 
-	//æ•°æ®
+	//Êý¾Ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('block')." WHERE bid IN (".simplode($newids).")");
 
 	return $dels;
 }
 
-//åˆ é™¤çƒ­é—¹
+//É¾³ýÈÈÄÖ
 function deletetopics($ids) {
 	global $_SGLOBAL;
 	
-	//æ•°æ®
+	//Êý¾Ý
 	$newids = array();
 	$managetopic = checkperm('managetopic');
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('topic')." WHERE topicid IN (".simplode($ids).")");
@@ -900,13 +900,13 @@ function deletetopics($ids) {
 	}
 }
 
-//åˆ é™¤æŠ•ç¥¨
+//É¾³ýÍ¶Æ±
 function deletepolls($pids) {
 	global $_SGLOBAL;
 	
-	//èŽ·å–æŠ•ç¥¨ä¿¡æ¯
+	//»ñÈ¡Í¶Æ±ÐÅÏ¢
 	$sparecredit = $spaces = $polls = $newpids = array();
-	//èŽ·å–ç§¯åˆ†
+	//»ñÈ¡»ý·Ö
 	$reward = getreward('delpoll', 0);
 	$allowmanage = checkperm('managepoll');
 	$managebatch = checkperm('managebatch');
@@ -926,34 +926,34 @@ function deletepolls($pids) {
 	foreach($polls as $key => $value) {
 		$newpids[] = $value['pid'];
 		if($allowmanage && $value['uid'] != $_SGLOBAL['supe_uid']) {
-			//æ‰£é™¤ç§¯åˆ†
+			//¿Û³ý»ý·Ö
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 		}
-		//å½’è¿˜æœªæ‚¬èµå®Œçš„ç§¯åˆ†
+		//¹é»¹Î´ÐüÉÍÍêµÄ»ý·Ö
 		if($value['credit'] > 0) {
 			$sparecredit = intval($value['credit']);
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit+$sparecredit WHERE uid='$value[uid]'");
 		}
 	}
 
-	//æ•°æ®åˆ é™¤
+	//Êý¾ÝÉ¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('poll')." WHERE pid IN (".simplode($newpids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('pollfield')." WHERE pid IN (".simplode($newpids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('polloption')." WHERE pid IN (".simplode($newpids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('polluser')." WHERE pid IN (".simplode($newpids).")");
-	//è¯„è®º
+	//ÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE id IN (".simplode($newpids).") AND idtype='pid'");
 	
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($newpids).") AND idtype='pid'");
 	
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($newpids).") AND idtype='pid'");
 	
 	return $polls;
 	
 }
 
-// åˆ é™¤æ´»åŠ¨
+// É¾³ý»î¶¯
 function deleteevents($eventids){
     global $_SGLOBAL;
     
@@ -961,7 +961,7 @@ function deleteevents($eventids){
 	$managebatch = checkperm('managebatch');
 	$delnum = 0;
 	$eventarr = $neweventids = $note_ids = $note_inserts = array();
-    //èŽ·å–ç§¯åˆ†
+    //»ñÈ¡»ý·Ö
 	$reward = getreward('delevent', 0);
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ". tname("event") . " WHERE eventid IN (" . simplode($eventids).")");
 	while($value=$_SGLOBAL['db']->fetch_array($query)){
@@ -977,10 +977,10 @@ function deleteevents($eventids){
 	
 	foreach($eventarr as $key => $value) {
 		$neweventids[] = $value['eventid'];
-		// [to do: ç»™æ´»åŠ¨å‚åŠ è€…å‘é€šçŸ¥ã€‚æ“ä½œé‡å¤ªå¤§ï¼Œæ‰€ä»¥ä¼˜å…ˆçº§ï¼šä½Ž]
+		// [to do: ¸ø»î¶¯²Î¼ÓÕß·¢Í¨Öª¡£²Ù×÷Á¿Ì«´ó£¬ËùÒÔÓÅÏÈ¼¶£ºµÍ]
 		if($value['uid'] != $_SGLOBAL['supe_uid']) {
 			if($allowmanage) {
-	        	//æ‰£é™¤ç§¯åˆ†
+	        	//¿Û³ý»ý·Ö
 	        	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET credit=credit-$reward[credit], experience=experience-$reward[experience] WHERE uid='$value[uid]'");
 	        }
 	        $note_ids[] = $value['uid'];
@@ -989,23 +989,23 @@ function deleteevents($eventids){
 		}
 	}
 
-    //æ•°æ®åˆ é™¤
+    //Êý¾ÝÉ¾³ý
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('event')." WHERE eventid IN (".simplode($neweventids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('eventpic')." WHERE eventid IN (".simplode($neweventids).")");
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('eventinvite')." WHERE eventid IN (".simplode($neweventids).")");
 
-	//æ´»åŠ¨ç”¨æˆ·
+	//»î¶¯ÓÃ»§
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('userevent')." WHERE eventid IN (".simplode($neweventids).")");
 
-	//è¯„è®º
+	//ÆÀÂÛ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('comment')." WHERE id IN (".simplode($neweventids).") AND idtype='eventid'");
 
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('feed')." WHERE id IN (".simplode($neweventids).") AND idtype='eventid'");
 	
-	//åˆ é™¤ä¸¾æŠ¥
+	//É¾³ý¾Ù±¨
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id IN (".simplode($neweventids).") AND idtype='eventid'");
 
-	//å‘é€é€šçŸ¥
+	//·¢ËÍÍ¨Öª
 	if($note_inserts){
 		$_SGLOBAL['db']->query("INSERT INTO ".tname('notification')." (`uid`, `type`, `new`, `authorid`, `author`, `note`, `dateline`) VALUES ".implode(',', $note_inserts));
 		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET notenum=notenum+1 WHERE uid IN (".simplode($note_ids).")");

@@ -10,12 +10,12 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 
 if(!empty($menus[0]['config'])) {
 	
-	//ç®¡ç†å‘˜
+	//¹ÜÀíÔ±
 	if(@file_exists(S_ROOT.'./install/index.php') && !@file_exists(S_ROOT.'./data/install.lock')) {
 		@touch(S_ROOT.'./data/install.lock');
 	}
 	
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	$statistics = getstatistics();
 	$os = PHP_OS.' / PHP v'.$statistics['php'].(@ini_get('safe_mode') ? ' Safe Mode' : NULL);
 	

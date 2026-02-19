@@ -13,10 +13,10 @@ $op = empty($_GET['op'])?'':trim($_GET['op']);
 if($op == 'logout') {
 	
 	if($_GET['uhash'] == $_SGLOBAL['uhash']) {
-		//åˆ é™¤session
+		//É¾³ısession
 		if($_SGLOBAL['supe_uid']) {
 			$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$_SGLOBAL[supe_uid]'");
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//ç®¡ç†å¹³å°
+			$_SGLOBAL['db']->query("DELETE FROM ".tname('adminsession')." WHERE uid='$_SGLOBAL[supe_uid]'");//¹ÜÀíÆ½Ì¨
 		}
 	
 		if($_SCONFIG['uc_status']) {
@@ -48,7 +48,7 @@ if($op == 'logout') {
 	if(!in_array($_GET['idtype'], array('picid', 'blogid', 'albumid', 'tagid', 'tid', 'sid', 'uid', 'pid', 'eventid', 'comment', 'post')) || empty($_GET['id'])) {
 		showmessage('report_error');
 	}
-	//è·å–ä¸¾æŠ¥è®°å½•
+	//»ñÈ¡¾Ù±¨¼ÇÂ¼
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('report')." WHERE id='$_GET[id]' AND idtype='$_GET[idtype]'");
 	if($report = $_SGLOBAL['db']->fetch_array($query)) {
 		$uidarr = unserialize($report['uids']);
@@ -84,7 +84,7 @@ if($op == 'logout') {
 		showmessage('report_success');
 	}
 
-	//åˆ¤æ–­æ˜¯å¦æ˜¯è¢«å¿½ç•¥çš„ä¸¾æŠ¥
+	//ÅĞ¶ÏÊÇ·ñÊÇ±»ºöÂÔµÄ¾Ù±¨
 	if(isset($report['num']) && $report['num'] < 1) {
 		showmessage('the_normal_information');
 	}
@@ -112,9 +112,9 @@ if($op == 'logout') {
 	$formid = random(8);
 
 } elseif($op == 'getuserapp') {
-	//å¤„ç†
+	//´¦Àí
 	if(empty($_GET['subop'])) {
-		//å±•å¼€
+		//Õ¹¿ª
 		$my_userapp = array();
 		foreach ($_SGLOBAL['my_userapp'] as $value) {
 			if($value['allowsidenav'] && !isset($_SGLOBAL['userapp'][$value['appid']])) {
@@ -132,7 +132,7 @@ if($op == 'logout') {
 
 	$dir = empty($_GET['name'])?'':str_replace('.','', trim($_GET['name']));
 	if($dir && file_exists(S_ROOT.'./template/'.$dir.'/style.css')) {
-		ssetcookie('mytemplate', $dir, 3600*24*365);//é•¿æœŸæœ‰æ•ˆ
+		ssetcookie('mytemplate', $dir, 3600*24*365);//³¤ÆÚÓĞĞ§
 	}
 	showmessage('do_success', 'space.php?do=feed', 0);
 }

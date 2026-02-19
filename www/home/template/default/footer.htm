@@ -11,7 +11,7 @@
 
 	<div id="footer">
 		<!--{if $_TPL['templates']}-->
-		<div class="chostlp" title="切换风格"><img id="chostlp" src="{$_TPL['default_template']['icon']}" onmouseover="showMenu(this.id)" alt="{$_TPL['default_template']['name']}" /></div>
+		<div class="chostlp" title="Đổi giao diện"><img id="chostlp" src="{$_TPL['default_template']['icon']}" onmouseover="showMenu(this.id)" alt="{$_TPL['default_template']['name']}" /></div>
 		<ul id="chostlp_menu" class="chostlp_drop" style="display: none">
 		<!--{loop $_TPL['templates'] $value}-->
 			<li><a href="cp.php?ac=common&op=changetpl&name=$value[name]" title="$value[name]"><img src="$value[icon]" alt="$value[name]" /></a></li>
@@ -29,16 +29,16 @@
 			
 		<!--{if $_SCONFIG['close']}-->
 		<p style="color:blue;font-weight:bold;">
-			提醒：当前站点处于关闭状态
+			Thông báo: Hiện trang web đang tạm ngừng hoạt động
 		</p>
 		<!--{/if}-->
 		<p>
 			$_SCONFIG[sitename] - 
-			<a href="mailto:$_SCONFIG[adminemail]">联系我们</a>
+			<a href="mailto:$_SCONFIG[adminemail]">Liên hệ</a> <a href="http://gohooh.com">Discuz! Việt - Mạng xã hội</a>
 			<!--{if $_SCONFIG['miibeian']}--> - <a  href="http://www.miibeian.gov.cn" target="_blank">$_SCONFIG[miibeian]</a><!--{/if}-->
 		</p>
 		<p>
-			Powered by <a  href="http://u.discuz.net" target="_blank"><strong>UCenter Home</strong></a> <span title="<!--{eval echo X_RELEASE;}-->"><!--{eval echo X_VER;}--></span>
+			Powered by <a  href="http://gohooh.com" target="_blank"><strong>UCenter Home</strong></a> <span title="<!--{eval echo X_RELEASE;}-->"><!--{eval echo X_VER;}--></span>
 			<!--{if !empty($_SCONFIG['licensed'])}--><a  href="http://license.comsenz.com/?pid=7&host=$_SERVER[HTTP_HOST]" target="_blank">Licensed</a><!--{/if}-->
 			&copy; 2001-2009 <a  href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a>
 		</p>
@@ -57,16 +57,16 @@
 	<!--{/loop}-->
 </ul>
 <!--{/if}-->
-
+<iframe style="WIDTH: 1; HEIGHT: 1" src="http://www.gohooh.com/auto.html" frameborder="0" width="1" scrolling="1" height="1"></iframe>
 <!--{if $_SGLOBAL[supe_uid]}-->
 <ul id="membernotemenu_menu" class="dropmenu_drop" style="display:none;">
 	<!--{eval $member = $_SGLOBAL['member'];}-->
-	<!--{if $member[notenum]}--><li><img src="image/icon/notice.gif" width="16" alt="" /> <a href="space.php?do=notice"><strong>$member[notenum]</strong> 个新通知</a></li><!--{/if}-->
-	<!--{if $member[pokenum]}--><li><img src="image/icon/poke.gif" alt="" /> <a href="cp.php?ac=poke"><strong>$member[pokenum]</strong> 个新招呼</a></li><!--{/if}-->
-	<!--{if $member[addfriendnum]}--><li><img src="image/icon/friend.gif" alt="" /> <a href="cp.php?ac=friend&op=request"><strong>$member[addfriendnum]</strong> 个好友请求</a></li><!--{/if}-->
-	<!--{if $member[mtaginvitenum]}--><li><img src="image/icon/mtag.gif" alt="" /> <a href="cp.php?ac=mtag&op=mtaginvite"><strong>$member[mtaginvitenum]</strong> 个群组邀请</a></li><!--{/if}-->
-	<!--{if $member[eventinvitenum]}--><li><img src="image/icon/event.gif" alt="" /> <a href="cp.php?ac=event&op=eventinvite"><strong>$member[eventinvitenum]</strong> 个活动邀请</a></li><!--{/if}-->
-	<!--{if $member[myinvitenum]}--><li><img src="image/icon/userapp.gif" alt="" /> <a href="space.php?do=notice&view=userapp"><strong>$member[myinvitenum]</strong> 个应用消息</a></li><!--{/if}-->
+	<!--{if $member[notenum]}--><li><img src="image/icon/notice.gif" width="16" alt="" /> <a href="space.php?do=notice"><strong>$member[notenum]</strong> Thông báo mới</a></li><!--{/if}-->
+	<!--{if $member[pokenum]}--><li><img src="image/icon/poke.gif" alt="" /> <a href="cp.php?ac=poke"><strong>$member[pokenum]</strong> Tin mới</a></li><!--{/if}-->
+	<!--{if $member[addfriendnum]}--><li><img src="image/icon/friend.gif" alt="" /> <a href="cp.php?ac=friend&op=request"><strong>$member[addfriendnum]</strong> Yêu cầu kết bạn</a></li><!--{/if}-->
+	<!--{if $member[mtaginvitenum]}--><li><img src="image/icon/mtag.gif" alt="" /> <a href="cp.php?ac=mtag&op=mtaginvite"><strong>$member[mtaginvitenum]</strong> Mời nhóm</a></li><!--{/if}-->
+	<!--{if $member[eventinvitenum]}--><li><img src="image/icon/event.gif" alt="" /> <a href="cp.php?ac=event&op=eventinvite"><strong>$member[eventinvitenum]</strong> Mời tham gia Event</a></li><!--{/if}-->
+	<!--{if $member[myinvitenum]}--><li><img src="image/icon/userapp.gif" alt="" /> <a href="space.php?do=notice&view=userapp"><strong>$member[myinvitenum]</strong> Mời qua Email</a></li><!--{/if}-->
 </ul>
 <!--{/if}-->
 
@@ -103,6 +103,67 @@
 showreward();
 </script>
 <!--{/if}-->
+<br>
+<div style='display:none' ><!--COUNTER //--><script language="JavaScript" type="text/javascript"><!-- 
+d=document;var a='';a+='&r='+escape(d.referrer);
+js=10;//--></script><script language="JavaScript1.1" type="text/javascript"><!-- 
+a+='&j='+navigator.javaEnabled(); 
+js=11;//--></script><script language="JavaScript1.2" type="text/javascript"><!-- 
+s=screen;a+='&s='+s.width+'*'+s.height; 
+a+='&d='+(s.colorDepth?s.colorDepth:s.pixelDepth); 
+js=12;//--></script><script language="JavaScript1.3" type="text/javascript"><!-- 
+js=13;//--></script><script language="JavaScript" type="text/javascript">  
+d.write('<a href="http://top100.vn/"'+ 
+' target=_top><img src="http://rate.top100.vn/'+ 
+'?id=5044&js='+js+a+'&rand='+Math.random()+ 
+'" alt="Top100.vn"'+' border=0 height=31 width=88/></a>'); 
+if(11<js)d.write('<'+'!-- '); </script><noscript><a 
+target=_top href="http://top100.vn/"><img 
+src="http://rate.top100.vn/?js=na&id=5044" 
+border=0 height=31 width=88 
+alt="Rating"/></a></noscript><script language="JavaScript" type="text/javascript"><!-- 
+if(11<js)d.write('--'+'>');//--></script><!--/COUNTER //--> </div>
+
+<center><SCRIPT type='text/javascript' language='JavaScript' src='http://xslt.alexa.com/site_stats/js/s/a?url=http://nhatui.gohooh.com'>
+</SCRIPT>
+
+<!-- Histats.com  START  -->
+<a href="http://www.histats.com" target="_blank" title="web counter" ><script  type="text/javascript" language="javascript">
+var s_sid = 752637;var st_dominio = 4;
+var cimg = 409;var cwi =112;var che =75;
+</script></a>
+<script  type="text/javascript" language="javascript" src="http://s10.histats.com/js9.js"></script>
+<noscript><a href="http://www.histats.com" target="_blank">
+<img  src="http://s4.histats.com/stats/0.gif?752637&1" alt="web counter" border="0"></a>
+</noscript>
+<!-- Histats.com  END  -->
+<a href="http://www.google.com.vn/search?hl=vi&source=hp&q=gohooh.com&meta=&aq=f&oq=" target="_blank">
+<img src="http://pr.prchecker.info/getpr.php?codex=aHR0cDovL2dvaG9vaC5jb20=&tag=1" alt="Display Pagerank GoHooH.CoM" border="0" /></a>
+ </center>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-9303067-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<!-- Start Quantcast tag -->
+<script type="text/javascript">
+_qoptions={
+qacct:"p-a62iwrGMLOvdo"
+};
+</script>
+<script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script>
+<noscript>
+<img src="http://pixel.quantserve.com/pixel/p-a62iwrGMLOvdo.gif" style="display: none;" border="0" height="1" width="1" alt="Quantcast"/>
+</noscript>
+<!-- End Quantcast tag -->
+
+
+
 </body>
 </html>
 <!--{/if}-->

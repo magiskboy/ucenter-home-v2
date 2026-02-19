@@ -8,14 +8,14 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//æ£€æŸ¥å‚æ•°
-$idtype = 'blogid';//åªå¯¹æ—¥å¿—å¼€æ”¾
+//¼ì²é²ÎÊı
+$idtype = 'blogid';//Ö»¶ÔÈÕÖ¾¿ª·Å
 magic_check_idtype($id, $idtype);
 
-//ä¿¡çº¸
+//ĞÅÖ½
 if(submitcheck("usesubmit")) {
 
-	//è®¾ç½®ä¿¡çº¸ä»£å·
+	//ÉèÖÃĞÅÖ½´úºÅ
 	$_POST['paper'] = intval($_POST['paper']);
 	updatetable('blogfield', array('magicpaper'=>$_POST['paper']), array('blogid'=>$id));
 

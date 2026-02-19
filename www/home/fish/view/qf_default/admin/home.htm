@@ -1,0 +1,36 @@
+<!--{tpl admin/header}-->
+
+<div>
+	<strong>Tham số Server</strong>
+	<ul>
+		<!--{foreach $farmTest as $key=>$value}-->
+		<!--{php is_bool($value[0]) && $value[0] =  $value[0] ? 'Hỗ trợ' : 'không hỗ trợ';}-->
+		<!--{php $value[1] =  $value[1] ? '<span>('.$value[1].')</span>' : '';}-->
+		<li>
+			{:$key} : {:$value[0]} {:$value[1]}
+		</li>
+		<!--{/foreach}-->
+	<ul>
+<div>
+
+<script type="text/javascript">
+	var hf_stable_version, hf_development_version;
+	var JsURL = "http://qfarm.googlecode.com/files/version.js?v" + Math.random();
+	document.write(unescape("%3Cscript src='" + JsURL + "' type='text/javascript'%3E%3C/script%3E"));
+	function check_version() {
+		try {
+			var msg = '';
+			if(qf_stable_version) {
+				msg += 'Phiên bản hiện tại ổn định:' + hf_stable_version + '\r\n';
+			}
+			if(qf_development_version) {
+				msg += 'Phát triển phiên bản hiện tại:' + hf_development_version + '\r\n';
+			}
+			alert(msg || 'Nhận số phiên bản của bất thường');
+		} catch(e) {
+			alert('Không rõ lỗi');
+		}
+	}
+</script>
+
+<!--{tpl admin/footer}-->

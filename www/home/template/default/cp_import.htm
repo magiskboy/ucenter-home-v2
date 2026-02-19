@@ -1,11 +1,11 @@
 <!--{template header}-->
 
-<h2 class="title"><img src="image/app/blog.gif" />日志</h2>
+<h2 class="title"><img src="image/app/blog.gif" />Blog</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="cp.php?ac=blog"><span>发表新日志</span></a></li>
-		<li class="active"><a href="cp.php?ac=import"><span>日志导入</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=blog&view=me"><span>返回我的日志</span></a></li>
+		<li><a href="cp.php?ac=blog"><span>Publish New Blog/span></a></li>
+		<li class="active"><a href="cp.php?ac=import"><span>Import Blog Data</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=blog&view=me"><span>Back to My Blog</span></a></li>
 	</ul>
 </div>
 
@@ -14,9 +14,9 @@
 <form method="post" action="cp.php?ac=import" class="c_form">
 <table cellspacing="0" cellpadding="0" class="formtable">
 <caption>
-	<h2><!--{if $incount}-->导入结果<!--{else}-->选择要导入的日志<!--{/if}--></h2>
+	<h2><!--{if $incount}-->Import Results<!--{else}-->Select blog to import<!--{/if}--></h2>
 	<!--{if $paycredit}-->
-	<p>使用本功能需要支付积分: $paycredit (您现在的积分数 <a href="cp.php?ac=credit">$space[credit]</a>)</p>
+	<p>Credits needed for this feature: $paycredit (Currently you have <a href="cp.php?ac=credit">$space[credit]</a>)</p>
 	<!--{/if}-->
 </caption>
 
@@ -31,9 +31,9 @@
 <!--{if !$incount}-->
 <tr>
 	<td colspan="3">
-	<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">全选
-	<input type="submit" name="import2submit" value="导入" class="submit" />
-	<input type="submit" name="resubmit" value="重置" class="submit" />
+	<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Select All
+	<input type="submit" name="import2submit" value="Import" class="submit" />
+	<input type="submit" name="resubmit" value="Reset" class="submit" />
 	</td>
 </tr>
 <!--{/if}-->
@@ -48,23 +48,24 @@
 <form method="post" action="cp.php?ac=import" class="c_form">
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>日志导入</h2>
-		<p>本空间支持采用XML-RPC规范的MetaWeblog API<br />
-		地址为: {$siteurl}xmlrpc.php<br />
-		通过本接口，你可以轻松的将你在非本站空间上面的日志批量搬入到当前空间上面来；<br />
-		这需要你原来的空间也要提供XMLRPC规范的API接口，详情可以咨询原来空间站点的管理员
+		<h2>Import Blog</h2>
+		<p>This site supports  XML-RPC formatted MetaWeblog API<br />
+		Address: {$siteurl}xmlrpc.php<br />
+		Via this interface��you can import blogs from other sites here with some easy steps<br />
+		The blog you are imported from other Site, That site must have XMLRPC formatted API interface.<br/>
+		For more information contact the site administration of your target site from where you're importing the blog.
 		</p>
 	</caption>
 	<!--{if $paycredit}-->
-	<tr><th width="120">需要积分</th><td>使用本功能需要支付积分: $paycredit (您现在的积分数 <a href="cp.php?ac=credit">$space[credit]</a>)</td></tr>
+	<tr><th width="120">Credits needed</th><td>for this feature: $paycredit (Currently you have <a href="cp.php?ac=credit">$space[credit]</a>)</td></tr>
 	<!--{/if}-->
-	<tr><th width="120">原空间API访问地址</th><td><input type="text" class="t_input" name="url" value="http://" size="40" />
-		<br />通常为类似 http://u.discuz.net/xmlrpc.php 这样的URL链接
+	<tr><th width="120">Target blog site API address</th><td><input type="text" class="t_input" name="url" value="http://" size="40" />
+		<br />URL's such as http://www.sitename.com/xmlrpc.php are usually used
 		</td></tr>
-	<tr><th>原空间用户名</th><td><input type="text" class="t_input" name="username" value="" /></td></tr>
-	<tr><th>原空间密码</th><td><input type="password" class="t_input" name="password" value="" /></td></tr>
-	<tr><th>单次获取日志数</th><td><!--{eval echo $_SCONFIG['importnum'];}--></td></tr>
-	<tr><th>&nbsp;</th><td><input type="submit" name="importsubmit" value="提交" class="submit" /></td></tr>
+	<tr><th>Target blog username</th><td><input type="text" class="t_input" name="username" value="" /></td></tr>
+	<tr><th>Target blog password</th><td><input type="password" class="t_input" name="password" value="" /></td></tr>
+	<tr><th>Get single blog entry</th><td><!--{eval echo $_SCONFIG['importnum'];}--></td></tr>
+	<tr><th>&nbsp;</th><td><input type="submit" name="importsubmit" value="Publish" class="submit" /></td></tr>
 </table>
 
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />

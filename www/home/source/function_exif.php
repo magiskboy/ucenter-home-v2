@@ -41,13 +41,13 @@ function getexif($img) {
 	} else {
 		@$exif = exif_read_data($img, 0, true);
 		$new_img_info	=	array (
-			//"鏂囦欢淇℃伅"		=>	'',
+			//"文件信息"		=>	'',
 			exif_lang('FileName')			=>	$exif[FILE][FileName],
 			exif_lang('FileType')		=>	$imgtype[$exif[FILE][FileType]],
 			exif_lang('MimeType')		=>	$exif[FILE][MimeType],
 			exif_lang('FileSize')		=>	$exif[FILE][FileSize],
 			exif_lang('FileDateTime')			=>	date("Y-m-d H:i:s",$exif[FILE][FileDateTime]),
-			//"鍥惧儚淇℃伅"		=>	'',
+			//"图像信息"		=>	'',
 			exif_lang('ImageDescription')		=>	$exif[IFD0][ImageDescription],
 			exif_lang('Make')			=>	$exif[IFD0][Make],
 			exif_lang('Model')			=>	$exif[IFD0][Model],
@@ -61,7 +61,7 @@ function getexif($img) {
 			exif_lang('Copyright')			=>	$exif[IFD0][Copyright],
 			exif_lang('Photographer')		=>	$exif[COMPUTED][Copyright.Photographer],
 			exif_lang('Editor')		=>	$exif[COMPUTED][Copyright.Editor],
-			//"鎷嶆憚淇℃伅"		=>	'',
+			//"拍摄信息"		=>	'',
 			exif_lang('ExifVersion')		=>	$exif[EXIF][ExifVersion],
 			exif_lang('FlashPixVersion')	=>	"Ver. ".number_format($exif[EXIF][FlashPixVersion]/100,2),
 			exif_lang('DateTimeOriginal')		=>	$exif[EXIF][DateTimeOriginal],
@@ -121,10 +121,9 @@ function getexif($img) {
 }
 
 function exif_lang($langkey) {
-	global $_SGLOBAL, $_SC;
-
-	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_exif.php') ? $_SC['language'] : 'zh_CN';
-	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_exif.php');
+	global $_SGLOBAL;
+	
+	include_once(S_ROOT.'./language/lang_exif.php');
 	return empty($_SGLOBAL['exiflang'][$langkey])?$langkey:$_SGLOBAL['exiflang'][$langkey];
 }
 

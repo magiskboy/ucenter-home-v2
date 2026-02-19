@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//鍒嗛〉
+//分页
 $perpage = 20;
 $perpage = mob_perpage($perpage);
 
@@ -16,10 +16,10 @@ $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $start = ($page-1)*$perpage;
 
-//妫�鏌ュ紑濮嬫暟
+//检查开始数
 ckstart($start, $perpage);
 
-//澶勭悊鏌ヨ
+//处理查询
 $theurl = "space.php?uid=$space[uid]&do=$do";
 
 $cid = empty($_GET['cid'])?0:intval($_GET['cid']);
@@ -35,7 +35,7 @@ if($count) {
 	}
 }
 
-//鍒嗛〉
+//分页
 $multi = multi($count, $perpage, $page, $theurl);
 
 realname_get();

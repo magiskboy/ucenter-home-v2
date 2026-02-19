@@ -3,8 +3,8 @@
 <!--{if $op == 'use'}-->
 
 	<!--{if !$frombuy}-->
-	<h1>使用道具</h1>
-	<a class="float_del" title="关闭" href="javascript:hideMenu();">关闭</a>
+	<h1>The use of props</h1>
+	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
 	<!--{/if}-->
 	<div class="toolly" id="__magicuse_form_$mid">
 		<form method="post" id="magicuse_form_$mid" action="magic.php?mid=$mid&idtype=$idtype&id=$id">
@@ -14,12 +14,12 @@
 			<div class="magic_info">
 				<h3>$magic[name]</h3>
 				<p class="gray">$magic[description]</p>
-				<p>拥有个数: $usermagic[count]</p>
+				<p>Remaining Props: $usermagic[count]</p>
 				<p class="btn_line">
 					<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
 					<input type="hidden" name="refer" value="$_SGLOBAL[refer]"/>
 					<input type="hidden" name="usesubmit" value="1" />
-					<input type="button" value="使用" class="submit" onclick="ajaxpost('magicuse_form_$mid')" />
+					<input type="button" value="Use" class="submit" onclick="ajaxpost('magicuse_form_$mid')" />
 				</p>
 			</div>
 		</form>
@@ -29,7 +29,7 @@
 	<div style="width:400px;">		
 		<!--{if $list}-->
 		<p>
-			探测到有红包的空间了，赶紧去领取吧
+			Use this Magic detector, detect the space which have credit, Go and pick up the credit,
 		</p>
 		<ul class="avatar_list">
 			<!--{loop $list $value}-->
@@ -40,7 +40,7 @@
 			<!--{/loop}-->
 		</ul>
 		<!--{else}-->
-		<p>没有探测到任何有红包的空间</p>
+		<p>Oops Detctor did not detect any space, please try again later</p>
 		<!--{/if}-->
 	</div>
 <!--{/if}-->

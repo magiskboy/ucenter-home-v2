@@ -1,0 +1,18 @@
+<!--{tpl header}-->
+
+<div id="main">
+
+	<div class="menu">
+		<!--{php $actives[$mod_name] = ' class="actives"';}-->
+		<a{:$actives[home]} href="admin.php?mod=home">Quản lý trang chủ</a>
+		<a{:$actives[quick]} href="admin.php?mod=quick">Các phím tắt</a>
+		<a{:$actives[system]} href="admin.php?mod=system">Cấu hình hệ thống</a>
+		<a{:$actives[notice]} href="admin.php?mod=notice">Thông báo quản lý</a>
+		<a{:$actives[user_list]} href="admin.php?mod=user_list">Danh sách thành viên</a>
+		<!--{if $id > 0}-->
+		<a{:$actives[user_edit]} href="admin.php?mod=user_edit&id={:$id}">Thông tin người dùng</a>
+		<!--{/if}-->
+		<a href="http://ngoinhaviet.biz/fish" target="_blank">Tài liệu trực tuyến</a>
+	</div>
+
+	<div id="main_admin">

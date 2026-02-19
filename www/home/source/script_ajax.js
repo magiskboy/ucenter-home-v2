@@ -170,7 +170,7 @@ function evalscript(s) {
 		} else {
 			p1 = /<script(.*?)>([^\x00]+?)<\/script>/i;
 			arr1 = p1.exec(arr[0]);
-			//è·å–å­—ç¬¦é›†
+			//»ñÈ¡×Ö·û¼¯
 			var re = /charset=\"([\w\-]+?)\"/i;
 			var charsetarr = re.exec(arr1[1]);
 			appendscript('', arr1[2], arr1[1].indexOf('reload=') != -1, charsetarr[1]);
@@ -334,7 +334,7 @@ function ajaxpost_load() {
 		evalscript(s);
 	}
 
-	//å±‚æ¶ˆå¤±
+	//²ãÏûÊ§
 	if(timeout && ajaxpostresult) jsmenu['timer'][formid] = setTimeout("hideMenu()", timeout);
 
 	formid.target = 'ajaxframe';
@@ -386,8 +386,8 @@ function ajaxmenu(e, ctrlid, isbox, timeout, func) {
 		if(s.indexOf('ajaxerror') != -1) {
 			evaled = true;
 		}
-		if(s.indexOf('hideMenu()') == -1) {//æ·»åŠ å…³é—­
-			s = '<h1>æ¶ˆæ¯</h1><a href="javascript:hideMenu();" class="float_del" title="å…³é—­">å…³é—­</a><div class="popupmenu_inner">' + s + '<div>';
+		if(s.indexOf('hideMenu()') == -1) {//Ìí¼Ó¹Ø±Õ
+			s = '<h1>News</h1><a href="javascript:hideMenu();" class="float_del" title="Close">Close</a><div class="popupmenu_inner">' + s + '<div>';
 		}
 		if(!evaled) {
 			if(x.div) x.div.innerHTML = s;
@@ -403,7 +403,7 @@ function ajaxmenu(e, ctrlid, isbox, timeout, func) {
 	showloading('none');
 	doane(e);
 }
-//å¾—åˆ°ä¸€ä¸ªå®šé•¿çš„hashå€¼,ä¾èµ–äº stringxor()
+//µÃµ½Ò»¸ö¶¨³¤µÄhashÖµ,ÒÀÀµÓÚ stringxor()
 function hash(string, length) {
 	var length = length ? length : 32;
 	var start = 0;

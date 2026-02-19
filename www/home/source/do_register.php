@@ -14,10 +14,10 @@ if($_SGLOBAL['supe_uid']) {
 	showmessage('do_success', 'space.php?do=home', 0);
 }
 
-//æ²¡æœ‰ç™»å½•è¡¨å•
+//Ã»ÓÐµÇÂ¼±íµ¥
 $_SGLOBAL['nologinform'] = 1;
 
-//å¥½å‹é‚€è¯·
+//ºÃÓÑÑûÇë
 $uid = empty($_GET['uid'])?0:intval($_GET['uid']);
 $code = empty($_GET['code'])?'':$_GET['code'];
 $app = empty($_GET['app'])?'':intval($_GET['app']);
@@ -29,7 +29,7 @@ $pay = $app ? 0 : $invitepay['credit'];
 
 if($uid && $code && !$pay) {
 	$m_space = getspace($uid);
-	if($code == space_key($m_space, $app)) {//éªŒè¯é€šè¿‡
+	if($code == space_key($m_space, $app)) {//ÑéÖ¤Í¨¹ý
 		$invitearr['uid'] = $uid;
 		$invitearr['username'] = $m_space['username'];
 	}
@@ -52,12 +52,12 @@ if(empty($op)) {
 		}
 	}
 
-	//æ˜¯å¦å…³é—­ç«™ç‚¹
+	//ÊÇ·ñ¹Ø±ÕÕ¾µã
 	checkclose();
 
 	if(submitcheck('registersubmit')) {
 
-		//å·²ç»æ³¨å†Œç”¨æˆ·
+		//ÒÑ¾­×¢²áÓÃ»§
 		if($_SGLOBAL['supe_uid']) {
 			showmessage('registered', 'space.php');
 		}
@@ -88,13 +88,13 @@ if(empty($op)) {
 		if(empty($email)) {
 			showmessage('email_format_is_wrong');
 		}
-		//æ£€æŸ¥é‚®ä»¶
+		//¼ì²éÓÊ¼þ
 		if($_SCONFIG['checkemail']) {
 			if($count = getcount('spacefield', array('email'=>$email))) {
 				showmessage('email_has_been_registered');
 			}
 		}
-		//æ£€æŸ¥IP
+		//¼ì²éIP
 		$onlineip = getonlineip();
 		if($_SCONFIG['regipdate']) {
 			$query = $_SGLOBAL['db']->query("SELECT dateline FROM ".tname('space')." WHERE regip='$onlineip' ORDER BY dateline DESC LIMIT 1");
@@ -126,16 +126,16 @@ if(empty($op)) {
 			$setarr = array(
 				'uid' => $newuid,
 				'username' => $username,
-				'password' => md5("$newuid|$_SGLOBAL[timestamp]")//æœ¬åœ°å¯†ç éšæœºç”Ÿæˆ
+				'password' => md5("$newuid|$_SGLOBAL[timestamp]")//±¾µØÃÜÂëËæ»úÉú³É
 			);
-			//æ›´æ–°æœ¬åœ°ç”¨æˆ·åº“
+			//¸üÐÂ±¾µØÓÃ»§¿â
 			inserttable('member', $setarr, 0, true);
 
-			//å¼€é€šç©ºé—´
+			//¿ªÍ¨¿Õ¼ä
 			include_once(S_ROOT.'./source/function_space.php');
 			$space = space_open($newuid, $username, 0, $email);
 
-			//é»˜è®¤å¥½å‹
+			//Ä¬ÈÏºÃÓÑ
 			$flog = $inserts = $fuids = $pokes = array();
 			if(!empty($_SCONFIG['defaultfusername'])) {
 				$query = $_SGLOBAL['db']->query("SELECT uid,username FROM ".tname('space')." WHERE username IN (".simplode(explode(',', $_SCONFIG['defaultfusername'])).")");
@@ -145,7 +145,7 @@ if(empty($op)) {
 					$inserts[] = "('$newuid','$value[uid]','$value[username]','1','$_SGLOBAL[timestamp]')";
 					$inserts[] = "('$value[uid]','$newuid','$username','1','$_SGLOBAL[timestamp]')";
 					$pokes[] = "('$newuid','$value[uid]','$value[username]','".addslashes($_SCONFIG['defaultpoke'])."','$_SGLOBAL[timestamp]')";
-					//æ·»åŠ å¥½å‹å˜æ›´è®°å½•
+					//Ìí¼ÓºÃÓÑ±ä¸ü¼ÇÂ¼
 					$flog[] = "('$value[uid]','$newuid','add','$_SGLOBAL[timestamp]')";
 				}
 				if($inserts) {
@@ -153,12 +153,12 @@ if(empty($op)) {
 					$_SGLOBAL['db']->query("REPLACE INTO ".tname('poke')." (uid,fromuid,fromusername,note,dateline) VALUES ".implode(',', $pokes));
 					$_SGLOBAL['db']->query("REPLACE INTO ".tname('friendlog')." (uid,fuid,action,dateline) VALUES ".implode(',', $flog));
 
-					//æ·»åŠ åˆ°é™„åŠ è¡¨
+					//Ìí¼Óµ½¸½¼Ó±í
 					$friendstr = empty($fuids)?'':implode(',', $fuids);
 					updatetable('space', array('friendnum'=>count($fuids), 'pokenum'=>count($pokes)), array('uid'=>$newuid));
 					updatetable('spacefield', array('friend'=>$friendstr, 'feedfriend'=>$friendstr), array('uid'=>$newuid));
 
-					//æ›´æ–°é»˜è®¤ç”¨æˆ·å¥½å‹ç¼“å­˜
+					//¸üÐÂÄ¬ÈÏÓÃ»§ºÃÓÑ»º´æ
 					include_once(S_ROOT.'./source/function_cp.php');
 					foreach ($fuids as $fuid) {
 						friend_cache($fuid);
@@ -166,24 +166,24 @@ if(empty($op)) {
 				}
 			}
 
-			//åœ¨çº¿session
+			//ÔÚÏßsession
 			insertsession($setarr);
 
-			//è®¾ç½®cookie
+			//ÉèÖÃcookie
 			ssetcookie('auth', authcode("$setarr[password]\t$setarr[uid]", 'ENCODE'), 2592000);
 			ssetcookie('loginuser', $username, 31536000);
 			ssetcookie('_refer', '');
 
-			//å¥½å‹é‚€è¯·
+			//ºÃÓÑÑûÇë
 			if($invitearr) {
 				include_once(S_ROOT.'./source/function_cp.php');
 				invite_update($invitearr['id'], $setarr['uid'], $setarr['username'], $invitearr['uid'], $invitearr['username'], $app);
-				//å¦‚æžœæäº¤çš„é‚®ç®±åœ°å€ä¸Žé‚€è¯·ç›¸ç¬¦çš„åˆ™ç›´æŽ¥é€šè¿‡é‚®ç®±éªŒè¯
+				//Èç¹ûÌá½»µÄÓÊÏäµØÖ·ÓëÑûÇëÏà·ûµÄÔòÖ±½ÓÍ¨¹ýÓÊÏäÑéÖ¤
 				if($invitearr['email'] == $email) {
 					updatetable('spacefield', array('emailcheck'=>1), array('uid'=>$newuid));
 				}
 				
-				//ç»Ÿè®¡æ›´æ–°
+				//Í³¼Æ¸üÐÂ
 				include_once(S_ROOT.'./source/function_cp.php');
 				if($app) {
 					updatestat('appinvite');
@@ -192,7 +192,7 @@ if(empty($op)) {
 				}
 			}
 
-			//å˜æ›´è®°å½•
+			//±ä¸ü¼ÇÂ¼
 			if($_SCONFIG['my_status']) inserttable('userlog', array('uid'=>$newuid, 'action'=>'add', 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 
 			showmessage('registered', $jumpurl);

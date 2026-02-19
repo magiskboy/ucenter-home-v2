@@ -124,7 +124,7 @@ class miscmodel {
 		}
 	}
 
-	//note æš‚æ—¶åªæ”¯æŒ1ç»´æ•°ç»„
+	//note ÔİÊ±Ö»Ö§³Ö1Î¬Êı×é
 	function array2string($arr) {
 		$s = $sep = '';
 		if($arr && is_array($arr)) {
@@ -136,7 +136,7 @@ class miscmodel {
 		return $s;
 	}
 
-	//note æš‚æ—¶åªæ”¯æŒ1ç»´æ•°ç»„
+	//note ÔİÊ±Ö»Ö§³Ö1Î¬Êı×é
 	function string2array($s) {
 		$arr = explode(UC_ARRAY_SEP_2, $s);
 		$arr2 = array();

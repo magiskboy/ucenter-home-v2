@@ -50,7 +50,7 @@ class tree {
 	}
 	
 	function getLayer($id, $space = false) {
-		//é‡æ–°è®¡ç®—çº§æ•°
+		//ÖØĞÂ¼ÆËã¼¶Êı
 		$this->layer[$id] = 0;
 		$this->countid = $id;
 		$this->reSetLayer($id);
@@ -66,8 +66,8 @@ class tree {
 			$id = $parent[$this->layer[$id]] = $this->parent[$id];
 		}
 		
-		ksort($parent);	//æŒ‰ç…§é”®åæ’åº
-		reset($parent); //æ•°ç»„æŒ‡é’ˆç§»å›ç¬¬ä¸€ä¸ªå•å…ƒ
+		ksort($parent);	//°´ÕÕ¼üÃûÅÅĞò
+		reset($parent); //Êı×éÖ¸ÕëÒÆ»ØµÚÒ»¸öµ¥Ôª
 	
 		return $parent;
 	}

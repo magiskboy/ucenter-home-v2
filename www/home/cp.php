@@ -4,12 +4,12 @@
 	$Id: cp.php 13003 2009-08-05 06:46:06Z liguode $
 */
 
-//é€šç”¨æ–‡ä»¶
+//Í¨ÓÃÎÄ¼þ
 include_once('./common.php');
 include_once(S_ROOT.'./source/function_cp.php');
 include_once(S_ROOT.'./source/function_magic.php');
 
-//å…è®¸çš„æ–¹æ³•
+//ÔÊÐíµÄ·½·¨
 $acs = array('space', 'doing', 'upload', 'comment', 'blog', 'album', 'relatekw', 'common', 'class',
 	'swfupload', 'thread', 'mtag', 'poke', 'friend',
 	'avatar', 'profile', 'theme', 'import', 'feed', 'privacy', 'pm', 'share', 'advance', 'invite','sendmail',
@@ -18,7 +18,7 @@ $acs = array('space', 'doing', 'upload', 'comment', 'blog', 'album', 'relatekw',
 $ac = (empty($_GET['ac']) || !in_array($_GET['ac'], $acs))?'profile':$_GET['ac'];
 $op = empty($_GET['op'])?'':$_GET['op'];
 
-//æƒé™åˆ¤æ–­
+//È¨ÏÞÅÐ¶Ï
 if(empty($_SGLOBAL['supe_uid'])) {
 	if($_SERVER['REQUEST_METHOD'] == 'GET') {
 		ssetcookie('_refer', rawurlencode($_SERVER['REQUEST_URI']));
@@ -28,31 +28,31 @@ if(empty($_SGLOBAL['supe_uid'])) {
 	showmessage('to_login', 'do.php?ac='.$_SCONFIG['login_action']);
 }
 
-//èŽ·å–ç©ºé—´ä¿¡æ¯
+//»ñÈ¡¿Õ¼äÐÅÏ¢
 $space = getspace($_SGLOBAL['supe_uid']);
 if(empty($space)) {
 	showmessage('space_does_not_exist');
 }
 
-//æ˜¯å¦å…³é—­ç«™ç‚¹
+//ÊÇ·ñ¹Ø±ÕÕ¾µã
 if(!in_array($ac, array('common', 'pm'))) {
 	checkclose();
-	//ç©ºé—´è¢«é”å®š
+	//¿Õ¼ä±»Ëø¶¨
 	if($space['flag'] == -1) {
 		showmessage('space_has_been_locked');
 	}
-	//ç¦æ­¢è®¿é—®
+	//½ûÖ¹·ÃÎÊ
 	if(checkperm('banvisit')) {
 		ckspacelog();
 		showmessage('you_do_not_have_permission_to_visit');
 	}
-	//éªŒè¯æ˜¯å¦æœ‰æƒé™çŽ©åº”ç”¨
+	//ÑéÖ¤ÊÇ·ñÓÐÈ¨ÏÞÍæÓ¦ÓÃ
 	if($ac =='userapp' && !checkperm('allowmyop')) {
 		showmessage('no_privilege');
 	}
 }
 
-//èœå•
+//²Ëµ¥
 $actives = array($ac => ' class="active"');
 
 include_once(S_ROOT.'./source/cp_'.$ac.'.php');

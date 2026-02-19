@@ -16,37 +16,37 @@ $picid = empty($_GET['picid'])?0:intval($_GET['picid']);
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 
-//è¡¨æ€åˆ†ç±»
+//±íÌ¬·ÖÀà
 @include_once(S_ROOT.'./data/data_click.php');
 $clicks = empty($_SGLOBAL['click']['picid'])?array():$_SGLOBAL['click']['picid'];
 
 if($id) {
-	//å›¾ç‰‡åˆ—è¡¨
+	//Í¼Æ¬ÁĞ±í
 	$perpage = 20;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
-	//æŸ¥è¯¢ç›¸å†Œ
+	//²éÑ¯Ïà²á
 	if($id > 0) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('album')." WHERE albumid='$id' AND uid='$space[uid]' LIMIT 1");
 		$album = $_SGLOBAL['db']->fetch_array($query);
-		//ç›¸å†Œä¸å­˜åœ¨
+		//Ïà²á²»´æÔÚ
 		if(empty($album)) {
 			showmessage('to_view_the_photo_does_not_exist');
 		}
 
-		//æ£€æŸ¥å¥½å‹æƒé™
+		//¼ì²éºÃÓÑÈ¨ÏŞ
 		ckfriend_album($album);
 
-		//æŸ¥è¯¢
+		//²éÑ¯
 		$wheresql = "albumid='$id'";
 		$count = $album['picnum'];
 	} else {
-		//é»˜è®¤ç›¸å†Œ
+		//Ä¬ÈÏÏà²á
 		$wheresql = "albumid='0' AND uid='$space[uid]'";
 		$count = getcount('pic', array('albumid'=>0, 'uid'=>$space['uid']));
 
@@ -58,7 +58,7 @@ if($id) {
 		);
 	}
 
-	//å›¾ç‰‡åˆ—è¡¨
+	//Í¼Æ¬ÁĞ±í
 	$list = array();
 	if($count) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE $wheresql ORDER BY dateline DESC LIMIT $start,$perpage");
@@ -67,7 +67,7 @@ if($id) {
 			$list[] = $value;
 		}
 	}
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "space.php?uid=$album[uid]&do=$do&id=$id");
 
 	$_TPL['css'] = 'album';
@@ -79,17 +79,17 @@ if($id) {
 
 	$eventid = intval($eventid);
 	if(empty($eventid)) {
-		//æ£€ç´¢å›¾ç‰‡
+		//¼ìË÷Í¼Æ¬
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE picid='$picid' AND uid='$space[uid]' LIMIT 1");
 		$pic = $_SGLOBAL['db']->fetch_array($query);
 	}
 	
 	if($_GET['goto']=='up') {
-		//ä¸Šä¸€å¼ 
+		//ÉÏÒ»ÕÅ
 		if($eventid) {
 			$query = $_SGLOBAL['db']->query("SELECT pic.*, ep.* FROM ".tname('eventpic')." ep LEFT JOIN ".tname("pic")." pic ON ep.picid = pic.picid WHERE ep.eventid='$eventid' AND ep.picid > '$pic[picid]' ORDER BY ep.picid ASC LIMIT 0,1");
 			if(!$newpic = $_SGLOBAL['db']->fetch_array($query)) {
-				//åˆ°å¤´è½¬åˆ°æœ€åä¸€å¼ 
+				//µ½Í·×ªµ½×îºóÒ»ÕÅ
 				$query = $_SGLOBAL['db']->query("SELECT pic.*, ep.* FROM ".tname('eventpic')." ep LEFT JOIN ".tname("pic")." pic ON ep.picid = pic.picid WHERE ep.eventid='$eventid' ORDER BY ep.picid ASC LIMIT 1");
 				$pic = $_SGLOBAL['db']->fetch_array($query);
 			} else {
@@ -98,7 +98,7 @@ if($id) {
 		} else {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE albumid='$pic[albumid]' AND uid='$space[uid]' AND picid>$picid ORDER BY picid LIMIT 1");
 			if(!$newpic = $_SGLOBAL['db']->fetch_array($query)) {
-				//åˆ°å¤´è½¬åˆ°æœ€æ—©çš„ä¸€å¼ 
+				//µ½Í·×ªµ½×îÔçµÄÒ»ÕÅ
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE albumid='$pic[albumid]' AND uid='$space[uid]' ORDER BY picid LIMIT 1");
 				$pic = $_SGLOBAL['db']->fetch_array($query);
 			} else {
@@ -106,11 +106,11 @@ if($id) {
 			}
 		}
 	} elseif($_GET['goto']=='down') {
-		//ä¸‹ä¸€å¼ 
+		//ÏÂÒ»ÕÅ
 		if($eventid) {
 			$query = $_SGLOBAL['db']->query("SELECT pic.*, ep.* FROM ".tname('eventpic')." ep LEFT JOIN ".tname("pic")." pic ON ep.picid = pic.picid WHERE ep.eventid='$eventid' AND ep.picid < '$pic[picid]' ORDER BY ep.picid DESC LIMIT 0,1");
 			if(!$newpic = $_SGLOBAL['db']->fetch_array($query)) {
-				//åˆ°å¤´è½¬åˆ°ç¬¬ä¸€å¼ 
+				//µ½Í·×ªµ½µÚÒ»ÕÅ
 				$query = $_SGLOBAL['db']->query("SELECT pic.*, ep.* FROM ".tname('eventpic')." ep LEFT JOIN ".tname("pic")." pic ON ep.picid = pic.picid WHERE ep.eventid='$eventid' ORDER BY ep.picid DESC LIMIT 1");
 				$pic = $_SGLOBAL['db']->fetch_array($query);
 			} else {
@@ -119,7 +119,7 @@ if($id) {
 		} else {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE albumid='$pic[albumid]' AND uid='$space[uid]' AND picid<$picid ORDER BY picid DESC LIMIT 1");
 			if(!$newpic = $_SGLOBAL['db']->fetch_array($query)) {
-				//åˆ°å¤´è½¬åˆ°æœ€æ–°çš„ä¸€å¼ 
+				//µ½Í·×ªµ½×îĞÂµÄÒ»ÕÅ
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('pic')." WHERE albumid='$pic[albumid]' AND uid='$space[uid]' ORDER BY picid DESC LIMIT 1");
 				$pic = $_SGLOBAL['db']->fetch_array($query);
 			} else {
@@ -130,7 +130,7 @@ if($id) {
 	
 	$picid = $pic['picid'];
 
-	//å›¾ç‰‡ä¸å­˜åœ¨
+	//Í¼Æ¬²»´æÔÚ
 	if(empty($picid)) {
 		showmessage('view_images_do_not_exist');
 	}
@@ -141,25 +141,25 @@ if($id) {
 		$theurl = "space.php?uid=$pic[uid]&do=$do&picid=$picid";
 	}
 
-	//è·å–ç›¸å†Œ
+	//»ñÈ¡Ïà²á
 	$album = array();
 	if($pic['albumid']) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('album')." WHERE albumid='$pic[albumid]'");
 		if(!$album = $_SGLOBAL['db']->fetch_array($query)) {
-			updatetable('pic', array('albumid'=>0), array('albumid'=>$pic['albumid']));//ç›¸å†Œä¸¢å¤±?
+			updatetable('pic', array('albumid'=>0), array('albumid'=>$pic['albumid']));//Ïà²á¶ªÊ§?
 		}
 	}
 
 	if($album) {
 		if($eventid) {
-			//æ´»åŠ¨å›¾ç‰‡
+			//»î¶¯Í¼Æ¬
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("eventpic")." WHERE eventid='$eventid' AND picid='$picid'");
 			if (!$eventpic = $_SGLOBAL['db']->fetch_array($query)) {
-				showmessage('pic_not_share_to_event');// å›¾ç‰‡æ²¡æœ‰å…±äº«åˆ°æ´»åŠ¨
+				showmessage('pic_not_share_to_event');// Í¼Æ¬Ã»ÓĞ¹²Ïíµ½»î¶¯
 			}
 			$album['picnum'] = $piccount;
 		} else {
-			//ç›¸å†Œå¥½å‹æƒé™
+			//Ïà²áºÃÓÑÈ¨ÏŞ
 			ckfriend_album($album);	
 		}
 	} else {
@@ -168,7 +168,7 @@ if($id) {
 	}
 	
 	if($album['picnum']) {
-		//å½“å‰å¼ æ•°
+		//µ±Ç°ÕÅÊı
 		if($_GET['goto']=='down') {
 			$sequence = empty($_SCOOKIE['pic_sequence'])?$album['picnum']:intval($_SCOOKIE['pic_sequence']);
 			$sequence++;
@@ -187,11 +187,11 @@ if($id) {
 		ssetcookie('pic_sequence', $sequence);
 	}
 
-	//å›¾ç‰‡åœ°å€
+	//Í¼Æ¬µØÖ·
 	$pic['pic'] = pic_get($pic['filepath'], $pic['thumb'], $pic['remote'], 0);
 	$pic['size'] = formatsize($pic['size']);
 
-	//å›¾ç‰‡çš„EXIFä¿¡æ¯
+	//Í¼Æ¬µÄEXIFĞÅÏ¢
 	$exifs = array();
 	$allowexif = function_exists('exif_read_data');
 	if(isset($_GET['exif']) && $allowexif) {
@@ -199,13 +199,13 @@ if($id) {
 		$exifs = getexif($pic['pic']);
 	}
 
-	//å›¾ç‰‡è¯„è®º
+	//Í¼Æ¬ÆÀÂÛ
 	$perpage = 50;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
 	$cid = empty($_GET['cid'])?0:intval($_GET['cid']);
@@ -221,31 +221,31 @@ if($id) {
 		}
 	}
 
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, $theurl, '', 'pic_comment');
 
-	//æ ‡é¢˜
+	//±êÌâ
 	if(empty($album['albumname'])) $album['albumname'] = lang('default_albumname');
 
-	//å›¾ç‰‡å…¨è·¯å¾„
+	//Í¼Æ¬È«Â·¾¶
 	$pic_url = $pic['pic'];
 	if(!preg_match("/^http\:\/\/.+?/i", $pic['pic'])) {
 		$pic_url = getsiteurl().$pic['pic'];
 	}
 	$pic_url2 = rawurlencode($pic['pic']);
 
-	//è®¿é—®ç»Ÿè®¡
+	//·ÃÎÊÍ³¼Æ
 	if(!$space['self']) {
-		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//å»¶è¿Ÿæ›´æ–°
+		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//ÑÓ³Ù¸üĞÂ
 	}
 	
-	//æ˜¯å¦æ´»åŠ¨ç…§ç‰‡
+	//ÊÇ·ñ»î¶¯ÕÕÆ¬
 	if(!$eventid) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("eventpic")." ep LEFT JOIN ".tname("event")." e ON ep.eventid=e.eventid WHERE ep.picid='$picid'");
 		$event = $_SGLOBAL['db']->fetch_array($query);
 	}
 	
-	//è¡¨æ€
+	//±íÌ¬
 	$hash = md5($pic['uid']."\t".$pic['dateline']);
 	$id = $pic['picid'];
 	$idtype = 'picid';
@@ -257,23 +257,23 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 	
-	//ç‚¹è¯„
+	//µãÆÀ
 	$clickuserlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')."
 		WHERE id='$id' AND idtype='$idtype'
 		ORDER BY dateline DESC
 		LIMIT 0,18");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//å®å
+		realname_set($value['uid'], $value['username']);//ÊµÃû
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 	}
 	
-	//çƒ­é—¹
+	//ÈÈÄÖ
 	$topic = topic_get($pic['topicid']);
 	
 	if(empty($eventid)) {
-		//å®å
+		//ÊµÃû
 		realname_get();
 
 		$_TPL['css'] = 'album';
@@ -281,19 +281,19 @@ if($id) {
 	}
 
 } else {
-	//ç›¸å†Œåˆ—è¡¨
+	//Ïà²áÁĞ±í
 	$perpage = 12;
 	$perpage = mob_perpage($perpage);
 	
 	$start = ($page-1)*$perpage;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
-	//æƒé™è¿‡æ»¤
+	//È¨ÏŞ¹ıÂË
 	$_GET['friend'] = intval($_GET['friend']);
 
-	//å¤„ç†æŸ¥è¯¢
+	//´¦Àí²éÑ¯
 	$default = array();
 	$f_index = '';
 	$list = array();
@@ -301,12 +301,12 @@ if($id) {
 	$picmode = 0;
 
 	if(empty($_GET['view']) && ($space['friendnum']<$_SCONFIG['showallfriendnum'])) {
-		$_GET['view'] = 'all';//é»˜è®¤æ˜¾ç¤º
+		$_GET['view'] = 'all';//Ä¬ÈÏÏÔÊ¾
 	}
 	
 	if($_GET['view'] == 'click') {
 		
-		//è¡¨æ€çš„å›¾ç‰‡
+		//±íÌ¬µÄÍ¼Æ¬
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=click";
 		$actives = array('click'=>' class="active"');
 		
@@ -337,20 +337,20 @@ if($id) {
 
 	} elseif($_GET['view'] == 'all') {
 		
-		//å¤§å®¶çš„ç›¸å†Œ
+		//´ó¼ÒµÄÏà²á
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=all";
 		$actives = array('all'=>' class="active"');
 		
 		$wheresql = '1';
 		
-		//æ’åº
+		//ÅÅĞò
 		$orderarr = array('hot','dateline');
 		foreach ($clicks as $value) {
 			$orderarr[] = "click_$value[clickid]";
 		}
 		if(!in_array($_GET['orderby'], $orderarr)) $_GET['orderby'] = '';
 		
-		//æ—¶é—´
+		//Ê±¼ä
 		$_GET['day'] = intval($_GET['day']);
 		$_GET['hotday'] = 7;
 		
@@ -425,7 +425,7 @@ if($id) {
 			
 			$fuid_actives = array();
 			
-			//æŸ¥çœ‹æŒ‡å®šå¥½å‹çš„
+			//²é¿´Ö¸¶¨ºÃÓÑµÄ
 			$fusername = trim($_GET['fusername']);
 			$fuid = intval($_GET['fuid']);
 			if($fusername) {
@@ -438,7 +438,7 @@ if($id) {
 				$fuid_actives = array($fuid=>' selected');
 			}
 			
-			//å¥½å‹åˆ—è¡¨
+			//ºÃÓÑÁĞ±í
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$space[uid]' AND status='1' ORDER BY num DESC, dateline DESC LIMIT 0,500");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 				realname_set($value['fuid'], $value['fusername']);
@@ -448,13 +448,13 @@ if($id) {
 	}
 
 	if(empty($picmode)) {
-		//è®¾ç½®æƒé™
+		//ÉèÖÃÈ¨ÏŞ
 		if($_GET['friend']) {
 			$wheresql .= " AND friend='$_GET[friend]'";
 			$theurl .= "&friend=$_GET[friend]";
 		}
 		
-		//æœç´¢
+		//ËÑË÷
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$wheresql .= " AND albumname LIKE '%$searchkey%'";
 			$theurl .= "&searchkey=$_GET[searchkey]";
@@ -463,7 +463,7 @@ if($id) {
 		
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('album')." WHERE $wheresql"),0);
 		
-		//æ›´æ–°ç»Ÿè®¡
+		//¸üĞÂÍ³¼Æ
 		if($wheresql == "uid='$space[uid]'" && $space['albumnum'] != $count) {
 			updatetable('space', array('albumnum' => $count), array('uid'=>$space['uid']));
 		}
@@ -482,26 +482,26 @@ if($id) {
 		}
 	}
 	
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, $theurl);
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 	$_TPL['css'] = 'album';
 	include_once template("space_album_list");
 }
 
-//æ£€æŸ¥å¥½å‹æƒé™
+//¼ì²éºÃÓÑÈ¨ÏŞ
 function ckfriend_album($album) {
 	global $_SGLOBAL, $_SC, $_SCONFIG, $_SCOOKIE, $space, $_SN;
 
 	if(!ckfriend($album['uid'], $album['friend'], $album['target_ids'])) {
-		//æ²¡æœ‰æƒé™
+		//Ã»ÓĞÈ¨ÏŞ
 		include template('space_privacy');
 		exit();
 	} elseif(!$space['self'] && $album['friend'] == 4) {
-		//å¯†ç è¾“å…¥é—®é¢˜
+		//ÃÜÂëÊäÈëÎÊÌâ
 		$cookiename = "view_pwd_album_$album[albumid]";
 		$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 		if($cookievalue != md5(md5($album['password']))) {

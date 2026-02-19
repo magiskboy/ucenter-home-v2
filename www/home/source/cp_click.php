@@ -12,7 +12,7 @@ $clickid = empty($_GET['clickid'])?0:intval($_GET['clickid']);
 $idtype = empty($_GET['idtype'])?'':trim($_GET['idtype']);
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 
-//ç‚¹å‡»å™¨
+//µã»÷Æ÷
 include_once(S_ROOT.'./data/data_click.php');
 
 $clicks = empty($_SGLOBAL['click'][$idtype])?array():$_SGLOBAL['click'][$idtype];
@@ -22,7 +22,7 @@ if(empty($click)) {
 	showmessage('click_error');
 }
 
-//ä¿¡æ¯
+//ĞÅÏ¢
 switch ($idtype) {
 	case 'picid':
 		$sql = "SELECT p.*, s.username, a.friend, pf.hotuser FROM ".tname('pic')." p
@@ -63,18 +63,18 @@ if($_GET['op'] == 'add') {
 		showmessage('click_no_self');
 	}
 	
-	//é»‘åå•
+	//ºÚÃûµ¥
 	if(isblacklist($item['uid'])) {
 		showmessage('is_blacklist');
 	}
 	
-	//æ£€æŸ¥æ˜¯å¦ç‚¹å‡»è¿‡äº†
+	//¼ì²éÊÇ·ñµã»÷¹ıÁË
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')." WHERE uid='$space[uid]' AND id='$id' AND idtype='$idtype'");
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('click_have');
 	}
 	
-	//å‚ä¸
+	//²ÎÓë
 	$setarr = array(
 		'uid' => $space['uid'],
 		'username' => $_SGLOBAL['supe_username'],
@@ -85,17 +85,17 @@ if($_GET['op'] == 'add') {
 	);
 	inserttable('clickuser', $setarr);
 	
-	//æ›´æ–°æ•°é‡
+	//¸üĞÂÊıÁ¿
 	$_SGLOBAL['db']->query("UPDATE $tablename SET click_{$clickid}=click_{$clickid}+1 WHERE $idtype='$id'");
 	
-	//æ›´æ–°çƒ­åº¦
+	//¸üĞÂÈÈ¶È
 	hot_update($idtype, $id, $item['hotuser']);
 	
-	//å®å
+	//ÊµÃû
 	realname_set($item['uid'], $item['username']);
 	realname_get();
 		
-	//åŠ¨æ€
+	//¶¯Ì¬
 	$fs = array();
 	switch ($idtype) {
 		case 'blogid':
@@ -133,19 +133,19 @@ if($_GET['op'] == 'add') {
 			break;
 	}
 	
-	//äº‹ä»¶å‘å¸ƒ
+	//ÊÂ¼ş·¢²¼
 	if(empty($item['friend']) && ckprivacy('click', 1)) {
 		
 		feed_add('click', $fs['title_template'], $fs['title_data'], '', array(), $fs['body_general'],$fs['images'], $fs['image_links']);
 	}
 	
-	//å¥–åŠ±è®¿å®¢
+	//½±Àø·Ã¿Í
 	getreward('click', 1, 0, $idtype.$id);
 	
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	updatestat('click');
 	
-	//é€šçŸ¥
+	//Í¨Öª
 	notification_add($item['uid'], $note_type, $q_note);
 	
 	showmessage('click_success', $_SGLOBAL['refer']);
@@ -171,7 +171,7 @@ if($_GET['op'] == 'add') {
 		ORDER BY dateline DESC
 		LIMIT $start,$perpage");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//å®å
+		realname_set($value['uid'], $value['username']);//ÊµÃû
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 		$count++;

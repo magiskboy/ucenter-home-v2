@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//å®åè®¤è¯
+//ÊµÃûÈÏÖ¤
 if($space['namestatus']) {
 	include_once(S_ROOT.'./source/function_cp.php');
 	if(!ckrealname('viewspace', 1)) {
@@ -18,18 +18,18 @@ if($space['namestatus']) {
 	}
 }
 
-//é£æ ¼
+//·ç¸ñ
 $_SGLOBAL['space_theme'] = $space['theme'];
 $_SGLOBAL['space_css'] = $space['css'];
 
-//æ˜¯å¦å¥½å‹
+//ÊÇ·ñºÃÓÑ
 $space['isfriend'] = $space['self'];
 if($space['friends'] && in_array($_SGLOBAL['supe_uid'], $space['friends'])) {
-	$space['isfriend'] = 1;//æ˜¯å¥½å‹
+	$space['isfriend'] = 1;//ÊÇºÃÓÑ
 }
 
-//ä¸ªäººèµ„æ–™
-//æ€§åˆ«
+//¸öÈË×ÊÁÏ
+//ĞÔ±ğ
 $space['sex_org'] = $space['sex'];
 $space['sex'] = $space['sex']=='1'?'<a href="cp.php?ac=friend&op=search&sex=1&searchmode=1">'.lang('man').'</a>':($space['sex']=='2'?'<a href="cp.php?ac=friend&op=search&sex=2&searchmode=1">'.lang('woman').'</a>':'');
 $space['birth'] = ($space['birthyear']?"$space[birthyear]".lang('year'):'').($space['birthmonth']?"$space[birthmonth]".lang('month'):'').($space['birthday']?"$space[birthday]".lang('day'):'');
@@ -38,7 +38,7 @@ $space['birthcity'] = trim(($space['birthprovince']?"<a href=\"cp.php?ac=friend&
 $space['residecity'] = trim(($space['resideprovince']?"<a href=\"cp.php?ac=friend&op=search&resideprovince=".rawurlencode($space['resideprovince'])."&searchmode=1\">$space[resideprovince]</a>":'').($space['residecity']?" <a href=\"cp.php?ac=friend&op=search&residecity=".rawurlencode($space['residecity'])."&searchmode=1\">$space[residecity]</a>":''));
 $space['qq'] = empty($space['qq'])?'':"<a target=\"_blank\" href=\"http://wpa.qq.com/msgrd?V=1&Uin=$space[qq]&Site=$space[username]&Menu=yes\">$space[qq]</a>";
 
-//éšç§
+//ÒşË½
 $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spaceinfo')." WHERE uid='$space[uid]' AND type IN ('base', 'contact')");
 while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$v_friend = ckfriend($value['uid'], $value['friend']);
@@ -47,14 +47,14 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 
 @include_once(S_ROOT.'./data/data_usergroup.php');
 
-//ç§¯åˆ†
+//»ı·Ö
 $space['star'] = getstar($space['experience']);
 
-//åŸŸå
+//ÓòÃû
 $space['domainurl'] = space_domain($space);
 
 
-//ä¸ªäººåŠ¨æ€
+//¸öÈË¶¯Ì¬
 $feedlist = array();
 if(ckprivacy('feed')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('feed')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,20");
@@ -67,7 +67,7 @@ if(ckprivacy('feed')) {
 	$feednum = count($feedlist);
 }
 
-//å¥½å‹åˆ—è¡¨
+//ºÃÓÑÁĞ±í
 $oluids = array();
 $friendlist = array();
 if(ckprivacy('friend')) {
@@ -78,13 +78,13 @@ if(ckprivacy('friend')) {
 		$friendlist[] = $value;
 	}
 	if($friendlist && empty($space['friendnum'])) {
-		//æ›´æ–°å¥½å‹ç¼“å­˜
+		//¸üĞÂºÃÓÑ»º´æ
 		include_once(S_ROOT.'./source/function_cp.php');
 		friend_cache($space['uid']);
 	}
 }
 
-//æœ€è¿‘è®¿å®¢åˆ—è¡¨
+//×î½ü·Ã¿ÍÁĞ±í
 $visitorlist = array();
 $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('visitor')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,16");
 while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -99,16 +99,16 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$visitorlist[$value['vuid']] = $value;
 }
 
-//è®¿é—®ç»Ÿè®¡
+//·ÃÎÊÍ³¼Æ
 $viewuids = $_SCOOKIE['viewuids']?explode('_', $_SCOOKIE['viewuids']):array();
 if($_SGLOBAL['supe_uid'] && !$space['self'] && !in_array($space['uid'], $viewuids)) {
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET viewnum=viewnum+1 WHERE uid='$space[uid]'");
-	//è®¿åˆ·æ–°
+	//·ÃË¢ĞÂ
 	$viewuids[$space['uid']] = $space['uid'];
 	ssetcookie('viewuids', implode('_', $viewuids));
 }
 
-//æ—¥å¿—
+//ÈÕÖ¾
 $bloglist = array();
 if($space['blognum'] && ckprivacy('blog')) {
 	$query = $_SGLOBAL['db']->query("SELECT b.uid, b.blogid, b.subject, b.dateline, b.pic, b.picflag, b.viewnum, b.replynum, b.friend, b.password, bf.message, bf.target_ids
@@ -126,7 +126,7 @@ if($space['blognum'] && ckprivacy('blog')) {
 	$blognum = count($bloglist);
 }
 
-//ç›¸å†Œ
+//Ïà²á
 $albumlist = array();
 if($space['albumnum'] && ckprivacy('album')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('album')." WHERE uid='$space[uid]' ORDER BY updatetime DESC LIMIT 0,6");
@@ -138,7 +138,7 @@ if($space['albumnum'] && ckprivacy('album')) {
 	}
 }
 
-//ç•™è¨€æ¿
+//ÁôÑÔ°å
 $walllist = array();
 if(ckprivacy('wall')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE id='$space[uid]' AND idtype='uid' ORDER BY dateline DESC LIMIT 0,5");
@@ -149,12 +149,12 @@ if(ckprivacy('wall')) {
 	}
 }
 
-//æ˜¯å¦åœ¨çº¿
+//ÊÇ·ñÔÚÏß
 $query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('session')." WHERE uid = '$space[uid]'");
 $value = $_SGLOBAL['db']->fetch_array($query);
 $isonline = (empty($value) || $value['magichidden']) ? 0 : sgmdate('H:i:s', $value['lastactivity'], 1);
 
-//é£æ ¼
+//·ç¸ñ
 $theme = empty($_GET['theme'])?'':preg_replace("/[^0-9a-z]/i", '', $_GET['theme']);
 if($theme == 'uchomedefault') {
 	$_SGLOBAL['space_theme'] = $_SGLOBAL['space_css'] = '';
@@ -170,7 +170,7 @@ if($theme == 'uchomedefault') {
 	}
 }
 
-//æœ€è¿‘è®¿å®¢è®°å½•
+//×î½ü·Ã¿Í¼ÇÂ¼
 if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 	$query = $_SGLOBAL['db']->query("SELECT dateline FROM ".tname('visitor')." WHERE uid='$space[uid]' AND vuid='$_SGLOBAL[supe_uid]'");
 	$visitor = $_SGLOBAL['db']->fetch_array($query);
@@ -183,27 +183,27 @@ if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 			'dateline' => $_SGLOBAL['timestamp']
 		);
 		inserttable('visitor', $setarr, 0, true);
-		show_credit();//ç«ä»·æ’å
+		show_credit();//¾º¼ÛÅÅÃû
 	} else {
 		if($_SGLOBAL['timestamp'] - $visitor['dateline'] >= 300) {
 			updatetable('visitor', array('dateline'=>$_SGLOBAL['timestamp'], 'vusername'=>$is_anonymous ? '' : $_SGLOBAL['supe_username']), array('uid'=>$space['uid'], 'vuid'=>$_SGLOBAL['supe_uid']));
 		}
 		if($_SGLOBAL['timestamp'] - $visitor['dateline'] >= 3600) {
-			show_credit();//1å°æ—¶åç«ä»·æ’å
+			show_credit();//1Ğ¡Ê±ºó¾º¼ÛÅÅÃû
 		}
 	}
-	//å¥–åŠ±è®¿å®¢
+	//½±Àø·Ã¿Í
 	getreward('visit', 1, 0, $space['uid']);
 }
 
-//çº¢åŒ…é“å…·
+//ºì°üµÀ¾ß
 $space['magiccredit'] = 0;
 if($_SGLOBAL['magic']['gift'] && $_SGLOBAL['supe_uid']) {
 	$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('magicuselog')." WHERE uid='$space[uid]' AND mid='gift' LIMIT 1");
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$data = empty($value['data'])?array():unserialize($value['data']);
 		if($data['left'] <= 0) {
-			$_SGLOBAL['db']->query('DELETE FROM '.tname('magicuselog')." WHERE uid = '$space[uid]' AND mid = 'gift'");
+			$_SGLOBAL['db']->query('DELETE FROM '.tname('magicuselog')." WHERE uid = '$_SGLOBAL[supe_uid]' AND mid = 'gift'");
 		}
 		if(!$data['receiver'] || !in_array($_SGLOBAL['supe_uid'], $data['receiver'])) {
 			$space['magiccredit'] = $data['left'] >= $data['chunk'] ? $data['chunk'] : $data['left'];
@@ -211,7 +211,7 @@ if($_SGLOBAL['magic']['gift'] && $_SGLOBAL['supe_uid']) {
 	}
 }
 	
-//æ˜¯å¦åœ¨çº¿
+//ÊÇ·ñÔÚÏß
 $ols = array();
 if($oluids) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid IN (".simplode($oluids).")");
@@ -224,7 +224,7 @@ if($oluids) {
 	}
 }
 
-//åº”ç”¨æ˜¾ç¤º
+//Ó¦ÓÃÏÔÊ¾
 $narrowlist = $widelist = $guidelist = $space['userapp'] = array();
 if ($_SCONFIG['my_status']) {
 	$query = $_SGLOBAL['db']->query("SELECT main.*, field.*
@@ -254,7 +254,7 @@ if($space['userapp']) {
 	}
 }
 
-//å®å
+//ÊµÃû
 realname_get();
 
 //feed
@@ -262,13 +262,13 @@ foreach ($feedlist as $key => $value) {
 	$feedlist[$key] = mkfeed($value);
 }
 
-//æ›´æ–°å¥½å‹çƒ­åº¦
+//¸üĞÂºÃÓÑÈÈ¶È
 if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 	include_once(S_ROOT.'./source/function_cp.php');
 	addfriendnum($space['uid'], $space['username']);
 }
 
-//å»æ‰å¹¿å‘Š
+//È¥µô¹ã¸æ
 $_SGLOBAL['ad'] = array();
 
 $_GET['view'] = 'me';
@@ -276,13 +276,13 @@ $_GET['view'] = 'me';
 $_TPL['css'] = 'space';
 include_once template("space_index");
 
-//ç«ä»·æ’å
+//¾º¼ÛÅÅÃû
 function show_credit() {
 	global $_SGLOBAL, $space;
 	$showcredit = getcount('show', array('uid'=>$space['uid']), 'credit');
 	if($showcredit>0) {
 		if($showcredit == 1) {
-			//ä¸‹æ¦œé€šçŸ¥
+			//ÏÂ°ñÍ¨Öª
 			notification_add($space['uid'], 'show', cplang('note_show_out'));
 		}
 		$_SGLOBAL['db']->query("UPDATE ".tname('show')." SET credit=credit-1 WHERE uid='$space[uid]' AND credit>0");

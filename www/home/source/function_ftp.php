@@ -10,7 +10,7 @@ if(!defined('IN_UCHOME')) {
 
 include_once(S_ROOT.'./data/data_setting.php');
 
-//FTP涓婁紶
+//FTP上传
 function ftpupload($source, $dest) {
 	global $_SGLOBAL;
 
@@ -60,7 +60,7 @@ function ftpupload($source, $dest) {
 	return 0;
 }
 
-//FTP杩炴帴
+//FTP连接
 function sftp_connect() {
 	global $_SGLOBAL;
 

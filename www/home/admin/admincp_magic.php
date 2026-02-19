@@ -4,7 +4,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏŞ
 if(!checkperm('managemagic')) {
 	cpmessage('no_authority_management_operation');
 }
@@ -14,7 +14,7 @@ $actives = array();
 $actives[$_GET['view']] = ' class="active"';
 
 if(submitcheck("editsubmit")){
-	//ç¼–è¾‘é“å…·
+	//±à¼­µÀ¾ß
 	$_POST['forbiddengid'] = array_map('intval', $_POST['forbiddengid']);
 	$arr = array(
 		'description' => getstr($_POST['description'], '', 1, 1),
@@ -34,13 +34,13 @@ if(submitcheck("editsubmit")){
 	$_POST['storage'] = intval($_POST['storage']);
 	$_SGLOBAL['db']->query("UPDATE ".tname('magicstore')." SET storage = '$_POST[storage]' WHERE mid='$_POST[mid]'");
 
-	//æ›´æ–°ç¼“å­˜
+	//¸üĞÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	magic_cache();
 	cpmessage('do_success', "admincp.php?ac=magic&view=$_GET[view]", 2);
 
 } elseif(submitcheck('ordersubmit')) {
-	// æ’åº
+	// ÅÅĞò
 	if(is_array($_POST['displayorder'])){
 		$orders = $charge = array();
 		$query = $_SGLOBAL['db']->query('SELECT mid, charge, displayorder FROM '.tname('magic'));
@@ -61,21 +61,21 @@ if(submitcheck("editsubmit")){
 
 if($_GET['op'] == 'edit') {
 
-	//ç”¨æˆ·ç»„
+	//ÓÃ»§×é
 	$usergroups = array(-1=>array(), 1=>array(), 0=>array());
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('usergroup'));
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$usergroups[$value['system']][$value['gid']] = $value;
 	}
 
-	//ç¼–è¾‘
+	//±à¼­
 	$query = $_SGLOBAL['db']->query("SELECT m.*, ms.storage FROM ".tname("magic")." m LEFT JOIN ".tname('magicstore')." ms ON m.mid = ms.mid WHERE m.mid = '$_GET[mid]'");
 	$thevalue = $_SGLOBAL['db']->fetch_array($query);
 	$thevalue['forbiddengid'] = explode(',', $thevalue['forbiddengid']);
 	$thevalue['custom'] = $thevalue['custom'] ? unserialize($thevalue['custom']) : array();
 
 } else {
-	//é“å…·åˆ—è¡¨
+	//µÀ¾ßÁĞ±í
 	$close = ($_GET['view'] == 'disabled') ? 1 : 0;
 
 	$list = array();

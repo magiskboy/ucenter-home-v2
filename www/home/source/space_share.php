@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//åˆ†é¡µ
+//·ÖÒ³
 
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
@@ -16,20 +16,20 @@ $id = empty($_GET['id'])?0:intval($_GET['id']);
 
 if($id) {
 
-	//è¯»å–
+	//¶ÁÈ¡
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('share')." WHERE sid='$id' AND uid='$space[uid]'");
 	$share = $_SGLOBAL['db']->fetch_array($query);
-	//ä¸å­˜åœ¨
+	//²»´æÔÚ
 	if(empty($share)) {
 		showmessage('share_does_not_exist');
 	}
 	$share = mkshare($share);
 	
-	//è¯„è®º
+	//ÆÀÂÛ
 	$perpage = 50;
 	$start = ($page-1)*$perpage;
 
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 	
 	$list = array();
@@ -45,10 +45,10 @@ if($id) {
 		}
 	}
 	
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "space.php?uid=$share[uid]&do=share&id=$id", '', 'comment_ul');
 	
-	//ç›¸å…³çƒ­ç‚¹
+	//Ïà¹ØÈÈµã
 	$topic = topic_get($share['topicid']);
 	
 	realname_get();
@@ -60,19 +60,19 @@ if($id) {
 } else {
 	
 	if(empty($_GET['view']) && ($space['friendnum']<$_SCONFIG['showallfriendnum'])) {
-		$_GET['view'] = 'all';//é»˜è®¤æ˜¾ç¤º
+		$_GET['view'] = 'all';//Ä¬ÈÏÏÔÊ¾
 	}
 	
 	$perpage = 20;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	$start = ($page-1)*$perpage;
 	ckstart($start, $perpage);
 	
-	//å¤„ç†æŸ¥è¯¢
+	//´¦Àí²éÑ¯
 	$f_index = '';
 	if($_GET['view']=='all') {
-		//å¤§å®¶çš„
+		//´ó¼ÒµÄ
 		$wheresql = "1";
 		$theurl = "space.php?uid=$space[uid]&do=$do&view=all";
 		$actives = array('all'=>' class="active"');		
@@ -87,7 +87,7 @@ if($id) {
 		$actives = array('we'=>' class="active"');
 	}
 	
-	//ç±»å‹
+	//ÀàĞÍ
 	if($_GET['type']) {
 		$sub_actives = array('type_'.$_GET['type'] => ' class="active"');
 		$wheresql .= " AND type='$_GET[type]'";
@@ -102,7 +102,7 @@ if($id) {
 	
 	$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('share')." WHERE $sharesql $wheresql"),0);
 	
-	//æ›´æ–°ç»Ÿè®¡
+	//¸üĞÂÍ³¼Æ
 	if(empty($sharesql) && $wheresql == "uid='$space[uid]'" && $space['sharenum'] != $count) {
 		updatetable('space', array('sharenum' => $count), array('uid'=>$space['uid']));
 	}
@@ -119,7 +119,7 @@ if($id) {
 		}
 	}
 	
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, $theurl."&type=$_GET[type]");
 	
 	realname_get();

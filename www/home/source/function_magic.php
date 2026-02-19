@@ -8,11 +8,11 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//è·å¾—é“å…·
+//»ñµÃµÀ¾ß
 function magic_get($mid) {
 	global $_SGLOBAL, $space;
 
-	//è·å¾—é“å…·
+	//»ñµÃµÀ¾ß
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('magic')." WHERE mid = '$mid'");
 	if(!$magic = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('unknown_magic');
@@ -22,34 +22,34 @@ function magic_get($mid) {
 	}
 
 	if($magic['close']) {
-		showmessage('magic_is_closed');//é“å…·å·²ç¦ç”¨
+		showmessage('magic_is_closed');//µÀ¾ßÒÑ½ûÓÃ
 	}
 
 	return $magic;
 }
 
-//è´­ä¹°å‰é“å…·æ£€æŸ¥
+//¹ºÂòÇ°µÀ¾ß¼ì²é
 function magic_buy_get($magic) {
 	global $_SGLOBAL, $space;
 
-	//è´­ä¹°
+	//¹ºÂò
 	if(!$magic) {
-		showmessage('unknown_magic');//è¯·é€‰æ‹©é“å…·
+		showmessage('unknown_magic');//ÇëÑ¡ÔñµÀ¾ß
 	} else {
 		$mid = $magic['mid'];
 	}
 	
-	$blacklist = array('coupon');//é“å…·å•†åº—å±è”½è´­ä¹°çš„é“å…·
+	$blacklist = array('coupon');//µÀ¾ßÉÌµêÆÁ±Î¹ºÂòµÄµÀ¾ß
 	if(in_array($mid, $blacklist)) {
-		showmessage('magic_not_for_sale');//æ­¤é“å…·ä¸èƒ½é€šè¿‡è´­ä¹°è·å¾—
+		showmessage('magic_not_for_sale');//´ËµÀ¾ß²»ÄÜÍ¨¹ı¹ºÂò»ñµÃ
 	}
 
 	if(!checkperm('allowmagic')) {
 		ckspacelog();
-		showmessage('magic_groupid_not_allowed');//æ‚¨æ‰€åœ¨çš„ç”¨æˆ·ç»„è¢«ç¦æ­¢ä½¿ç”¨é“å…·
+		showmessage('magic_groupid_not_allowed');//ÄúËùÔÚµÄÓÃ»§×é±»½ûÖ¹Ê¹ÓÃµÀ¾ß
 	}
 
-	//ç”¨æˆ·ç»„é™åˆ¶
+	//ÓÃ»§×éÏŞÖÆ
 	if($magic['forbiddengid'] && in_array($space['groupid'], $magic['forbiddengid'])) {
 		showmessage('magic_groupid_limit');
 	}
@@ -74,10 +74,10 @@ function magic_buy_get($magic) {
 
 	if($magicstore['storage'] < 1) {
 		$nexttime = sgmdate('m-d H:i', $magicstore['lastprovide'] + $magic['provideperoid']);
-		showmessage('not_enough_storage', '', '', array($nexttime));//åº“å­˜ä¸è¶³
+		showmessage('not_enough_storage', '', '', array($nexttime));//¿â´æ²»×ã
 	}
 	
-	//æŠ˜æ‰£
+	//ÕÛ¿Û
 	$discount = checkperm('magicdiscount');
 	$charge = $magic['charge'];
 	if($discount > 0) {
@@ -89,10 +89,10 @@ function magic_buy_get($magic) {
 		$charge = 0;
 	}
 
-	//æœ€å¤šå¯ä»¥è´­ä¹°æ•°
+	//×î¶à¿ÉÒÔ¹ºÂòÊı
 	$magicstore['maxbuy'] = $charge ? min( $magicstore['storage'], floor($space['credit'] / $charge)) : $magicstore['storage'];
 
-	//ä»£é‡‘åˆ¸
+	//´ú½ğÈ¯
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("usermagic")." WHERE uid='$_SGLOBAL[supe_uid]' AND mid = 'coupon'");
 	$coupon = $_SGLOBAL['db']->fetch_array($query);
 
@@ -108,7 +108,7 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 	global $_SGLOBAL, $space;
 
 	if(!$magic) {
-		showmessage('unknown_magic');//è¯·é€‰æ‹©é“å…·
+		showmessage('unknown_magic');//ÇëÑ¡ÔñµÀ¾ß
 	} else {
 		$mid = $magic['mid'];
 	}
@@ -118,18 +118,18 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 		showmessage('bad_buynum');
 	}
 
-	//åº“å­˜ä¸è¶³
+	//¿â´æ²»×ã
 	if($magicstore['storage'] < $_POST['buynum']) {
 		$nexttime = sgmdate('m-d H:i', $magicstore['lastprovide'] + $magic['provideperoid']);
-		showmessage('not_enough_storage', '', '', array($nexttime));//åº“å­˜ä¸è¶³
+		showmessage('not_enough_storage', '', '', array($nexttime));//¿â´æ²»×ã
 	}
 
 	$_POST['coupon'] = intval($_POST['coupon']);
 
 	$discard = 0;
-	if($_POST['coupon']) {//ä»£é‡‘åˆ¸
+	if($_POST['coupon']) {//´ú½ğÈ¯
 		if($coupon['count'] < $_POST['coupon']) {
-			showmessage('not_enough_coupon');//ä»£é‡‘åˆ¸æ•°ç›®ä¸å¤Ÿ
+			showmessage('not_enough_coupon');//´ú½ğÈ¯ÊıÄ¿²»¹»
 		}
 		$discard = 100 * $_POST['coupon'];
 	}
@@ -144,19 +144,19 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 		$magic['charge'] = 0;
 	}
 	$charge = $_POST['buynum'] * $magic['charge'] - $discard;
-	$charge = $charge > 0 ? $charge : 0;//é¿å…ä»£é‡‘åˆ¸æŠ˜ç°
+	$charge = $charge > 0 ? $charge : 0;//±ÜÃâ´ú½ğÈ¯ÕÛÏÖ
 	if($charge > $space['credit']) {
-		showmessage('credit_is_not_enough');//ç§¯åˆ†ä¸å¤Ÿ
+		showmessage('credit_is_not_enough');//»ı·Ö²»¹»
 	}
 
-	//å•†åº—åº“å­˜
+	//ÉÌµê¿â´æ
 	$_SGLOBAL['db']->query("UPDATE ".tname("magicstore")." SET storage = storage - $_POST[buynum], sellcount = sellcount + $_POST[buynum], sellcredit = sellcredit + $charge WHERE mid = '$mid'");
 
-	//ç§¯åˆ†å’Œç»éªŒ
+	//»ı·ÖºÍ¾­Ñé
 	$experience = $_POST['buynum'] * intval($magic['experience']);
 	$_SGLOBAL['db']->query("UPDATE ".tname("space")." SET credit = credit - $charge, experience = experience + '$experience' WHERE uid = '$_SGLOBAL[supe_uid]'");
 
-	//ä¸ªäººé“å…·
+	//¸öÈËµÀ¾ß
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("usermagic")." WHERE uid='$_SGLOBAL[supe_uid]' AND mid='$mid'");
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$count = $value['count'] + $_POST['buynum'];
@@ -165,7 +165,7 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 	}
 	$_SGLOBAL['db']->query("REPLACE ".tname('usermagic')."(uid, username, mid, count) VALUES ('$_SGLOBAL[supe_uid]', '$_SGLOBAL[username]', '$mid', '$count')");
 
-	//è´­ä¹°æ—¥å¿—
+	//¹ºÂòÈÕÖ¾
 	inserttable('magicinlog',
 		array(
 			'uid'=>$_SGLOBAL['supe_uid'],
@@ -176,7 +176,7 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 			'credit'=>$charge,
 			'dateline'=>$_SGLOBAL['timestamp']));
 
-	//ä»£é‡‘åˆ¸
+	//´ú½ğÈ¯
 	if($_POST['coupon']) {
 		$_SGLOBAL['db']->query("UPDATE ".tname("usermagic")." SET count = count - $_POST[coupon] WHERE uid='$_SGLOBAL[supe_uid]' AND mid = 'coupon'");
 	}
@@ -184,11 +184,11 @@ function magic_buy_post($magic, $magicstore, $coupon) {
 	return $charge;
 }
 
-//æ£€æŸ¥è¾“å…¥å‚æ•°
+//¼ì²éÊäÈë²ÎÊı
 function magic_check_idtype($id, $idtype) {
 	global $_SGLOBAL;
 
-	//æ£€æŸ¥åœºåˆ
+	//¼ì²é³¡ºÏ
 	$value = '';
 	$tablename = gettablebyidtype($idtype);
 	if($tablename) {
@@ -201,14 +201,14 @@ function magic_check_idtype($id, $idtype) {
 	return $value;
 }
 
-//ä½¿ç”¨é“å…·
+//Ê¹ÓÃµÀ¾ß
 function magic_use($mid, $magicuselog=array(), $replace=0) {
 	global $_SGLOBAL;
 
-	//é“å…·å‡å°‘
+	//µÀ¾ß¼õÉÙ
 	$_SGLOBAL['db']->query('UPDATE '.tname('usermagic')." SET count = count - 1 WHERE uid = '$_SGLOBAL[supe_uid]' AND mid = '$mid' AND count > 0");
 
-	//ä½¿ç”¨è®°å½•
+	//Ê¹ÓÃ¼ÇÂ¼
 	$value = array();
 	if($replace) {
 		$where = '';

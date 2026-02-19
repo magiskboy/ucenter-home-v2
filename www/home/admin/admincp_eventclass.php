@@ -8,12 +8,12 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏŞ
 if(!checkperm('manageeventclass')) {
 	cpmessage('no_authority_management_operation');
 }
 
-//å–å¾—å•ä¸ªæ•°æ®
+//È¡µÃµ¥¸öÊı¾İ
 $thevalue = array();
 $_GET['classid'] = empty($_GET['classid'])?0:intval($_GET['classid']);
 if($_GET['classid']) {
@@ -29,7 +29,7 @@ if(!empty($_GET['op']) && $_GET['op'] != 'add' && empty($thevalue)) {
 	cpmessage('there_is_no_designated_users_columns');
 }
 
-if(submitcheck("eventclasssubmit")){// åˆ›å»º/ç¼–è¾‘æ´»åŠ¨åˆ†ç±»
+if(submitcheck("eventclasssubmit")){// ´´½¨/±à¼­»î¶¯·ÖÀà
 
 	$arr = array(
 		"classname" => getstr($_POST['classname'], 80, 1, 1, 1),
@@ -40,11 +40,11 @@ if(submitcheck("eventclasssubmit")){// åˆ›å»º/ç¼–è¾‘æ´»åŠ¨åˆ†ç±»
 	$query = $_SGLOBAL['db']->query('SELECT * FROM ' . tname('eventclass'). " WHERE classname = '$arr[classname]'");
 	$value = $_SGLOBAL['db']->fetch_array($query);
 	if($value && $_POST['classid'] != $value['classid']){
-		cpmessage("classname_duplicated"); // æ´»åŠ¨åˆ†ç±»åç§°ä¸èƒ½é‡å¤
+		cpmessage("classname_duplicated"); // »î¶¯·ÖÀàÃû³Æ²»ÄÜÖØ¸´
 	}
 	
-	if($_POST['classid']){// ä¿®æ”¹
-		//æ˜¯å¦åˆ é™¤æµ·æŠ¥
+	if($_POST['classid']){// ĞŞ¸Ä
+		//ÊÇ·ñÉ¾³ıº£±¨
 		$_POST['delposter'] = intval($_POST['delposter']);
 		if($_POST['delposter']) {
 			$arr['poster'] = 0;
@@ -56,23 +56,23 @@ if(submitcheck("eventclasssubmit")){// åˆ›å»º/ç¼–è¾‘æ´»åŠ¨åˆ†ç±»
 		$arr['poster'] = 0;
 		$classid = inserttable('eventclass', $arr, 1);
 	}
-	// ä¸Šä¼ æµ·æŠ¥	
+	// ÉÏ´«º£±¨	
 	if (!empty($_FILES['poster']['tmp_name'])) {
 		include_once(S_ROOT.'./source/function_image.php');
 		$tmp_name = S_ROOT.'./data/temp/eventposter.tmp';
 		move_uploaded_file($_FILES['poster']['tmp_name'], $tmp_name);
-		// ä¸´æ—¶æ”¹å˜ç¼©ç•¥å›¾è®¾ç½®
+		// ÁÙÊ±¸Ä±äËõÂÔÍ¼ÉèÖÃ
 		include_once(S_ROOT.'./data/data_setting.php');
 		$tmpsetting = $_SGLOBAL['setting'];
 		$_SGLOBAL['setting'] = array('thumbwidth' => 200,'thumbheight' => 200,'maxthumbwidth' => 300,'maxthumbheight' => 300);
 		$thumbpath = makethumb($tmp_name);
 		$_SGLOBAL['setting'] = $tmpsetting;		
-		if(empty($thumbpath)){//æœªç”Ÿæˆç¼©ç•¥å›¾
+		if(empty($thumbpath)){//Î´Éú³ÉËõÂÔÍ¼
 			if(fileext($_FILES['poster']['name']) != 'jpg') {
 				cpmessage('poster_only_jpg_allowed');
 			}
 			$thumbpath = $tmp_name;
-		} else {//æˆåŠŸç”Ÿæˆç¼©ç•¥å›¾
+		} else {//³É¹¦Éú³ÉËõÂÔÍ¼
 			@unlink($tmp_name);
 		}
 		if(!is_dir(S_ROOT.'./data/event')){
@@ -86,12 +86,12 @@ if(submitcheck("eventclasssubmit")){// åˆ›å»º/ç¼–è¾‘æ´»åŠ¨åˆ†ç±»
 			updatetable('eventclass', array('poster'=>1), array('classid'=>$classid));
 		}
 	}
-	// æ›´æ–°ç¼“å­˜
+	// ¸üĞÂ»º´æ
 	include_once(S_ROOT . "source/function_cache.php");
 	eventclass_cache();
 	cpmessage("do_success", "admincp.php?ac=eventclass", 2);
 
-} elseif(submitcheck("ordersubmit")) {// æ’åº
+} elseif(submitcheck("ordersubmit")) {// ÅÅĞò
 
 	if(is_array($_POST['displayorder'])){
 		@include_once(S_ROOT."data/data_eventclass.php");
@@ -102,40 +102,40 @@ if(submitcheck("eventclasssubmit")){// åˆ›å»º/ç¼–è¾‘æ´»åŠ¨åˆ†ç±»
 				updatetable("eventclass", array("displayorder"=>$neworder), array("classid"=>$classid));
 			}
 		}
-		// æ›´æ–°ç¼“å­˜
+		// ¸üĞÂ»º´æ
 		include_once(S_ROOT . "source/function_cache.php");
 		eventclass_cache();
 		cpmessage("do_success", "admincp.php?ac=eventclass", 2);
 	}
 	
-} elseif(submitcheck("deletesubmit")){// åˆ é™¤
+} elseif(submitcheck("deletesubmit")){// É¾³ı
 
 	if(! $_POST['classid']){
-		cpmessage("at_least_one_option_to_delete_eventclass", "admincp.php?ac=eventclass", 2); //è¯·è‡³å°‘æ­£ç¡®é€‰æ‹©ä¸€ä¸ªè¦åˆ é™¤çš„æ´»åŠ¨åˆ†ç±»
+		cpmessage("at_least_one_option_to_delete_eventclass", "admincp.php?ac=eventclass", 2); //ÇëÖÁÉÙÕıÈ·Ñ¡ÔñÒ»¸öÒªÉ¾³ıµÄ»î¶¯·ÖÀà
 	}
 	if(! $_POST['newclassid']){
-		cpmessage("columns_option_to_merge_the_eventclass", "admincp.php?ac=eventclass&classid=$_POST[classid]", 2); // è¯·è‡³å°‘æ­£ç¡®é€‰æ‹©ä¸€ä¸ªè¦åˆå¹¶çš„æ´»åŠ¨åˆ†ç±»
+		cpmessage("columns_option_to_merge_the_eventclass", "admincp.php?ac=eventclass&classid=$_POST[classid]", 2); // ÇëÖÁÉÙÕıÈ·Ñ¡ÔñÒ»¸öÒªºÏ²¢µÄ»î¶¯·ÖÀà
 	}
 
 	$_POST['classid '] = intval($_POST['classid']);
 	$_POST['newclassid'] = intval($_POST['newclassid']);
 
-	// æ£€æŸ¥åˆå¹¶åˆ°çš„åˆ†ç±»æ˜¯å¦å­˜åœ¨
+	// ¼ì²éºÏ²¢µ½µÄ·ÖÀàÊÇ·ñ´æÔÚ
 	$query = $_SGLOBAL['db']->query("SELECT classid FROM " . tname("eventclass") . " WHERE classid = '$_POST[classid]'");
 	if(! $_SGLOBAL['db']->fetch_array($query)){
-		cpmessage("columns_option_to_merge_the_eventclass", "admincp.php?ac=eventclass&classid=$_POST[classid]", 2); // è¯·è‡³å°‘æ­£ç¡®é€‰æ‹©ä¸€ä¸ªè¦åˆå¹¶çš„æ´»åŠ¨åˆ†ç±»
+		cpmessage("columns_option_to_merge_the_eventclass", "admincp.php?ac=eventclass&classid=$_POST[classid]", 2); // ÇëÖÁÉÙÕıÈ·Ñ¡ÔñÒ»¸öÒªºÏ²¢µÄ»î¶¯·ÖÀà
 	}
 
 	updatetable("event", array("classid"=>$_POST['newclassid']), array("classid"=>$_POST['classid']));
 	$_SGLOBAL['db']->query("DELETE FROM " . tname("eventclass") . " WHERE classid = '$_POST[classid]'");
 
-	// æ›´æ–°ç¼“å­˜
+	// ¸üĞÂ»º´æ
 	include_once(S_ROOT . "source/function_cache.php");
 	eventclass_cache();
 	cpmessage("do_success", "admincp.php?ac=eventclass", 2);
 }
 
-if("delete" == $_GET['op']) {// åˆ é™¤æ´»åŠ¨åˆ†ç±»
+if("delete" == $_GET['op']) {// É¾³ı»î¶¯·ÖÀà
 
 	if(empty($thevalue)){
 		cpmessage("there_is_no_designated_users_columns", "admincp?ac=eventclass", 2);
@@ -146,10 +146,10 @@ if("delete" == $_GET['op']) {// åˆ é™¤æ´»åŠ¨åˆ†ç±»
 		eventclass_cache();
 	}
 	$list = $_SGLOBAL['eventclass'];
-	if(sizeof($list) == 1){// æœ€åä¸€é¡¹ä¸èƒ½åˆ é™¤
-		cpmessage("have_no_eventclass", "admincp.php?ac=eventclass", 2); // åˆ é™¤å¤±è´¥ï¼Œè¯·ä¿ç•™è‡³å°‘ä¸€ä¸ªæ´»åŠ¨åˆ†ç±»
+	if(sizeof($list) == 1){// ×îºóÒ»Ïî²»ÄÜÉ¾³ı
+		cpmessage("have_no_eventclass", "admincp.php?ac=eventclass", 2); // É¾³ıÊ§°Ü£¬Çë±£ÁôÖÁÉÙÒ»¸ö»î¶¯·ÖÀà
 	}
-	$list[$thevalue['classid']] = null; // ç§»é™¤åˆ é™¤é¡¹
+	$list[$thevalue['classid']] = null; // ÒÆ³ıÉ¾³ıÏî
 
 } elseif("add" == $_GET['op']) {
 

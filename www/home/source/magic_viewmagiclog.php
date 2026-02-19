@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//å…«å¦é•œ
+//°ËØÔ¾µ
 if(submitcheck("usesubmit")) {
 	
 	$idtype = 'uid';

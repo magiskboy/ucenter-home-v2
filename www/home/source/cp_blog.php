@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//æ£€æŸ¥ä¿¡æ¯
+//¼ì²éÐÅÏ¢
 $blogid = empty($_GET['blogid'])?0:intval($_GET['blogid']);
 $op = empty($_GET['op'])?'':$_GET['op'];
 
@@ -20,29 +20,29 @@ if($blogid) {
 	$blog = $_SGLOBAL['db']->fetch_array($query);
 }
 
-//æƒé™æ£€æŸ¥
+//È¨ÏÞ¼ì²é
 if(empty($blog)) {
 	if(!checkperm('allowblog')) {
 		ckspacelog();
 		showmessage('no_authority_to_add_log');
 	}
 	
-	//å®žåè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('blog');
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	ckvideophoto('blog');
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ÐÂÓÃ»§¼ûÏ°
 	cknewuser();
 	
-	//åˆ¤æ–­æ˜¯å¦å‘å¸ƒå¤ªå¿«
+	//ÅÐ¶ÏÊÇ·ñ·¢²¼Ì«¿ì
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast','',1,array($waittime));
 	}
 	
-	//æŽ¥æ”¶å¤–éƒ¨æ ‡é¢˜
+	//½ÓÊÕÍâ²¿±êÌâ
 	$blog['subject'] = empty($_GET['subject'])?'':getstr($_GET['subject'], 80, 1, 0);
 	$blog['message'] = empty($_GET['message'])?'':getstr($_GET['message'], 5000, 1, 0);
 	
@@ -53,7 +53,7 @@ if(empty($blog)) {
 	}
 }
 
-//æ·»åŠ ç¼–è¾‘æ“ä½œ
+//Ìí¼Ó±à¼­²Ù×÷
 if(submitcheck('blogsubmit')) {
 
 	if(empty($blog['blogid'])) {
@@ -65,7 +65,7 @@ if(submitcheck('blogsubmit')) {
 		}
 	}
 	
-	//éªŒè¯ç 
+	//ÑéÖ¤Âë
 	if(checkperm('seccode') && !ckseccode($_POST['seccode'])) {
 		showmessage('incorrect_code');
 	}
@@ -84,7 +84,7 @@ if(submitcheck('blogsubmit')) {
 }
 
 if($_GET['op'] == 'delete') {
-	//åˆ é™¤
+	//É¾³ý
 	if(submitcheck('deletesubmit')) {
 		include_once(S_ROOT.'./source/function_delete.php');
 		if(deleteblogs(array($blogid))) {
@@ -102,7 +102,7 @@ if($_GET['op'] == 'delete') {
 	showmessage('do_success', "space.php?uid=$uid&do=blog&id=$id", 0);
 	
 } elseif($_GET['op'] == 'edithot') {
-	//æƒé™
+	//È¨ÏÞ
 	if(!checkperm('manageblog')) {
 		showmessage('no_privilege');
 	}
@@ -121,10 +121,10 @@ if($_GET['op'] == 'delete') {
 	}
 	
 } else {
-	//æ·»åŠ ç¼–è¾‘
-	//èŽ·å–ä¸ªäººåˆ†ç±»
+	//Ìí¼Ó±à¼­
+	//»ñÈ¡¸öÈË·ÖÀà
 	$classarr = $blog['uid']?getclassarr($blog['uid']):getclassarr($_SGLOBAL['supe_uid']);
-	//èŽ·å–ç›¸å†Œ
+	//»ñÈ¡Ïà²á
 	$albums = getalbums($_SGLOBAL['supe_uid']);
 	
 	$tags = empty($blog['tag'])?array():unserialize($blog['tag']);
@@ -155,10 +155,10 @@ if($_GET['op'] == 'delete') {
 	
 	$allowhtml = checkperm('allowhtml');
 	
-	//å¥½å‹ç»„
+	//ºÃÓÑ×é
 	$groups = getfriendgroup();
 	
-	//å‚ä¸Žçƒ­ç‚¹
+	//²ÎÓëÈÈµã
 	$topic = array();
 	$topicid = $_GET['topicid'] = intval($_GET['topicid']);
 	if($topicid) {
@@ -168,7 +168,7 @@ if($_GET['op'] == 'delete') {
 		$actives = array('blog' => ' class="active"');
 	}
 	
-	//èœå•æ¿€æ´»
+	//²Ëµ¥¼¤»î
 	$menuactives = array('space'=>' class="active"');
 }
 

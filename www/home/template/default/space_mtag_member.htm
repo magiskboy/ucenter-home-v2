@@ -1,4 +1,4 @@
-<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], '成员');}-->
+<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], 'Members');}-->
 <!--{template header}-->
 
 <h2 class="title">
@@ -7,14 +7,14 @@
 </h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>首页</span></a></li>
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>讨论区</span></a></li>
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>精华区</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>Home</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>Discussions</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>Digest</span></a></li>
 		<!--{if $eventnum}-->
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>群组活动</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>Group Events</span></a></li>
 		<!--{/if}-->
-		<li class="active"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>成员列表</span></a></li>
-		<!--{if $mtag['allowpost']}--><li class="null"><a href="cp.php?ac=thread&tagid=$tagid">发起新话题</a></li><!--{/if}-->
+		<li class="active"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>Members</span></a></li>
+		<!--{if $mtag['allowpost']}--><li class="null"><a href="cp.php?ac=thread&tagid=$tagid">Create New Discussion</a></li><!--{/if}-->
 	</ul>
 </div>
 
@@ -29,14 +29,14 @@ function searchFriend() {
 <table cellpadding="0" cellspacing="0" width="100%">
 	<tr>
 		<td>
-			成员列表
-			<!--{if $mtag[grade]>=8}--><span class="pipe">|</span><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members">成员批量管理</a><!--{/if}-->
+			Members
+			<!--{if $mtag[grade]>=8}--><span class="pipe">|</span><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members">Manage</a><!--{/if}-->
 			</td>
 		<td align="right">
 			<table cellspacing="0" cellpadding="0">
 				<tr>
-					<td style="padding: 0;"><input type="text" id="key" name="key" value="搜索成员" onfocus="if(this.value=='搜索成员')this.value='';" class="t_input" tabindex="1" style="width: 160px; border-right: none;" /></td>
-					<td style="padding: 0;"><a href="javascript:searchFriend();"><img src="image/search_btn.gif" alt="搜索" /></a></td>
+					<td style="padding: 0;"><input type="text" id="key" name="key" value="Search" onfocus="if(this.value=='Search Member')this.value='';" class="t_input" tabindex="1" style="width: 160px; border-right: none;" /></td>
+					<td style="padding: 0;"><a href="javascript:searchFriend();"><img src="image/search_btn.gif" alt="Search" /></a></td>
 				</tr>
 			</table>
 		</td>
@@ -65,35 +65,35 @@ function searchFriend() {
 							<h6>
 								<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a>
 								<!--{if $value['videostatus']}-->
-								<img src="image/videophoto.gif" align="absmiddle"> <span class="gray">已通过视频认证</span>
+								<img src="image/videophoto.gif" align="absmiddle"> <span class="gray">Have been certified Via WebCam</span>
 								<!--{/if}-->
 							</h6>
 							<p class="l_status">
 							<!--{if $mtag[grade]>=8}-->
-								<a href="cp.php?ac=mtag&op=manage&subop=member&tagid=$mtag[tagid]&uid=$value[uid]" id="a_mod_$key" onclick="ajaxmenu(event, this.id, 1)" class="r_option" style="padding-left:0.5em;">管理该成员</a>
+								<a href="cp.php?ac=mtag&op=manage&subop=member&tagid=$mtag[tagid]&uid=$value[uid]" id="a_mod_$key" onclick="ajaxmenu(event, this.id, 1)" class="r_option" style="padding-left:0.5em;">Management</a>
 							<!--{/if}-->
 								<span class="r_option gray" id="mtag_member_$value[uid]">
-								<!--{if $value[grade]==9}-->群主
-								<!--{elseif $value[grade]==8}-->副群主
-								<!--{elseif $value[grade]==1}-->明星
-								<!--{elseif $value[grade]==-1}-->禁言
-								<!--{elseif $value[grade]==-2}-->待审核<!--{/if}-->
+								<!--{if $value[grade]==9}-->Grouphome
+								<!--{elseif $value[grade]==8}-->Admin
+								<!--{elseif $value[grade]==1}-->Star
+								<!--{elseif $value[grade]==-1}-->Banned
+								<!--{elseif $value[grade]==-2}-->Pending<!--{/if}-->
 								</span>
-								<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">加为好友</a>
-								<span class="pipe">|</span><a href="cp.php?ac=pm&uid=$value[uid]" id="a_pm_$key" onclick="ajaxmenu(event, this.id, 1)">发短消息</a>
-								<span class="pipe">|</span><a href="cp.php?ac=poke&op=send&uid=$value[uid]" id="a_poke_$key" onclick="ajaxmenu(event, this.id, 1)">打招呼</a>
+								<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_$key" onclick="ajaxmenu(event, this.id, 1)">Add as Friend</a>
+								<span class="pipe">|</span><a href="cp.php?ac=pm&uid=$value[uid]" id="a_pm_$key" onclick="ajaxmenu(event, this.id, 1)">Notice</a>
+								<span class="pipe">|</span><a href="cp.php?ac=poke&op=send&uid=$value[uid]" id="a_poke_$key" onclick="ajaxmenu(event, this.id, 1)">PM</a>
 							</p>
 							
 							<!--{if $ols[$value[uid]]}-->
-							<p><span class="gray">动作：</span><!--{date('m-d H:i',$ols[$value[uid]],1)}--></p>
+							<p><span class="gray">Action:</span><!--{date('d-m H:i',$ols[$value[uid]],1)}--></p>
 							<!--{/if}-->
 
 							<!--{if $value[resideprovince] || $value[residecity]}-->
-							<p><span class="gray">地区：</span><a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=&searchmode=1">$value[resideprovince]</a> <a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=$value[c]&searchmode=1">$value[residecity]</a></p>
+							<p><span class="gray">city��</span><a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=&searchmode=1">$value[resideprovince]</a> <a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=$value[c]&searchmode=1">$value[residecity]</a></p>
 							<!--{/if}-->
 	
 							<!--{if $value[note]}-->
-							<p><span class="gray">状态：</span>$value[note]</p>
+							<p><span class="gray">Status:</span>$value[note]</p>
 							<!--{/if}-->
 
 						</td>
@@ -104,7 +104,7 @@ function searchFriend() {
 		<!--{/loop}-->
 	</table>
 	<!--{else}-->
-	<div class="c_form">没有找到可浏览的成员信息。</div>
+	<div class="c_form">Did not find any record, the membership information can not be found</div>
 	<!--{/if}-->
 </div>
 

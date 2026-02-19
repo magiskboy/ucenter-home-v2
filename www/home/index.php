@@ -10,7 +10,7 @@ if(is_numeric($_SERVER['QUERY_STRING'])) {
 	showmessage('enter_the_space', "space.php?uid=$_SERVER[QUERY_STRING]", 0);
 }
 
-//äºŒçº§åŸŸå
+//¶þ¼¶ÓòÃû
 if(!isset($_GET['do']) && $_SCONFIG['allowdomain']) {
 	$hostarr = explode('.', $_SERVER['HTTP_HOST']);
 	$domainrootarr = explode('.', $_SCONFIG['domainroot']);
@@ -20,7 +20,7 @@ if(!isset($_GET['do']) && $_SCONFIG['allowdomain']) {
 }
 
 if($_SGLOBAL['supe_uid']) {
-	//å·²ç™»å½•ï¼Œç›´æŽ¥è·³è½¬ä¸ªäººé¦–é¡µ
+	//ÒÑµÇÂ¼£¬Ö±½ÓÌø×ª¸öÈËÊ×Ò³
 	showmessage('enter_the_space', 'space.php?do=home', 0);
 }
 
@@ -31,7 +31,7 @@ if(empty($_SCONFIG['networkpublic'])) {
 	
 	$spacelist = array();
 	if($_SGLOBAL['timestamp'] - $cachetime > 900) {
-		//20ä½çƒ­é—¨ç”¨æˆ·
+		//20Î»ÈÈÃÅÓÃ»§
 		$query = $_SGLOBAL['db']->query("SELECT s.*, sf.resideprovince, sf.residecity
 			FROM ".tname('space')." s
 			LEFT JOIN ".tname('spacefield')." sf ON sf.uid=s.uid
@@ -44,7 +44,7 @@ if(empty($_SCONFIG['networkpublic'])) {
 		$spacelist = unserialize(sreadfile($cachefile));
 	}
 	
-	//åº”ç”¨
+	//Ó¦ÓÃ
 	$myappcount = 0;
 	$myapplist = array();
 	if($_SCONFIG['my_status']) {
@@ -57,7 +57,7 @@ if(empty($_SCONFIG['networkpublic'])) {
 		}
 	}
 		
-	//å®žå
+	//ÊµÃû
 	foreach ($spacelist as $key => $value) {
 		realname_set($value['uid'], $value['username'], $value['name'], $value['namestatus']);
 	}

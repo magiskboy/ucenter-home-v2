@@ -21,23 +21,23 @@ if($eventid) {
 	$userevent = $_SGLOBAL['db']->fetch_array($query);
 }
 
-//è¡¨æ€åˆ†ç±»
+//±íÌ¬·ÖÀà
 @include_once(S_ROOT.'./data/data_click.php');
 $clicks = empty($_SGLOBAL['click']['tid'])?array():$_SGLOBAL['click']['tid'];
 
-//åˆ†é¡µ
+//·ÖÒ³
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page=1;
 $id = empty($_GET['id'])?0:intval($_GET['id']);
 
 if($id) {
-	//è¯é¢˜
+	//»°Ìâ
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('thread')." WHERE tid='$id' LIMIT 1");
 	if(!$thread = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('topic_does_not_exist');
 	}
 	
-	//éªŒè¯ç©ºé—´æ˜¯å¦è¢«é”å®š
+	//ÑéÖ¤¿Õ¼äÊÇ·ñ±»Ëø¶¨
 	$space = getspace($thread['uid']);
 	if($space['flag'] == -1) {
 		showmessage('space_has_been_locked');
@@ -45,7 +45,7 @@ if($id) {
 	
 	realname_set($thread['uid'], $thread['username']);
 	
-	//ç¾¤ç»„ä¿¡æ¯
+	//Èº×éĞÅÏ¢
 	$tagid = $thread['tagid'];
 	
 	if($eventid && $event['tagid'] != $tagid) {
@@ -70,7 +70,7 @@ if($id) {
 		showmessage('mtag_not_allow_to_do', "space.php?do=mtag&tagid=$tagid");
 	}
 
-	//å¸–å­åˆ—è¡¨
+	//Ìû×ÓÁĞ±í
 	$perpage = 30;
 	$start = ($page-1)*$perpage;
 
@@ -79,7 +79,7 @@ if($id) {
 	if($count % $perpage == 0) {
 		$perpage = $perpage + 1;
 	}
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 
 	$pid = empty($_GET['pid'])?0:intval($_GET['pid']);
@@ -95,7 +95,7 @@ if($id) {
 		$postnum++;
 	}
 
-	//å–å¾—å†…å®¹
+	//È¡µÃÄÚÈİ
 	if($list[0]['isthread']) {
 		$thread['content'] = $list[0];
 		include_once(S_ROOT.'./source/function_blog.php');
@@ -105,17 +105,17 @@ if($id) {
 		$thread['content'] = array();
 	}
 
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "space.php?uid=$thread[uid]&do=$do&id=$id");
 
-	//è®¿é—®ç»Ÿè®¡
+	//·ÃÎÊÍ³¼Æ
 	if(!$space['self'] && $_SCOOKIE['view_tid'] != $id) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('thread')." SET viewnum=viewnum+1 WHERE tid='$id'");
-		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//å»¶è¿Ÿæ›´æ–°
+		inserttable('log', array('id'=>$space['uid'], 'idtype'=>'uid'));//ÑÓ³Ù¸üĞÂ
 		ssetcookie('view_tid', $id);
 	}
 	
-	//è¡¨æ€
+	//±íÌ¬
 	$hash = md5($thread['uid']."\t".$thread['dateline']);
 	$id = $thread['tid'];
 	$idtype = 'tid';
@@ -127,22 +127,22 @@ if($id) {
 		$clicks[$key] = $value;
 	}
 	
-	//ç‚¹è¯„
+	//µãÆÀ
 	$clickuserlist = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('clickuser')."
 		WHERE id='$id' AND idtype='$idtype'
 		ORDER BY dateline DESC
 		LIMIT 0,18");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-		realname_set($value['uid'], $value['username']);//å®å
+		realname_set($value['uid'], $value['username']);//ÊµÃû
 		$value['clickname'] = $clicks[$value['clickid']]['name'];
 		$clickuserlist[] = $value;
 	}
 	
-	//çƒ­é—¹
+	//ÈÈÄÖ
 	$topic = topic_get($thread['topicid']);
 
-	//å®å
+	//ÊµÃû
 	realname_get();
 	
 	$_TPL['css'] = 'thread';
@@ -153,20 +153,20 @@ if($id) {
 	$perpage = 30;
 	$start = ($page-1)*$perpage;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 	
 	if(!in_array($_GET['view'], array('hot','new','me', 'all'))) {
 		$_GET['view'] = 'hot';
 	}
 
-	//è¯é¢˜åˆ—è¡¨
+	//»°ÌâÁĞ±í
 	$wheresql = $f_index = '';
 	if($_GET['view'] == 'hot') {
 		$minhot = $_SCONFIG['feedhotmin']<1?3:$_SCONFIG['feedhotmin'];
 		$wheresql = "main.hot>='$minhot'";
 		
-		//çƒ­é—¨ç¾¤ç»„
+		//ÈÈÃÅÈº×é
 		if($page == 1) {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mtag')." mt ORDER BY mt.threadnum DESC LIMIT 0,6");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -177,7 +177,7 @@ if($id) {
 		}
 		
 	} elseif($_GET['view'] == 'me')  {
-		//è‡ªå·±çš„
+		//×Ô¼ºµÄ
 		$wheresql = "main.uid='$space[uid]'";
 	} else {
 		$wheresql = "1";
@@ -190,7 +190,7 @@ if($id) {
 	$count = 0;
 	
 		
-	//æœç´¢
+	//ËÑË÷
 	if($searchkey = stripsearchkey($_GET['searchkey'])) {
 		$wheresql = "main.subject LIKE '%$searchkey%'";
 		$theurl .= "&searchkey=$_GET[searchkey]";
@@ -200,7 +200,7 @@ if($id) {
 	if($wheresql) {
 		$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('thread')." main WHERE $wheresql"),0);
 		
-		//æ›´æ–°ç»Ÿè®¡
+		//¸üĞÂÍ³¼Æ
 		if($wheresql == "main.uid='$space[uid]'" && $space['threadnum'] != $count) {
 			updatetable('space', array('threadnum' => $count), array('uid'=>$space['uid']));
 		}
@@ -222,10 +222,10 @@ if($id) {
 		}
 	}
 
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, $theurl);
 	
-	//å®å
+	//ÊµÃû
 	realname_get();
 
 	$_TPL['css'] = 'thread';

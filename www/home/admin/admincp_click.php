@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('manageclick')) {//debug
 	cpmessage('no_authority_management_operation');
 }
@@ -32,7 +32,7 @@ if(submitcheck('clicksubmit')) {
 		if(!in_array($_POST['idtype'], array('blogid', 'picid', 'tid'))) $_POST['idtype'] = 'blogid';
 		$setarr['idtype'] = $_POST['idtype'];
 		$clickid = inserttable('click', $setarr, 1);
-		//å¢žåŠ å­—æ®µ
+		//Ôö¼Ó×Ö¶Î
 		switch ($_POST['idtype']) {
 			case 'picid':
 				$tablename = tname('pic');
@@ -49,7 +49,7 @@ if(submitcheck('clicksubmit')) {
 		updatetable('click', $setarr, array('clickid'=>$_POST['clickid']));
 	}
 	
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	click_cache();
 	
@@ -61,7 +61,7 @@ if(submitcheck('clicksubmit')) {
 		updatetable('click', array('displayorder'=>intval($value)), array('clickid'=>$key));
 	}
 	
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	click_cache();
 	
@@ -89,10 +89,10 @@ if(empty($_GET['op'])) {
 	$click = array();
 	
 } elseif ($_GET['op'] == 'delete') {
-	//åˆ é™¤
+	//É¾³ý
 	if($click) {		
-		//åˆ é™¤å­—æ®µ
-		//å¢žåŠ å­—æ®µ
+		//É¾³ý×Ö¶Î
+		//Ôö¼Ó×Ö¶Î
 		switch ($click['idtype']) {
 			case 'picid':
 				$tablename = tname('pic');
@@ -109,7 +109,7 @@ if(empty($_GET['op'])) {
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('click')." WHERE clickid='$clickid'");
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('clickuser')." WHERE clickid='$clickid'");
 
-		//æ›´æ–°ç¼“å­˜
+		//¸üÐÂ»º´æ
 		include_once(S_ROOT.'./source/function_cache.php');
 		click_cache();
 	}

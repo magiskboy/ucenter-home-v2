@@ -34,15 +34,15 @@ function loadcalendar() {
 	s = '';
 	s += '<div id="calendar" style="display:none; position:absolute; z-index:100000;" onclick="doane(event)">';
 	s += '<div style="width: 210px;"><table cellspacing="0" cellpadding="0" width="100%" style="text-align: center;">';
-	s += '<tr align="center" id="calendar_week"><td><a href="###" onclick="refreshcalendar(yy, mm-1)" title="上一月">《</a></td><td colspan="5" style="text-align: center"><a href="###" onclick="showdiv(\'year\');doane(event)" class="dropmenu" title="点击选择年份" id="year"></a>&nbsp; - &nbsp;<a id="month" class="dropmenu" title="点击选择月份" href="###" onclick="showdiv(\'month\');doane(event)"></a></td><td><A href="###" onclick="refreshcalendar(yy, mm+1)" title="下一月">》</A></td></tr>';
-	s += '<tr id="calendar_header"><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td></tr>';
+	s += '<tr align="center" id="calendar_week"><td><a href="###" onclick="refreshcalendar(yy, mm-1)" title="Prev">��</a></td><td colspan="5" style="text-align: center"><a href="###" onclick="showdiv(\'year\');doane(event)" class="dropmenu" title="Click-Select Year" id="year"></a>&nbsp; - &nbsp;<a id="month" class="dropmenu" title="Click-Select Month" href="###" onclick="showdiv(\'month\');doane(event)"></a></td><td><A href="###" onclick="refreshcalendar(yy, mm+1)" title="Next">��</A></td></tr>';
+	s +='<tr id="calendar_header"><td>Sun</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td></tr>';
 	for(var i = 0; i < 6; i++) {
 		s += '<tr>';
 		for(var j = 1; j <= 7; j++)
 			s += "<td id=d" + (i * 7 + j) + " height=\"19\">0</td>";
 		s += "</tr>";
 	}
-	s += '<tr id="hourminute"><td colspan="7" align="center"><input type="text" size="2" value="" id="hour" class="txt" onKeyUp=\'this.value=this.value > 23 ? 23 : zerofill(this.value);controlid.value=controlid.value.replace(/\\d+(\:\\d+)/ig, this.value+"$1")\'> 点 <input type="text" size="2" value="" id="minute" class="txt" onKeyUp=\'this.value=this.value > 59 ? 59 : zerofill(this.value);controlid.value=controlid.value.replace(/(\\d+\:)\\d+/ig, "$1"+this.value)\'> 分</td></tr>';
+	s += '<tr id="hourminute"><td colspan="7" align="center"><input type="text" size="2" value="" id="hour" class="txt" onKeyUp=\'this.value=this.value > 23 ? 23 : zerofill(this.value);controlid.value=controlid.value.replace(/\\d+(\:\\d+)/ig, this.value+"$1")\'> HH <input type="text" size="2" value="" id="minute" class="txt" onKeyUp=\'this.value=this.value > 59 ? 59 : zerofill(this.value);controlid.value=controlid.value.replace(/(\\d+\:)\\d+/ig, "$1"+this.value)\'> MM</td></tr>';
 	s += '</table></div></div>';
 	s += '<div id="calendar_year" onclick="doane(event)" style="display: none;z-index:100001;"><div class="col">';
 	for(var k = 2020; k >= 1931; k--) {
@@ -52,7 +52,7 @@ function loadcalendar() {
 	s += '</div></div>';
 	s += '<div id="calendar_month" onclick="doane(event)" style="display: none;z-index:100001;">';
 	for(var k = 1; k <= 12; k++) {
-		s += '<a href="###" onclick="refreshcalendar(yy, ' + (k - 1) + ');$(\'calendar_month\').style.display=\'none\'"><span' + (today.getMonth()+1 == k ? ' class="calendar_today"' : '') + ' id="calendar_month_' + k + '">' + k + ( k < 10 ? '&nbsp;' : '') + ' 月</span></a><br />';
+		s += '<a href="###" onclick="refreshcalendar(yy, ' + (k - 1) + ');$(\'calendar_month\').style.display=\'none\'"><span' + (today.getMonth()+1 == k ? ' class="calendar_today"' : '') + ' id="calendar_month_' + k + '">' + k + ( k < 10 ? '&nbsp;' : '') + ' ��</span></a><br />';
 	}
 	s += '</div>';
 	if(is_ie && is_ie < 7) {
@@ -168,7 +168,7 @@ function refreshcalendar(y, m) {
 		}
 		if(x.getFullYear() == today.getFullYear() && x.getMonth() == today.getMonth() && x.getDate() == today.getDate()) {
 			dd.className = 'calendar_today';
-			dd.firstChild.title = '今天';
+			dd.firstChild.title = 'Today';
 		}
 		if(x.getFullYear() == currday.getFullYear() && x.getMonth() == currday.getMonth() && x.getDate() == currday.getDate()) {
 			dd.className = 'calendar_checked';
@@ -208,7 +208,7 @@ function zerofill(s) {
 	return (s < 10 ? '0' : '') + s.toString();
 }
 
-/*  加载样式  */
+/*  ������ʽ  */
 var calendarstyle = "#calendar{padding:5px;text-align:left;border:1px solid #7FCAE2;background:#FFF;margin-bottom:0.8em;}#calendar td{padding:2px;font-weight:bold;}#calendar_week td{height:2em;line-height:2em;border-bottom:1px solid #E3EDF5;}#hourminute td{padding:4px 2px;border-top:1px solid #E3EDF5;}.calendar_expire,.calendar_expire a:link,.calendar_expire a:visited{color:#666;font-weight:normal;}.calendar_default,.calendar_default a:link,.calendar_default a:visited{color:#09C;}.calendar_checked,.calendar_checked a:link,.calendar_checked a:visited{color:#F60;font-weight:bold;}td.calendar_checked,span.calendar_checked{background:#E3EDF5;}.calendar_today,.calendar_today a:link,.calendar_today a:visited{color:#444;font-weight:bold;}#calendar_header td{width:30px;height:20px;border-bottom:1px solid #E3EDF5;font-weight:normal;}#calendar_year{display:none;line-height:130%;background:#FFF;position:absolute;z-index:10;}#calendar_year .col{float:left;background:#FFF;margin-left:1px;border:1px solid #E3EDF5;padding:4px;}#calendar_month{display:none;background:#FFF;line-height:130%;border:1px solid #DDD;padding:4px;position:absolute;z-index:11;}";
 if(is_ie){// IE
 	var el = document.createStyleSheet();

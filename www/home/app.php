@@ -6,10 +6,10 @@
 
 include_once('./common.php');
 
-//ç©ºé—´ä¿¡æ¯
+//¿Õ¼äĞÅÏ¢
 $space = getspace($_SGLOBAL['supe_uid']);
 
-//æ›´æ–°æ´»åŠ¨çŠ¶æ€
+//¸üĞÂ»î¶¯×´Ì¬
 updatetable('session', array('lastactivity' => $_SGLOBAL['timestamp']), array('uid'=>$_SGLOBAL['supe_uid']));
 
 $appid = empty($_GET['id'])?'':intval($_GET['id']);
@@ -20,7 +20,7 @@ if(empty($app)) {
 		showmessage('correct_choice_for_application_show');
 	}
 } else {
-	//é“¾æ¥æ·»åŠ å‚æ•°
+	//Á´½ÓÌí¼Ó²ÎÊı
 	$url = $app['url'];
 	if($_GET['uid']) {
 		switch ($app['type']) {
@@ -50,7 +50,7 @@ if($_GET['href']) {
 }
 
 if(!$_SCONFIG['linkguide']) {
-	showmessage('do_success', $url, 0);//ç›´æ¥è·³è½¬
+	showmessage('do_success', $url, 0);//Ö±½ÓÌø×ª
 }
 
 $_TPL['titles'] = array($app['name']);

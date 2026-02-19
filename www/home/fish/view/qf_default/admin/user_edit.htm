@@ -1,0 +1,36 @@
+<!--{tpl admin/header}-->
+
+<form id="myform" onsubmit="return submits();" class="user_edit">
+	<table width="100%" cellpadding=5 cellspacing=0>
+		<tr>
+			<td width="80px">Tên người dùng</td>
+			<td>{:$value[username]}</td>
+		</tr>
+		<tr>
+			<td width="80px">Kinh nghiệm ao cá</td>
+			<td><input type="text" name="exp" value="{:$value[exp]}" />  {:$value['level']} Cấp</td>
+		</tr>
+		<tr>
+			<td width="80px">Ao khối</td>
+			<td><input type="text" name="reclaim" value="{:$value[reclaim]}" /></td>
+		</tr>
+		<tr>
+			<td width="80px">Số tiền vàng</td>
+			<td><input type="text" name="money" value="{:$value[money]}" /></td>
+		</tr>
+		<tr>
+			<td width="80px">Số tiền xu Y</td>
+			<td><input type="text" name="yb" value="{:$value[yb]}" /></td>
+		</tr>
+	</table>
+	<input type="submit" value="Gửi" /><span id="state"></span>
+</form>
+
+<script type="text/javascript">
+	function submits(inputId) {
+		request('admin.php?mod=user_edit&submit=1&id={:$id}', 'state', $.getForm('#myform', 1));
+		return false;
+	}
+</script>
+
+<!--{tpl admin/footer}-->

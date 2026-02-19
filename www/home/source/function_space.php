@@ -8,13 +8,13 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//å¼€é€šç©ºé—´
+//¿ªÍ¨¿Õ¼ä
 function space_open($uid, $username, $gid=0, $email='') {
 	global $_SGLOBAL, $_SCONFIG;
 
 	if(empty($uid) || empty($username)) return array();
 
-	//éªŒè¯ç©ºé—´æ˜¯å¦è¢«ç®¡ç†å‘˜åˆ é™¤
+	//ÑéÖ¤¿Õ¼äÊÇ·ñ±»¹ÜÀíÔ±É¾³ı
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$uid' AND flag='-1'");
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
 		showmessage('the_space_has_been_closed');
@@ -27,7 +27,7 @@ function space_open($uid, $username, $gid=0, $email='') {
 		'groupid' => $gid,
 		'regip' => getonlineip()
 	);
-	//å¥–åŠ±ç§¯åˆ†
+	//½±Àø»ı·Ö
 	$reward = getreward('register', 0, $uid);
 	if($reward['credit']) {
 		$space['credit'] = $reward['credit'];
@@ -38,17 +38,17 @@ function space_open($uid, $username, $gid=0, $email='') {
 	inserttable('space', $space, 0, true);
 	inserttable('spacefield', array('uid'=>$uid, 'email'=>$email), 0, true);
 
-	//å‘é€PM
+	//·¢ËÍPM
 	if($_SGLOBAL['supe_uid'] && $_SGLOBAL['supe_uid'] != $uid) {
 		include_once S_ROOT.'./uc_client/client.php';
 		uc_pm_send($_SGLOBAL['supe_uid'], $uid, cplang('space_open_subject'), cplang('space_open_message', array(getsiteurl())), 1, 0, 0);
 	}
 	
-	//å‘é€é‚®ç®±éªŒè¯é‚®ä»¶
+	//·¢ËÍÓÊÏäÑéÖ¤ÓÊ¼ş
 	include_once(S_ROOT.'./source/function_cp.php');
 	emailcheck_send($uid, $email);
 
-	//äº§ç”Ÿfeed
+	//²úÉúfeed
 	$_uid = $_SGLOBAL['supe_uid'];
 	$_username = $_SGLOBAL['supe_username'];
 	
@@ -59,7 +59,7 @@ function space_open($uid, $username, $gid=0, $email='') {
 		feed_add('profile', cplang('feed_space_open'));
 	}
 
-	//æ›´æ–°æœ€æ–°ä¼šå‘˜
+	//¸üĞÂ×îĞÂ»áÔ±
 	if($_SCONFIG['newspacenum']>0) {
 		$newspacelist = array();
 		$wherearr = array('1');
@@ -73,7 +73,7 @@ function space_open($uid, $username, $gid=0, $email='') {
 		data_set('newspacelist', $newspacelist);
 	}
 	
-	//ç»Ÿè®¡æ›´æ–°
+	//Í³¼Æ¸üĞÂ
 	include_once(S_ROOT.'./source/function_cp.php');
 	updatestat('register');
 
@@ -83,7 +83,7 @@ function space_open($uid, $username, $gid=0, $email='') {
 	return $space;
 }
 
-//æ·»åŠ session
+//Ìí¼Ósession
 function insertsession($setarr) {
 	global $_SGLOBAL, $_SCONFIG;
 
@@ -91,12 +91,12 @@ function insertsession($setarr) {
 	if($_SCONFIG['onlinehold'] < 300) $_SCONFIG['onlinehold'] = 300;
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('session')." WHERE uid='$setarr[uid]' OR lastactivity<'".($_SGLOBAL['timestamp']-$_SCONFIG['onlinehold'])."'");
 
-	//æ·»åŠ åœ¨çº¿
+	//Ìí¼ÓÔÚÏß
 	$ip = getonlineip(1);
 	$setarr['lastactivity'] = $_SGLOBAL['timestamp'];
 	$setarr['ip'] = $ip;
 
-	//æ£€æŸ¥æ˜¯å¦ä½¿ç”¨äº†é“å…·éšèº«è‰
+	//¼ì²éÊÇ·ñÊ¹ÓÃÁËµÀ¾ßÒşÉí²İ
 	if($_SGLOBAL['magic']['invisible']) {
 		$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('magicuselog')." WHERE uid='$setarr[uid]' AND mid='invisible'");
 		$value = $_SGLOBAL['db']->fetch_array($query);
@@ -113,7 +113,7 @@ function insertsession($setarr) {
 	);
 	$_SGLOBAL['supe_uid'] = $setarr['uid'];
 	$experience = $credit = 0;
-	//æ¯å¤©ç™»é™†å¥–åŠ±
+	//Ã¿ÌìµÇÂ½½±Àø
 	$reward = getreward('daylogin', 0, $setarr['uid']);
 	$credit = $reward['credit'];
 	$experience = $reward['experience'];
@@ -124,26 +124,26 @@ function insertsession($setarr) {
 	if($experience) {
 		$spacearr['experience'] = "experience=experience+$experience";
 	}
-	//æ›´æ–°ç”¨æˆ·
+	//¸üĞÂÓÃ»§
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $spacearr)." WHERE uid='$setarr[uid]'");
 
-	//éªŒè¯ç”¨æˆ·ç»„æ˜¯å¦è¿‡æœŸ
+	//ÑéÖ¤ÓÃ»§×éÊÇ·ñ¹ıÆÚ
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
 	if($value = $_SGLOBAL['db']->fetch_array($query)) {
-		if($value['expiration'] <= $_SGLOBAL['timestamp']) {//åˆ°æœŸ
-			//æ¸…é™¤ç”¨æˆ·ç»„
+		if($value['expiration'] <= $_SGLOBAL['timestamp']) {//µ½ÆÚ
+			//Çå³ıÓÃ»§×é
 			updatetable('space', array('groupid'=>0), array('uid'=>$setarr['uid']));
-			//åˆ é™¤è®°å½•
+			//É¾³ı¼ÇÂ¼
 			$_SGLOBAL['db']->query("DELETE FROM ".tname('spacelog')." WHERE uid='$setarr[uid]'");
 		}
 	}
 	
-	//ç»Ÿè®¡æ›´æ–°
+	//Í³¼Æ¸üĞÂ
 	include_once(S_ROOT.'./source/function_cp.php');
 	updatestat('login', 1);
 }
 
-//è·å–ä»»åŠ¡
+//»ñÈ¡ÈÎÎñ
 function gettask() {
 	global $space, $_SGLOBAL;
 
@@ -154,18 +154,18 @@ function gettask() {
 	}
 
 	if($_SGLOBAL['task']) {
-		//ç”¨æˆ·å·²ç»æ‰§è¡Œçš„ä»»åŠ¡
+		//ÓÃ»§ÒÑ¾­Ö´ĞĞµÄÈÎÎñ
 		$usertasks = array();
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('usertask')." WHERE uid='$_SGLOBAL[supe_uid]'");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$usertasks[$value['taskid']] = $value;
 		}
-		//éœ€è¦æ‰§è¡Œçš„ä»»åŠ¡
+		//ĞèÒªÖ´ĞĞµÄÈÎÎñ
 		foreach ($_SGLOBAL['task'] as $value) {
 			$allownext = 0;
 			$lasttime = $usertasks[$value['taskid']]['dateline'];
 			if(empty($lasttime)) {
-				$allownext = 1;//ä»æœªæ‰§è¡Œè¿‡
+				$allownext = 1;//´ÓÎ´Ö´ĞĞ¹ı
 			} elseif($value['nexttype'] == 'day') {
 				if(sgmdate('Ymd', $_SGLOBAL['timestamp']) != sgmdate('Ymd', $lasttime)) {
 					$allownext = 1;

@@ -1,9 +1,9 @@
 <!--{template header}-->
 <!--{eval 
-	//是否好友
+	//�Ƿ����
 	$space['isfriend'] = $space['self'];
 	if(in_array($_SGLOBAL['supe_uid'], $space['friends'])) {
-		$space['isfriend'] = 1;//是好友
+		$space['isfriend'] = 1;//�Ǻ���
 	}
 }-->
 
@@ -11,9 +11,9 @@
 
 <h2 class="l_status title">
 	<!--{if $_SGLOBAL['realname_privacy']}-->
-		{$_SN[$space[uid]]} 为实名认证用户，你需要通过实名认证后才能继续访问
+		{$_SN[$space[uid]]} is trusted User, Sorry you need to verify your real name after that you can access!
 	<!--{else}-->
-		由于 {$_SN[$space[uid]]} 的隐私设置，你不能访问当前内容
+		Due to privace setting from {$_SN[$space[uid]]}. You don not have access. Add him as friend to access!
 	<!--{/if}-->
 </h2>
 
@@ -28,30 +28,30 @@
 			<td>
 				<h6><a href="space.php?uid=$space[uid]">{$_SN[$space[uid]]}</a></h6>
 				<p class="l_status">
-					<a href="space.php?uid=$space[uid]&do=friend">查看好友列表</a>
+					<a href="space.php?uid=$space[uid]&do=friend">Friends List</a>
 					<!--{if $space['isfriend']}-->
-					<span class="pipe">|</span><a href="cp.php?ac=friend&op=ignore&uid=$space[uid]" id="a_ignore" onclick="ajaxmenu(event, this.id)">解除好友关系</a>
+					<span class="pipe">|</span><a href="cp.php?ac=friend&op=ignore&uid=$space[uid]" id="a_ignore" onclick="ajaxmenu(event, this.id)">Ignore</a>
 					<!--{else}-->
-					<span class="pipe">|</span><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend" onclick="ajaxmenu(event, this.id, 1)">加为好友</a>
+					<span class="pipe">|</span><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend" onclick="ajaxmenu(event, this.id, 1)">Add as Friend</a>
 					<!--{/if}-->
-					<span class="pipe">|</span><a href="cp.php?ac=poke&op=send&uid=$space[uid]" id="a_poke" onclick="ajaxmenu(event, this.id, 1)">打招呼</a>
-					<span class="pipe">|</span><a href="cp.php?ac=pm&uid=$space[uid]" id="a_pm" onclick="ajaxmenu(event, this.id, 1)">发短消息</a>
-					<span class="pipe">|</span><a href="cp.php?ac=common&op=report&idtype=uid&id=$space[uid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">违规举报</a>
+					<span class="pipe">|</span><a href="cp.php?ac=poke&op=send&uid=$space[uid]" id="a_poke" onclick="ajaxmenu(event, this.id, 1)">Poke</a>
+					<span class="pipe">|</span><a href="cp.php?ac=pm&uid=$space[uid]" id="a_pm" onclick="ajaxmenu(event, this.id, 1)">PM</a>
+					<span class="pipe">|</span><a href="cp.php?ac=common&op=report&idtype=uid&id=$space[uid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Abuse</a>
 					<!--{if checkperm('managename')||checkperm('managespacegroup')||checkperm('managespaceinfo')||checkperm('managespacecredit')||checkperm('managespacenote')}-->
-					<span class="pipe">|</span><a id="a_manage" href="admincp.php?ac=space&op=manage&uid=$space[uid]">管理用户</a>
+					<span class="pipe">|</span><a id="a_manage" href="admincp.php?ac=space&op=manage&uid=$space[uid]">Manage</a>
 					<!--{/if}-->
 				</p>
 				<!--{if $space[note]}-->
 				<p>$space[note]</p>
 				<!--{/if}-->
 				<!--{if $space[resideprovince] || $space[residecity]}-->
-				<p><span class="gray">地区：</span>$space[resideprovince] $space[residecity]</p>
+				<p><span class="gray">Location: </span>$space[resideprovince] $space[residecity]</p>
 				<!--{/if}-->
 				
 				<!--{if !$space['isfriend']}-->
-				<p style="padding:20px 0 0 0;font-weight:bold;">{$_SN[$space[uid]]} 有 $space[friendnum] 名好友, $space[credit] 个积分, $space[viewnum] 个浏览量</p>
-				<p>与{$_SN[$space[uid]]}成为好友后，您可以第一时间关注到{$_SN[$space[uid]]}的更新信息。</p>
-				<p style="padding:10px 0 0 0;"><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend" onclick="ajaxmenu(event, this.id, 1)" class="submit">加为好友</a></p>
+				<p style="padding:20px 0 0 0;font-weight:bold;">{$_SN[$space[uid]]} Has $space[friendnum] friends, $space[credit] points and $space[viewnum] profile hits</p>
+				<p>After adding {$_SN[$space[uid]]}, as friend you may may be first to contact {$_SN[$space[uid]]} to request updated information.</p>
+				<p style="padding:10px 0 0 0;"><a href="cp.php?ac=friend&op=add&uid=$space[uid]" id="a_friend" onclick="ajaxmenu(event, this.id, 1)" class="submit">Add To Friend List</a></p>
 				<!--{/if}-->
 			</td>
 		</tr>

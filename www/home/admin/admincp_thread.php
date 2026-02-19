@@ -37,7 +37,7 @@ if(submitcheck('opsubmit')) {
 	}
 }
 
-//æƒé™
+//È¨ÏŞ
 $managebatch = checkperm('managebatch');
 $allowbatch = true;
 $allowdt = 1;
@@ -45,25 +45,25 @@ $allowmanage = 0;
 if(checkperm('managethread')) {
 	$allowmanage = 1;
 } else {
-	//ç¾¤ä¸»
+	//ÈºÖ÷
 	if($tagid) {
 		$grade = getcount('tagspace', array('tagid'=>$tagid, 'uid'=>$_SGLOBAL['supe_uid']), 'grade');
 		if($grade >= 8) {
-			//æ˜¯å¦æˆå‘˜
+			//ÊÇ·ñ³ÉÔ±
 			$allowmanage = 1;
 			$managebatch = 1;
 		}
 	}
 }
 if(!$allowmanage) {
-	$_GET['uid'] = $_SGLOBAL['supe_uid'];//åªèƒ½æ“ä½œæœ¬äººçš„
+	$_GET['uid'] = $_SGLOBAL['supe_uid'];//Ö»ÄÜ²Ù×÷±¾ÈËµÄ
 	$_GET['username'] = '';
 	$allowdt = 0;
 }
 
 $mpurl = 'admincp.php?ac=thread';
 
-//å¤„ç†æœç´¢
+//´¦ÀíËÑË÷
 $intkeys = array('uid', 'tagid', 'digest', 'tid');
 $strkeys = array('username');
 $randkeys = array(array('sstrtotime','dateline'), array('intval','viewnum'), array('intval','replynum'), array('intval','hot'));
@@ -74,24 +74,24 @@ $wherearr = $results['wherearr'];
 $wheresql = empty($wherearr)?'1':implode(' AND ', $wherearr);
 $mpurl .= '&'.implode('&', $results['urls']);
 
-//æ’åº
+//ÅÅĞò
 $orders = getorders(array('dateline', 'lastpost', 'viewnum', 'replynum', 'hot'), 'tid');
 $ordersql = $orders['sql'];
 if($orders['urls']) $mpurl .= '&'.implode('&', $orders['urls']);
 $orderby = array($_GET['orderby']=>' selected');
 $ordersc = array($_GET['ordersc']=>' selected');
 
-//æ˜¾ç¤ºåˆ†é¡µ
+//ÏÔÊ¾·ÖÒ³
 $perpage = empty($_GET['perpage'])?0:intval($_GET['perpage']);
 if(!in_array($perpage, array(20,50,100,1000))) $perpage = 20;
 
 $page = empty($_GET['page'])?1:intval($_GET['page']);
 if($page<1) $page = 1;
 $start = ($page-1)*$perpage;
-//æ£€æŸ¥å¼€å§‹æ•°
+//¼ì²é¿ªÊ¼Êı
 ckstart($start, $perpage);
 
-//æ˜¾ç¤ºåˆ†é¡µ
+//ÏÔÊ¾·ÖÒ³
 if($perpage > 100) {
 	$count = 1;
 	$selectsql = 'tid';
@@ -125,7 +125,7 @@ if($count) {
 	$multi = multi($count, $perpage, $page, $mpurl);
 }
 
-//æ˜¾ç¤ºåˆ†é¡µ
+//ÏÔÊ¾·ÖÒ³
 if($perpage > 100) {
 	$count = count($list);
 }

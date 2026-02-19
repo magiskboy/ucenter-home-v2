@@ -8,19 +8,19 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//åˆå¹¶tag
+//ºÏ²¢tag
 function mergetag($tagids, $newtagid) {
 	global $_SGLOBAL;
 	
 	if(!checkperm('managetag')) return false;
 	
-	//æ¸…ç©º
+	//Çå¿Õ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tag')." WHERE tagid IN (".simplode($tagids).") AND tagid <> '$newtagid'");
 
 	$tagids[] = $newtagid;
 	$tagids = array_unique($tagids);
 	
-	//æ›´æ–°å…³è”è¡¨
+	//¸üÐÂ¹ØÁª±í
 	$blogids = array();
 	$query = $_SGLOBAL['db']->query("SELECT blogid FROM ".tname('tagblog')." WHERE tagid IN (".simplode($tagids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -28,21 +28,21 @@ function mergetag($tagids, $newtagid) {
 	}
 	if(empty($blogids)) return true;
 	
-	//å…³è”
+	//¹ØÁª
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tagblog')." WHERE tagid IN (".simplode($tagids).")");
-	//æ’å…¥
+	//²åÈë
 	$inserts = array();
 	foreach ($blogids as $blogid => $value) {
 		$inserts[]= "('$newtagid', '$blogid')";
 	}
 	$_SGLOBAL['db']->query("INSERT INTO ".tname('tagblog')." (tagid, blogid) VALUES ".implode(',', $inserts));
-	//æ›´æ–°ç»Ÿè®¡
+	//¸üÐÂÍ³¼Æ
 	updatetable('tag', array('blognum'=>count($blogids)), array('tagid'=>$newtagid));
 	
 	return true;
 }
 
-//é”å®š/å¼€æ”¾tag
+//Ëø¶¨/¿ª·Åtag
 function closetag($tagids, $optype) {
 	global $_SGLOBAL;
 	
@@ -60,9 +60,9 @@ function closetag($tagids, $optype) {
 	}
 	if(empty($newtagids)) return false;
 
-	//æ›´æ–°çŠ¶æ€
+	//¸üÐÂ×´Ì¬
 	if($optype == 'close') {
-		//å…³è”
+		//¹ØÁª
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('tagblog')." WHERE tagid IN (".simplode($newtagids).")");
 		$_SGLOBAL['db']->query("UPDATE ".tname('tag')." SET blognum='0', close='1' WHERE tagid IN (".simplode($newtagids).")");
 	} else {
@@ -72,13 +72,13 @@ function closetag($tagids, $optype) {
 	return true;
 }
 
-//åˆå¹¶mtag
+//ºÏ²¢mtag
 function mergemtag($tagids, $newtagid) {
 	global $_SGLOBAL;
 	
 	if(!checkperm('managemtag')) return false;
 	
-	//é‡æ–°ç»„åˆ
+	//ÖØÐÂ×éºÏ
 	$cktagids = array();
 	foreach ($tagids as $value) {
 		if($value && $value != $newtagid) {
@@ -89,28 +89,28 @@ function mergemtag($tagids, $newtagid) {
 	
 	$tagids = $cktagids;
 	
-	//æ¸…ç©º
+	//Çå¿Õ
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('mtag')." WHERE tagid IN (".simplode($tagids).")");
-	//æ›´æ–°è¯é¢˜/å›žå¤
+	//¸üÐÂ»°Ìâ/»Ø¸´
 	$_SGLOBAL['db']->query("UPDATE ".tname('thread')." SET tagid='$newtagid' WHERE tagid IN (".simplode($tagids).")");
 	$_SGLOBAL['db']->query("UPDATE ".tname('post')." SET tagid='$newtagid' WHERE tagid IN (".simplode($tagids).")");
 	
-	//å·²æœ‰çš„æˆå‘˜
+	//ÒÑÓÐµÄ³ÉÔ±
 	$olduids = $newuids = array();
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$newtagid'");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$olduids[$value['uid']] = $value;
 	}
 	
-	//æ›´æ–°å…³è”è¡¨
+	//¸üÐÂ¹ØÁª±í
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid IN (".simplode($tagids).")");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		if(empty($olduids[$value['uid']])) $newuids[$value['uid']] = $value;
 	}
 	
-	//å…³è”
+	//¹ØÁª
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tagspace')." WHERE tagid IN (".simplode($tagids).")");
-	//æ’å…¥
+	//²åÈë
 	$inserts = array();
 	foreach ($newuids as $uid => $value) {
 		$inserts[]= "('$newtagid', '$uid', '".addslashes($value['username'])."')";
@@ -119,7 +119,7 @@ function mergemtag($tagids, $newtagid) {
 		$_SGLOBAL['db']->query("REPLACE INTO ".tname('tagspace')." (tagid,uid,username) VALUES ".implode(',', $inserts));
 	}
 
-	//æ›´æ–°ç»Ÿè®¡
+	//¸üÐÂÍ³¼Æ
 	$setarr = array(
 		'membernum' => getcount('tagspace', array('tagid'=>$newtagid)),
 		'threadnum' => getcount('thread', array('tagid'=>$newtagid)),
@@ -131,7 +131,7 @@ function mergemtag($tagids, $newtagid) {
 }
 
 
-//é”å®š/å¼€æ”¾tag
+//Ëø¶¨/¿ª·Åtag
 function closemtag($tagids, $optype) {
 	global $_SGLOBAL;
 	
@@ -149,9 +149,9 @@ function closemtag($tagids, $optype) {
 	}
 	if(empty($newtagids)) return false;
 
-	//æ›´æ–°çŠ¶æ€
+	//¸üÐÂ×´Ì¬
 	if($optype == 'close') {
-		//å…³è”
+		//¹ØÁª
 		$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET close='1' WHERE tagid IN (".simplode($newtagids).")");
 	} else {
 		$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET close='0' WHERE tagid IN (".simplode($newtagids).")");
@@ -161,7 +161,7 @@ function closemtag($tagids, $optype) {
 }
 
 
-//æŽ¨è/å–æ¶ˆtag
+//ÍÆ¼ö/È¡Ïûtag
 function recommendmtag($tagids, $optype) {
 	global $_SGLOBAL;
 	
@@ -179,9 +179,9 @@ function recommendmtag($tagids, $optype) {
 	}
 	if(empty($newtagids)) return false;
 
-	//æ›´æ–°çŠ¶æ€
+	//¸üÐÂ×´Ì¬
 	if($optype == 'recommend') {
-		//å…³è”
+		//¹ØÁª
 		$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET recommend='1' WHERE tagid IN (".simplode($newtagids).")");
 	} else {
 		$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET recommend='0' WHERE tagid IN (".simplode($newtagids).")");
@@ -190,7 +190,7 @@ function recommendmtag($tagids, $optype) {
 	return true;
 }
 
-//è¯é¢˜ç²¾åŽ
+//»°Ìâ¾«»ª
 function digestthreads($tagid, $tids, $v) {
 	global $_SGLOBAL;
 	
@@ -214,7 +214,7 @@ function digestthreads($tagid, $tids, $v) {
 		$threads[] = $value;
 	}
 	
-	//æ•°æ®
+	//Êý¾Ý
 	if($newtids) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('thread')." SET digest='$v' WHERE tid IN (".simplode($newtids).")");
 	}
@@ -222,7 +222,7 @@ function digestthreads($tagid, $tids, $v) {
 	return $threads;
 }
 
-//è¯é¢˜ç½®é¡¶
+//»°ÌâÖÃ¶¥
 function topthreads($tagid, $tids, $v) {
 	global $_SGLOBAL;
 	
@@ -245,7 +245,7 @@ function topthreads($tagid, $tids, $v) {
 		$threads[] = $value;
 	}
 	
-	//æ•°æ®
+	//Êý¾Ý
 	if($newtids) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('thread')." SET displayorder='$v' WHERE tid IN (".simplode($newtids).")");
 	}

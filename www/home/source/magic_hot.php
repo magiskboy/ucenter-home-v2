@@ -9,18 +9,18 @@ if(!defined('IN_UCHOME')) {
 }
 
 magic_check_idtype($id, $idtype);
-//æ£€æŸ¥é‡å¤ä½¿ç”¨
+//¼ì²éÖØ¸´Ê¹ÓÃ
 if($_SGLOBAL['db']->result($_SGLOBAL['db']->query('SELECT COUNT(*) FROM '.tname('magicuselog')." WHERE id = '$id' AND idtype = '$idtype' AND uid = '$_SGLOBAL[supe_uid]' AND mid = '$mid'"), 0)) {
-	showmessage("magicuse_object_once_limit");//å·²ç»å¯¹è¯¥ä¿¡æ¯ä½¿ç”¨è¿‡æ­¤é“å…·ï¼Œä¸èƒ½é‡å¤ä½¿ç”¨
+	showmessage("magicuse_object_once_limit");//ÒÑ¾­¶Ô¸ÃÐÅÏ¢Ê¹ÓÃ¹ý´ËµÀ¾ß£¬²»ÄÜÖØ¸´Ê¹ÓÃ
 }
 
-//çƒ­ç‚¹ç¯
+//ÈÈµãµÆ
 if(submitcheck("usesubmit")) {
 
-	//å¢žåŠ ä¿¡æ¯çƒ­ç‚¹å€¼
+	//Ôö¼ÓÐÅÏ¢ÈÈµãÖµ
 	$hot = intval($_SCONFIG['feedhotmin']);
 	$_SGLOBAL['db']->query('UPDATE '.tname('feed')." SET hot = hot + $hot WHERE id = '$id' AND idtype = '$idtype' AND uid = '$_SGLOBAL[supe_uid]'");
-	//å¢žåŠ æ—¥å¿—çƒ­ç‚¹å€¼
+	//Ôö¼ÓÈÕÖ¾ÈÈµãÖµ
 	$_SGLOBAL['db']->query('UPDATE '.tname('blog')." SET hot = hot + $hot WHERE blogid = '$id' AND uid = '$_SGLOBAL[supe_uid]'");
 
 	magic_use($mid, array('id'=>$id, 'idtype'=>$idtype), true);

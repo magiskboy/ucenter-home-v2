@@ -15,7 +15,7 @@ class VideoAuth extends MyBase {
 
 		if ($status == 'approved') {
 			$status = 1;
-			//濂栧姳绉垎
+			//奖励积分
 			getreward('videophoto', 1, $uId, '', 0);
 		} else if($status == 'refused') {
 			$status = 0;
@@ -66,15 +66,15 @@ class VideoAuth extends MyBase {
 			if (fwrite($fp, $pic) !== FALSE) {
 				fclose($fp);
 				
-				//涓昏〃
+				//主表
 				updatetable('space', array('videostatus'=>1), array('uid' => $uId));
-				//闄勮〃
+				//附表
 				$fields = array('videopic' => $secret);
 				updatetable('spacefield', $fields, array('uid' => $uId));
 				$result = $_SGLOBAL['db']->affected_rows();
 
 				if ($isReward) {
-					//濂栧姳绉垎
+					//奖励积分
 					getreward('videophoto', 1, $uId, '', 0);
 				}
 				return new APIResponse($result);

@@ -12,7 +12,7 @@ var note_step = 0;
 var note_oldtitle = document.title;
 var note_timer;
 
-//iframe包含
+//iframe����
 if (top.location != location) {
 	top.location.href = location.href;
 }
@@ -25,7 +25,7 @@ function addSort(obj) {
 	if (obj.value == 'addoption') {
  	var newOptDiv = document.createElement('div')
  	newOptDiv.id = obj.id+'_menu';
- 	newOptDiv.innerHTML = '<h1>添加</h1><a href="javascript:;" onclick="addOption(\'newsort\', \''+obj.id+'\')" class="float_del">删除</a><div class="popupmenu_inner" style="text-align: center;">名称：<input type="text" name="newsort" size="10" id="newsort" class="t_input" /><input type="button" name="addSubmit" value="创建" onclick="addOption(\'newsort\', \''+obj.id+'\')" class="button" /></div>';
+ 	newOptDiv.innerHTML = '<h1>Add</h1><a href="javascript:;" onclick="addOption(\'newsort\', \''+obj.id+'\')" class="float_del">Remove</a><div class="popupmenu_inner" style="text-align: center;">Name: <input type="text" name="newsort" size="10" id="newsort" class="t_input" /><input type="button" name="addSubmit" value="Create" onclick="addOption(\'newsort\', \''+obj.id+'\')" class="button" /></div>';
  	newOptDiv.className = 'popupmenu_centerbox';
  	newOptDiv.style.cssText = 'position: absolute; left: 50%; top: 200px; width: 400px; margin-left: -200px;';
  	document.body.appendChild(newOptDiv);
@@ -103,7 +103,7 @@ function doane(event) {
 	}
 }
 
-//验证码
+//��֤��
 function seccode() {
 	var img = 'do.php?ac=seccode&rand='+Math.random();
 	document.writeln('<img id="img_seccode" src="'+img+'" align="absmiddle">');
@@ -115,7 +115,7 @@ function updateseccode() {
 	}
 }
 
-//缩小图片并添加链接
+//��СͼƬ����������
 function resizeImg(id,size) {
 	var theImages = $(id).getElementsByTagName('img');
 	for (i=0; i<theImages.length; i++) {
@@ -129,7 +129,7 @@ function resizeImg(id,size) {
 					zoomDiv.style.position = 'relative';
 					zoomDiv.style.cursor = 'pointer';
 					
-					this.title = '点击图片，在新窗口显示原始尺寸';
+					this.title = 'Click on Image, to view orgininal size in new window';
 					
 					var zoom = document.createElement('img');
 					zoom.src = 'image/zoom.gif';
@@ -153,7 +153,7 @@ function resizeImg(id,size) {
 	}
 }
 
-//Ctrl+Enter 发布
+//Ctrl+Enter ����
 function ctrlEnter(event, btnId, onlyEnter) {
 	if(isUndefined(onlyEnter)) onlyEnter = 0;
 	if((event.ctrlKey || onlyEnter) && event.keyCode == 13) {
@@ -162,7 +162,7 @@ function ctrlEnter(event, btnId, onlyEnter) {
 	}
 	return true;
 }
-//缩放Textarea
+//����Textarea
 function zoomTextarea(id, zoom) {
 	zoomSize = zoom ? 10 : -10;
 	obj = $(id);
@@ -172,30 +172,30 @@ function zoomTextarea(id, zoom) {
 	}
 }
 
-//复制URL地址
+//����URL��ַ
 function setCopy(_sTxt){
 	if(is_ie) {
 		clipboardData.setData('Text',_sTxt);
-		alert ("网址“"+_sTxt+"”\n已经复制到您的剪贴板中\n您可以使用Ctrl+V快捷键粘贴到需要的地方");
+		alert ("Website��"+_sTxt+"��\n copied to clipboard \n Now you can paste it where you want or use shortcut ket CTR+V");
 	} else {
-		prompt("请复制网站地址:",_sTxt); 
+		prompt("Copy the Web site address",_sTxt);
 	}
 }
 
-//验证是否有选择记录
+//��֤�Ƿ���ѡ���¼
 function ischeck(id, prefix) {
 	form = document.getElementById(id);
 	for(var i = 0; i < form.elements.length; i++) {
 		var e = form.elements[i];
 		if(e.name.match(prefix) && e.checked) {
-			if(confirm("您确定要执行本操作吗？")) {
+			if(confirm("Are you sure?")) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}
-	alert('请选择要操作的对象');
+	alert('Please Select the target!');
 	return false;
 }
 function showPreview(val, id) {
@@ -261,7 +261,7 @@ function insertWebImg(obj) {
 		insertImage(obj.value);
 		obj.value = 'http://';
 	} else {
-		alert('图片地址不正确');
+		alert('incorrect url, is should begin http:// and end with .gif .jpg or .png');
 	}
 }
 
@@ -323,14 +323,14 @@ function trim(str) {
 	re.exec(str); 
 	return RegExp.$1; 
 }
-// 停止音乐flash
+// ֹͣ����flash
 function stopMusic(preID, playerID) {
 	var musicFlash = preID.toString() + '_' + playerID.toString();
 	if($(musicFlash)) {
 		$(musicFlash).SetVariable('closePlayer', 1);
 	}
 }
-// 显示影视、音乐flash
+// ��ʾӰ�ӡ�����flash
 function showFlash(host, flashvar, obj, shareid) {
 	var flashAddr = {
 		'youku.com' : 'http://player.youku.com/player.php/sid/FLASHVAR=/v.swf',
@@ -369,7 +369,7 @@ function showFlash(host, flashvar, obj, shareid) {
 	var flashHtml = videoFlash;
 	var videoMp3 = true;
 	if('' == flashvar) {
-		alert('音乐地址错误，不能为空');
+		alert('Music URL Error, It can not be empty');
 		return false;
 	}
 	if('music' == host) {
@@ -410,7 +410,7 @@ function showFlash(host, flashvar, obj, shareid) {
 		obj.style.display = 'none';
 		var hideObj = document.createElement('div');
 		hideObj.id = 'flash_hide_' + shareid;
-		var nodetxt = document.createTextNode("收起");
+		var nodetxt = document.createTextNode("Stop");
 		hideObj.appendChild(nodetxt);
 		obj.parentNode.insertBefore(hideObj, obj);
 		hideObj.style.cursor = 'pointer';
@@ -428,33 +428,33 @@ function showFlash(host, flashvar, obj, shareid) {
 	}
 }
 
-//显示全部应用
+//��ʾȫ��Ӧ��
 function userapp_open() {
 	var x = new Ajax();
 	x.get('cp.php?ac=common&op=getuserapp', function(s){
 		$('my_userapp').innerHTML = s;
 		$('a_app_more').className = 'on';
-		$('a_app_more').innerHTML = '收起';
+		$('a_app_more').innerHTML = 'Stop';
 		$('a_app_more').onclick = function() {
 			userapp_close();
 		}
 	});
 }
 
-//关闭全部应用
+//�ر�ȫ��Ӧ��
 function userapp_close() {
 	var x = new Ajax();
 	x.get('cp.php?ac=common&op=getuserapp&subop=off', function(s){
 		$('my_userapp').innerHTML = s;
 		$('a_app_more').className = 'off';
-		$('a_app_more').innerHTML = '展开';
+		$('a_app_more').innerHTML = 'Open';
 		$('a_app_more').onclick = function() {
 			userapp_open();
 		}
 	});
 }
 
-//滚动
+//����
 function startMarquee(h, speed, delay, sid) {
 	var t = null;
 	var p = false;

@@ -1,16 +1,16 @@
-<!--{eval $_TPL['titles'] = array('投票');}-->
+<!--{eval $_TPL['titles'] = array('Poll');}-->
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_poll">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=poll" class="r_option" target="_blank">发起投票</a>
-			投票(共 $count 个)</h3>
+			<a href="cp.php?ac=poll" class="r_option" target="_blank">����ͶƱ</a>
+			Poll ($count)</h3>
 		<!--{if $list}-->
 		<ul class="line_list">
 		<!--{loop $list $value}-->
 			<li>
-				<span class="gray r_option">{$value[voternum]}人投票</span>
+				<span class="gray r_option">{$value[voternum]}Poll</span>
 				<h4><a href="space.php?uid=$space[uid]&do=poll&pid=$value[pid]" target="_blank">$value[subject]</a></h4>
 				<div class="detail">
 				 <!--{loop $value['option'] $val}-->
@@ -23,7 +23,7 @@
 		<div class="page">$multi</div>
 		
 		<!--{else}-->
-		<div class="c_form">Chưa có bình luận liên quan nào.</div>
+		<div class="c_form">No Related Poll Found</div>
 		<!--{/if}-->
 	</div><br>
 <!--{else}-->
@@ -32,50 +32,50 @@
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="搜索投票" class="submit" type="submit">
+	<input name="searchsubmit" value="Search Poll" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="poll" />
 	<input type="hidden" name="view" value="new" />
 </form>
 </div>
-<h2 class="title"><img src="image/app/poll.gif" />投票</h2>
+<h2 class="title"><img src="image/app/poll.gif" />Poll</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li$actives[new]><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>最新投票</span></a></li>
-		<li$actives[hot]><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>最热投票</span></a></li>
-		<li$actives[reward]><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>悬赏投票</span></a></li>
-		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>好友投票</span></a></li><!--{/if}-->
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的投票</span></a></li>
-		<li class="null"><a href="cp.php?ac=poll">发起投票</a></li>
+		<li$actives[new]><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>Latest Poll</span></a></li>
+		<li$actives[hot]><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>Popular Poll</span></a></li>
+		<li$actives[reward]><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>Poll Reward</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>Friends Poll</span></a></li><!--{/if}-->
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Vote</span></a></li>
+		<li class="null"><a href="cp.php?ac=poll">Create New Poll</a></li>
 	</ul>
 </div>
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "投票";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">TA的所有投票</a>";
+	$_TPL['spacetitle'] = "Poll";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">Friend, All Poll</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">按照投票发起时间排序</div>
+<div class="h_status">Latest Vote</div>
 <!--{/if}-->
 
 <!--{if $space[self] && in_array($_GET['view'], array('me', 'hot'))}-->
 <div class="h_status">
 	<!--{if $_GET['view'] == 'hot'}-->
-	范围：
-	<a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=all"$filtrate[all]>全部</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=week"$filtrate[week]>本周最热</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=month"$filtrate[month]>本月最热</a>
+	Range: 
+	<a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=all"$filtrate[all]>All</a>
+	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=week"$filtrate[week]>Hottest This Week</a>
+	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=hot&filtrate=month"$filtrate[month]>Months Popular</a>
 	<!--{else}-->
-	类型：
-	<a href="space.php?uid=$space[uid]&do=$do&view=me"$filtrate[me]>我发起的</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=join"$filtrate[join]>我参与的</a>
-	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=expiration"$filtrate[expiration]>已过期的</a>
+	Type:
+	<a href="space.php?uid=$space[uid]&do=$do&view=me"$filtrate[me]>My Poll</a>
+	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=join"$filtrate[join]>Voted by Me</a>
+	<span class="pipe">|</span><a href="space.php?uid=$space[uid]&do=$do&view=me&filtrate=expiration"$filtrate[expiration]>Expired</a>
 	<!--{/if}-->
 </div>
 <!--{/if}-->
 
 <!--{if $searchkey}-->
-<div class="h_status">以下是搜索投票 <span style="color:red;font-weight:bold;">$searchkey</span> 结果列表</div>
+<div class="h_status">For this Search <span style="color:red;font-weight:bold;">$searchkey</span>  Result</div>
 <!--{/if}-->
 	
 <div id="content" style="width:100%;">
@@ -98,21 +98,21 @@
 						 <!--{loop $value['option'] $val}-->
 							<li><input type="<!--{if $value[multiple]}-->checkbox<!--{else}-->radio<!--{/if}-->" disabled name="poll_$value[pid]"/> $val</li>
 						 <!--{/loop}-->
-							<li>……</li>
+							<li>����</li>
 						 </ol>
 						 <p>
 						 	<span class="gray"><!--{date('Y-m-d H:i',$value[dateline],1)}--></span>
 						 	<span class="pipe">|</span>
-						 	<a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]#comment">评论($value[replynum])</a>
+						 	<a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]#comment">Comments($value[replynum])</a>
 						 	<!--{if $_GET[view]=='me'&&$value[expiration]&&$value[expiration]<$_SGLOBAL[timestamp]}-->
 						 	<span class="pipe">|</span>
-						 	<span class="gray">投票已结束</span><!--{if empty($value[summary])}-->&nbsp;<a class="green" href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">去写写投票总结</a><!--{/if}-->
+						 	<span class="gray">Voting Closed</span><!--{if empty($value[summary])}-->&nbsp;<a class="green" href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">Poll Summary:</a><!--{/if}-->
 						 	<!--{/if}-->
 						 </p>
 					</div>
 				</div>
 				<div class="poll_status">
-					<a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]" class="poll_joins pj_<!--{eval echo random(1, 1)}-->"><span>$value[voternum]</span>人参与</a> <a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]" class="go2_poll">去投票</a>
+					<a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]" class="poll_joins pj_<!--{eval echo random(1, 1)}-->"><span>$value[voternum]</span>Opinion</a> <a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]" class="go2_poll">Vote</a>
 				</div>
 			</li>
 		<!--{/loop}-->
@@ -123,7 +123,7 @@
 	<div class="page">$multi</div>
 	
 	<!--{else}-->
-	<div class="c_form">Chưa có bình luận liên quan nào.</div>
+	<div class="c_form">No Search to related Poll</div>
 	<!--{/if}-->
 
 </div>

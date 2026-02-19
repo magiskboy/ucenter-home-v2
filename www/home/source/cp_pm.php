@@ -21,7 +21,7 @@ include_once S_ROOT.'./uc_client/client.php';
 
 if($_GET['op'] == 'checknewpm') {
 
-	//æ£€æŸ¥å½“å‰ç”¨æˆ·
+	//¼ì²éµ±Ç°ÓÃ»§
 	if($_SGLOBAL['supe_uid']) {
 		$ucnewpm = uc_pm_checknew($_SGLOBAL['supe_uid']);
 		if($_SGLOBAL['member']['newpm'] != $ucnewpm) {
@@ -47,16 +47,16 @@ if($_GET['op'] == 'checknewpm') {
 	
 } elseif($_GET['op'] == 'send') {
 
-	//åˆ¤æ–­æ˜¯å¦å‘å¸ƒå¤ªå¿«
+	//ÅÐ¶ÏÊÇ·ñ·¢²¼Ì«¿ì
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast','',1,array($waittime));
 	}
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ÐÂÓÃ»§¼ûÏ°
 	cknewuser();
 	
-	//é»‘åå•
+	//ºÚÃûµ¥
 	if($touid) {
 		if(isblacklist($touid)) {
 			showmessage('is_blacklist');
@@ -65,7 +65,7 @@ if($_GET['op'] == 'checknewpm') {
 
 	if(submitcheck('pmsubmit')) {
 
-		//å‘é€æ¶ˆæ¯
+		//·¢ËÍÏûÏ¢
 		$username = empty($_POST['username'])?'':$_POST['username'];
 
 		$message = trim($_POST['message']);
@@ -76,10 +76,10 @@ if($_GET['op'] == 'checknewpm') {
 
 		$return = 0;
 		if($touid) {
-			//ç›´æŽ¥ç»™ä¸€ä¸ªç”¨æˆ·å‘PM
+			//Ö±½Ó¸øÒ»¸öÓÃ»§·¢PM
 			$return = uc_pm_send($_SGLOBAL['supe_uid'], $touid, $subject, $message, 1, $pmid, 0);
 
-			//å‘é€é‚®ä»¶é€šçŸ¥
+			//·¢ËÍÓÊ¼þÍ¨Öª
 			if($return > 0) {
 				smail($touid, '', cplang('friend_pm',array($_SN[$space['uid']], getsiteurl().'space.php?do=pm')), '', 'friend_pm');
 			}
@@ -97,7 +97,7 @@ if($_GET['op'] == 'checknewpm') {
 				$return = uc_pm_send($_SGLOBAL['supe_uid'], implode(',', $newusers), $subject, $message, 1, $pmid, 1);
 			}
 
-			//å‘é€é‚®ä»¶é€šçŸ¥
+			//·¢ËÍÓÊ¼þÍ¨Öª
 			$touid = 0;
 			if($return > 0) {
 				$query = $_SGLOBAL['db']->query('SELECT uid FROM '.tname('space').' WHERE username IN ('.simplode($users).')');
@@ -109,7 +109,7 @@ if($_GET['op'] == 'checknewpm') {
 		}
 
 		if($return > 0) {
-			//æ›´æ–°æœ€åŽå‘å¸ƒæ—¶é—´
+			//¸üÐÂ×îºó·¢²¼Ê±¼ä
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET lastpost='$_SGLOBAL[timestamp]' WHERE uid='$_SGLOBAL[supe_uid]'");
 			showmessage('do_success', "space.php?do=pm&filter=privatepm");
 		} else {
@@ -130,14 +130,14 @@ if($_GET['op'] == 'checknewpm') {
 	
 } else {
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ÐÂÓÃ»§¼ûÏ°
 	cknewuser();
 
 	if(!checkperm('allowpm')) {
 		ckspacelog();
 		showmessage('no_privilege');
 	}
-	//å‘é€
+	//·¢ËÍ
 	$friends = array();
 	if($space['friendnum']) {
 		$query = $_SGLOBAL['db']->query("SELECT fuid AS uid, fusername AS username FROM ".tname('friend')." WHERE uid=$_SGLOBAL[supe_uid] AND status='1' ORDER BY num DESC, dateline DESC LIMIT 0,100");

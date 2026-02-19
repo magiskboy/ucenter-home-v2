@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('managecredit')) {
 	cpmessage('no_authority_management_operation');
 }
@@ -31,9 +31,9 @@ if(submitcheck('creditsubmit')) {
 		'cycletime' => intval($_POST['cycletime']),
 		'rewardnum' => intval($_POST['rewardnum'])
 	);
-	//åŠ åˆ†
+	//¼Ó·Ö
 	if($rewardtype) {
-		//ä¸€æ¬¡æ€§
+		//Ò»´ÎÐÔ
 		if(!$cycletype) {
 			$setarr['cycletime'] = 0;
 			$setarr['rewardnum'] = 1;

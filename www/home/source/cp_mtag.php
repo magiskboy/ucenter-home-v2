@@ -24,14 +24,14 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$_SGLOBAL['profield'][$value['fieldid']] = $value;
 }
 
-//æ˜¾ç¤º
+//ÏÔÊ¾
 if($_GET['op'] == 'manage') {
 	
 	if(empty($_GET['subop'])) {
 		$_GET['subop'] = 'base';
 	}
 	
-	//æ£€æŸ¥å½“å‰ç”¨æˆ·æƒé™
+	//¼ì²éµ±Ç°ÓÃ»§È¨ÏŞ
 	$mtag = array();
 	$managemtag = 0;
 	$tagid = empty($_GET['tagid'])?0:intval($_GET['tagid']);
@@ -40,22 +40,22 @@ if($_GET['op'] == 'manage') {
 	
 	if(submitcheck('invitesubmit') || $_GET['subop']=='invite') {
 		if(empty($mtag['allowinvite'])) {
-			showmessage('no_privilege');//ä¸å…è®¸é‚€è¯·
+			showmessage('no_privilege');//²»ÔÊĞíÑûÇë
 		}
 	} else {
 		if($mtag['grade'] < 8) {
-			showmessage('no_privilege');//å§ä¸»/å‰¯å§ä¸»
+			showmessage('no_privilege');//°ÉÖ÷/¸±°ÉÖ÷
 		}
 	}
 	
-	//æ ç›®
+	//À¸Ä¿
 	$field = $_SGLOBAL['profield'][$mtag['fieldid']];
 	
-	//æäº¤å¤„ç†
+	//Ìá½»´¦Àí
 	if(submitcheck('basesubmit')) {
 		$setarr = array();
 		if($mtag['grade'] == 9) {
-			//ç¾¤ä¸»
+			//ÈºÖ÷
 			$setarr['joinperm'] = $field['manualmember']?intval($_POST['joinperm']):0;
 			$setarr['viewperm'] = intval($_POST['viewperm']);
 			$setarr['threadperm'] = intval($_POST['threadperm']);
@@ -70,13 +70,13 @@ if($_GET['op'] == 'manage') {
 		
 	} elseif (submitcheck('memberssubmit')) {
 
-		//äººå‘˜ç®¡ç†
+		//ÈËÔ±¹ÜÀí
 		mtag_managemember($mtag, $_POST['ids'], $_POST['newgrade']);
 		
 		showmessage('do_success', "cp.php?ac=mtag&op=manage&tagid=$tagid&subop=$_GET[subop]&grade=$_GET[grade]");
 	
 	} elseif (submitcheck('invitesubmit')) {
-		//é‚€è¯·
+		//ÑûÇë
 		$ids = empty($_POST['ids'])?array():$_POST['ids'];
 		$inserts = array();
 		if($ids) {
@@ -103,12 +103,12 @@ if($_GET['op'] == 'manage') {
 		showmessage('do_success', "cp.php?ac=mtag&op=manage&tagid=$tagid&subop=invite&page=$_GET[page]&group=$_GET[group]&start=$_GET[start]");
 		
 	} elseif (submitcheck('membersubmit')) {
-		//äººå‘˜ç®¡ç†
+		//ÈËÔ±¹ÜÀí
 		mtag_managemember($mtag, array($_GET['uid']), $_POST['grade']);
 		showmessage('do_success', $_POST['refer'], 0);
 	}
 	
-	//ç¼–è¾‘ç”¨æˆ·
+	//±à¼­ÓÃ»§
 	if($_GET['subop'] == 'member') {
 
 		$grades = array();
@@ -121,20 +121,20 @@ if($_GET['op'] == 'manage') {
 		
 	} elseif($_GET['subop'] == 'members') {
 		
-		//åˆ†é¡µ
+		//·ÖÒ³
 		$perpage = 24;
 		$start = empty($_GET['start'])?0:intval($_GET['start']);
 		$list = array();
 		$count = 0;
 		
-		//æ£€ç´¢
+		//¼ìË÷
 		$wheresql = '';
 		$_GET['key'] = stripsearchkey($_GET['key']);
 		if($_GET['key']) {
 			$wheresql = " AND username LIKE '%$_GET[key]%' ";
 		}
 		
-		//æ£€æŸ¥å¼€å§‹æ•°
+		//¼ì²é¿ªÊ¼Êı
 		ckstart($start, $perpage);
 
 		$_GET['grade'] = intval($_GET['grade']);
@@ -150,9 +150,9 @@ if($_GET['op'] == 'manage') {
 		$multi = smulti($start, $perpage, $count, "cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=$_GET[grade]&key=$_GET[key]");
 		
 	} elseif($_GET['subop'] == 'invite') {
-		//é‚€è¯·
+		//ÑûÇë
 		
-		//åˆ†é¡µ
+		//·ÖÒ³
 		$perpage = 24;
 		$page = empty($_GET['page'])?0:intval($_GET['page']);
 		if($page<1) $page = 1;
@@ -160,7 +160,7 @@ if($_GET['op'] == 'manage') {
 		
 		
 		
-		//æ£€æŸ¥å¼€å§‹æ•°
+		//¼ì²é¿ªÊ¼Êı
 		ckstart($start, $perpage);
 		
 		$list = array();
@@ -190,14 +190,14 @@ if($_GET['op'] == 'manage') {
 			}
 		}
 		
-		//æ˜¯å¦åŠ å…¥
+		//ÊÇ·ñ¼ÓÈë
 		$joins = array();
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('tagspace')." WHERE tagid='$tagid' AND uid IN (".simplode($fuids).")");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$joins[$value['uid']] = $value['uid'];
 		}
 		
-		//æ˜¯å¦é‚€è¯·
+		//ÊÇ·ñÑûÇë
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname('mtaginvite')." WHERE tagid='$tagid' AND uid IN (".simplode($fuids).")");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			$joins[$value['uid']] = $value['uid'];
@@ -205,14 +205,14 @@ if($_GET['op'] == 'manage') {
 		
 		realname_get();
 		
-		//ç”¨æˆ·ç»„
+		//ÓÃ»§×é
 		$groups = getfriendgroup();
 		$groupselect = array($_GET['group'] => ' selected');
 		
 		$multi = multi($count, $perpage, $page, "cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=invite&group=$_GET[group]&key=$_GET[key]");
 		
 	} else {
-		//æ˜¾ç¤º
+		//ÏÔÊ¾
 		include_once(S_ROOT.'./source/function_bbcode.php');
 		$mtag['announcement'] = html2bbcode($mtag['announcement']);
 	
@@ -243,23 +243,23 @@ if($_GET['op'] == 'manage') {
 	$mtag = $tagid?getmtag($tagid):array();
 
 	if(submitcheck('outsubmit')) {
-		//å¯¹ç§å¯†ç¾¤ç»„è¿›è¡ŒéªŒè¯
+		//¶ÔË½ÃÜÈº×é½øĞĞÑéÖ¤
 		if(($mtag['joinperm'] > 0 || $mtag['viewperm'] > 0) && $mtag['grade'] == 9) {
-			//éªŒè¯æ˜¯å¦è¿˜æœ‰ä¸»ç¾¤ç»„
+			//ÑéÖ¤ÊÇ·ñ»¹ÓĞÖ÷Èº×é
 			$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade='9'"), 0);
 			if($count < 2) {
 				showmessage('failure_to_withdraw_from_group');
 			}
 		}
 		if($mtag['status'] != -9) {
-			mtag_out($mtag, array($_SGLOBAL['supe_uid']));//é€€å‡º
+			mtag_out($mtag, array($_SGLOBAL['supe_uid']));//ÍË³ö
 		}
 		showmessage('do_success', "space.php?do=mtag");
 	}
 	
 } elseif($_GET['op'] == 'mtaginvite') {
 	
-	//ç¾¤ç»„é‚€è¯·
+	//Èº×éÑûÇë
 	$count = 0;
 	$invites = array();
 	$query = $_SGLOBAL['db']->query("SELECT mtag.*, i.* FROM ".tname('mtaginvite')." i
@@ -276,7 +276,7 @@ if($_GET['op'] == 'manage') {
 	}
 	realname_get();
 	
-	//æ›´æ–°ç»Ÿè®¡
+	//¸üĞÂÍ³¼Æ
 	if($count != $space['mtaginvitenum']) {
 		updatetable('space', array('mtaginvitenum'=>$count), array('uid'=>$space['uid']));
 	}
@@ -286,18 +286,18 @@ if($_GET['op'] == 'manage') {
 	$tagid = intval($_GET['tagid']);
 
 	if($tagid && !empty($_GET['r'])) {
-		//åˆ¤æ–­æ˜¯å¦å·²ç»åŠ å…¥ç¾¤ç»„
+		//ÅĞ¶ÏÊÇ·ñÒÑ¾­¼ÓÈëÈº×é
 		$ts_count = getcount('tagspace', array('tagid'=>$tagid, 'uid'=>$_SGLOBAL['supe_uid']));
 		if(!$ts_count) {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mtaginvite')." WHERE tagid='$tagid' AND uid='$_SGLOBAL[supe_uid]'");
 			if($invite = $_SGLOBAL['db']->fetch_array($query)) {
-				//ç¾¤ç»„ä¿¡æ¯
+				//Èº×éĞÅÏ¢
 				$mtag = getmtag($tagid);
 				
-				//æ£€æŸ¥æ•°é‡
+				//¼ì²éÊıÁ¿
 				$fieldid = $mtag['fieldid'];
 				$field = $mtag['field'];
-				//è‡ªå·±åœ¨å½“å‰æ ç›®ä¸‹é¢çš„ç¾¤ç»„
+				//×Ô¼ºÔÚµ±Ç°À¸Ä¿ÏÂÃæµÄÈº×é
 				$maxinputnum = 0;
 				if($field['formtype'] == 'text' || $field['formtype'] == 'multi') {
 					$maxinputnum = intval($field['inputnum']);
@@ -313,7 +313,7 @@ if($_GET['op'] == 'manage') {
 					}
 				}
 				
-				//åŠ å…¥ç¾¤ç»„
+				//¼ÓÈëÈº×é
 				$setarr = array(
 					'tagid' => $tagid,
 					'uid' => $_SGLOBAL['supe_uid'],
@@ -322,8 +322,8 @@ if($_GET['op'] == 'manage') {
 				$_SGLOBAL['db']->query("UPDATE ".tname('mtag')." SET membernum=membernum+1 WHERE tagid='$tagid'");
 				inserttable('tagspace', $setarr, 0, true);
 				
-				//äº‹ä»¶é€šçŸ¥
-				//å®å
+				//ÊÂ¼şÍ¨Öª
+				//ÊµÃû
 				realname_set($invite['fromuid'], $invite['fromusername']);
 				realname_get();
 				
@@ -346,7 +346,7 @@ if($_GET['op'] == 'manage') {
 
 				$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE tagid='$tagid' AND uid='$_SGLOBAL[supe_uid]'");
 				
-				//æ›´æ–°ç»Ÿè®¡
+				//¸üĞÂÍ³¼Æ
 				if($space['mtaginvitenum']>0) {
 					updatetable('space', array('mtaginvitenum'=>$space['mtaginvitenum']-1), array('uid'=>$space['uid']));
 				}
@@ -356,12 +356,12 @@ if($_GET['op'] == 'manage') {
 		}
 	}
 
-	//å–æ¶ˆ
+	//È¡Ïû
 	if($tagid) {
 		
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE uid='$_SGLOBAL[supe_uid]' AND tagid='$tagid'");
 		
-		//æ›´æ–°ç»Ÿè®¡
+		//¸üĞÂÍ³¼Æ
 		if($space['mtaginvitenum']>0) {
 			updatetable('space', array('mtaginvitenum'=>$space['mtaginvitenum']-1), array('uid'=>$space['uid']));
 		}
@@ -372,7 +372,7 @@ if($_GET['op'] == 'manage') {
 		
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE uid='$_SGLOBAL[supe_uid]'");
 		
-		//ç»Ÿè®¡
+		//Í³¼Æ
 		updatetable('space', array('mtaginvitenum'=>0), array('uid'=>$space['uid']));
 		
 		showmessage('do_success', "cp.php?ac=mtag&op=mtaginvite", 0);
@@ -434,25 +434,25 @@ if($_GET['op'] == 'manage') {
 	}
 } else {
 	
-	//åˆ›å»ºæ–°ç¾¤ç»„
+	//´´½¨ĞÂÈº×é
 	if(!checkperm('allowmtag')) {
 		ckspacelog();
 		showmessage('no_privilege');
 	}
 	
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('thread');
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	ckvideophoto('thread');
 
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ĞÂÓÃ»§¼ûÏ°
 	cknewuser();
 	
-	//æäº¤
+	//Ìá½»
 	if(submitcheck('textsubmit')) {
 		
-		//è‡ªç”±è¾“å…¥
+		//×ÔÓÉÊäÈë
 		$_POST['tagname'] = $tagname = getstr($_POST['tagname'], 40, 1, 1, 1);
 		$_POST['fieldid'] = $fieldid = intval($_POST['fieldid']);
 		
@@ -465,7 +465,7 @@ if($_GET['op'] == 'manage') {
 		}
 		
 		if(!empty($_POST['joinmode'])) {
-			//äºŒæ¬¡ç¡®è®¤
+			//¶ş´ÎÈ·ÈÏ
 			$mtag = mtag_join('tagname', stripslashes($tagname), $fieldid);
 			if(empty($mtag)) {
 				showmessage('mtag_join_error');
@@ -474,13 +474,13 @@ if($_GET['op'] == 'manage') {
 				showmessage('join_success', $url, 0);
 			}
 		} else {
-			//å¯»æ‰¾
+			//Ñ°ÕÒ
 			$newtagname = stripslashes($_POST['tagname']);
 			$findmtag = $likemtags = array();
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mtag')." WHERE tagname='$tagname' AND fieldid='$fieldid'");
 			if(!$findmtag = $_SGLOBAL['db']->fetch_array($query)) {
 				$key = stripsearchkey($_POST['tagname']);
-				//æ‰¾ç›¸ä¼¼çš„
+				//ÕÒÏàËÆµÄ
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mtag')." WHERE tagname LIKE '%$key%' ORDER BY membernum DESC LIMIT 0,20");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 					$likemtags[] = $value;
@@ -528,7 +528,7 @@ if($_GET['op'] == 'manage') {
 		}
 	}
 	
-	//å·²ç»åŠ å…¥çš„
+	//ÒÑ¾­¼ÓÈëµÄ
 	$existmtag = array();
 	$query = $_SGLOBAL['db']->query("SELECT mtag.tagname, mtag.fieldid FROM ".tname('tagspace')." main
 		LEFT JOIN ".tname('mtag')." mtag ON mtag.tagid=main.tagid
@@ -540,11 +540,11 @@ if($_GET['op'] == 'manage') {
 
 include template("cp_mtag");
 
-//åŠ å…¥
+//¼ÓÈë
 function mtag_join($type, $key, $fieldid=0) {
 	global $_SGLOBAL, $space;
 	
-	//åˆ¤æ–­ç”¨æˆ·æ˜¯å¦å·²ç»åŠ å…¥
+	//ÅĞ¶ÏÓÃ»§ÊÇ·ñÒÑ¾­¼ÓÈë
 	$havejoin = 0;
 	$key = addslashes($key);
 	
@@ -558,7 +558,7 @@ function mtag_join($type, $key, $fieldid=0) {
 	}
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mtag')." main WHERE $wheresql LIMIT 1");
 	if($mtag = $_SGLOBAL['db']->fetch_array($query)) {
-		//åˆ¤æ–­æ˜¯å¦åŠ å…¥
+		//ÅĞ¶ÏÊÇ·ñ¼ÓÈë
 		$fieldid = $mtag['fieldid'];
 		$havejoin = getcount('tagspace', array('tagid'=>$mtag['tagid'], 'uid'=>$_SGLOBAL['supe_uid']));
 	} elseif($type == 'tagid') {
@@ -570,7 +570,7 @@ function mtag_join($type, $key, $fieldid=0) {
 	
 	$field = $_SGLOBAL['profield'][$fieldid];
 	if(!$mtag) {
-		//åˆ›å»º
+		//´´½¨
 		$mtag = array(
 			'tagname' => $key,
 			'fieldid' => $fieldid
@@ -581,10 +581,10 @@ function mtag_join($type, $key, $fieldid=0) {
 		$tagid = $mtag['tagid'];
 	}
 	
-	//æ£€æŸ¥ä¸ªæ•°
+	//¼ì²é¸öÊı
 	$mtag['title'] = $field['title'];
 	
-	//è‡ªå·±åœ¨å½“å‰æ ç›®ä¸‹é¢çš„ç¾¤ç»„
+	//×Ô¼ºÔÚµ±Ç°À¸Ä¿ÏÂÃæµÄÈº×é
 	$maxinputnum = 0;
 	if($field['formtype'] == 'text' || $field['formtype'] == 'multi') {
 		$maxinputnum = intval($field['inputnum']);
@@ -601,7 +601,7 @@ function mtag_join($type, $key, $fieldid=0) {
 		}
 	}
 	
-	//åŠ å…¥
+	//¼ÓÈë
 	$setarr = array(
 		'tagid' => $tagid,
 		'uid' => $_SGLOBAL['supe_uid'],
@@ -610,17 +610,17 @@ function mtag_join($type, $key, $fieldid=0) {
 	if($mtag['joinperm'] == 2) {
 		return array();
 	} elseif($mtag['joinperm'] == 1) {
-		$mtag['grade'] = $setarr['grade'] = -2;//éœ€è¦å®¡æ ¸
+		$mtag['grade'] = $setarr['grade'] = -2;//ĞèÒªÉóºË
 	} else {
-		//æ£€æµ‹æ˜¯å¦æœ‰ç¾¤ä¸»
+		//¼ì²âÊÇ·ñÓĞÈºÖ÷
 		$query = $_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade>=8");
 		$modcount = $_SGLOBAL['db']->result($query, 0);
 		if($modcount) {
-			$mtag['grade'] = $setarr['grade'] = 0;//å·²ç»æœ‰ç¾¤ä¸»
+			$mtag['grade'] = $setarr['grade'] = 0;//ÒÑ¾­ÓĞÈºÖ÷
 		} else {
-			$mtag['grade'] = $setarr['grade'] = $field['manualmoderator']?0:9;//è‡ªåŠ¨ä¸ºç¾¤ä¸»
+			$mtag['grade'] = $setarr['grade'] = $field['manualmoderator']?0:9;//×Ô¶¯ÎªÈºÖ÷
 		}
-		//äº‹ä»¶é€šçŸ¥
+		//ÊÂ¼şÍ¨Öª
 		if(ckprivacy('mtag', 1)) {
 			$fs = array();
 			$fs['icon'] = 'mtag';
@@ -640,12 +640,12 @@ function mtag_join($type, $key, $fieldid=0) {
 	return $mtag;
 }
 
-//è¸¢äºº
+//ÌßÈË
 function mtag_out($mtag, $uids) {
 	global $_SGLOBAL;
 
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('tagspace')." WHERE tagid='$mtag[tagid]' AND uid IN (".simplode($uids).")");
-	//æ›´æ–°æˆå‘˜æ•°
+	//¸üĞÂ³ÉÔ±Êı
 	$count = getcount('tagspace', array('tagid'=>$mtag['tagid']));
 	if($count > 0) {
 		updatetable('mtag', array('membernum'=>$count), array('tagid'=>$mtag['tagid']));
@@ -656,12 +656,12 @@ function mtag_out($mtag, $uids) {
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('post')." WHERE tagid='$mtag[tagid]'");
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('mtaginvite')." WHERE tagid='$mtag[tagid]'");
 	
-		//åˆ é™¤ä¸¾æŠ¥
+		//É¾³ı¾Ù±¨
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('report')." WHERE id='$mtag[tagid]' AND idtype='tagid'");
 	}
 }
 
-//ç®¡ç†æˆå‘˜
+//¹ÜÀí³ÉÔ±
 function mtag_managemember($mtag, $uids, $newgrade) {
 	global $_SGLOBAL;
 	
@@ -669,7 +669,7 @@ function mtag_managemember($mtag, $uids, $newgrade) {
 	
 	$managemtag = checkperm('managemtag');
 	
-	//å‰¯å§ä¸»
+	//¸±°ÉÖ÷
 	if($mtag['grade'] < 9 && $newgrade >= 8 && !$managemtag) {
 		showmessage('no_privilege');
 	}
@@ -685,7 +685,7 @@ function mtag_managemember($mtag, $uids, $newgrade) {
 		showmessage('mtag_managemember_no_privilege');
 	}
 	
-	//é€šçŸ¥
+	//Í¨Öª
 	$note_msg = cplang("note_members_grade_$newgrade", array($mtag['tagid'], $mtag['tagname']));
 	$inserts = $n_uids = array();
 	foreach ($newuids as $uid) {
@@ -700,7 +700,7 @@ function mtag_managemember($mtag, $uids, $newgrade) {
 	}
 
 	if($newgrade == -9) {
-		mtag_out($mtag, $newuids);//è¸¢äºº
+		mtag_out($mtag, $newuids);//ÌßÈË
 	} else {
 		$_SGLOBAL['db']->query("UPDATE ".tname('tagspace')." SET grade='$newgrade' WHERE tagid='$mtag[tagid]' AND uid IN (".simplode($newuids).")");
 	}

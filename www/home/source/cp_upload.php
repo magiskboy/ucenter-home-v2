@@ -33,17 +33,17 @@ if($eventid){
 }
 
 if(submitcheck('albumsubmit')) {
-	//åˆ›å»ºç›¸å†Œ
+	//´´½¨Ïà²á
 	if($_POST['albumop'] == 'creatalbum') {
 		$_POST['albumname'] = empty($_POST['albumname'])?'':getstr($_POST['albumname'], 50, 1, 1);
 		if(empty($_POST['albumname'])) $_POST['albumname'] = gmdate('Ymd');
 
 		$_POST['friend'] = intval($_POST['friend']);
 
-		//éšç§
+		//ÒþË½
 		$_POST['target_ids'] = '';
 		if($_POST['friend'] == 2) {
-			//ç‰¹å®šå¥½å‹
+			//ÌØ¶¨ºÃÓÑ
 			$uids = array();
 			$names = empty($_POST['target_names'])?array():explode(' ', str_replace(array(cplang('tab_space'), "\r\n", "\n", "\r"), ' ', $_POST['target_names']));
 			if($names) {
@@ -53,14 +53,14 @@ if(submitcheck('albumsubmit')) {
 				}
 			}
 			if(empty($uids)) {
-				$_POST['friend'] = 3;//ä»…è‡ªå·±å¯è§
+				$_POST['friend'] = 3;//½ö×Ô¼º¿É¼û
 			} else {
 				$_POST['target_ids'] = implode(',', $uids);
 			}
 		} elseif($_POST['friend'] == 4) {
-			//åŠ å¯†
+			//¼ÓÃÜ
 			$_POST['password'] = trim($_POST['password']);
-			if($_POST['password'] == '') $_POST['friend'] = 0;//å…¬å¼€
+			if($_POST['password'] == '') $_POST['friend'] = 0;//¹«¿ª
 		}
 		if($_POST['friend'] !== 2) {
 			$_POST['target_ids'] = '';
@@ -69,7 +69,7 @@ if(submitcheck('albumsubmit')) {
 			$_POST['password'] = '';
 		}
 
-		//åˆ›å»ºç›¸å†Œ
+		//´´½¨Ïà²á
 		$setarr = array();
 		$setarr['albumname'] = $_POST['albumname'];
 		$setarr['uid'] = $_SGLOBAL['supe_uid'];
@@ -81,7 +81,7 @@ if(submitcheck('albumsubmit')) {
 
 		$albumid = inserttable('album', $setarr, 1);
 		
-		//æ›´æ–°ç”¨æˆ·ç»Ÿè®¡
+		//¸üÐÂÓÃ»§Í³¼Æ
 		if(empty($space['albumnum'])) {
 			$space['albumnum'] = getcount('album', array('uid'=>$space['uid']));
 			$albumnumsql = "albumnum=".$space['albumnum'];
@@ -109,7 +109,7 @@ if(submitcheck('albumsubmit')) {
 
 } elseif(submitcheck('uploadsubmit')) {
 
-	//ä¸Šä¼ å›¾ç‰‡
+	//ÉÏ´«Í¼Æ¬
 	$albumid = $picid = 0;
 
 	if(!checkperm('allowupload')) {
@@ -123,7 +123,7 @@ if(submitcheck('albumsubmit')) {
 		}
 	}
 
-	//ä¸Šä¼ 
+	//ÉÏ´«
 	$_POST['topicid'] = topic_check($_POST['topicid'], 'pic');
 	
 	$uploadfiles = pic_save($_FILES['attach'], $_POST['albumid'], $_POST['pic_title'], $_POST['topicid']);
@@ -158,8 +158,8 @@ if(submitcheck('albumsubmit')) {
 
 } elseif(submitcheck('viewAlbumid')) {
 	
-	//ä¸Šä¼ å®Œæˆå‘é€feed
-	if($eventid){//è·³åˆ°æ´»åŠ¨é¡µé¢
+	//ÉÏ´«Íê³É·¢ËÍfeed
+	if($eventid){//Ìøµ½»î¶¯Ò³Ãæ
 	
 		$imgs = array();
 		$imglinks = array();
@@ -180,13 +180,13 @@ if(submitcheck('albumsubmit')) {
 	    
 	} else {	
 		
-		//ç›¸å†Œfeed
+		//Ïà²áfeed
 		if(ckprivacy('upload', 1)) {
 			include_once(S_ROOT.'./source/function_feed.php');
 			feed_publish($_POST['opalbumid'], 'albumid');
 		}
 		
-		//å•ä¸ªå›¾ç‰‡feed
+		//µ¥¸öÍ¼Æ¬feed
 		if($_POST['topicid']) {
 			topic_join($_POST['topicid'], $_SGLOBAL['supe_uid'], $_SGLOBAL['supe_username']);
 			$url = "space.php?do=topic&topicid=$_POST[topicid]&view=pic";
@@ -201,36 +201,36 @@ if(submitcheck('albumsubmit')) {
 		ckspacelog();
 		showmessage('no_privilege');
 	}
-	//å®žåè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('album');
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	ckvideophoto('album');
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ÐÂÓÃ»§¼ûÏ°
 	cknewuser();
 	
 	$siteurl = getsiteurl();
 	
-	//èŽ·å–ç›¸å†Œ
+	//»ñÈ¡Ïà²á
 	$albums = getalbums($_SGLOBAL['supe_uid']);
 	
-	//æ¿€æ´»
+	//¼¤»î
 	$actives = ($_GET['op'] == 'flash' || $_GET['op'] == 'cam')?array($_GET['op']=>' class="active"'):array('js'=>' class="active"');
 	
-	//ç©ºé—´å¤§å°
+	//¿Õ¼ä´óÐ¡
 	$maxattachsize = checkperm('maxattachsize');
 	if(!empty($maxattachsize)) {
-		$maxattachsize = $maxattachsize + $space['addsize'];//é¢å¤–ç©ºé—´
+		$maxattachsize = $maxattachsize + $space['addsize'];//¶îÍâ¿Õ¼ä
 		$haveattachsize = formatsize($maxattachsize - $space['attachsize']);
 	} else {
 		$haveattachsize = 0;
 	}
 	
-	//å¥½å‹ç»„
+	//ºÃÓÑ×é
 	$groups = getfriendgroup();
 	
-	//çƒ­é—¹
+	//ÈÈÄÖ
 	$topic = array();
 	$topicid = $_GET['topicid'] = intval($_GET['topicid']);
 	if($topicid) {
@@ -240,7 +240,7 @@ if(submitcheck('albumsubmit')) {
 
 }
 
-//æ¨¡ç‰ˆ
+//Ä£°æ
 include_once template("cp_upload");
 
 ?>

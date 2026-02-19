@@ -8,12 +8,12 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//æƒé™
+//È¨ÏÞ
 if(!checkperm('manageprofilefield')) {
 	cpmessage('no_authority_management_operation');
 }
 
-//å–å¾—å•ä¸ªæ•°æ®
+//È¡µÃµ¥¸öÊý¾Ý
 $thevalue = $list = array();
 $_GET['fieldid'] = empty($_GET['fieldid'])?0:intval($_GET['fieldid']);
 if($_GET['fieldid']) {
@@ -41,19 +41,19 @@ if(submitcheck('fieldsubmit')) {
 	if(empty($thevalue['fieldid'])) {
 		$fieldid = inserttable('profilefield', $setarr, 1);
 		
-		//æ›´æ”¹è¡¨ç»“æž„
+		//¸ü¸Ä±í½á¹¹
 		if(!$_SGLOBAL['db']->query("ALTER TABLE ".tname('spacefield')." ADD `field_$fieldid` varchar($setarr[maxsize]) NOT NULL default ''", 'SILENT')) {
-			$_SGLOBAL['db']->query("DELETE FROM ".tname('profilefield')." WHERE fieldid='$fieldid'");//è¡¨ç»“æž„æ“ä½œå¤±è´¥
+			$_SGLOBAL['db']->query("DELETE FROM ".tname('profilefield')." WHERE fieldid='$fieldid'");//±í½á¹¹²Ù×÷Ê§°Ü
 		}
 	} else {
-		//æ›´æ”¹è¡¨ç»“æž„
+		//¸ü¸Ä±í½á¹¹
 		if(!$_SGLOBAL['db']->query("ALTER TABLE ".tname('spacefield')." CHANGE `field_$thevalue[fieldid]` `field_$thevalue[fieldid]` varchar($setarr[maxsize]) NOT NULL default ''", 'SILENT')) {
 			cpmessage('failed_to_change_the_length_of_columns', 'admincp.php?ac=profilefield');
 		}
 		updatetable('profilefield', $setarr, array('fieldid'=>$thevalue['fieldid']));
 	}
 	
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	profilefield_cache();
 	
@@ -64,7 +64,7 @@ if(submitcheck('fieldsubmit')) {
 		updatetable('profilefield', array('displayorder'=>intval($value)), array('fieldid'=>intval($fieldid)));
 	}
 	
-	//æ›´æ–°ç¼“å­˜
+	//¸üÐÂ»º´æ
 	include_once(S_ROOT.'./source/function_cache.php');
 	profilefield_cache();
 	
@@ -72,7 +72,7 @@ if(submitcheck('fieldsubmit')) {
 }
 
 if(empty($_GET['op'])) {
-	//åˆ—è¡¨
+	//ÁÐ±í
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('profilefield')." ORDER BY displayorder");
 	while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 		$list[] = $value;
@@ -81,7 +81,7 @@ if(empty($_GET['op'])) {
 	$actives = array('view' => ' class="active"');
 
 } elseif($_GET['op'] == 'add') {
-	//æ·»åŠ 
+	//Ìí¼Ó
 	$thevalue = array('filedid'=>0, 'formtype'=>'text', 'maxsize'=>50);
 	$formtypearr = array();
 
@@ -93,7 +93,7 @@ if(empty($_GET['op'])) {
 	include_once(S_ROOT.'./source/function_delete.php');
 	if($_GET['fieldid'] && deleteprofilefield(array($_GET['fieldid']))) {
 		
-		//æ›´æ–°ç¼“å­˜
+		//¸üÐÂ»º´æ
 		include_once(S_ROOT.'./source/function_cache.php');
 		profilefield_cache();
 	

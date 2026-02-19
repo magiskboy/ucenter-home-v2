@@ -19,7 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: uchome
     platform: linux/amd64
     depends_on:
       - db
@@ -28,18 +27,13 @@ services:
     expose:
       - 80
     volumes:
-#      - ./data/uchome-install:/var/www/install:rw
       - /Users/nkthanh/code/zingme/data/uchome.com/admin/UploadFiles/:/var/www/admin/UploadFiles/:rw
-      # Mount config so DB host/password changes take effect without rebuilding image (rw so installer can write)
       - ./www/home/config.php:/var/www/home/config.php
-      # QQFarm: gateway + app (rw for core/data cache/logs/install.lock)
+
+      - ./www/home/fish.php:/var/www/home/fish.php
+      - ./www/home/fish:/var/www/home/fish:rw
       - ./www/home/qqfarm.php:/var/www/home/qqfarm.php
       - ./www/home/qqfarm:/var/www/home/qqfarm:rw
-      # Mount i18n: template + language so vi_VN is available (style.css + lang files); required for $_SC['language']=vi_VN
-      - ./www/home/template:/var/www/home/template:ro
-      - ./www/home/language:/var/www/home/language:ro
-      # Mount i18n check script (optional; remove in production)
-      - ./www/home/check_i18n.php:/var/www/home/check_i18n.php
     environment:
       - HTTPS_METHOD=noredirect
     env_file:

@@ -9,9 +9,9 @@
 
 !defined('IN_UC') && exit('Access Denied');
 
-define('UC_NOTE_REPEAT', 5);	//note é€šçŸ¥é‡å¤æ¬¡æ•°
-define('UC_NOTE_TIMEOUT', 15);	//note é€šçŸ¥è¶…æ—¶æ—¶é—´(ç§’)
-define('UC_NOTE_GC', 10000);	//note è¿‡æœŸé€šçŸ¥çš„å›æ”¶æ¦‚ç‡ï¼Œè¯¥å€¼è¶Šå¤§ï¼Œæ¦‚ç‡è¶Šä½
+define('UC_NOTE_REPEAT', 5);	//note Í¨ÖªÖØ¸´´ÎÊı
+define('UC_NOTE_TIMEOUT', 15);	//note Í¨Öª³¬Ê±Ê±¼ä(Ãë)
+define('UC_NOTE_GC', 10000);	//note ¹ıÆÚÍ¨ÖªµÄ»ØÊÕ¸ÅÂÊ£¬¸ÃÖµÔ½´ó£¬¸ÅÂÊÔ½µÍ
 
 define('API_RETURN_FAILED', '-1');
 
@@ -32,10 +32,10 @@ class notemodel {
 		$this->db = $base->db;
 		$this->apps = $this->base->cache('apps');
 		/** note
-		 * 1. æ“ä½œçš„åç§°ï¼Œå¦‚ï¼šåˆ é™¤ç”¨æˆ·ï¼Œæµ‹è¯•è¿é€šï¼Œåˆ é™¤å¥½å‹ï¼Œå–TAGæ•°æ®ï¼Œæ›´æ–°å®¢æˆ·ç«¯ç¼“å­˜
-		 * 2. è°ƒç”¨çš„åº”ç”¨çš„æ¥å£å‚æ•°ï¼Œæ‹¼æ¥è§„åˆ™ä¸º APP_URL/api/uc.php?action=test&ids=1,2,3
-		 * 3. å›è°ƒçš„æ¨¡å—åç§°
-		 * 4. å›è°ƒçš„æ¨¡å—æ–¹æ³•ï¼ˆ$appid, $contentï¼‰
+		 * 1. ²Ù×÷µÄÃû³Æ£¬Èç£ºÉ¾³ıÓÃ»§£¬²âÊÔÁ¬Í¨£¬É¾³ıºÃÓÑ£¬È¡TAGÊı¾İ£¬¸üĞÂ¿Í»§¶Ë»º´æ
+		 * 2. µ÷ÓÃµÄÓ¦ÓÃµÄ½Ó¿Ú²ÎÊı£¬Æ´½Ó¹æÔòÎª APP_URL/api/uc.php?action=test&ids=1,2,3
+		 * 3. »Øµ÷µÄÄ£¿éÃû³Æ
+		 * 4. »Øµ÷µÄÄ£¿é·½·¨£¨$appid, $content£©
 		 */
 		$this->operations = array(
 			'test'=>array('', 'action=test'),
@@ -56,7 +56,7 @@ class notemodel {
 	}
 
 	/**
-	 * ç»Ÿè®¡é€šçŸ¥çš„æ€»æ¡æ•°
+	 * Í³¼ÆÍ¨ÖªµÄ×ÜÌõÊı
 	 *
 	 * @return int
 	 */
@@ -64,34 +64,34 @@ class notemodel {
 	}
 
 	/**
-	 * Enter å¾—åˆ°é€šçŸ¥åˆ—è¡¨
+	 * Enter µÃµ½Í¨ÖªÁĞ±í
 	 *
 	 * @param int $page
 	 * @param int$ppp
 	 * @param int $totalnum
-	 * @return array ç»“æœé›†
+	 * @return array ½á¹û¼¯
 	 */
 	function get_list($page, $ppp, $totalnum, $all = TRUE) {
 	}
 
 	/**
-	 * åˆ é™¤é€šçŸ¥
+	 * É¾³ıÍ¨Öª
 	 *
 	 * @param string/array $ids
-	 * @return å—å½±å“çš„è¡Œæ•°
+	 * @return ÊÜÓ°ÏìµÄĞĞÊı
 	 */
 	function delete_note($ids) {
 	}
 
 	/**
-	 * æ·»åŠ é€šçŸ¥åˆ—è¡¨
+	 * Ìí¼ÓÍ¨ÖªÁĞ±í
 	 *
-	 * @param string æ“ä½œ
+	 * @param string ²Ù×÷
 	 * @param string getdata
 	 * @param string postdata
-	 * @param array appids æŒ‡å®šé€šçŸ¥çš„ APPID
-	 * @param int pri ä¼˜å…ˆçº§ï¼Œå€¼è¶Šå¤§è¡¨ç¤ºè¶Šé«˜
-	 * @return int æ’å…¥çš„ID
+	 * @param array appids Ö¸¶¨Í¨ÖªµÄ APPID
+	 * @param int pri ÓÅÏÈ¼¶£¬ÖµÔ½´ó±íÊ¾Ô½¸ß
+	 * @return int ²åÈëµÄID
 	 */
 	function add($operation, $getdata='', $postdata='', $appids=array(), $pri = 0) {
 		$extra = $varextra = '';
@@ -128,22 +128,22 @@ class notemodel {
 	}
 
 	function _send() {
-		//note åˆ¤æ–­æ˜¯å¦æœ‰é€šçŸ¥
+		//note ÅĞ¶ÏÊÇ·ñÓĞÍ¨Öª
 
-		//note å¦‚æœå†…å­˜è¡¨è®°å½•ä¸å­˜åœ¨ï¼Œé‚£ä¹ˆå¯èƒ½ mysql è¢«é‡å¯ï¼Œéœ€è¦å†æ¬¡åˆ¤æ–­é€šçŸ¥æ˜¯å¦å­˜åœ¨
+		//note Èç¹ûÄÚ´æ±í¼ÇÂ¼²»´æÔÚ£¬ÄÇÃ´¿ÉÄÜ mysql ±»ÖØÆô£¬ĞèÒªÔÙ´ÎÅĞ¶ÏÍ¨ÖªÊÇ·ñ´æÔÚ
 
-		//note æŸ¥çœ‹æ˜¯å¦æœ‰é€šçŸ¥
+		//note ²é¿´ÊÇ·ñÓĞÍ¨Öª
 		$note = $this->_get_note();
 		if(empty($note)) {
-			//note æ ‡ç¤ºä¸ºä¸éœ€è¦é€šçŸ¥
+			//note ±êÊ¾Îª²»ĞèÒªÍ¨Öª
 			$this->db->query("REPLACE INTO ".UC_DBTABLEPRE."vars SET name='noteexists".UC_APPID."', value='0'");
 			return NULL;
 		}
 
-		//note mysqlåªå‘é€è‡ªå·±çš„é€šçŸ¥
+		//note mysqlÖ»·¢ËÍ×Ô¼ºµÄÍ¨Öª
 		$this->sendone(UC_APPID, 0, $note);
 
-		//note åƒåœ¾æ¸…ç†
+		//note À¬»øÇåÀí
 		$this->_gc();
 	}
 
@@ -174,7 +174,7 @@ class notemodel {
 			$response = trim($_ENV['misc']->dfopen2($url, 0, $note['postdata'], '', 1, $app['ip'], UC_NOTE_TIMEOUT, TRUE));
 		}
 
-		$returnsucceed = $response != '' && ($response == 1 || is_array(xml_unserialize($response)));//note å½“ç¡®å®è¿”å›ä¸º1çš„æ—¶å€™æ‰è®¤ä¸ºæ˜¯é€šçŸ¥æˆåŠŸ
+		$returnsucceed = $response != '' && ($response == 1 || is_array(xml_unserialize($response)));//note µ±È·Êµ·µ»ØÎª1µÄÊ±ºò²ÅÈÏÎªÊÇÍ¨Öª³É¹¦
 
 		$closedsqladd = $this->_close_note($note, $this->apps, $returnsucceed, $appid) ? ",closed='1'" : '';//
 
@@ -203,7 +203,7 @@ class notemodel {
 		rand(0, UC_NOTE_GC) == 0 && $this->db->query("DELETE FROM ".UC_DBTABLEPRE."notelist WHERE closed='1'");
 	}
 
-	//note åˆ¤æ–­æ˜¯å¦éœ€è¦å…³é—­é€šçŸ¥
+	//note ÅĞ¶ÏÊÇ·ñĞèÒª¹Ø±ÕÍ¨Öª
 	function _close_note($note, $apps, $returnsucceed, $appid) {
 		$note['app'.$appid] = $returnsucceed ? 1 : $note['app'.$appid] - 1;
 		$appcount = count($apps);

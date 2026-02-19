@@ -17,13 +17,13 @@ $tagid = empty($_GET['tagid'])?0:intval($_GET['tagid']);
 $fieldid = empty($_GET['fieldid'])?0:intval($_GET['fieldid']);
 $tagname = trim($_GET['tagname']);
 
-//æŸ¥è¯¢
+//²éÑ¯
 if($tagname) {
 	
 	$fields = array();
 	foreach ($_SGLOBAL['profield'] as $value) {
 		if($value['formtype'] == 'text') {
-			$fields[] = $value;//è‡ªç”±è¾“å…¥çš„åˆ†ç±»
+			$fields[] = $value;//×ÔÓÉÊäÈëµÄ·ÖÀà
 		}
 	}
 	
@@ -41,7 +41,7 @@ if($tagname) {
 	}
 	
 	if(empty($taglist)) {
-		//ç¾¤ç»„åˆ›å»º
+		//Èº×é´´½¨
 		$allowmk = 0;
 		if($field && $field['formtype'] != 'text') {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('profield')." WHERE fieldid='$fieldid'");
@@ -51,7 +51,7 @@ if($tagname) {
 				foreach ($field['choice'] as $subkey => $subvalue) {
 					$subvalue = trim($subvalue);
 					if($s == $subvalue) {
-						//è‡ªåŠ¨åˆ›å»º
+						//×Ô¶¯´´½¨
 						$mtag = array(
 							'tagname' => addslashes($s),
 							'fieldid' => $fieldid
@@ -68,7 +68,7 @@ if($tagname) {
 			showmessage('mtag_creat_error');
 		}
 	} elseif(count($taglist) == 1) {
-		//ç›´æ¥è·³è½¬
+		//Ö±½ÓÌø×ª
 		showmessage('do_sucess', "space.php?do=mtag&tagid=".$taglist[0]['tagid'], 0);
 	}
 	
@@ -79,10 +79,10 @@ if($tagname) {
 	$perpage = 20;
 	$start = ($page-1)*$perpage;
 	
-	//æ£€æŸ¥å¼€å§‹æ•°
+	//¼ì²é¿ªÊ¼Êı
 	ckstart($start, $perpage);
 	
-	//æ ç›®
+	//À¸Ä¿
 	$list = array();
 	$count = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname('mtag')." WHERE fieldid='$id'"),0);
 	if($count) {
@@ -95,7 +95,7 @@ if($tagname) {
 		}
 	}
 	
-	//åˆ†é¡µ
+	//·ÖÒ³
 	$multi = multi($count, $perpage, $page, "space.php?uid=$space[uid]&do=mtag&id=$id");
 
 	$fieldtitle = $_SGLOBAL['profield'][$id]['title'];
@@ -110,13 +110,13 @@ if($tagname) {
 
 	$actives = array($_GET['view'] => ' class="active"');
 	
-	//æŒ‡å®šçš„ç¾¤ç»„
+	//Ö¸¶¨µÄÈº×é
 	$mtag = getmtag($tagid);
 	if($mtag['close']) {
 		showmessage('mtag_close');
 	}
 	
-	//ç¾¤ç»„æ´»åŠ¨
+	//Èº×é»î¶¯
 	$eventnum = $_SGLOBAL['db']->result($_SGLOBAL['db']->query("SELECT COUNT(*) FROM ".tname("event")." WHERE tagid='$tagid'"), 0);
 	
 	if($_GET['view'] == 'list' || $_GET['view'] == 'digest') {
@@ -124,7 +124,7 @@ if($tagname) {
 		$perpage = 30;
 		$start = ($page-1)*$perpage;
 		
-		//æ£€æŸ¥å¼€å§‹æ•°
+		//¼ì²é¿ªÊ¼Êı
 		ckstart($start, $perpage);
 		$theurl = "space.php?uid=$space[uid]&do=mtag&tagid=$tagid&view=$_GET[view]";
 
@@ -151,7 +151,7 @@ if($tagname) {
 					$list[] = $value;
 				}
 			}
-			//åˆ†é¡µ
+			//·ÖÒ³
 			$multi = multi($count, $perpage, $page, $theurl);
 	
 			realname_get();
@@ -165,10 +165,10 @@ if($tagname) {
 		$perpage = 50;
 		$start = ($page-1)*$perpage;
 		
-		//æ£€æŸ¥å¼€å§‹æ•°
+		//¼ì²é¿ªÊ¼Êı
 		ckstart($start, $perpage);
 		
-		//æ£€ç´¢
+		//¼ìË÷
 		$wheresql = '';
 		$_GET['key'] = stripsearchkey($_GET['key']);
 		if($_GET['key']) {
@@ -186,7 +186,7 @@ if($tagname) {
 					LEFT JOIN ".tname('spacefield')." field ON field.uid=main.uid 
 					WHERE main.tagid='$tagid' $wheresql ORDER BY main.grade DESC LIMIT $start,$perpage");
 				while ($value = $_SGLOBAL['db']->fetch_array($query)) {
-					//å®å
+					//ÊµÃû
 					realname_set($value['uid'], $value['username']);
 					
 					$value['p'] = rawurlencode($value['resideprovince']);
@@ -196,7 +196,7 @@ if($tagname) {
 				}
 			}
 			
-			//åœ¨çº¿çŠ¶æ€
+			//ÔÚÏß×´Ì¬
 			$ols = array();
 			if($fuids) {
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid IN (".simplode($fuids).")");
@@ -207,10 +207,10 @@ if($tagname) {
 				}
 			}
 	
-			//åˆ†é¡µ
+			//·ÖÒ³
 			$multi = multi($count, $perpage, $page, "space.php?uid=$space[uid]&do=mtag&tagid=$tagid&view=member");
 			
-			//å®å
+			//ÊµÃû
 			realname_get();
 		}
 		
@@ -222,11 +222,11 @@ if($tagname) {
 		$perpage = 10;
 		$start = ($page-1)*$perpage;
 		
-		//æ£€æŸ¥å¼€å§‹æ•°
+		//¼ì²é¿ªÊ¼Êı
 		ckstart($start, $perpage);
 		$eventlist = array();
 		if($eventnum) {
-			// æ´»åŠ¨åˆ†ç±»
+			// »î¶¯·ÖÀà
 			@include_once(S_ROOT.'./data/data_eventclass.php');
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("event")." WHERE tagid='$tagid' ORDER BY eventid DESC LIMIT $start, $perpage");
 			while($value=$_SGLOBAL['db']->fetch_array($query)) {
@@ -239,7 +239,7 @@ if($tagname) {
 			}
 		}
 		
-		//åˆ†é¡µ
+		//·ÖÒ³
 		$multi = multi($eventnum, $perpage, $page, "space.php?uid=$space[uid]&do=mtag&tagid=$tagid&view=event");
 	
 		$_TPL['css'] = 'thread';
@@ -247,7 +247,7 @@ if($tagname) {
 		
 	} else {
 
-		//ç¾¤ç»„é¦–é¡µ
+		//Èº×éÊ×Ò³
 		$list = $starlist = $modlist = $memberlist = $checklist = array();
 		
 		if($mtag['allowview']) {
@@ -261,30 +261,30 @@ if($tagname) {
 				$list[] = $value;
 			}
 			
-			//æ˜æ˜Ÿä¼šå‘˜
+			//Ã÷ĞÇ»áÔ±
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade='1'");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 				realname_set($value['uid'], $value['username']);
 				$starlist[] = $value;
 			}
-			$starlist = sarray_rand($starlist, 12);//éšæœºé€‰æ‹©
+			$starlist = sarray_rand($starlist, 12);//Ëæ»úÑ¡Ôñ
 								
-			//ä¼šå‘˜
+			//»áÔ±
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade='0' LIMIT 0,12");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 				realname_set($value['uid'], $value['username']);
 				$memberlist[] = $value;
 			}
 		}
-		//ç¾¤ä¸»
+		//ÈºÖ÷
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade>'7' ORDER BY grade DESC LIMIT 0,12");
 		while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 			realname_set($value['uid'], $value['username']);
 			$modlist[] = $value;
 		}
-		//æ˜¯ç¾¤ä¸»
+		//ÊÇÈºÖ÷
 		if($mtag['grade']>=8) {
-			//å¾…å®¡
+			//´ıÉó
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('tagspace')." WHERE tagid='$tagid' AND grade='-2' LIMIT 0,12");
 			while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 				realname_set($value['uid'], $value['username']);
@@ -310,7 +310,7 @@ if($tagname) {
 
 	$wherearr = array();
 	
-	//æ’åº
+	//ÅÅĞò
 	if (!in_array($_GET['orderby'], array('threadnum', 'postnum', 'membernum'))) {
 		$_GET['orderby'] = 'threadnum';
 	} else {
@@ -318,7 +318,7 @@ if($tagname) {
 	}
 	$orderbyarr = array($_GET['orderby'] => ' class="active"');
 	
-	//æŸ¥è¯¢
+	//²éÑ¯
 	$_GET['fieldid'] = intval($_GET['fieldid']);
 	if($_GET['fieldid']) {
 		$wherearr[] = "mt.fieldid='$_GET[fieldid]'";
@@ -356,7 +356,7 @@ if($tagname) {
 			$wherearr[] = "mt.recommend='1'";
 		}
 		
-		//æœç´¢
+		//ËÑË÷
 		if($searchkey = stripsearchkey($_GET['searchkey'])) {
 			$wherearr[] = "mt.tagname LIKE '%$searchkey%'";
 			$theurl .= "&searchkey=$_GET[searchkey]";

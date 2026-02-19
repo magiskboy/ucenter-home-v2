@@ -27,7 +27,7 @@ class Notifications extends MyBase {
 			)
 		);
 
-		//é€šçŸ¥
+		//Í¨Öª
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('notification')."  WHERE uid='$uId' AND new='1' ORDER BY id DESC");
 		$i = 0;
 		while($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -36,7 +36,7 @@ class Notifications extends MyBase {
 		}
 		$result['notification']['unread'] = $i;
 		
-		//çŸ­æ¶ˆæ¯
+		//¶ÌÏûÏ¢
 		include_once S_ROOT.'./uc_client/client.php';
 		$pmarr = uc_pm_list($uId, 1, 1, 'newbox', 'newpm');
 		if($pmarr['count']) {
@@ -44,7 +44,7 @@ class Notifications extends MyBase {
 			$result['message']['mostRecent'] = $pmarr['data'][0]['dateline'];
 		}
 
-		// å¥½å‹
+		// ºÃÓÑ
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')."  WHERE fuid='$uId' AND status='0' ORDER BY dateline DESC");
 		$fIds = array();
 		while($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -61,10 +61,10 @@ class Notifications extends MyBase {
 	function send($uId, $recipientIds, $appId, $notification) {
 		global $_SGLOBAL;
 
-		//è¿‡æ»¤é»‘åå•ä¸­çš„ç”¨æˆ·
+		//¹ýÂËºÚÃûµ¥ÖÐµÄÓÃ»§
 		$blacklist = $result = array();
 
-		// å…è®¸åŒ¿åå‘é€
+		// ÔÊÐíÄäÃû·¢ËÍ
 		if ($uId) {
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('blacklist')."  WHERE uid IN ('".implode("','", $recipientIds)."') AND buid='$uId'");
 			while($value = $_SGLOBAL['db']->fetch_array($query)) {

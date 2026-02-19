@@ -10,7 +10,7 @@ if(!defined('IN_UCHOME')) {
 
 include_once(S_ROOT.'./source/function_bbcode.php');
 
-//å…±ç”¨å˜é‡
+//¹²ÓÃ±äÁ¿
 $tospace = $pic = $blog = $album = $share = $event = $poll = array();
 
 if(submitcheck('commentsubmit')) {
@@ -22,13 +22,13 @@ if(submitcheck('commentsubmit')) {
 		showmessage('no_privilege');
 	}
 
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	ckrealname('comment');
 
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ĞÂÓÃ»§¼ûÏ°
 	cknewuser();
 
-	//åˆ¤æ–­æ˜¯å¦å‘å¸ƒå¤ªå¿«
+	//ÅĞ¶ÏÊÇ·ñ·¢²¼Ì«¿ì
 	$waittime = interval_check('post');
 	if($waittime > 0) {
 		showmessage('operating_too_fast','',1,array($waittime));
@@ -39,19 +39,19 @@ if(submitcheck('commentsubmit')) {
 		showmessage('content_is_too_short');
 	}
 
-	//æ‘˜è¦
+	//ÕªÒª
 	$summay = getstr($message, 150, 1, 1, 0, 0, -1);
 
 	$id = intval($_POST['id']);
 
-	//å¼•ç”¨è¯„è®º
+	//ÒıÓÃÆÀÂÛ
 	$cid = empty($_POST['cid'])?0:intval($_POST['cid']);
 	$comment = array();
 	if($cid) {
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE cid='$cid' AND id='$id' AND idtype='$_POST[idtype]'");
 		$comment = $_SGLOBAL['db']->fetch_array($query);
 		if($comment && $comment['authorid'] != $_SGLOBAL['supe_uid']) {
-			//å®å
+			//ÊµÃû
 			if($comment['author'] == '') {
 				$_SN[$comment['authorid']] = lang('hidden_username');
 			} else {
@@ -59,7 +59,7 @@ if(submitcheck('commentsubmit')) {
 				realname_get();
 			}
 			$comment['message'] = preg_replace("/\<div class=\"quote\"\>\<span class=\"q\"\>.*?\<\/span\>\<\/div\>/is", '', $comment['message']);
-			//bbcodeè½¬æ¢
+			//bbcode×ª»»
 			$comment['message'] = html2bbcode($comment['message']);
 			$message = addslashes("<div class=\"quote\"><span class=\"q\"><b>".$_SN[$comment['authorid']]."</b>: ".getstr($comment['message'], 150, 0, 0, 0, 2, 1).'</span></div>').$message;
 			if($comment['idtype']=='uid') {
@@ -73,42 +73,42 @@ if(submitcheck('commentsubmit')) {
 	$hotarr = array();
 	$stattype = '';
 
-	//æ£€æŸ¥æƒé™
+	//¼ì²éÈ¨ÏŞ
 	switch ($idtype) {
 		case 'uid':
-			//æ£€ç´¢ç©ºé—´
+			//¼ìË÷¿Õ¼ä
 			$tospace = getspace($id);
-			$stattype = 'wall';//ç»Ÿè®¡
+			$stattype = 'wall';//Í³¼Æ
 			break;
 		case 'picid':
-			//æ£€ç´¢å›¾ç‰‡
+			//¼ìË÷Í¼Æ¬
 			$query = $_SGLOBAL['db']->query("SELECT p.*, pf.hotuser
 				FROM ".tname('pic')." p
 				LEFT JOIN ".tname('picfield')." pf
 				ON pf.picid=p.picid
 				WHERE p.picid='$id'");
 			$pic = $_SGLOBAL['db']->fetch_array($query);
-			//å›¾ç‰‡ä¸å­˜åœ¨
+			//Í¼Æ¬²»´æÔÚ
 			if(empty($pic)) {
 				showmessage('view_images_do_not_exist');
 			}
 
-			//æ£€ç´¢ç©ºé—´
+			//¼ìË÷¿Õ¼ä
 			$tospace = getspace($pic['uid']);
 
-			//è·å–ç›¸å†Œ
+			//»ñÈ¡Ïà²á
 			$album = array();
 			if($pic['albumid']) {
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('album')." WHERE albumid='$pic[albumid]'");
 				if(!$album = $_SGLOBAL['db']->fetch_array($query)) {
-					updatetable('pic', array('albumid'=>0), array('albumid'=>$pic['albumid']));//ç›¸å†Œä¸¢å¤±
+					updatetable('pic', array('albumid'=>0), array('albumid'=>$pic['albumid']));//Ïà²á¶ªÊ§
 				}
 			}
-			//éªŒè¯éšç§
+			//ÑéÖ¤ÒşË½
 			if(!ckfriend($album['uid'], $album['friend'], $album['target_ids'])) {
 				showmessage('no_privilege');
 			} elseif(!$tospace['self'] && $album['friend'] == 4) {
-				//å¯†ç è¾“å…¥é—®é¢˜
+				//ÃÜÂëÊäÈëÎÊÌâ
 				$cookiename = "view_pwd_album_$album[albumid]";
 				$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 				if($cookievalue != md5(md5($album['password']))) {
@@ -117,29 +117,29 @@ if(submitcheck('commentsubmit')) {
 			}
 			
 			$hotarr = array('picid', $pic['picid'], $pic['hotuser']);
-			$stattype = 'piccomment';//ç»Ÿè®¡
+			$stattype = 'piccomment';//Í³¼Æ
 			break;
 		case 'blogid':
-			//è¯»å–æ—¥å¿—
+			//¶ÁÈ¡ÈÕÖ¾
 			$query = $_SGLOBAL['db']->query("SELECT b.*, bf.target_ids, bf.hotuser
 				FROM ".tname('blog')." b
 				LEFT JOIN ".tname('blogfield')." bf ON bf.blogid=b.blogid
 				WHERE b.blogid='$id'");
 			$blog = $_SGLOBAL['db']->fetch_array($query);
-			//æ—¥å¿—ä¸å­˜åœ¨
+			//ÈÕÖ¾²»´æÔÚ
 			if(empty($blog)) {
 				showmessage('view_to_info_did_not_exist');
 			}
 			
-			//æ£€ç´¢ç©ºé—´
+			//¼ìË÷¿Õ¼ä
 			$tospace = getspace($blog['uid']);
 			
-			//éªŒè¯éšç§
+			//ÑéÖ¤ÒşË½
 			if(!ckfriend($blog['uid'], $blog['friend'], $blog['target_ids'])) {
-				//æ²¡æœ‰æƒé™
+				//Ã»ÓĞÈ¨ÏŞ
 				showmessage('no_privilege');
 			} elseif(!$tospace['self'] && $blog['friend'] == 4) {
-				//å¯†ç è¾“å…¥é—®é¢˜
+				//ÃÜÂëÊäÈëÎÊÌâ
 				$cookiename = "view_pwd_blog_$blog[blogid]";
 				$cookievalue = empty($_SCOOKIE[$cookiename])?'':$_SCOOKIE[$cookiename];
 				if($cookievalue != md5(md5($blog['password']))) {
@@ -147,7 +147,7 @@ if(submitcheck('commentsubmit')) {
 				}
 			}
 
-			//æ˜¯å¦å…è®¸è¯„è®º
+			//ÊÇ·ñÔÊĞíÆÀÂÛ
 			if(!empty($blog['noreply'])) {
 				showmessage('do_not_accept_comments');
 			}
@@ -156,22 +156,22 @@ if(submitcheck('commentsubmit')) {
 			}
 			
 			$hotarr = array('blogid', $blog['blogid'], $blog['hotuser']);
-			$stattype = 'blogcomment';//ç»Ÿè®¡
+			$stattype = 'blogcomment';//Í³¼Æ
 			break;
 		case 'sid':
-			//è¯»å–æ—¥å¿—
+			//¶ÁÈ¡ÈÕÖ¾
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('share')." WHERE sid='$id'");
 			$share = $_SGLOBAL['db']->fetch_array($query);
-			//æ—¥å¿—ä¸å­˜åœ¨
+			//ÈÕÖ¾²»´æÔÚ
 			if(empty($share)) {
 				showmessage('sharing_does_not_exist');
 			}
 
-			//æ£€ç´¢ç©ºé—´
+			//¼ìË÷¿Õ¼ä
 			$tospace = getspace($share['uid']);
 			
 			$hotarr = array('sid', $share['sid'], $share['hotuser']);
-			$stattype = 'sharecomment';//ç»Ÿè®¡
+			$stattype = 'sharecomment';//Í³¼Æ
 			break;
 		case 'pid':
 			$query = $_SGLOBAL['db']->query("SELECT p.*, pf.hotuser
@@ -182,20 +182,20 @@ if(submitcheck('commentsubmit')) {
 			if(empty($poll)) {
 				showmessage('voting_does_not_exist');
 			}
-			//æ˜¯å¦å…è®¸è¯„è®º
+			//ÊÇ·ñÔÊĞíÆÀÂÛ
 			$tospace = getspace($poll['uid']);
 			if($poll['noreply']) {
-				//æ˜¯å¦å¥½å‹
+				//ÊÇ·ñºÃÓÑ
 				if(!$tospace['self'] && !in_array($_SGLOBAL['supe_uid'], $tospace['friends'])) {
 					showmessage('the_vote_only_allows_friends_to_comment');
 				}
 			}
 			
 			$hotarr = array('pid', $poll['pid'], $poll['hotuser']);
-			$stattype = 'pollcomment';//ç»Ÿè®¡
+			$stattype = 'pollcomment';//Í³¼Æ
 			break;
 		case 'eventid':
-		    // è¯»å–æ´»åŠ¨
+		    // ¶ÁÈ¡»î¶¯
 		    $query = $_SGLOBAL['db']->query("SELECT e.*, ef.* FROM ".tname('event')." e LEFT JOIN ".tname("eventfield")." ef ON e.eventid=ef.eventid WHERE e.eventid='$id'");
 			$event = $_SGLOBAL['db']->fetch_array($query);
 
@@ -204,24 +204,24 @@ if(submitcheck('commentsubmit')) {
 			}
 			
 			if($event['grade'] < -1){
-				showmessage('event_is_closed');//æ´»åŠ¨å·²ç»å…³é—­
+				showmessage('event_is_closed');//»î¶¯ÒÑ¾­¹Ø±Õ
 			} elseif($event['grade'] <= 0){
-				showmessage('event_under_verify');//æ´»åŠ¨æœªé€šè¿‡å®¡æ ¸
+				showmessage('event_under_verify');//»î¶¯Î´Í¨¹ıÉóºË
 			}
 			
 			if(!$event['allowpost']){
 				$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname("userevent")." WHERE eventid='$id' AND uid='$_SGLOBAL[supe_uid]' LIMIT 1");
 				$value = $_SGLOBAL['db']->fetch_array($query);
 				if(empty($value) || $value['status'] < 2){
-					showmessage('event_only_allows_members_to_comment');//åªæœ‰æ´»åŠ¨æˆå‘˜å…è®¸å‘è¡¨ç•™è¨€
+					showmessage('event_only_allows_members_to_comment');//Ö»ÓĞ»î¶¯³ÉÔ±ÔÊĞí·¢±íÁôÑÔ
 				}
 			}
 
-			//æ£€ç´¢ç©ºé—´
+			//¼ìË÷¿Õ¼ä
 			$tospace = getspace($event['uid']);
 			
 			$hotarr = array('eventid', $event['eventid'], $event['hotuser']);
-			$stattype = 'eventcomment';//ç»Ÿè®¡
+			$stattype = 'eventcomment';//Í³¼Æ
 			break;
 		default:
 			showmessage('non_normal_operation');
@@ -232,7 +232,7 @@ if(submitcheck('commentsubmit')) {
 		showmessage('space_does_not_exist');
 	}
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	if($tospace['videostatus']) {
 		if($idtype == 'uid') {
 			ckvideophoto('wall', $tospace);
@@ -241,24 +241,24 @@ if(submitcheck('commentsubmit')) {
 		}
 	}
 	
-	//é»‘åå•
+	//ºÚÃûµ¥
 	if(isblacklist($tospace['uid'])) {
 		showmessage('is_blacklist');
 	}
 	
-	//çƒ­ç‚¹
+	//ÈÈµã
 	if($hotarr && $tospace['uid'] != $_SGLOBAL['supe_uid']) {
 		hot_update($hotarr[0], $hotarr[1], $hotarr[2]);
 	}
 
-	//äº‹ä»¶
+	//ÊÂ¼ş
 	$fs = array();
 	$fs['icon'] = 'comment';
 	$fs['target_ids'] = $fs['friend'] = '';
 
 	switch ($_POST['idtype']) {
 		case 'uid':
-			//äº‹ä»¶
+			//ÊÂ¼ş
 			$fs['icon'] = 'wall';
 			$fs['title_template'] = cplang('feed_comment_space');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>");
@@ -269,7 +269,7 @@ if(submitcheck('commentsubmit')) {
 			$fs['image_links'] = array();
 			break;
 		case 'picid':
-			//äº‹ä»¶
+			//ÊÂ¼ş
 			$fs['title_template'] = cplang('feed_comment_image');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>");
 			$fs['body_template'] = '{pic_title}';
@@ -281,9 +281,9 @@ if(submitcheck('commentsubmit')) {
 			$fs['friend'] = $album['friend'];
 			break;
 		case 'blogid':
-			//æ›´æ–°è¯„è®ºç»Ÿè®¡
+			//¸üĞÂÆÀÂÛÍ³¼Æ
 			$_SGLOBAL['db']->query("UPDATE ".tname('blog')." SET replynum=replynum+1 WHERE blogid='$id'");
-			//äº‹ä»¶
+			//ÊÂ¼ş
 			$fs['title_template'] = cplang('feed_comment_blog');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>", 'blog'=>"<a href=\"space.php?uid=$tospace[uid]&do=blog&id=$id\">$blog[subject]</a>");
 			$fs['body_template'] = '';
@@ -293,7 +293,7 @@ if(submitcheck('commentsubmit')) {
 			$fs['friend'] = $blog['friend'];
 			break;
 		case 'sid':
-			//äº‹ä»¶
+			//ÊÂ¼ş
 			$fs['title_template'] = cplang('feed_comment_share');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>", 'share'=>"<a href=\"space.php?uid=$tospace[uid]&do=share&id=$id\">".str_replace(cplang('share_action'), '', $share['title_template'])."</a>");
 			$fs['body_template'] = '';
@@ -301,7 +301,7 @@ if(submitcheck('commentsubmit')) {
 			$fs['body_general'] = '';
 			break;
 		case 'eventid':
-		    // æ´»åŠ¨
+		    // »î¶¯
 		    $fs['title_template'] = cplang('feed_comment_event');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>", 'event'=>'<a href="space.php?do=event&id='.$event['eventid'].'">'.$event['title'].'</a>');
 			$fs['body_template'] = '';
@@ -309,8 +309,8 @@ if(submitcheck('commentsubmit')) {
 			$fs['body_general'] = '';
 			break;
 		case 'pid':
-			// æŠ•ç¥¨
-			//æ›´æ–°è¯„è®ºç»Ÿè®¡
+			// Í¶Æ±
+			//¸üĞÂÆÀÂÛÍ³¼Æ
 			$_SGLOBAL['db']->query("UPDATE ".tname('poll')." SET replynum=replynum+1 WHERE pid='$id'");
 			$fs['title_template'] = cplang('feed_comment_poll');
 			$fs['title_data'] = array('touser'=>"<a href=\"space.php?uid=$tospace[uid]\">".$_SN[$tospace['uid']]."</a>", 'poll'=>"<a href=\"space.php?uid=$tospace[uid]&do=poll&pid=$id\">$poll[subject]</a>");
@@ -331,7 +331,7 @@ if(submitcheck('commentsubmit')) {
 		'message' => $message,
 		'ip' => getonlineip()
 	);
-	//å…¥åº“
+	//Èë¿â
 	$cid = inserttable('comment', $setarr, 1);
 	$action = 'comment';
 	$becomment = 'getcomment';
@@ -365,7 +365,7 @@ if(submitcheck('commentsubmit')) {
 			$q_msgtype = 'photo_comment_reply';
 			break;
 		case 'blogid':
-			//é€šçŸ¥
+			//Í¨Öª
 			$n_url = "space.php?uid=$tospace[uid]&do=blog&id=$id&cid=$cid";
 			$note_type = 'blogcomment';
 			$note = cplang('note_blog_comment', array($n_url, $blog['subject']));
@@ -376,7 +376,7 @@ if(submitcheck('commentsubmit')) {
 			$q_msgtype = 'blog_comment_reply';
 			break;
 		case 'sid':
-			//åˆ†äº«
+			//·ÖÏí
 			$n_url = "space.php?uid=$tospace[uid]&do=share&id=$id&cid=$cid";
 			$note_type = 'sharecomment';
 			$note = cplang('note_share_comment', array($n_url));
@@ -397,7 +397,7 @@ if(submitcheck('commentsubmit')) {
 			$q_msgtype = 'poll_comment_reply';
 			break;
 		case 'eventid':
-		    // æ´»åŠ¨
+		    // »î¶¯
 		    $n_url = "space.php?do=event&id=$id&view=comment&cid=$cid";
 		    $note_type = 'eventcomment';
 		    $note = cplang('note_event_comment', array($n_url));
@@ -411,40 +411,40 @@ if(submitcheck('commentsubmit')) {
 
 	if(empty($comment)) {
 		
-		//éå¼•ç”¨è¯„è®º
+		//·ÇÒıÓÃÆÀÂÛ
 		if($tospace['uid'] != $_SGLOBAL['supe_uid']) {
-			//äº‹ä»¶å‘å¸ƒ
+			//ÊÂ¼ş·¢²¼
 			if(ckprivacy('comment', 1)) {
 				feed_add($fs['icon'], $fs['title_template'], $fs['title_data'], $fs['body_template'], $fs['body_data'], $fs['body_general'],$fs['images'], $fs['image_links'], $fs['target_ids'], $fs['friend']);
 			}
 			
-			//å‘é€é€šçŸ¥
+			//·¢ËÍÍ¨Öª
 			notification_add($tospace['uid'], $note_type, $note);
 			
-			//ç•™è¨€å‘é€çŸ­æ¶ˆæ¯
+			//ÁôÑÔ·¢ËÍ¶ÌÏûÏ¢
 			if($_POST['idtype'] == 'uid' && $tospace['updatetime'] == $tospace['dateline']) {
 				include_once S_ROOT.'./uc_client/client.php';
 				uc_pm_send($_SGLOBAL['supe_uid'], $tospace['uid'], cplang('wall_pm_subject'), cplang('wall_pm_message', array(addslashes(getsiteurl().$n_url))), 1, 0, 0);
 			}
 			
-			//å‘é€é‚®ä»¶é€šçŸ¥
+			//·¢ËÍÓÊ¼şÍ¨Öª
 			smail($tospace['uid'], '', cplang($msgtype, array($_SN[$space['uid']], shtmlspecialchars(getsiteurl().$n_url))), '', $msgtype);
 		}
 		
 	} elseif($comment['authorid'] != $_SGLOBAL['supe_uid']) {
 		
-		//å‘é€é‚®ä»¶é€šçŸ¥
+		//·¢ËÍÓÊ¼şÍ¨Öª
 		smail($comment['authorid'], '', cplang($q_msgtype, array($_SN[$space['uid']], shtmlspecialchars(getsiteurl().$n_url))), '', $q_msgtype);
 		notification_add($comment['authorid'], $note_type, $q_note);
 		
 	}
 	
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	if($stattype) {
 		updatestat($stattype);
 	}
 
-	//ç§¯åˆ†
+	//»ı·Ö
 	if($tospace['uid'] != $_SGLOBAL['supe_uid']) {
 		$needle = $id;
 		if($_POST['idtype'] != 'uid') {
@@ -452,9 +452,9 @@ if(submitcheck('commentsubmit')) {
 		} else {
 			$needle = $tospace['uid'];
 		}
-		//å¥–åŠ±è¯„è®ºå‘èµ·è€…
+		//½±ÀøÆÀÂÛ·¢ÆğÕß
 		getreward($action, 1, 0, $needle);
-		//å¥–åŠ±è¢«è¯„è®ºè€…
+		//½±Àø±»ÆÀÂÛÕß
 		if($becomment) {
 			if($_POST['idtype'] == 'uid') {
 				$needle = $_SGLOBAL['supe_uid'];
@@ -468,7 +468,7 @@ if(submitcheck('commentsubmit')) {
 
 $cid = empty($_GET['cid'])?0:intval($_GET['cid']);
 
-//ç¼–è¾‘
+//±à¼­
 if($_GET['op'] == 'edit') {
 
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE cid='$cid' AND authorid='$_SGLOBAL[supe_uid]'");
@@ -476,7 +476,7 @@ if($_GET['op'] == 'edit') {
 		showmessage('no_privilege');
 	}
 
-	//æäº¤ç¼–è¾‘
+	//Ìá½»±à¼­
 	if(submitcheck('editsubmit')) {
 
 		$message = getstr($_POST['message'], 0, 1, 1, 1, 2);
@@ -487,8 +487,8 @@ if($_GET['op'] == 'edit') {
 		showmessage('do_success', $_POST['refer'], 0);
 	}
 
-	//bbcodeè½¬æ¢
-	$comment['message'] = html2bbcode($comment['message']);//æ˜¾ç¤ºç”¨
+	//bbcode×ª»»
+	$comment['message'] = html2bbcode($comment['message']);//ÏÔÊ¾ÓÃ
 
 } elseif($_GET['op'] == 'delete') {
 

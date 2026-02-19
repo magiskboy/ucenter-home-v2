@@ -1,28 +1,28 @@
-<!--{eval $_TPL['titles'] = array($poll['subject'], '投票');}-->
+<!--{eval $_TPL['titles'] = array($poll['subject'], 'Poll');}-->
 <!--{template header}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/poll.gif" />投票</h2>
+<h2 class="title"><img src="image/app/poll.gif" />Poll</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>最新投票</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>最热投票</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>悬赏投票</span></a></li>
-		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>好友投票</span></a></li><!--{/if}-->
-		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的投票</span></a></li>
-		<li class="null"><a href="cp.php?ac=poll">发表新投票</a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>Latest Poll</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>Hottest Poll</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>Poll Points</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>Friends Poll</span></a></li><!--{/if}-->
+		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Poll</span></a></li>
+		<li class="null"><a href="cp.php?ac=poll">Vote to new poll</a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
 	<div class="r_option">
-		<a  href="$_SGLOBAL[refer]">&laquo; 返回上一页</a>
+		<a  href="$_SGLOBAL[refer]">&laquo; Prev Page</a>
 	</div>
 	<!--{/if}-->
 </div>
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "投票";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">TA的所有投票</a>";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=poll&pid=$pid\">查看投票详情</a>";
+	$_TPL['spacetitle'] = "Poll";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">Friends all Poll</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=poll&pid=$pid\">View detials</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
@@ -30,24 +30,24 @@
 <div id="content">
 	<div class="poll_header">
 		<div class="floatleft">
-			<p>发起时间: <!--{date('Y-m-d H:i',$poll[dateline],1)}--></p>
-			<p>参与人数: <strong>$poll[voternum]</strong> 人</p>
+			<p>Created: <!--{date('d-m-Y H:i',$poll[dateline],1)}--></p>
+			<p>Participant: <strong>$poll[voternum]</strong></p>
 			<!--{if $space[self] && $poll[credit]}-->
-			<p>剩余悬赏: <strong>$poll[credit]</strong></p>
+			<p>Remaining Point: <strong>$poll[credit]</strong></p>
 			<!--{/if}-->
-			<!--{if $poll[expiration]}--><p>截止时间: <!--{date('Y-m-d',$poll[expiration])}--></p><!--{/if}-->
+			<!--{if $poll[expiration]}--><p>Last date: <!--{date('d-m-Y',$poll[expiration])}--></p><!--{/if}-->
 		</div>
 		<!--{if $space[self]}-->
 		<div class="floatright">
 			<script type="text/javascript" src="source/script_calendar.js"></script>
 			<!--{if $poll[credit]}-->
-			<p><a href="cp.php?ac=poll&op=endreward&pid=$poll[pid]" id="poll_reward_$poll[pid]" onclick="ajaxmenu(event, this.id)">终止悬赏</a></p>
+			<p><a href="cp.php?ac=poll&op=endreward&pid=$poll[pid]" id="poll_reward_$poll[pid]" onclick="ajaxmenu(event, this.id)">Cancel Reward</a></p>
 			<!--{/if}-->
-			<p><a href="cp.php?ac=poll&op=addreward&pid=$poll[pid]" id="add_new_reward" onclick="ajaxmenu(event, this.id)">追加悬赏</a></p>
-			<p><a href="cp.php?ac=poll&op=addopt&pid=$poll[pid]" id="addnewoption" onclick="ajaxmenu(event, this.id, 1)">增加候选项</a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=delete" id="poll_delete_$poll[pid]" onclick="ajaxmenu(event, this.id)">删除本投票</a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=modify" id="poll_modify_$poll[pid]" onclick="ajaxmenu(event, this.id)">修改截止时间</a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=summary" id="poll_summary_$poll[pid]" onclick="ajaxmenu(event, this.id, 1)">写写投票总结</a></p>
+			<p><a href="cp.php?ac=poll&op=addreward&pid=$poll[pid]" id="add_new_reward" onclick="ajaxmenu(event, this.id)">Add Reward</a></p>
+			<p><a href="cp.php?ac=poll&op=addopt&pid=$poll[pid]" id="addnewoption" onclick="ajaxmenu(event, this.id, 1)">Add Options: </a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=delete" id="poll_delete_$poll[pid]" onclick="ajaxmenu(event, this.id)">Delete Poll:</a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=modify" id="poll_modify_$poll[pid]" onclick="ajaxmenu(event, this.id)">Change Time:</a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=summary" id="poll_summary_$poll[pid]" onclick="ajaxmenu(event, this.id, 1)">Poll Summary:</a></p>
 		</div>
 		<!--{else}-->
 
@@ -56,15 +56,15 @@
 
 	<div class="poll_title">
 		<!--{if $expiration}-->
-		<div class="print overtime">[过期]</div>
+		<div class="print overtime">[expired]</div>
 		<!--{elseif $poll[percredit]}-->
-		<div class="print guerdon">[悬赏]</div>
+		<div class="print guerdon">[points]</div>
 		<!--{/if}-->
-		<!--{if $poll[hot]}--><span class="hot"><em>热</em>$poll[hot]</span><!--{/if}--><h3><img src="image/poll_icon.gif" /> $poll[subject]</h3><!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex'] || $poll[multiple]}--> (<!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex']}-->仅限<strong><!--{if $poll['sex']==1}-->男<!--{else}-->女<!--{/if}--></strong>性参与 <!--{/if}--><!--{if $poll[multiple]}-->最多可选{$poll[maxchoice]}项<!--{/if}-->) <!--{/if}-->
+		<!--{if $poll[hot]}--><span class="hot"><em>Popular </em>$poll[hot]</span><!--{/if}--><h3><img src="image/poll_icon.gif" /> $poll[subject]</h3><!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex'] || $poll[multiple]}--> (<!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex']}--> Only <strong><!--{if $poll['sex']==1}-->Male <!--{else}--> Female <!--{/if}--></strong>Participation <!--{/if}--><!--{if $poll[multiple]}-->optional {$poll[maxchoice]}<!--{/if}-->) <!--{/if}-->
 		<!--{if $_GET[reward]}-->
-		<p style="color: #F30">恭喜您获得  <strong>$_GET[reward]</strong> 个积分</p>
+		<p style="color: #F30">Congratulations! You got <strong>$_GET[reward]</strong> points.</p>
 		<!--{elseif $poll[percredit]}-->
-		<p style="color: #F30">投票将获得 <strong>$poll[percredit]</strong> 个积分</p>
+		<p style="color: #F30"><strong>$poll[percredit]</strong> point for each Vote</p>
 		<!--{/if}-->
 	</div>
 	<!--{if $poll[message]}--><p class="poll_depiction">$poll[message]</p><!--{/if}-->
@@ -97,8 +97,8 @@
 	<div class="poll_submit">
 		<!--{if $allowedvote && !$hasvoted}-->
 		<input type="hidden" name="votesubmit" value="true" />
-		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="投票" /><br />
-		<label><input type="checkbox" name="anonymous" value="1"> 匿名投票</label>
+		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="Vote" /><br />
+		<label><input type="checkbox" name="anonymous" value="1">Hide me</label>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		<!--{/if}-->
 	</div>
@@ -107,28 +107,28 @@
 
 	<!--{if $poll[summary]}-->
 	<div class="poll_summary">
-	<h3 class="poll_sumuptitle">{$_SN[$poll[uid]]}对该投票的总结</h3>
+	<h3 class="poll_sumuptitle">{$_SN[$poll[uid]]}Poll Summary</h3>
 	<p class="poll_sumup">$poll[summary]</p>
 	</div>
 	<!--{/if}-->
 
 	<div class="poll_htitle">
 
-	<a href="cp.php?ac=share&type=poll&id=$poll[pid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">分享</a>
+	<a href="cp.php?ac=share&type=poll&id=$poll[pid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Share</a>
 		<div class="r_option">
 			<!--{if $_SGLOBAL[supe_uid] == $poll[uid] || checkperm('managepoll')}-->
-			<a href="cp.php?ac=topic&op=join&id=$poll[pid]&idtype=pid" id="a_topicjoin_$poll[pid]" onclick="ajaxmenu(event, this.id)">凑热闹</a><span class="pipe">|</span>
-			<a href="admincp.php?ac=poll&pid=$poll[pid]" target="_blank">删除</a><span class="pipe">|</span>
+			<a href="cp.php?ac=topic&op=join&id=$poll[pid]&idtype=pid" id="a_topicjoin_$poll[pid]" onclick="ajaxmenu(event, this.id)">Join Fun</a><span class="pipe">|</span>
+			<a href="admincp.php?ac=poll&pid=$poll[pid]" target="_blank">Delete</a><span class="pipe">|</span>
 			<!--{/if}-->
 			<!--{if checkperm('managepoll')}-->
-			<a href="cp.php?ac=poll&pid=$poll[pid]&op=edithot" id="a_hot_$poll[pid]" onclick="ajaxmenu(event, this.id)">热度</a><span class="pipe">|</span>
+			<a href="cp.php?ac=poll&pid=$poll[pid]&op=edithot" id="a_hot_$poll[pid]" onclick="ajaxmenu(event, this.id)">Heat</a><span class="pipe">|</span>
 			<!--{/if}-->
-			<a href="cp.php?ac=common&op=report&idtype=pid&id=$poll[pid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a><span class="pipe">|</span>
-			<a href="cp.php?uid=$poll[uid]&ac=poll&op=invite&pid=$poll[pid]"/>邀请好友</a><span class="pipe">|</span>
+			<a href="cp.php?ac=common&op=report&idtype=pid&id=$poll[pid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Abuse</a><span class="pipe">|</span>
+			<a href="cp.php?uid=$poll[uid]&ac=poll&op=invite&pid=$poll[pid]"/>Invite Fiends</a><span class="pipe">|</span>
 		</div>
 		<div class="custom">
-		<a id="newvoter" href="javascript:;" onclick="showVoter('new');">最新投票</a>
-		<a id="wevoter" href="javascript:;" onclick="showVoter('we');">好友投票</a>
+		<a id="newvoter" href="javascript:;" onclick="showVoter('new');">Latest Poll</a>
+		<a id="wevoter" href="javascript:;" onclick="showVoter('we');">Voters</a>
 		</div>
 	</div>
 	<div id="showvoter"></div>
@@ -161,7 +161,7 @@
 		}
 		<!--{/if}-->
 
-		//效查
+		//Ч��
 		var optionNum = <!--{eval echo count($option)}-->;
 		var maxLength = [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19];
 
@@ -197,12 +197,12 @@
 	<!--{if $isfriend}-->
 	<div class="comments" id="div_main_content" style="padding: 0 0 20px;">
 
-		<h3 class="feed_header"> <div class="r_option"><span id="comment_replynum">$poll[replynum]</span> 个评论</div>评论</h3>
+		<h3 class="feed_header"> <div class="r_option"><span id="comment_replynum">$poll[replynum]</span> Comments</div>comment</h3>
 		<div class="page">$multi</div>
 		<div class="comments_list" id="comment">
 			<!--{if $cid}-->
 			<div class="notice">
-				当前只显示与你操作相关的单个评论，<a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">点击此处查看全部评论</a>
+				Your comment<a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">View all comments</a>
 			</div>
 			<!--{/if}-->
 			<ul id="comment_ul">
@@ -217,9 +217,9 @@
 			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<a href="###" id="face" title="插入表情" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
+						<a href="###" id="face" title="Inser Mood" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 						<!--{if $_SGLOBAL['magic']['doodle']}-->
-						<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+						<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Graffiti Zone</a>
 						<!--{/if}-->
 						<br />
 						<textarea id="comment_message" onkeydown="ctrlEnter(event, 'commentsubmit_btn');" name="message" rows="5" style="width:500px;"></textarea>
@@ -231,7 +231,7 @@
 						<input type="hidden" name="id" value="$pid">
 						<input type="hidden" name="idtype" value="pid">
 						<input type="hidden" name="commentsubmit" value="true" />
-						<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="评论" onclick="ajaxpost('quickcommentform_{$pid}', 'comment_add')" />
+						<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="����" onclick="ajaxpost('quickcommentform_{$pid}', 'comment_add')" />
 						<span id="__quickcommentform_{$pid}"></span>
 					</td>
 				</tr>
@@ -249,32 +249,32 @@
 	<!--{if $topic}-->
 	<div class="affiche">
 		<img src="image/app/topic.gif" align="absmiddle">
-		<strong>凑个热闹</strong>：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
+		<strong>Intereted</strong>��<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
 	</div>
 	<!--{/if}-->
 
 	<div class="sidebox">
-		<h2 class="title">最新投票</h2>
+		<h2 class="title">Latest Poll</h2>
 		<ul class="news_list poll_new">
 			<!--{if $newpoll}-->
 			<!--{loop $newpoll $key $value}-->
 			<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">$value[subject]</a></li>
 			<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">暂时没有新投票</li>
+				<li style="height:auto;">No new Poll</li>
 			<!--{/if}-->
 		</ul>
 	</div>
 
 	<div class="sidebox">
-		<h2 class="title">最热投票</h2>
+		<h2 class="title">Hottest Poll</h2>
 		<ul class="news_list poll_new">
 			<!--{if $hotpoll}-->
 				<!--{loop $hotpoll $key $value}-->
 				<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">$value[subject]</a></li>
 				<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">暂时没有本月热门投票</li>
+				<li style="height:auto;">There is no popular vote this month</li>
 			<!--{/if}-->
 		</ul>
 	</div>
@@ -282,7 +282,7 @@
 </div>
 
 <script type="text/javascript">
-//彩虹炫
+//�ʺ���
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);

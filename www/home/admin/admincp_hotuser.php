@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME') || !defined('IN_ADMINCP')) {
 	exit('Access Denied');
 }
 
-//鏉冮檺
+//权限
 $managehotuser = checkperm('managehotuser');
 $managedefaultuser = checkperm('managedefaultuser');
 $vars = array();
@@ -30,7 +30,7 @@ if(submitcheck('thevaluesubmit')) {
 	$setarr = array();
 	
 	if($ac != 'hotuser') {
-		//榛樿濂藉弸
+		//默认好友
 		$fs = array();
 		$_POST['config']['defaultfusername'] = trim(preg_replace("/(\s*(\r\n|\n\r|\n|\r)\s*)/", "\r\n", $_POST['config']['defaultfusername']));
 		if($_POST['config']['defaultfusername']) {
@@ -41,7 +41,7 @@ if(submitcheck('thevaluesubmit')) {
 		}
 		$_POST['config']['defaultfusername'] = empty($fs)?'':implode(',', $fs);
 	} else {
-		//浼樼鐢ㄦ埛
+		//优秀用户
 		$fs = array();
 		$_POST['config']['spacebarusername'] = trim(preg_replace("/(\s*(\r\n|\n\r|\n|\r)\s*)/", "\r\n", $_POST['config']['spacebarusername']));
 		if($_POST['config']['spacebarusername']) {
@@ -64,7 +64,7 @@ if(submitcheck('thevaluesubmit')) {
 		$_SGLOBAL['db']->query("REPLACE INTO ".tname('config')." (var, datavalue) VALUES ".implode(',', $setarr));
 	}
 
-	//鏇存柊缂撳瓨
+	//更新缓存
 	include_once(S_ROOT.'./source/function_cache.php');
 	config_cache();
 

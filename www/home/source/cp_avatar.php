@@ -12,16 +12,16 @@ if(submitcheck('avatarsubmit')) {
 	showmessage('do_success', 'cp.php?ac=avatar', 0);
 }
 
-//å¤´åƒ
+//Í·Ïñ
 include_once S_ROOT.'./uc_client/client.php';
 $uc_avatarflash = uc_avatar($_SGLOBAL['supe_uid'], (empty($_SCONFIG['avatarreal'])?'virtual':'real'));
 
-//åˆ¤æ–­ç”¨æˆ·æ˜¯å¦è®¾ç½®äº†å¤´åƒ
+//ÅÐ¶ÏÓÃ»§ÊÇ·ñÉèÖÃÁËÍ·Ïñ
 $setarr = array();
 $avatar_exists = ckavatar($space['uid']);
 if($avatar_exists) {
 	if(!$space['avatar']) {
-		//å¥–åŠ±ç§¯åˆ†
+		//½±Àø»ý·Ö
 		$reward = getreward('setavatar', 0);
 		if($reward['credit']) {
 			$setarr['credit'] = "credit=credit+$reward[credit]";
@@ -41,7 +41,7 @@ if($avatar_exists) {
 
 if($setarr) {
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET ".implode(',', $setarr)." WHERE uid='$space[uid]'");
-	//å˜æ›´è®°å½•
+	//±ä¸ü¼ÇÂ¼
 	if($_SCONFIG['my_status']) {
 		inserttable('userlog', array('uid'=>$_SGLOBAL['supe_uid'], 'action'=>'update', 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 	}

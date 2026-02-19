@@ -53,7 +53,7 @@ class feedcontrol extends base {
 		return $this->db->insert_id();
 	}
 
-	//note private åˆ é™¤äº‹ä»¶
+	//note private É¾³ýÊÂ¼þ
 	function ondelete() {
 		$start = $this->input('start');
 		$limit = $this->input('limit');
@@ -61,7 +61,7 @@ class feedcontrol extends base {
 		$this->db->query("DELETE FROM ".UC_DBTABLEPRE."feeds WHERE feedid>'$start' AND feedid<'$end'");
 	}
 
-	//note public å–å¾—äº‹ä»¶çš„æŽ¥å£, å–å®Œä»¥åŽæ˜¯å¦åˆ é™¤?
+	//note public È¡µÃÊÂ¼þµÄ½Ó¿Ú, È¡ÍêÒÔºóÊÇ·ñÉ¾³ý?
 	function onget() {
 		$this->load('misc');
 		$limit = intval($this->input('limit'));
@@ -75,7 +75,7 @@ class feedcontrol extends base {
 				$feedlist[$key] = $feed;
 			}
 		}
-		//note åˆ é™¤è¿‡æœŸçš„feed
+		//note É¾³ý¹ýÆÚµÄfeed
 		if(!empty($feedlist)) {
 			if(!isset($delete) || $delete) {
 				$this->_delete(0, $maxfeedid);

@@ -12,36 +12,36 @@ set_magic_quotes_runtime(0);
 
 $_SGLOBAL = $_SCONFIG = $_SBLOCK = $_TPL = $_SCOOKIE = $_SN = $space = array();
 
-//ç¨‹åºç›®å½•
+//³ÌĞòÄ¿Â¼
 define('S_ROOT', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
-//åŸºæœ¬æ–‡ä»¶
+//»ù±¾ÎÄ¼ş
 include_once(S_ROOT.'./ver.php');
 if(!@include_once(S_ROOT.'./config.php')) {
-	header("Location: install/index.php");//å®‰è£…
+	header("Location: install/index.php");//°²×°
 	exit();
 }
 include_once(S_ROOT.'./source/function_common.php');
 
-//æ—¶é—´
+//Ê±¼ä
 $mtime = explode(' ', microtime());
 $_SGLOBAL['timestamp'] = $mtime[1];
 $_SGLOBAL['supe_starttime'] = $_SGLOBAL['timestamp'] + $mtime[0];
 
-//GPCè¿‡æ»¤
+//GPC¹ıÂË
 $magic_quote = get_magic_quotes_gpc();
 if(empty($magic_quote)) {
 	$_GET = saddslashes($_GET);
 	$_POST = saddslashes($_POST);
 }
 
-//æœ¬ç«™URL
+//±¾Õ¾URL
 if(empty($_SC['siteurl'])) $_SC['siteurl'] = getsiteurl();
 
-//é“¾æ¥æ•°æ®åº“
+//Á´½ÓÊı¾İ¿â
 dbconnect();
 
-//ç¼“å­˜æ–‡ä»¶
+//»º´æÎÄ¼ş
 if(!@include_once(S_ROOT.'./data/data_config.php')) {
 	include_once(S_ROOT.'./source/function_cache.php');
 	config_cache();
@@ -59,14 +59,14 @@ foreach($_COOKIE as $key => $val) {
 	}
 }
 
-//å¯ç”¨GIP
+//ÆôÓÃGIP
 if ($_SC['gzipcompress'] && function_exists('ob_gzhandler')) {
 	ob_start('ob_gzhandler');
 } else {
 	ob_start();
 }
 
-//åˆå§‹åŒ–
+//³õÊ¼»¯
 $_SGLOBAL['supe_uid'] = 0;
 $_SGLOBAL['supe_username'] = '';
 $_SGLOBAL['inajax'] = empty($_GET['inajax'])?0:intval($_GET['inajax']);
@@ -75,11 +75,11 @@ $_SGLOBAL['ajaxmenuid'] = empty($_GET['ajaxmenuid'])?'':$_GET['ajaxmenuid'];
 $_SGLOBAL['refer'] = empty($_SERVER['HTTP_REFERER'])?'':$_SERVER['HTTP_REFERER'];
 if(empty($_GET['m_timestamp']) || $_SGLOBAL['mobile'] != md5($_GET['m_timestamp']."\t".$_SCONFIG['sitekey'])) $_SGLOBAL['mobile'] = '';
 
-//ç™»å½•æ³¨å†Œé˜²çŒæ°´æœº
+//µÇÂ¼×¢²á·À¹àË®»ú
 if(empty($_SCONFIG['login_action'])) $_SCONFIG['login_action'] = md5('login'.md5($_SCONFIG['sitekey']));
 if(empty($_SCONFIG['register_action'])) $_SCONFIG['register_action'] = md5('register'.md5($_SCONFIG['sitekey']));
 
-//æ•´ç«™é£æ ¼
+//ÕûÕ¾·ç¸ñ
 if(empty($_SCONFIG['template'])) {
 	$_SCONFIG['template'] = 'default';
 }
@@ -91,14 +91,8 @@ if($_SCOOKIE['mytemplate']) {
 		ssetcookie('mytemplate', '', 365000);
 	}
 }
-// i18n: khi ngÃ´n ngá»¯ lÃ  vi_VN thÃ¬ luÃ´n dÃ¹ng bá»™ template vi_VN (náº¿u cÃ³), Ä‘á»ƒ giao diá»‡n hiá»ƒn thá»‹ tiáº¿ng Viá»‡t
-$uchome_lang = isset($_SC['language']) ? trim($_SC['language']) : '';
-$vi_vn_tpl = S_ROOT.'template/vi_VN/style.css';
-if($uchome_lang === 'vi_VN' && file_exists($vi_vn_tpl)) {
-	$_SCONFIG['template'] = 'vi_VN';
-}
 
-//å¤„ç†REQUEST_URI
+//´¦ÀíREQUEST_URI
 if(!isset($_SERVER['REQUEST_URI'])) {  
 	$_SERVER['REQUEST_URI'] = $_SERVER['PHP_SELF'];
 	if(isset($_SERVER['QUERY_STRING'])) $_SERVER['REQUEST_URI'] .= '?'.$_SERVER['QUERY_STRING'];
@@ -110,14 +104,14 @@ if($_SERVER['REQUEST_URI']) {
 	}
 }
 	
-//åˆ¤æ–­ç”¨æˆ·ç™»å½•çŠ¶æ€
+//ÅĞ¶ÏÓÃ»§µÇÂ¼×´Ì¬
 checkauth();
 $_SGLOBAL['uhash'] = md5($_SGLOBAL['supe_uid']."\t".substr($_SGLOBAL['timestamp'], 0, 6));
 
-//ç”¨æˆ·èœå•
+//ÓÃ»§²Ëµ¥
 getuserapp();
 
-//å¤„ç†UCåº”ç”¨
+//´¦ÀíUCÓ¦ÓÃ
 $_SCONFIG['uc_status'] = 0;
 $_SGLOBAL['appmenus'] = $_SGLOBAL['appmenu'] = array();
 if($_SGLOBAL['app']) {

@@ -3,8 +3,8 @@
 <!--{if $op == 'use'}-->
 
 	<!--{if !$frombuy}-->
-	<h1>使用道具</h1>
-	<a class="float_del" title="关闭" href="javascript:hideMenu();">关闭</a>
+	<h1>The use of props</h1>
+	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
 	<!--{/if}-->
 	<div class="toolly" id="__magicuse_form_$mid">
 		<form method="post" id="magicuse_form_$mid" action="magic.php?mid=$mid&idtype=$idtype&id=$id">
@@ -14,62 +14,62 @@
 			<div class="magic_info">
 				<h3>$magic[name]</h3>
 				<p class="gray">$magic[description]</p>
-				<p>拥有个数: $usermagic[count]</p>
+				<p>Remaining Props: $usermagic[count]</p>
 				<div>
-					<h4>访问方式</h4>
+					<h4>Visiting Mode</h4>
 					<input id="way_visit" type="radio" name="visitway" value="visit" checked onclick="$('visitmsgs').style.display='none';$('visitpokes').style.display='none';" />
-					<label for="way_visit">访问空间</label>
+					<label for="way_visit">Space Visiting</label>
 					<input id="way_poke" type="radio" name="visitway" value="poke" onclick="$('visitmsgs').style.display='none';$('visitpokes').style.display='';" />
-					<label for="way_poke">打招呼</label>
+					<label for="way_poke">Poke</label>
 					<input id="way_comment" type="radio" name="visitway" value="comment" onclick="$('visitmsgs').style.display='';$('visitpokes').style.display='none';" />
-					<label for="way_comment">空间留言</label>
+					<label for="way_comment">Space Comment</label>
 					<ul id="visitmsgs" style="display:none;">
-						<li>请选择一条留言内容</li>
+						<li>Please secect one comment type</li>
 						<li>
-							<input id="visitmsg_1" type="radio" name="visitmsg" value="踩踩" checked>
-							<label for="visitmsg_1">踩踩</label>
+							<input id="visitmsg_1" type="radio" name="visitmsg" value="Poke" checked>
+							<label for="visitmsg_1">Poke</label>
 						</li>
 						<li>
-							<input id="visitmsg_2" type="radio" name="visitmsg" value="好久不见">
-							<label for="visitmsg_2">好久不见</label>
+							<input id="visitmsg_2" type="radio" name="visitmsg" value="Miss you">
+							<label for="visitmsg_2">Miss you</label>
 						</li>
 						<li>
-							<input id="visitmsg_3" type="radio" name="visitmsg" value="记得回踩哦">
-							<label for="visitmsg_3">记得回踩哦</label>
+							<input id="visitmsg_3" type="radio" name="visitmsg" value="want your attention">
+							<label for="visitmsg_3">want your attention</label>
 						</li>
 						<li>
-							<input id="visitmsg_4" type="radio" name="visitmsg" value="我又来了">
-							<label for="visitmsg_4">我又来了</label>
+							<input id="visitmsg_4" type="radio" name="visitmsg" value="I am back">
+							<label for="visitmsg_4">I am back</label>
 						</li>
 						<li>
-							<input id="visitmsg_5" type="radio" name="visitmsg" value="好漂亮的空间啊">
-							<label for="visitmsg_5">好漂亮的空间啊</label>
+							<input id="visitmsg_5" type="radio" name="visitmsg" value="Your space rock">
+							<label for="visitmsg_5">Your Space rock</label>
 						</li>
 						<li>
-							<input id="visitmsg_6" type="radio" name="visitmsg" value="最近在忙什么呢">
-							<label for="visitmsg_6">最近在忙什么呢</label>
+							<input id="visitmsg_6" type="radio" name="visitmsg" value="whasup, how are you!">
+							<label for="visitmsg_6">whasup, how are you!</label>
 						</li>
 					</ul>
 					<!--{eval
 					$icons = array(
-						1 => '<img src="image/poke/cyx.gif" /> 踩一下',
-						2 => '<img src="image/poke/wgs.gif" /> 握个手',
-						3 => '<img src="image/poke/wx.gif" /> 微笑',
-						4 => '<img src="image/poke/jy.gif" /> 加油',
-						5 => '<img src="image/poke/pmy.gif" /> 抛媚眼',
-						6 => '<img src="image/poke/yb.gif" /> 拥抱',
-						7 => '<img src="image/poke/fw.gif" /> 飞吻',
-						8 => '<img src="image/poke/nyy.gif" /> 挠痒痒',
-						9 => '<img src="image/poke/gyq.gif" /> 给一拳',
-						10 => '<img src="image/poke/dyx.gif" /> 电一下',
-						11 => '<img src="image/poke/yw.gif" /> 依偎',
-						12 => '<img src="image/poke/ppjb.gif" /> 拍拍肩膀',
-						13 => '<img src="image/poke/yyk.gif" /> 咬一口'
+						1 => '<img src="image/poke/cyx.gif" /> Poke',
+						2 => '<img src="image/poke/wgs.gif" /> Hand Shake',
+						3 => '<img src="image/poke/wx.gif" /> Smile',
+						4 => '<img src="image/poke/jy.gif" /> Come on',
+						5 => '<img src="image/poke/pmy.gif" /> Flirt',
+						6 => '<img src="image/poke/yb.gif" /> Hug',
+						7 => '<img src="image/poke/fw.gif" /> Kiss',
+						8 => '<img src="image/poke/nyy.gif" /> Tickle',
+						9 => '<img src="image/poke/gyq.gif" /> Punch',
+						10 => '<img src="image/poke/dyx.gif" /> E-Shock',
+						11 => '<img src="image/poke/yw.gif" /> Attach',
+						12 => '<img src="image/poke/ppjb.gif" /> Touch',
+						13 => '<img src="image/poke/yyk.gif" /> Bite'
 					);
 					}-->
 					<table id="visitpokes" style="width:100%; display:none;">
 					<thead>
-					<td colspan="2">请选择一个招呼</td>
+					<td colspan="2">Select one expression</td>
 					</thead>
 					<tbody>
 					<tr>
@@ -88,7 +88,7 @@
 					<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
 					<input type="hidden" name="refer" value="$_SGLOBAL[refer]"/>
 					<input type="hidden" name="usesubmit" value="1" />
-					<input type="button" value="使用" class="submit" onclick="ajaxpost('magicuse_form_$mid')" />
+					<input type="button" value="Submit" class="submit" onclick="ajaxpost('magicuse_form_$mid')" />
 				</p>
 			</div>
 		</form>
@@ -97,9 +97,9 @@
 <!--{elseif $op == 'show'}-->
 	<div style="width:400px;">
 		<p>
-			<!--{if $_POST['visitway'] == "poke"}-->已给这些好友打招呼
-			<!--{elseif $_POST['visitway'] == 'comment'}-->已在这些好友空间留言
-			<!--{else}-->已访问这些好友空间<!--{/if}-->
+			<!--{if $_POST['visitway'] == "poke"}-->�Ѹ���Щ���Ѵ��к�
+			<!--{elseif $_POST['visitway'] == 'comment'}-->������Щ���ѿռ�����
+			<!--{else}-->�ѷ�����Щ���ѿռ�<!--{/if}-->
 		</p>
 		<ul class="avatar_list">
 			<!--{loop $users $value}-->

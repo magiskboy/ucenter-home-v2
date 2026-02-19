@@ -8,66 +8,66 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//ä¿å­˜å›¾ç‰‡
+//±£´æÍ¼Æ¬
 function pic_save($FILE, $albumid, $title, $topicid=0) {
 	global $_SGLOBAL, $_SCONFIG, $space, $_SC;
 
 	if($albumid<0) $albumid = 0;
 	
-	//å…è®¸ä¸Šä¼ ç±»å‹
+	//ÔÊĞíÉÏ´«ÀàĞÍ
 	$allowpictype = array('jpg','jpeg','gif','png');
 
-	//æ£€æŸ¥
+	//¼ì²é
 	$FILE['size'] = intval($FILE['size']);
 	if(empty($FILE['size']) || empty($FILE['tmp_name']) || !empty($FILE['error'])) {
 		return cplang('lack_of_access_to_upload_file_size');
 	}
 
-	//åˆ¤æ–­åç¼€
+	//ÅĞ¶Ïºó×º
 	$fileext = fileext($FILE['name']);
 	if(!in_array($fileext, $allowpictype)) {
 		return cplang('only_allows_upload_file_types');
 	}
 
-	//è·å–ç›®å½•
+	//»ñÈ¡Ä¿Â¼
 	if(!$filepath = getfilepath($fileext, true)) {
 		return cplang('unable_to_create_upload_directory_server');
 	}
 
-	//æ£€æŸ¥ç©ºé—´å¤§å°
+	//¼ì²é¿Õ¼ä´óĞ¡
 	if(empty($space)) {
 		$space = getspace($_SGLOBAL['supe_uid']);
 	}
 	
-	//ç”¨æˆ·ç»„
+	//ÓÃ»§×é
 	if(!checkperm('allowupload')) {
 		ckspacelog();
 		return cplang('inadequate_capacity_space');
 	}
 	
-	//å®åè®¤è¯
+	//ÊµÃûÈÏÖ¤
 	if(!ckrealname('album', 1)) {
 		return cplang('inadequate_capacity_space');
 	}
 	
-	//è§†é¢‘è®¤è¯
+	//ÊÓÆµÈÏÖ¤
 	if(!ckvideophoto('album', array(), 1)) {
 		return cplang('inadequate_capacity_space');
 	}
 	
-	//æ–°ç”¨æˆ·è§ä¹ 
+	//ĞÂÓÃ»§¼ûÏ°
 	if(!cknewuser(1)) {
 		return cplang('inadequate_capacity_space');
 	}
 
-	$maxattachsize = checkperm('maxattachsize');//å•ä½MB
-	if($maxattachsize) {//0ä¸ºä¸é™åˆ¶
+	$maxattachsize = checkperm('maxattachsize');//µ¥Î»MB
+	if($maxattachsize) {//0Îª²»ÏŞÖÆ
 		if($space['attachsize'] + $FILE['size'] > $maxattachsize + $space['addsize']) {
 			return cplang('inadequate_capacity_space');
 		}
 	}
 
-	//ç›¸å†Œé€‰æ‹©
+	//Ïà²áÑ¡Ôñ
 	$showtip = true;
 	$albumfriend = 0;
 	if($albumid) {
@@ -94,7 +94,7 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 		$showtip = false;
 	}
 
-	//æœ¬åœ°ä¸Šä¼ 
+	//±¾µØÉÏ´«
 	$new_name = $_SC['attachdir'].'./'.$filepath;
 	$tmp_name = $FILE['tmp_name'];
 	if(@copy($tmp_name, $new_name)) {
@@ -105,7 +105,7 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 		return cplang('mobile_picture_temporary_failure');
 	}
 	
-	//æ£€æŸ¥æ˜¯å¦å›¾ç‰‡
+	//¼ì²éÊÇ·ñÍ¼Æ¬
 	if(function_exists('getimagesize')) {
 		$tmp_imagesize = @getimagesize($new_name);
 		list($tmp_width, $tmp_height, $tmp_type) = (array)$tmp_imagesize;
@@ -116,23 +116,23 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 		}
 	}
 
-	//ç¼©ç•¥å›¾
+	//ËõÂÔÍ¼
 	include_once(S_ROOT.'./source/function_image.php');
 	$thumbpath = makethumb($new_name);
 	$thumb = empty($thumbpath)?0:1;
 
-	//æ˜¯å¦å‹ç¼©
-	//è·å–ä¸Šä¼ åå›¾ç‰‡å¤§å°
+	//ÊÇ·ñÑ¹Ëõ
+	//»ñÈ¡ÉÏ´«ºóÍ¼Æ¬´óĞ¡
 	if(@$newfilesize = filesize($new_name)) {
 		$FILE['size'] = $newfilesize;
 	}
 
-	//æ°´å°
+	//Ë®Ó¡
 	if($_SCONFIG['allowwatermark']) {
 		makewatermark($new_name);
 	}
 
-	//è¿›è¡Œftpä¸Šä¼ 
+	//½øĞĞftpÉÏ´«
 	if($_SCONFIG['allowftp']) {
 		include_once(S_ROOT.'./source/function_ftp.php');
 		if(ftpupload($new_name, $filepath)) {
@@ -149,10 +149,10 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 		$album_picflag = 1;
 	}
 	
-	//å…¥åº“
+	//Èë¿â
 	$title = getstr($title, 200, 1, 1, 1);
 
-	//å…¥åº“
+	//Èë¿â
 	$setarr = array(
 		'albumid' => $albumid,
 		'uid' => $_SGLOBAL['supe_uid'],
@@ -170,8 +170,8 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 	);
 	$setarr['picid'] = inserttable('pic', $setarr, 1);
 
-	//æ›´æ–°é™„ä»¶å¤§å°
-	//ç§¯åˆ†
+	//¸üĞÂ¸½¼ş´óĞ¡
+	//»ı·Ö
 	$setsql = '';
 	if($showtip) {
 		$reward = getreward('uploadimage', 0);
@@ -184,7 +184,7 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 	}
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET attachsize=attachsize+'$FILE[size]', updatetime='$_SGLOBAL[timestamp]' $setsql WHERE uid='$_SGLOBAL[supe_uid]'");
 
-	//ç›¸å†Œæ›´æ–°
+	//Ïà²á¸üĞÂ
 	if($albumid) {
 		$file = $filepath.($thumb?'.thumb.jpg':'');
 		$_SGLOBAL['db']->query("UPDATE ".tname('album')."
@@ -192,13 +192,13 @@ function pic_save($FILE, $albumid, $title, $topicid=0) {
 			WHERE albumid='$albumid'");
 	}
 	
-	//ç»Ÿè®¡
+	//Í³¼Æ
 	updatestat('pic');
 
 	return $setarr;
 }
 
-//æ•°æ®æµä¿å­˜ï¼Œæ‰€æœ‰æ•°æ®å‡ä¸ºå­˜æ”¾ç›¸å†Œçš„æ‰€ä»¥å†™å…¥çš„æ•°æ®ä¸€å®šåªèƒ½æ˜¯å›¾ç‰‡
+//Êı¾İÁ÷±£´æ£¬ËùÓĞÊı¾İ¾ùÎª´æ·ÅÏà²áµÄËùÒÔĞ´ÈëµÄÊı¾İÒ»¶¨Ö»ÄÜÊÇÍ¼Æ¬
 function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title='', $delsize=0, $from = false) {
 	global $_SGLOBAL, $space, $_SCONFIG, $_SC;
 
@@ -212,7 +212,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 		if(fwrite($handle, $strdata) !== FALSE) {
 			fclose($handle);
 			$size = filesize($newfilename);
-			//æ£€æŸ¥ç©ºé—´å¤§å°
+			//¼ì²é¿Õ¼ä´óĞ¡
 
 			if(empty($space)) {
 				$space = getspace($_SGLOBAL['supe_uid']);
@@ -222,15 +222,15 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 			}
 			$_SGLOBAL['member'] = $space;
 
-			$maxattachsize = checkperm('maxattachsize');//å•ä½MB
-			if($maxattachsize) {//0ä¸ºä¸é™åˆ¶
+			$maxattachsize = checkperm('maxattachsize');//µ¥Î»MB
+			if($maxattachsize) {//0Îª²»ÏŞÖÆ
 				if($space['attachsize'] + $size - $delsize > $maxattachsize + $space['addsize']) {
 					@unlink($newfilename);
 					return -1;
 				}
 			}
 			
-			//æ£€æŸ¥æ˜¯å¦å›¾ç‰‡
+			//¼ì²éÊÇ·ñÍ¼Æ¬
 			if(function_exists('getimagesize')) {	
 				$tmp_imagesize = @getimagesize($newfilename);
 				list($tmp_width, $tmp_height, $tmp_type) = (array)$tmp_imagesize;
@@ -241,17 +241,17 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 				}
 			}
 
-			//ç¼©ç•¥å›¾
+			//ËõÂÔÍ¼
 			include_once(S_ROOT.'./source/function_image.php');
 			$thumbpath = makethumb($newfilename);
 			$thumb = empty($thumbpath)?0:1;
 
-			//å¤§å¤´å¸–ä¸æ·»åŠ æ°´å°
+			//´óÍ·Ìû²»Ìí¼ÓË®Ó¡
 			if($_SCONFIG['allowwatermark']) {
 				makewatermark($newfilename);
 			}
 
-			//å…¥åº“
+			//Èë¿â
 			$filename = addslashes(($name ? $name : substr(strrchr($filepath, '/'), 1)));
 			$title = getstr($title, 200, 1, 1, 1);
 			
@@ -293,8 +293,8 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 			);
 			$setarr['picid'] = inserttable('pic', $setarr, 1);
 
-			//æ›´æ–°é™„ä»¶å¤§å°
-			//ç§¯åˆ†
+			//¸üĞÂ¸½¼ş´óĞ¡
+			//»ı·Ö
 			$setsql = '';
 			if($from) {
 				$reward = getreward($from, 0);
@@ -307,7 +307,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 			}
 			$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET attachsize=attachsize+'$size', updatetime='$_SGLOBAL[timestamp]' $setsql WHERE uid='$_SGLOBAL[supe_uid]'");
 
-			//ç›¸å†Œæ›´æ–°
+			//Ïà²á¸üĞÂ
 			if($albumid) {
 				$file = $filepath.($thumb?'.thumb.jpg':'');
 				$_SGLOBAL['db']->query("UPDATE ".tname('album')."
@@ -315,7 +315,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 					WHERE albumid='$albumid'");
 			}
 
-			//æœ€åè¿›è¡Œftpä¸Šä¼ ,é˜²æ­¢åƒåœ¾äº§ç”Ÿ
+			//×îºó½øĞĞftpÉÏ´«,·ÀÖ¹À¬»ø²úÉú
 			if($_SCONFIG['allowftp']) {
 				include_once(S_ROOT.'./source/function_ftp.php');
 				if(ftpupload($newfilename, $filepath)) {
@@ -327,7 +327,7 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 				}
 			}
 			
-			//ç»Ÿè®¡
+			//Í³¼Æ
 			updatestat('pic');
 
 			return $setarr;
@@ -338,10 +338,10 @@ function stream_save($strdata, $albumid = 0, $fileext = 'jpg', $name='', $title=
 	return -3;
 }
 
-//åˆ›å»ºç›¸å†Œ
+//´´½¨Ïà²á
 function album_creat($arr) {
 	global $_SGLOBAL, $space;
-	//æ£€æŸ¥ç›¸å†Œæ˜¯å¦å­˜åœ¨
+	//¼ì²éÏà²áÊÇ·ñ´æÔÚ
 	$albumid = getcount('album', array('albumname'=>$arr['albumname'], 'uid'=>$_SGLOBAL['supe_uid']), 'albumid');
 	if($albumid) {
 		return $albumid;
@@ -351,14 +351,14 @@ function album_creat($arr) {
 		$arr['dateline'] = $arr['updatetime'] = $_SGLOBAL['timestamp'];
 		$albumid = inserttable('album', $arr, 1);
 		
-		//æ£€æŸ¥æ•°é‡
+		//¼ì²éÊıÁ¿
 		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET albumnum=albumnum+1 WHERE uid='$_SGLOBAL[supe_uid]'");
 
 		return $albumid;
 	}
 }
 
-//è·å–ä¸Šä¼ è·¯å¾„
+//»ñÈ¡ÉÏ´«Â·¾¶
 function getfilepath($fileext, $mkdir=false) {
 	global $_SGLOBAL, $_SC;
 
@@ -385,7 +385,7 @@ function getfilepath($fileext, $mkdir=false) {
 	return $name1.'/'.$name2.'/'.$filepath;
 }
 
-//è·å–ç›¸å†Œå°é¢å›¾ç‰‡
+//»ñÈ¡Ïà²á·âÃæÍ¼Æ¬
 function getalbumpic($uid, $id) {
 	global $_SGLOBAL;
 	$query = $_SGLOBAL['db']->query("SELECT filepath, thumb FROM ".tname('pic')." WHERE albumid='$id' AND uid='$uid' ORDER BY thumb DESC, dateline DESC LIMIT 0,1");
@@ -396,7 +396,7 @@ function getalbumpic($uid, $id) {
 	}
 }
 
-//è·å–ä¸ªäººåˆ†ç±»
+//»ñÈ¡¸öÈË·ÖÀà
 function getclassarr($uid) {
 	global $_SGLOBAL;
 
@@ -408,7 +408,7 @@ function getclassarr($uid) {
 	return $classarr;
 }
 
-//è·å–ç›¸å†Œ
+//»ñÈ¡Ïà²á
 function getalbums($uid) {
 	global $_SGLOBAL;
 
@@ -420,7 +420,7 @@ function getalbums($uid) {
 	return $albums;
 }
 
-//äº‹ä»¶å‘å¸ƒ
+//ÊÂ¼ş·¢²¼
 function feed_add($icon, $title_template='', $title_data=array(), $body_template='', $body_data=array(), $body_general='', $images=array(), $image_links=array(), $target_ids='', $friend='', $appid='', $returnid=0) {
 	global $_SGLOBAL;
 
@@ -428,7 +428,7 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 		if(is_numeric($icon)) {
 			$appid = 0;
 		} else {
-			$appid = UC_APPID;//æœ¬åœ°
+			$appid = UC_APPID;//±¾µØ
 		}
 	}
 	
@@ -455,21 +455,21 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 		'idtype' => $idtype
 	);
 	
-	$feedarr = sstripslashes($feedarr);//å»æ‰è½¬ä¹‰
-	$feedarr['title_data'] = serialize(sstripslashes($title_data));//æ•°ç»„è½¬åŒ–
-	$feedarr['body_data'] = serialize(sstripslashes($body_data));//æ•°ç»„è½¬åŒ–
-	$feedarr['hash_template'] = md5($feedarr['title_template']."\t".$feedarr['body_template']);//å–œå¥½hash
-	$feedarr['hash_data'] = md5($feedarr['title_template']."\t".$feedarr['title_data']."\t".$feedarr['body_template']."\t".$feedarr['body_data']);//åˆå¹¶hash
-	$feedarr = saddslashes($feedarr);//å¢åŠ è½¬ä¹‰
+	$feedarr = sstripslashes($feedarr);//È¥µô×ªÒå
+	$feedarr['title_data'] = serialize(sstripslashes($title_data));//Êı×é×ª»¯
+	$feedarr['body_data'] = serialize(sstripslashes($body_data));//Êı×é×ª»¯
+	$feedarr['hash_template'] = md5($feedarr['title_template']."\t".$feedarr['body_template']);//Ï²ºÃhash
+	$feedarr['hash_data'] = md5($feedarr['title_template']."\t".$feedarr['title_data']."\t".$feedarr['body_template']."\t".$feedarr['body_data']);//ºÏ²¢hash
+	$feedarr = saddslashes($feedarr);//Ôö¼Ó×ªÒå
 	
-	//å»é‡
+	//È¥ÖØ
 	$query = $_SGLOBAL['db']->query("SELECT feedid FROM ".tname('feed')." WHERE uid='$feedarr[uid]' AND hash_data='$feedarr[hash_data]' LIMIT 0,1");
 	if($oldfeed = $_SGLOBAL['db']->fetch_array($query)) {
 		updatetable('feed', $feedarr, array('feedid'=>$oldfeed['feedid']));
 		return 0;
 	}
 	
-	//æ’å…¥
+	//²åÈë
 	if($returnid) {
 		return inserttable('feed', $feedarr, $returnid);
 	} else {
@@ -478,13 +478,13 @@ function feed_add($icon, $title_template='', $title_data=array(), $body_template
 	}
 }
 
-//çƒ­ç‚¹
+//ÈÈµã
 function hot_update($idtype, $id, $hotuser) {
 	global $_SGLOBAL, $_SCONFIG;
 	
 	$hotusers = empty($hotuser)?array():explode(',', $hotuser);
 	if($hotusers && in_array($_SGLOBAL['supe_uid'], $hotusers)) {
-		return false;//å·²ç»å‚ä¸
+		return false;//ÒÑ¾­²ÎÓë
 	} else {
 		$hotusers[] = $_SGLOBAL['supe_uid'];
 		$hotuser = implode(',', $hotusers);
@@ -492,7 +492,7 @@ function hot_update($idtype, $id, $hotuser) {
 	
 	$newhot = count($hotusers)+1;
 	if($newhot == $_SCONFIG['feedhotmin']) {
-		//å¥–åŠ±
+		//½±Àø
 		$tablename = gettablebyidtype($idtype);
 		$query = $_SGLOBAL['db']->query("SELECT uid FROM ".tname($tablename)." WHERE $idtype='$id'");
 		$item = $_SGLOBAL['db']->fetch_array($query);
@@ -524,16 +524,16 @@ function hot_update($idtype, $id, $hotuser) {
 			$_SGLOBAL['db']->query("UPDATE ".tname('poll')." SET hot=hot+1 WHERE pid='$id'");
 			break;
 		default:
-			return false;//å…¶ä»–ç±»å‹ä¸æ”¯æŒ
+			return false;//ÆäËûÀàĞÍ²»Ö§³Ö
 	}
-	//feedçƒ­åº¦
+	//feedÈÈ¶È
 	$query = $_SGLOBAL['db']->query("SELECT feedid, friend FROM ".tname('feed')." WHERE id='$id' AND idtype='$idtype'");
 	if($feed = $_SGLOBAL['db']->fetch_array($query)) {
-		if(empty($feed['friend'])) {//éšç§
+		if(empty($feed['friend'])) {//ÒşË½
 			$_SGLOBAL['db']->query("UPDATE ".tname('feed')." SET hot=hot+1 WHERE feedid='$feed[feedid]'");
 		}
 	} elseif($idtype == 'picid') {
-		//å›¾ç‰‡
+		//Í¼Æ¬
 		include_once(S_ROOT.'./source/function_feed.php');
 		feed_publish($id, $idtype);
 	}
@@ -541,7 +541,7 @@ function hot_update($idtype, $id, $hotuser) {
 	return true;
 }
 
-//æ ¹æ®idtypeè·å¾—è¡¨
+//¸ù¾İidtype»ñµÃ±í
 function gettablebyidtype($idtype) {
 	$tablename = '';
 	if($idtype == 'blogid') {
@@ -560,14 +560,14 @@ function gettablebyidtype($idtype) {
 	return $tablename;
 }
 
-//é€šçŸ¥
+//Í¨Öª
 function notification_add($uid, $type, $note, $returnid=0) {
 	global $_SGLOBAL;
 
-	//è·å–å¯¹æ–¹çš„ç­›é€‰æ¡ä»¶
+	//»ñÈ¡¶Ô·½µÄÉ¸Ñ¡Ìõ¼ş
 	$tospace = getspace($uid);
 	
-	//æ›´æ–°æˆ‘çš„å¥½å‹å…³ç³»çƒ­åº¦
+	//¸üĞÂÎÒµÄºÃÓÑ¹ØÏµÈÈ¶È
 	if($_SGLOBAL['supe_uid']) {
 		addfriendnum($tospace['uid'], $tospace['username']);
 	}
@@ -584,7 +584,7 @@ function notification_add($uid, $type, $note, $returnid=0) {
 
 	$filter = empty($tospace['privacy']['filter_note'])?array():array_keys($tospace['privacy']['filter_note']);
 	if(cknote_uid($setarr, $filter)) {
-		//æ›´æ–°ç”¨æˆ·é€šçŸ¥
+		//¸üĞÂÓÃ»§Í¨Öª
 		$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET notenum=notenum+1 WHERE uid='$uid'");
 	
 		if($returnid) {
@@ -595,7 +595,7 @@ function notification_add($uid, $type, $note, $returnid=0) {
 	}
 }
 
-//æ£€æŸ¥å±è”½é€šçŸ¥
+//¼ì²éÆÁ±ÎÍ¨Öª
 function cknote_uid($note, $filter) {
 	
 	if($filter) {
@@ -612,7 +612,7 @@ function cknote_uid($note, $filter) {
 	return true;
 }
 
-//æ›´æ–°åŒå‘å¥½å‹çŠ¶æ€
+//¸üĞÂË«ÏòºÃÓÑ×´Ì¬
 function friend_update($uid, $username, $fuid, $fusername, $op='add', $gid=0) {
 	global $_SGLOBAL, $_SCONFIG;
 
@@ -624,19 +624,19 @@ function friend_update($uid, $username, $fuid, $fusername, $op='add', $gid=0) {
 		'dateline' => $_SGLOBAL['timestamp']
 	);
 	
-	//å¥½å‹çŠ¶æ€
+	//ºÃÓÑ×´Ì¬
 	if($op == 'add' || $op == 'invite') {
-		//è‡ªå·±
+		//×Ô¼º
 		inserttable('friend', array('uid'=>$uid, 'fuid'=>$fuid, 'fusername'=>$fusername, 'status'=>1, 'gid'=>$gid, 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
-		//å¯¹æ–¹æ›´æ–°
+		//¶Ô·½¸üĞÂ
 		if($op == 'invite') {
-			//é‚€è¯·æ¨¡å¼
+			//ÑûÇëÄ£Ê½
 			inserttable('friend', array('uid'=>$fuid, 'fuid'=>$uid, 'fusername'=>$username, 'status'=>1, 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 		} else {
 			updatetable('friend', array('status'=>1, 'dateline'=>$_SGLOBAL['timestamp']), array('uid'=>$fuid, 'fuid'=>$uid));
 		}
 		
-		//ç”¨æˆ·ä¸­å¿ƒæ·»åŠ 
+		//ÓÃ»§ÖĞĞÄÌí¼Ó
 		if($_SCONFIG['uc_status']) {
 			include_once S_ROOT.'./uc_client/client.php';
 			uc_friend_add($uid, $fuid);
@@ -645,10 +645,10 @@ function friend_update($uid, $username, $fuid, $fusername, $op='add', $gid=0) {
 
 		$flog['action'] = 'add';
 	} else {
-		//åˆ é™¤
+		//É¾³ı
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('friend')." WHERE (uid='$uid' AND fuid='$fuid') OR (uid='$fuid' AND fuid='$uid')");
 		
-		//ä»ç”¨æˆ·ä¸­å¿ƒåˆ é™¤
+		//´ÓÓÃ»§ÖĞĞÄÉ¾³ı
 		if($_SCONFIG['uc_status']) {
 			include_once S_ROOT.'./uc_client/client.php';
 			uc_friend_delete($uid, array($fuid));
@@ -660,12 +660,12 @@ function friend_update($uid, $username, $fuid, $fusername, $op='add', $gid=0) {
 
 	if($_SCONFIG['my_status']) inserttable('friendlog', $flog, 0, true);
 	
-	//ç¼“å­˜
+	//»º´æ
 	friend_cache($uid);
 	friend_cache($fuid);
 }
 
-//æ›´æ–°å¥½å‹ç¼“å­˜
+//¸üĞÂºÃÓÑ»º´æ
 function friend_cache($uid) {
 	global $_SGLOBAL, $space, $_SCONFIG;
 
@@ -679,8 +679,8 @@ function friend_cache($uid) {
 	}
 	$groupids = empty($thespace['privacy']['filter_gid'])?array():$thespace['privacy']['filter_gid'];
 
-	//å¥½å‹ç¼“å­˜
-	$max_friendnum = 200;//æœ€å¤šæ˜¾ç¤ºfeedå¥½å‹æ•°
+	//ºÃÓÑ»º´æ
+	$max_friendnum = 200;//×î¶àÏÔÊ¾feedºÃÓÑÊı
 	$friendlist = $fmod = $feedfriendlist = $ffmod = '';
 	$i = $count = 0;
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('friend')." WHERE uid='$uid' AND status='1' ORDER BY num DESC, dateline DESC");
@@ -697,30 +697,30 @@ function friend_cache($uid) {
 		}
 	}
 	if($count > 50000) {
-		$friendlist = '';//è¶…è¿‡ä¸å†ç¼“å­˜
+		$friendlist = '';//³¬¹ı²»ÔÙ»º´æ
 	}
 	updatetable('spacefield', array('friend'=>$friendlist, 'feedfriend'=>$feedfriendlist), array('uid'=>$uid));
 	
-	//æ•°é‡
+	//ÊıÁ¿
 	if($thespace['friendnum'] != $count) {
 		updatetable('space', array('friendnum' => $count), array('uid'=>$uid));
 	}
 	
-	//å˜æ›´è®°å½•
+	//±ä¸ü¼ÇÂ¼
 	if($_SCONFIG['my_status']) {
 		inserttable('userlog', array('uid'=>$uid, 'action'=>'update', 'dateline'=>$_SGLOBAL['timestamp']), 0, true);
 	}
 }
 
-//å¿½ç•¥å•å‘å¥½å‹è¯·æ±‚
+//ºöÂÔµ¥ÏòºÃÓÑÇëÇó
 function request_ignore($uid) {
 	global $_SGLOBAL, $space, $_SCONFIG;
 	
-	//åˆ«äººç”³è¯·å¥½å‹ï¼Œæˆ‘ä¸é€šè¿‡
+	//±ğÈËÉêÇëºÃÓÑ£¬ÎÒ²»Í¨¹ı
 	$_SGLOBAL['db']->query("DELETE FROM ".tname('friend')." WHERE uid='$uid' AND fuid='$space[uid]'");
-	//æˆ‘çš„å¥½å‹ç”³è¯·æ•°å‡å°‘
+	//ÎÒµÄºÃÓÑÉêÇëÊı¼õÉÙ
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET addfriendnum=addfriendnum-1 WHERE uid='$space[uid]' AND addfriendnum>0");
-	//ä»ç”¨æˆ·ä¸­å¿ƒåˆ é™¤
+	//´ÓÓÃ»§ÖĞĞÄÉ¾³ı
 	if($_SCONFIG['uc_status']) {
 		include_once S_ROOT.'./uc_client/client.php';
 		uc_friend_delete($space['uid'], array($uid));
@@ -728,7 +728,7 @@ function request_ignore($uid) {
 	}
 }
 
-//æ£€æŸ¥éªŒè¯ç 
+//¼ì²éÑéÖ¤Âë
 function ckseccode($seccode) {
 	global $_SGLOBAL, $_SCOOKIE, $_SCONFIG;
 
@@ -751,13 +751,13 @@ function ckseccode($seccode) {
 	return $check;
 }
 
-//æ›´æ–°éšç§è®¾ç½®
+//¸üĞÂÒşË½ÉèÖÃ
 function privacy_update() {
 	global $_SGLOBAL, $space;
 	updatetable('spacefield', array('privacy'=>addslashes(serialize($space['privacy']))), array('uid'=>$_SGLOBAL['supe_uid']));
 }
 
-//é‚€è¯·å¥½å‹
+//ÑûÇëºÃÓÑ
 function invite_update($inviteid, $uid, $username, $m_uid, $m_username, $appid=0) {
 	global $_SGLOBAL, $_SN;
 
@@ -767,21 +767,21 @@ function invite_update($inviteid, $uid, $username, $m_uid, $m_username, $appid=0
 			
 			friend_update($uid, $username, $m_uid, $m_username, 'invite');
 			
-			//æŸ¥æ‰¾é‚€è¯·è®°å½•
+			//²éÕÒÑûÇë¼ÇÂ¼
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('invite')." WHERE uid='$m_uid' AND fuid='$uid'");
 			if($oldinvite = $_SGLOBAL['db']->fetch_array($query)) {
-				//å·²ç»é‚€è¯·è¿‡
+				//ÒÑ¾­ÑûÇë¹ı
 				return false;
 			}
 			
-			//å¥–åŠ±ç§¯åˆ†
+			//½±Àø»ı·Ö
 			getreward('invitefriend', 1, $m_uid, '', 0);
 
 			//feed
 			$_SGLOBAL['supe_uid'] = $m_uid;
 			$_SGLOBAL['supe_username'] = $m_username;
 
-			//å®å
+			//ÊµÃû
 			realname_set($uid, $username);
 			realname_get();
 
@@ -791,24 +791,24 @@ function invite_update($inviteid, $uid, $username, $m_uid, $m_username, $appid=0
 				feed_add('friend', $title_template, $tite_data);
 			}
 
-			//é€šçŸ¥
+			//Í¨Öª
 			$_SGLOBAL['supe_uid'] = $uid;
 			$_SGLOBAL['supe_username'] = $username;
 			notification_add($m_uid, 'friend', cplang('note_invite'));
 
-			//æ›´æ–°é‚€è¯·
+			//¸üĞÂÑûÇë
 			$setarr = array('fuid'=>$uid, 'fusername'=>$username, 'appid'=>$appid);
 			if($inviteid) {
 				updatetable('invite', $setarr, array('id'=>$inviteid));
 			} else {
 				$setarr['uid'] = $m_uid;
-				inserttable('invite', $setarr, 0, true);//æ’å…¥é‚€è¯·è®°å½•
+				inserttable('invite', $setarr, 0, true);//²åÈëÑûÇë¼ÇÂ¼
 			}
 		}
 	}
 }
 
-//è·å¾—é‚€è¯·
+//»ñµÃÑûÇë
 function invite_get($uid, $code) {
 	global $_SGLOBAL, $_SN;
 
@@ -826,7 +826,7 @@ function invite_get($uid, $code) {
 	return $invitearr;
 }
 
-//å®åè®¤è¯
+//ÊµÃûÈÏÖ¤
 function ckrealname($type, $return=0) {
 	global $_SCONFIG, $_SGLOBAL;
 	$result = true;
@@ -837,7 +837,7 @@ function ckrealname($type, $return=0) {
 	return $result;
 }
 
-//è§†é¢‘è®¤è¯
+//ÊÓÆµÈÏÖ¤
 function ckvideophoto($type, $tospace=array(), $return=0) {
 	global $_SCONFIG, $_SGLOBAL;
 	
@@ -846,13 +846,13 @@ function ckvideophoto($type, $tospace=array(), $return=0) {
 	}
 	
 	$result = true;
-	if(empty($tospace) || empty($tospace['privacy']['view']['video'.$type])) {//ç«™ç‚¹é»˜è®¤
+	if(empty($tospace) || empty($tospace['privacy']['view']['video'.$type])) {//Õ¾µãÄ¬ÈÏ
 		if(!checkperm('videophotoignore') && empty($_SCONFIG['video_allow'.$type])) {
 			if($type != 'viewphoto' || $type == 'viewphoto' && !checkperm('allowviewvideopic')) {
 				$result = false;
 			}
 		}
-	} elseif ($tospace['privacy']['view']['video'.$type] == 2) {//ç”¨æˆ·ç¦æ­¢
+	} elseif ($tospace['privacy']['view']['video'.$type] == 2) {//ÓÃ»§½ûÖ¹
 		$result = false;
 	}
 	if($return) {
@@ -862,19 +862,19 @@ function ckvideophoto($type, $tospace=array(), $return=0) {
 	}
 }
 
-//ç”Ÿæˆè§†é¢‘è®¤è¯åœ°å€
+//Éú³ÉÊÓÆµÈÏÖ¤µØÖ·
 function getvideopic($filename) {
 	$dir1 = substr($filename, 0, 1);
 	$dir2 = substr($filename, 1, 1);
 	return 'data/avatar/'.$dir1.'/'.$dir2.'/'.$filename.".jpg";
 }
 
-//æ›´æ–°è§†é¢‘è®¤è¯ç…§ç‰‡
+//¸üĞÂÊÓÆµÈÏÖ¤ÕÕÆ¬
 function videopic_upload($FILE, $uid) {
 	if($FILE['size']) {
-		//æœ¬åœ°ä¸Šä¼ 
+		//±¾µØÉÏ´«
 		$newfilename = md5(substr($_SGLOBAL['timestamp'], 0, 7).$uid);
-		//åˆ›å»ºç›®å½•
+		//´´½¨Ä¿Â¼
 		$dir1 = substr($newfilename, 0, 1);
 		$dir2 = substr($newfilename, 1, 1);
 		if(!is_dir(S_ROOT.'./data/avatar/'.$dir1)) {
@@ -899,31 +899,31 @@ function videopic_upload($FILE, $uid) {
 }
 
 
-//æ–°ç”¨æˆ·å‘è¨€
+//ĞÂÓÃ»§·¢ÑÔ
 function cknewuser($return=0) {
 	global $_SGLOBAL, $_SCONFIG, $space;
 	$result = true;
 	
-	//ä¸å—é˜²çŒæ°´é™åˆ¶
+	//²»ÊÜ·À¹àË®ÏŞÖÆ
 	if(checkperm('spamignore')) {
 		return $result;
 	}
-	//è§ä¹ æ—¶é—´
+	//¼ûÏ°Ê±¼ä
 	if($_SCONFIG['newusertime'] && $_SGLOBAL['timestamp']-$space['dateline']<$_SCONFIG['newusertime']*3600) {
 		if(empty($return)) showmessage('no_privilege_newusertime', '', 1, array($_SCONFIG['newusertime']));
 		$result = false;
 	}
-	//éœ€è¦ä¸Šä¼ å¤´åƒ
+	//ĞèÒªÉÏ´«Í·Ïñ
 	if($_SCONFIG['need_avatar'] && empty($space['avatar'])) {
 		if(empty($return)) showmessage('no_privilege_avatar');
 		$result = false;
 	}
-	//å¼ºåˆ¶æ–°ç”¨æˆ·å¥½å‹ä¸ªæ•°
+	//Ç¿ÖÆĞÂÓÃ»§ºÃÓÑ¸öÊı
 	if($_SCONFIG['need_friendnum'] && $space['friendnum']<$_SCONFIG['need_friendnum']) {
 		if(empty($return)) showmessage('no_privilege_friendnum', '', 1, array($_SCONFIG['need_friendnum']));
 		$result = false;
 	}
-	//å¼ºåˆ¶æ–°ç”¨æˆ·å¥½å‹ä¸ªæ•°
+	//Ç¿ÖÆĞÂÓÃ»§ºÃÓÑ¸öÊı
 	if($_SCONFIG['need_email'] && empty($space['emailcheck'])) {
 		if(empty($return)) showmessage('no_privilege_email');
 		$result = false;
@@ -931,26 +931,26 @@ function cknewuser($return=0) {
 	return $result;
 }
 
-//å‘é€é‚®ä»¶åˆ°é˜Ÿåˆ—
+//·¢ËÍÓÊ¼şµ½¶ÓÁĞ
 function smail($touid, $email, $subject, $message='', $mailtype='') {
 	global $_SGLOBAL, $_SCONFIG;
 	
 	$cid = 0;
 	if($touid && $_SCONFIG['sendmailday']) {
-		//è·å¾—ç©ºé—´
+		//»ñµÃ¿Õ¼ä
 		$tospace = getspace($touid);
 		if(empty($tospace)) return false;
 		
 		$sendmail = empty($tospace['sendmail'])?array():unserialize($tospace['sendmail']);
 		if($tospace['emailcheck'] && $tospace['email'] && $_SGLOBAL['timestamp'] - $tospace['lastlogin'] > $_SCONFIG['sendmailday']*86400 && (empty($sendmail) || !empty($sendmail[$mailtype]))) {
-			//è·å¾—ä¸‹æ¬¡å‘é€æ—¶é—´
+			//»ñµÃÏÂ´Î·¢ËÍÊ±¼ä
 			if(empty($tospace['lastsend'])) {
 				$tospace['lastsend'] = $_SGLOBAL['timestamp'];
 			}
-			if(!isset($sendmail['frequency'])) $sendmail['frequency'] = 604800;//1å‘¨
+			if(!isset($sendmail['frequency'])) $sendmail['frequency'] = 604800;//1ÖÜ
 			$sendtime = $tospace['lastsend'] + $sendmail['frequency'];
 			
-			//æ£€æŸ¥æ˜¯å¦å­˜åœ¨å½“å‰ç”¨æˆ·é˜Ÿåˆ—
+			//¼ì²éÊÇ·ñ´æÔÚµ±Ç°ÓÃ»§¶ÓÁĞ
 			$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mailcron')." WHERE touid='$touid' LIMIT 1");
 			if($value = $_SGLOBAL['db']->fetch_array($query)) {
 				$cid = $value['cid'];
@@ -961,10 +961,10 @@ function smail($touid, $email, $subject, $message='', $mailtype='') {
 			}
 		}
 	} elseif($email) {
-		//ç›´æ¥æ’å…¥é‚®ä»¶
+		//Ö±½Ó²åÈëÓÊ¼ş
 		$email = getstr($email, 80, 1, 1);
 		
-		//æ£€æŸ¥æ˜¯å¦å­˜åœ¨å½“å‰é˜Ÿåˆ—
+		//¼ì²éÊÇ·ñ´æÔÚµ±Ç°¶ÓÁĞ
 		$cid = 0;
 		$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('mailcron')." WHERE email='$email' LIMIT 1");
 		if($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -975,7 +975,7 @@ function smail($touid, $email, $subject, $message='', $mailtype='') {
 	}
 	
 	if($cid) {
-		//æ’å…¥é‚®ä»¶å†…å®¹é˜Ÿåˆ—
+		//²åÈëÓÊ¼şÄÚÈİ¶ÓÁĞ
 		$setarr = array(
 			'cid' => $cid,
 			'subject' => addslashes(stripslashes($subject)),
@@ -986,13 +986,13 @@ function smail($touid, $email, $subject, $message='', $mailtype='') {
 	}
 }
 
-//æ£€æŸ¥é»‘åå•
+//¼ì²éºÚÃûµ¥
 function isblacklist($to_uid) {
 	global $_SGLOBAL;
 	return getcount('blacklist', array('uid'=>$to_uid, 'buid'=>$_SGLOBAL['supe_uid']));
 }
 
-//å‘é€éªŒè¯é‚®ç®±
+//·¢ËÍÑéÖ¤ÓÊÏä
 function emailcheck_send($uid, $email) {
 	global $_SGLOBAL, $_SCONFIG;
 	
@@ -1006,21 +1006,21 @@ function emailcheck_send($uid, $email) {
 	}
 }
 
-//æ›´æ–°çƒ­åº¦
+//¸üĞÂÈÈ¶È
 function addfriendnum($touid, $tousername) {
 	global $_SGLOBAL;
 	
-	//è‡ªå·±
+	//×Ô¼º
 	if($touid == $_SGLOBAL['supe_uid'] || empty($_SGLOBAL['supe_uid'])) return false;
 	
-	//æ£€æŸ¥æ˜¯å¦å¥½å‹
+	//¼ì²éÊÇ·ñºÃÓÑ
 	$isfriend = in_array($touid, $_SGLOBAL['member']['friends'])?1:0;
 	if($isfriend) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('friend')." SET num=num+1 WHERE uid='$_SGLOBAL[supe_uid]' AND fuid='$touid'");
 	}
 }
 
-//æ›´æ–°ç»Ÿè®¡
+//¸üĞÂÍ³¼Æ
 function updatestat($type, $primary=0) {
 	global $_SGLOBAL, $_SCONFIG;
 
@@ -1028,7 +1028,7 @@ function updatestat($type, $primary=0) {
 	
 	$nowdaytime = sgmdate('Ymd', $_SGLOBAL['timestamp']);
 	if($primary) {
-		//å»é‡
+		//È¥ÖØ
 		$setarr = array(
 			'uid' => $_SGLOBAL['supe_uid'],
 			'daytime' => '$nowdaytime',
@@ -1037,20 +1037,20 @@ function updatestat($type, $primary=0) {
 		if(getcount('statuser', $setarr)) {
 			return false;
 		} else {
-			inserttable('statuser', $setarr);//æ’å…¥å½“å¤©æ•°æ®
+			inserttable('statuser', $setarr);//²åÈëµ±ÌìÊı¾İ
 		}
 	}
 	if(getcount('stat', array('daytime'=>$nowdaytime))) {
 		$_SGLOBAL['db']->query("UPDATE ".tname('stat')." SET `$type`=`$type`+1 WHERE daytime='$nowdaytime'");
 	} else {
-		//åˆ é™¤æ˜¨å¤©çš„é˜²é‡æ•°æ®
+		//É¾³ı×òÌìµÄ·ÀÖØÊı¾İ
 		$_SGLOBAL['db']->query("DELETE FROM ".tname('statuser')." WHERE daytime != '$nowdaytime'");
-		//æ’å…¥ç»Ÿè®¡
+		//²åÈëÍ³¼Æ
 		inserttable('stat', array('daytime'=>$nowdaytime, $type=>'1'));
 	}
 }
 
-//å¤„ç†ç½‘ç»œå›¾ç‰‡é“¾æ¥
+//´¦ÀíÍøÂçÍ¼Æ¬Á´½Ó
 function picurl_get($picurl, $maxlenth='200') {
 	$picurl = shtmlspecialchars(trim($picurl));
 	if($picurl) {
@@ -1059,7 +1059,7 @@ function picurl_get($picurl, $maxlenth='200') {
 	return '';
 }
 
-//æ£€æŸ¥çƒ­é—¹å‚ä¸
+//¼ì²éÈÈÄÖ²ÎÓë
 function topic_check($topicid, $type) {
 	global $_SGLOBAL, $space;
 	
@@ -1078,7 +1078,7 @@ function topic_check($topicid, $type) {
 	return $newtopcid;
 }
 
-//å‚ä¸çƒ­é—¹
+//²ÎÓëÈÈÄÖ
 function topic_join($topicid, $uid, $username) {
 	global $_SGLOBAL;
 	
@@ -1097,7 +1097,7 @@ function topic_join($topicid, $uid, $username) {
 	}
 }
 
-//æ£€æŸ¥å¤´åƒæ˜¯å¦ä¸Šä¼ 
+//¼ì²éÍ·ÏñÊÇ·ñÉÏ´«
 function ckavatar($uid) {
 	global $_SC, $_SCONFIG;
 

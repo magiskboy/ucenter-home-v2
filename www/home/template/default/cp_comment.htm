@@ -3,15 +3,15 @@
 <!--{if $_GET['op'] == 'edit'}-->
 
 
-<h1>编辑</h1>
-<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<h1>Edit</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
 <div class="popupmenu_inner" id="__editcommentform_{$cid}">
 <form id="editcommentform_{$cid}" name="editcommentform_{$cid}" method="post" action="cp.php?ac=comment&op=edit&cid=$cid">
 <table>
 <tr>
 	<td>
-		<label for="message">编辑内容：</label>
-		<a href="###" id="editface_{$cid}" onclick="showFace(this.id, 'message_{$cid}');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
+		<label for="message">Edit Message:</label>
+		<a href="###" id="editface_{$cid}" onclick="showFace(this.id, 'message_{$cid}');"><img src="image/facelist.gif" align="absmiddle" /></a>
 		<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('message_{$cid}', 1)">
 		<img src="image/zoomout.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('message_{$cid}', 0)">
 		<br />
@@ -24,9 +24,9 @@
 	<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 	<input type="hidden" name="editsubmit" value="true" />
 	<!--{if $_SGLOBAL[inajax]}-->
-	<input type="button" name="editsubmit_btn" id="editsubmit_btn" value="提交" class="submit" onclick="ajaxpost('editcommentform_{$cid}', 'comment_edit', 2000)" />
+	<input type="button" name="editsubmit_btn" id="editsubmit_btn" value="Publish" class="submit" onclick="ajaxpost('editcommentform_{$cid}', 'comment_edit', 2000)" />
 	<!--{else}-->
-	<input type="submit" name="editsubmit_btn" id="editsubmit_btn" value="提交" class="submit" />
+	<input type="submit" name="editsubmit_btn" id="editsubmit_btn" value="Publish" class="submit" />
 	<!--{/if}-->
 	</td>
 </tr>
@@ -37,18 +37,18 @@
 
 <!--{elseif $_GET['op'] == 'delete'}-->
 
-<h1>删除回复</h1>
-<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<h1>Del Reply</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Delete">Delete</a>
 <div class="popupmenu_inner" id="__deletecommentform_{$cid}">
 <form id="deletecommentform_{$cid}" name="deletecommentform_{$cid}" method="post" action="cp.php?ac=comment&op=delete&cid=$cid">
-	<p>确定删除指定的回复吗？</p>
+	<p>Are you sure, dp you want to delete?</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<!--{if $_SGLOBAL[inajax]}-->
 		<input type="hidden" name="deletesubmit" value="true" />
-		<input type="button" name="deletesubmit_btn" value="确定" class="submit" onclick="ajaxpost('deletecommentform_{$cid}', 'comment_delete', 2000)" />
+		<input type="button" name="deletesubmit_btn" value="ȷ��" class="submit" onclick="ajaxpost('deletecommentform_{$cid}', 'comment_delete', 2000)" />
 		<!--{else}-->
-		<input type="submit" name="deletesubmit" value="确定" class="submit" />
+		<input type="submit" name="deletesubmit" value="Continue" class="submit" />
 		<!--{/if}-->
 	</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -58,15 +58,15 @@
 <!--{elseif $_GET['op'] == 'reply'}-->
 
 
-<h1>回复</h1>
-<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<h1>Reply</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
 <div class="popupmenu_inner" id="__replycommentform_{$comment[cid]}">
 <form id="replycommentform_{$comment[cid]}" name="replycommentform_{$comment[cid]}" method="post" action="cp.php?ac=comment">
 	<table>
 		<tbody id="reply_msg_{$comment[cid]}">
 			<tr>
 				<td>
-					<label for="message">内容：</label>
+					<label for="message">Content��</label>
 					<a href="###" id="replyface_{$comment[cid]}" onclick="showFace(this.id, 'message_pop_{$comment[cid]}');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 					<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('message_pop_{$comment[cid]}', 1)">
 	
@@ -85,14 +85,14 @@
 					<input type="hidden" name="commentsubmit" value="true" />
 					<!--{if $_SGLOBAL[inajax]}-->
 						<!--{if $comment['idtype']=='uid'}-->
-						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="回复" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}','',2000)" />
+						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="Reply" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}','',2000)" />
 						<!--{elseif $_GET['feedid']}-->
-						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="回复" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}', 'feedcomment_add', 2000)" />
+						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="Reply" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}', 'feedcomment_add', 2000)" />
 						<!--{else}-->
-						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="回复" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}', 'comment_add', 2000)" />
+						<input type="button" name="commentsubmit_btn" id="commentsubmit_btn" value="Reply" class="submit" onclick="ajaxpost('replycommentform_{$comment[cid]}', 'comment_add', 2000)" />
 						<!--{/if}-->
 					<!--{else}-->
-					<input type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="回复" class="submit" />
+					<input type="submit" name="commentsubmit_btn" id="commentsubmit_btn" value="Reply" class="submit" />
 					<!--{/if}-->
 				</td>
 			</tr>
@@ -110,7 +110,7 @@
 			</tr>
 			<tr>
 				<td>
-					<input type="button" name="back_btn" id="back_btn" value="返回" onclick="selCommentTab('reply_doodle_{$comment[cid]}', 'reply_msg_{$comment[cid]}');" class="button" />
+					<input type="button" name="back_btn" id="back_btn" value="Reply" onclick="selCommentTab('reply_doodle_{$comment[cid]}', 'reply_msg_{$comment[cid]}');" class="button" />
 				</td>
 			</tr>
 		</tbody>

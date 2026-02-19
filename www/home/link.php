@@ -11,7 +11,7 @@ if(empty($_GET['url'])) {
 } else {
 	$url = $_GET['url'];
 	if(!$_SCONFIG['linkguide']) {
-		showmessage('do_success', $url, 0);//鐩存帴璺宠浆
+		showmessage('do_success', $url, 0);//直接跳转
 	}
 }
 
@@ -20,14 +20,14 @@ if($_SGLOBAL['supe_uid']) {
 	$space = getspace($_SGLOBAL['supe_uid']);
 }
 if(empty($space)) {
-	//娓稿鐩存帴璺宠浆
+	//游客直接跳转
 	showmessage('do_success', $url, 0);
 }
 
 $url = shtmlspecialchars($url);
 if(!preg_match("/^http\:\/\//i", $url)) $url = "http://".$url;
 
-//妯℃澘璋冪敤
+//模板调用
 include_once template("iframe");
 
 ?>

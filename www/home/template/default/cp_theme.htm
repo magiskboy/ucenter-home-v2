@@ -1,37 +1,37 @@
 <!--{template header}-->
 <!--{if $op=='diy'}-->
 <!--{template cp_header}-->
-<div class="h_status"><a href="cp.php?ac=theme">返回主页风格列表</a></div>
+<div class="h_status"><a href="cp.php?ac=theme">Back to Homepage</a></div>
 
 <div class="d_content">
 	
 	<form method="post" action="cp.php?ac=theme" class="c_form">
 	
 	<!--{if !empty($_GET['view'])}-->
-	<div class="notice">最后保存时间：<!--{date('H:i:s',$_SGLOBAL[timestamp])}-->，<a href="space.php" target="_blank">新窗口预览个人主页</a></div>
+	<div class="notice">Save the Previous: <!--{date('H:i:s',$_SGLOBAL[timestamp])}-->��<a href="space.php" target="_blank"> Preview Theme</a></div>
 	<!--{/if}-->
 	
 	<table cellspacing="6" cellpadding="0" width="100%">
 	<!--{if $allowcss}-->
 	<tr>
-		<td>自己设计个人主页风格，这需要你了解一定的CSS知识<br>
-		CSS内容:<br>
+		<td>Design your own theme, Require CSS basis knwoledge<br>
+		CSS:<br>
 		<textarea name="css" style="width:98%;" rows="20">$space[css]</textarea></td>
 	</tr>
 	<!--{else}-->
 	<tr>
-		<td>您当前不能自定义CSS风格，您可以设置屏蔽他人风格，或者<a href="cp.php?ac=theme">返回主页风格列表</a>选择系统的风格。</td>
+		<td>Not familiar with CSS, you can select from Templates or use others Theme, or <a href="cp.php?ac=theme">Return to Templates Homepage</a> to select our template as your profile theme</td>
 	</tr>
 	<!--{/if}-->
 	<tr>
 		<td>
-		<input type="checkbox" name="nocss" value="1"<!--{if $space[nocss]}--> checked<!--{/if}-->> <strong>屏蔽其他人风格</strong>
+		<input type="checkbox" name="nocss" value="1"<!--{if $space[nocss]}--> checked<!--{/if}-->> <strong>Ignore other Theme</strong>
 		<br>
-		别人美化不当可能会造成查看其个人主页时出现问题。你可以勾选此选项，则查看所有人的个人主页将显示默认效果。
+		Somebody make a wrong choice cause the homepage display error.You can select this option, will see all memmbers homepage use the default setting.
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" name="csssubmit" id="csssubmit" value="保存修改" class="submit" /> 
+		<td><input type="submit" name="csssubmit" id="csssubmit" value="Save Changes" class="submit" /> 
 		</td>
 	</tr>
 	</table>
@@ -45,11 +45,8 @@
 <div class="c_form">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>主页风格</h2>
-		<p>
-			选择自己喜欢的个人主页风格。
-			<!--{if checkperm('admin')}--><a href="http://u.discuz.net/theme">作为站长，您可以来这里下载更多的风格提供给站内用户选择使用。</a><!--{/if}-->
-		</p>
+		<h2>Theme Homepage</h2>
+		<p>Select your profile theme or design* your own (* Require CSS knweledge)</p>
 	</caption>
 	<tr>
 	<!--{eval $i=0;}-->
@@ -71,9 +68,9 @@
 				<!--{/if}-->
 				<br>
 				<!--{if $value['dir']=='uchomediy'}-->
-				<a href="cp.php?ac=theme&op=diy">进入设置界面</a>
+				<a href="cp.php?ac=theme&op=diy">Go to setting page</a>
 				<!--{else}-->
-				<a href="space.php?theme=$value[dir]" target="_blank">预览</a> | <a href="cp.php?ac=theme&op=use&dir=$value[dir]">启用</a>
+				<a href="space.php?theme=$value[dir]" target="_blank">Preview</a> | <a href="cp.php?ac=theme&op=use&dir=$value[dir]">Set</a>
 				<!--{/if}-->
 			</div>
 
@@ -87,25 +84,25 @@
 	<form method="post" action="cp.php?ac=theme">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>我的时区</h2>
-		<p>如果发现当前显示的时间与你本地时间相差几个小时，那么你需要更改自己的时区设置。</p>
+		<h2>My Time Zone</h2>
+		<p>If you see the System current time and your local time showing different then you need to change time zone</p>
 	</caption>
 	<tr>
 	<tr>
 		<th width="120">
-		当前时间
+		Current time
 		</th>
 		<td>
-		<!--{date('Y-m-d H:i',$_SGLOBAL[timestamp])}-->
+		<!--{date('d-m-Y H:i',$_SGLOBAL[timestamp])}-->
 		</td>
 	</tr>
 	<tr>
 		<th>
-			我的时区
+			�ҵ�ʱ��
 		</th>
 		<td>
 			<select name="timeoffset">
-			<option value="">使用系统默认</option>
+			<option value="">Using the system default</option>
 			<option value="-12" $toselect[-12]>(GMT -12:00) Eniwetok, Kwajalein</option>
 			<option value="-11" $toselect[-11]>(GMT -11:00) Midway Island, Samoa</option>
 			<option value="-10" $toselect[-10]>(GMT -10:00) Hawaii</option>
@@ -143,7 +140,7 @@
 	</tr>
 	<tr>
 		<th>&nbsp;</th>
-		<td><input type="submit" name="timeoffsetsubmit" value="提交" class="submit" /></td>
+		<td><input type="submit" name="timeoffsetsubmit" value="Save" class="submit" /></td>
 	</tr>
 	</table>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />

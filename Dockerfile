@@ -9,7 +9,6 @@ COPY VERSION /var/www
 
 RUN chmod -R 777 \
   /var/www/install/ \
-  /var/www/home/config.php \
   /var/www/ucenter/data/ \
   /var/www/home/attachment/ \
   /var/www/home/data/ \

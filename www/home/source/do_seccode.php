@@ -8,19 +8,19 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//é…ç½®
+//ÅäÖÃ
 $seccodedata = array (
 	'width' => 100,
 	'height' => 40,
-	'adulterate' => '1',//éšæœºèƒŒæ™¯å›¾å½¢
-	'angle' => '0',//éšæœºå€¾æ–œåº¦
-	'shadow' => '1',//é˜´å½±
+	'adulterate' => '1',//Ëæ»ú±³¾°Í¼ĞÎ
+	'angle' => '0',//Ëæ»úÇãĞ±¶È
+	'shadow' => '1',//ÒõÓ°
 );
 
-//éªŒè¯ç 
+//ÑéÖ¤Âë
 $seccode = mkseccode();
 
-//è®¾å®šcookie
+//Éè¶¨cookie
 ssetcookie('seccode', authcode($seccode, 'ENCODE'));
 
 if(function_exists('imagecreate') && function_exists('imagecolorset') && function_exists('imagecopyresized') &&
@@ -106,7 +106,7 @@ if(function_exists('imagecreate') && function_exists('imagecolorset') && functio
 	echo $image;
 }
 
-//ç”Ÿæˆéšæœº
+//Éú³ÉËæ»ú
 function mkseccode() {
 	$seccode = random(6, 1);
 	$s = sprintf('%04s', base_convert($seccode, 10, 24));
@@ -119,7 +119,7 @@ function mkseccode() {
 	return $seccode;
 }
 
-//èƒŒæ™¯
+//±³¾°
 function seccode_background() {
 	global $seccodedata, $c;
 	

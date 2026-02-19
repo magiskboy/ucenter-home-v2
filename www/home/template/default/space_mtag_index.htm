@@ -1,4 +1,4 @@
-<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], '首页');}-->
+<!--{eval $_TPL['titles'] = array($mtag['tagname'], $mtag['title'], 'Home');}-->
 <!--{template header}-->
 
 <h2 class="title">
@@ -6,26 +6,26 @@
 	<a href="space.php?do=mtag&tagid=$mtag[tagid]">$mtag[tagname]</a>
 </h2>
 <div class="tabs_header">
-	<a href="cp.php?ac=share&type=mtag&id=$mtag[tagid]" id="a_share" class="a_share" onclick="ajaxmenu(event, this.id, 1)">分享</a>
+	<a href="cp.php?ac=share&type=mtag&id=$mtag[tagid]" id="a_share" class="a_share" onclick="ajaxmenu(event, this.id, 1)">Share</a>
 	<div class="r_option">
 		<!--{if checkperm('managemtag')}-->
-		<a href="admincp.php?ac=mtag&tagid=$mtag[tagid]" target="_blank">群组管理</a><span class="pipe">|</span>
+		<a href="admincp.php?ac=mtag&tagid=$mtag[tagid]" target="_blank">Manage Group</a><span class="pipe">|</span>
 		<!--{/if}-->
-		<a href="cp.php?ac=common&op=report&idtype=tagid&id=$mtag[tagid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a><span class="pipe">|</span>
+		<a href="cp.php?ac=common&op=report&idtype=tagid&id=$mtag[tagid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Abuse</a><span class="pipe">|</span>
 	</div>
 	<ul class="tabs">
-		<li class="active"><a href="javascript:;"><span>首页</span></a></li>
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>讨论区</span></a></li>
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>精华区</span></a></li>
+		<li class="active"><a href="javascript:;"><span>Home</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list"><span>Discussion</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=digest"><span>Digest</span></a></li>
 		<!--{if $eventnum}-->
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>群组活动</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=event"><span>Group Events</span></a></li>
 		<!--{/if}-->
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>成员列表</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member"><span>Members</span></a></li>
 		<!--{if $mtag['allowthread']}-->
-		<li class="null"><a href="cp.php?ac=thread&tagid=$mtag[tagid]">发起新话题</a></li>
+		<li class="null"><a href="cp.php?ac=thread&tagid=$mtag[tagid]">Create New Topic</a></li>
 		<!--{/if}-->
 		<!--{if empty($mtag['ismember']) && $mtag['joinperm'] < 2}-->
-		<li class="null"><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">加入该群组</a></li>	
+		<li class="null"><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">Join Group</a></li>	
 		<!--{/if}-->
 	</ul>
 </div>
@@ -34,9 +34,9 @@
 
 	<div class="affiche">
 		<div id="space_avatar" class="floatleft"><img src="$mtag[pic]" alt="$mtag[tagname]" width="48" /></div>
-		<h3>公告</h3>
+		<h3>Bulletin</h3>
 		<div class="article">
-			<!--{if $mtag[announcement]}-->$mtag[announcement]<!--{else}-->还没有公告<!--{/if}-->
+			<!--{if $mtag[announcement]}-->$mtag[announcement]<!--{else}-->No Bulletin<!--{/if}-->
 		</div>
 	</div>
 
@@ -45,9 +45,9 @@
 		<table cellspacing="0" cellpadding="0">
 			<thead>
 				<tr>
-					<td class="subject">主题</td>
-					<td class="author"><!--{if $_GET[view]!='me'}-->作者 <!--{/if}-->(回应/阅读)</td>
-					<td class="lastpost">最后更新</td>
+					<td class="subject">Subject</td>
+					<td class="author"><!--{if $_GET[view]!='me'}-->Author <!--{/if}-->(Reply/View)</td>
+					<td class="lastpost">Updated </td>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,13 +57,13 @@
 				<tr <!--{if $key%2==1}--> class="alt"<!--{/if}-->>
 					<td class="subject">
 					<!--<div style="width:290px;word-break:break-all;">-->
-					<!--{if $value[displayorder]}--> [顶] <!--{/if}-->
-					<!--{if $value[digest]}--> [精] <!--{/if}-->
-					<!--{if $value[eventid]}--> [活] <!--{/if}-->
+					<!--{if $value[displayorder]}--> [Top] <!--{/if}-->
+					<!--{if $value[digest]}--> [Perfect] <!--{/if}-->
+					<!--{if $value[eventid]}--> [Active] <!--{/if}-->
 					$magicegg
 					<a href="space.php?uid=$value[uid]&do=thread&id=$value[tid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a>
 					<!--{if $value[hot]}-->
-					<br><span class="gray">$value[hot] 人推荐</span>
+					<br><span class="gray">$value[hot] Recommend</span>
 					<!--{/if}-->
 					<!--</div>-->
 					</td>
@@ -74,23 +74,23 @@
 			</tbody>
 		</table>
 		<div class="r_option">
-		<a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list">查看全部话题列表</a>
+		<a href="space.php?do=mtag&tagid=$mtag[tagid]&view=list">View all Topics</a>
 		</div>
 	<!--{else}-->
 		<div class="c_form">
 		<!--{if empty($mtag[allowview])}-->
-			本群组目前不是公开状态，只对内部成员开放。<br>
+			This is not open group, you must be member to access, Members must be approved.<br>
 		<!--{if $mtag['grade'] == -2}-->
-			您的加入申请审核中。请等候。
+			Waiting for approval. Please wait...
 		<!--{elseif $mtag[joinperm]==1}-->
-			您可以<a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">选择加入该群组</a>，但你的申请需要经群主审核后才有效。
+			You can <a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">Select to join this Group</a>��Members must be approved
 		<!--{elseif $mtag[joinperm]==2}-->
-			您需要在收到群主的邀请后才能加入该群组。
+			To join this group you need invitation, just invited people can join!
 		<!--{else}-->
-			您可以立即<a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">选择加入该群组</a>。
+			Its open group anyone can <a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">Join this group</a>.
 		<!--{/if}-->
 		<!--{else}-->
-			还没有话题。
+			There is no Discussion!
 		<!--{/if}-->
 		</div>
 	<!--{/if}-->
@@ -103,52 +103,52 @@
 
 
 	<div class="sidebox">
-		<h2 class="title">群组菜单</h2>
+		<h2 class="title">Group Menu</h2>
 		<ul class="menu_list">
 			<!--{if $mtag['allowthread']}-->
-			<li><a href="cp.php?ac=thread&tagid=$mtag[tagid]">发起话题</a></li>
+			<li><a href="cp.php?ac=thread&tagid=$mtag[tagid]">Create New Topic</a></li>
 			<!--{/if}-->
 			<!--{if empty($mtag['ismember']) && $mtag['joinperm'] < 2}-->
-			<li><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">加入群组</a></li>	
+			<li><a href="cp.php?ac=mtag&op=join&tagid=$mtag[tagid]" id="a_mtag_join_$mtag[tagid]" onclick="ajaxmenu(event, this.id)">Join Group</a></li>	
 			<!--{/if}-->
 			
 			<!--{if $mtag['grade'] == 9}-->
-			<li><a href="cp.php?ac=event&tagid=$mtag[tagid]">发起活动</a></li>
+			<li><a href="cp.php?ac=event&tagid=$mtag[tagid]">Create Event</a></li>
 			<!--{/if}-->
 			<!--{if $mtag['grade'] >= 8}-->
-			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=base">群组设置</a></li>
+			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=base">Group Setting</a></li>
 			<!--{/if}-->
 			<!--{if $mtag['grade'] >= 8}-->
-			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members">成员管理</a></li>
-			<li><a href="admincp.php?ac=thread&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" target="_blank">话题管理</a></li>
-			<li><a href="admincp.php?ac=post&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1">回帖管理</a></li>
+			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members">Members</a></li>
+			<li><a href="admincp.php?ac=thread&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" target="_blank">Manage Topics</a></li>
+			<li><a href="admincp.php?ac=post&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1">Manage Replies</a></li>
 			<!--{elseif $mtag['ismember'] && !$mtag['closeapply']}-->
-			<li><a href="cp.php?ac=mtag&op=apply&tagid=$mtag[tagid]" id="a_apply" onclick="ajaxmenu(event, this.id)">群主申请</a></li>
+			<li><a href="cp.php?ac=mtag&op=apply&tagid=$mtag[tagid]" id="a_apply" onclick="ajaxmenu(event, this.id)">Group CP</a></li>
 			<!--{/if}-->
 			<!--{if $mtag['allowinvite']}-->
-			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=invite">邀请好友</a></li>
+			<li><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=invite">Invite Friends</a></li>
 			<!--{/if}-->
 			<!--{if $mtag['ismember']}-->
-			<li><a href="cp.php?ac=mtag&op=out&tagid=$mtag[tagid]" id="a_ignore_top" onclick="ajaxmenu(event, this.id)">退出群组</a></li>
+			<li><a href="cp.php?ac=mtag&op=out&tagid=$mtag[tagid]" id="a_ignore_top" onclick="ajaxmenu(event, this.id)">Quit Group</a></li>
 			<!--{/if}-->
 		</ul>
 	</div>
 
 
 	<div class="sidebox">
-		<h2 class="title">群组概况</h2>
+		<h2 class="title">Summary</h2>
 		<div style="padding:0 0 0 40px;">
-			<p>成员数：$mtag[membernum]</p>
-			<p>话题数：$mtag[threadnum]</p>
-			<p>回帖数：$mtag[postnum]</p>
+			<p>Members��$mtag[membernum]</p>
+			<p>Topics��$mtag[threadnum]</p>
+			<p>Responses��$mtag[postnum]</p>
 		</div>
 	</div>
 
 	<!--{if $modlist}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<span class="r_option"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member">全部</a></span>
-			群主
+			<span class="r_option"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member">All</a></span>
+			Management Team
 		</h2>
 		<ul class="avatar_list">
 		<!--{loop $modlist $value}-->
@@ -163,8 +163,8 @@
 <!--{if $checklist}-->
 	<div class="sidebox">
 		<h2 class="title">
-		<span class="r_option"><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-2">立即处理</a></span>
-		有新的待审核成员
+		<span class="r_option"><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-2">Fast Process</a></span>
+		New Member must approve.
 		</h2>
 		<ul class="avatar_list">
 		<!--{loop $checklist $value}-->
@@ -178,7 +178,7 @@
 <!--{/if}-->
 <!--{if $starlist}-->
 	<div class="sidebox">
-		<h2 class="title">明星成员</h2>
+		<h2 class="title">Star Members</h2>
 		<ul class="avatar_list s_clear">
 		<!--{loop $starlist $value}-->
 			<li>
@@ -192,8 +192,8 @@
 	<!--{if $memberlist}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<span class="r_option"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member">全部($mtag[membernum])</a></span>
-			普通成员
+			<span class="r_option"><a href="space.php?do=mtag&tagid=$mtag[tagid]&view=member">All($mtag[membernum])</a></span>
+			Members
 		</h2>
 		<ul class="avatar_list">
 		<!--{loop $memberlist $value}-->
