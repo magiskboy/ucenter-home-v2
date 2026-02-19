@@ -71,7 +71,7 @@
 
 <div style="padding:0 0 10px;">
 	<div style="text-align: right; padding-top:10px; ">
-		<a href="cp.php?ac=share&type=blog&id=$blog[blogid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">分享</a>
+		<a href="cp.php?ac=share&type=blog&id=$blog[blogid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Chia sẻ</a>
 
 		<!--{if $_SGLOBAL[supe_uid] == $blog[uid]}-->
 			<!--{if $_SGLOBAL[magic][bgimage]}-->
@@ -259,7 +259,7 @@ function addFriendCall(){
 resizeImg('blog_article','700');
 resizeImg('div_main_content','450');
 
-//彩虹炫
+// Hiệu ứng cầu vồng
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);

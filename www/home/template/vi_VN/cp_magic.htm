@@ -57,10 +57,10 @@
 	<div class="popupmenu_inner" id="__magicpresent_$mid">
 		<form id="magicpresent_$mid" action="cp.php?ac=magic&mid=$mid" method="post">
 			<p>
-				Đạo cụ muốn tặng：$magic[name]
+				Đạo cụ muốn tặng: $magic[name]
 			</p>
 			<p>
-				Tên đăng nhập bạn bè：
+				Tên đăng nhập bạn bè: 
 				<input type="text" name="fusername" />
 			</p>
 			<p class="btn_line">
@@ -186,7 +186,7 @@
 	<!--{elseif $_GET['view'] == 'log'}-->
 
 		<div class="h_status">
-		Xem：
+		Xem: 
 		<a $types[in] href="cp.php?ac=magic&view=$_GET['view']&type=in">Lịch sử nhận</a>
 		<span class="pipe">|</span>
 		<a $types[present] href="cp.php?ac=magic&view=$_GET['view']&type=present">Lịch sử tặng</a>
@@ -256,11 +256,11 @@
 					</a>
 					$value[count] lần
 				<!--{if $value['mid'] == 'invisible'}-->
-					; &nbsp;Thời gian hết hạn：<!--{eval echo sgmdate('m-d H:i', $value[expire])}-->
+					; &nbsp;Thời gian hết hạn: <!--{eval echo sgmdate('m-d H:i', $value[expire])}-->
 				<!--{elseif $value['mid'] == 'gift'}-->
-					; &nbsp;Số điểm còn lại：$value[data][left]
+					; &nbsp;Số điểm còn lại: $value[data][left]
 				<!--{elseif $value['mid'] == 'superstar'}-->
-					; &nbsp;Thời gian hết hạn：<!--{eval echo sgmdate('m-d H:i', $value[expire])}-->
+					; &nbsp;Thời gian hết hạn: <!--{eval echo sgmdate('m-d H:i', $value[expire])}-->
 				<!--{/if}-->
 					<span class="gray">(<!--{eval echo sgmdate('m-d H:i', $value[dateline], true)}-->)</span>
 				</li>
@@ -274,7 +274,7 @@
 
 	<!--{else}-->
 		<div class="h_status">
-		Sắp xếp：
+		Sắp xếp: 
 		<a $orders['default'] href="cp.php?ac=magic&view=$view&order=defalut">Mặc định</a>
 		<span class="pipe">|</span>
 		<a $orders['hot'] href="cp.php?ac=magic&view=$view&order=hot">Hot</a>
@@ -282,8 +282,8 @@
 
 		<!--{if $mid}-->
 		<p class="notice">
-			当前只显示与你操作相关的单个道具，
-			<a href="cp.php?ac=magic&view=$_GET[view]">点击此处查看全部道具</a>
+			Hiện tại chỉ hiển thị đạo cụ liên quan đến thao tác của bạn, 
+			<a href="cp.php?ac=magic&view=$_GET[view]">nhấn vào đây để xem toàn bộ đạo cụ</a>
 		</p>
 		<p>&nbsp;</p>
 		<!--{/if}-->

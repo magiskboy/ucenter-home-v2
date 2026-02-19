@@ -85,15 +85,15 @@ function searchFriend() {
 							</p>
 							
 							<!--{if $ols[$value[uid]]}-->
-							<p><span class="gray">Hoạt động：</span><!--{date('m-d H:i',$ols[$value[uid]],1)}--></p>
+							<p><span class="gray">Hoạt động:</span><!--{date('m-d H:i',$ols[$value[uid]],1)}--></p>
 							<!--{/if}-->
 
 							<!--{if $value[resideprovince] || $value[residecity]}-->
-							<p><span class="gray">Khu vực：</span><a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=&searchmode=1">$value[resideprovince]</a> <a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=$value[c]&searchmode=1">$value[residecity]</a></p>
+							<p><span class="gray">Khu vực:</span><a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=&searchmode=1">$value[resideprovince]</a> <a href="cp.php?ac=friend&op=search&resideprovince=$value[p]&residecity=$value[c]&searchmode=1">$value[residecity]</a></p>
 							<!--{/if}-->
 	
 							<!--{if $value[note]}-->
-							<p><span class="gray">Trạng thái：</span>$value[note]</p>
+							<p><span class="gray">Trạng thái:</span>$value[note]</p>
 							<!--{/if}-->
 
 						</td>

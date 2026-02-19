@@ -1,13 +1,13 @@
-<!--{eval $_TPL['titles'] = array('管理我的应用');}-->
+<!--{eval $_TPL['titles'] = array('Quản lý ứng dụng của tôi');}-->
 <!--{template header}-->
 
 <!--{if $_GET['op'] == 'menu'}-->
 
-<h2 class="title"><img src="image/app/setting.gif">管理我的应用</h2>
+<h2 class="title"><img src="image/app/setting.gif">Quản lý ứng dụng của tôi</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li class="active"><a href="cp.php?ac=userapp&op=menu"><span>管理我的应用</span></a></li>
-		<li class="null"><a href="cp.php?ac=userapp&my_suffix=%2Fapp%2Flist">添加新应用</a></li>
+		<li class="active"><a href="cp.php?ac=userapp&op=menu"><span>Quản lý ứng dụng của tôi</span></a></li>
+		<li class="null"><a href="cp.php?ac=userapp&my_suffix=%2Fapp%2Flist">Thêm ứng dụng mới</a></li>
 	</ul>
 </div>
 
@@ -29,7 +29,7 @@
 </style>
 <!--{if $my_default_userapp}-->
 <div class="DragBox mt15" style="padding-left:30px;padding-bottom:0px;background:none;">
-	<div class="l_option" style="width:350px;">默认应用</div>
+	<div class="l_option" style="width:350px;">Ứng dụng mặc định</div>
 	<div class="l_option" style="width:100px;">&nbsp;</div>
 	<div class="l_option" style="width:50px;">&nbsp;</div>
 </div>
@@ -37,9 +37,9 @@
 	<!--{loop $my_default_userapp $value}-->
 	<div class="DragBox mt15" style="padding-left:30px;padding-bottom:0px;background:none;">
 		<div class="l_option" style="width:350px;"><img src="http://appicon.manyou.com/icons/$value[appid]"> <a href="userapp.php?id=$value[appid]">$value[appname]</a></div>
-		<div class="l_option" style="width:100px;"><a href="cp.php?ac=userapp&amp;my_suffix=%2Fuserapp%2FmodifyPrivacy%3FappId%3D$value[appid]">编辑设置</a></div>
+		<div class="l_option" style="width:100px;"><a href="cp.php?ac=userapp&amp;my_suffix=%2Fuserapp%2FmodifyPrivacy%3FappId%3D$value[appid]">Sửa thiết lập</a></div>
 		<div class="l_option" style="width:50px;">
-			<a href="cp.php?ac=userapp&op=deleteapp&appid=$value[appid]" id="del_default_app_$value[appid]" onclick="ajaxmenu(event, this.id)">移除</a>
+			<a href="cp.php?ac=userapp&op=deleteapp&appid=$value[appid]" id="del_default_app_$value[appid]" onclick="ajaxmenu(event, this.id)">Gỡ bỏ</a>
 		</div>
 	</div>
 	<!--{/loop}-->
@@ -53,7 +53,7 @@
 	
 	
 	<div class="DragBox mt15" style="padding-left:30px;padding-bottom:0px;background:none;">
-		<div class="l_option" style="width:350px;">我的应用</div>
+		<div class="l_option" style="width:350px;">Ứng dụng của tôi</div>
 		<div class="l_option" style="width:100px;">&nbsp;</div>
 		<div class="l_option" style="width:50px;">&nbsp;</div>
 	</div>
@@ -64,14 +64,14 @@
 				<!--{loop $my_userapp $key $value}-->
 					<div class="DragBox" overclass="OverDragBox"  dragclass="DragDragBox" id="$key" style="padding-bottom:0;">
 						<div class="l_option" style="width:350px;">
-							<img src="http://appicon.manyou.com/icons/$value[appid]"> <a href="userapp.php?id=$value[appid]">$value[appname]</a>(<a href="cp.php?ac=userapp&my_suffix=%2Fuserapp%2Fabout%3FappId%3D$value[appid]" target="_blank">介绍</a>)
+							<img src="http://appicon.manyou.com/icons/$value[appid]"> <a href="userapp.php?id=$value[appid]">$value[appname]</a>(<a href="cp.php?ac=userapp&my_suffix=%2Fuserapp%2Fabout%3FappId%3D$value[appid]" target="_blank">Giới thiệu</a>)
 							<input type="hidden" name="order[]" value="$value[appid]">
 						</div>
 						<div class="l_option" style="width:100px;">
-							<a href="cp.php?ac=userapp&amp;my_suffix=%2Fuserapp%2FmodifyPrivacy%3FappId%3D$value[appid]">编辑设置</a>
+							<a href="cp.php?ac=userapp&amp;my_suffix=%2Fuserapp%2FmodifyPrivacy%3FappId%3D$value[appid]">Sửa thiết lập</a>
 						</div>
 						<div class="l_option" style="width:50px;">
-							<a href="cp.php?ac=userapp&op=deleteapp&appid=$value[appid]" id="del_app_$value[appid]" onclick="ajaxmenu(event, this.id)">移除</a>
+							<a href="cp.php?ac=userapp&op=deleteapp&appid=$value[appid]" id="del_app_$value[appid]" onclick="ajaxmenu(event, this.id)">Gỡ bỏ</a>
 						</div>
 					</div>
 				<!--{/loop}-->
@@ -82,7 +82,7 @@
 		
 	<center>
 	<br>
-	左侧菜单显示个性应用的数量
+	Số lượng ứng dụng hiển thị ở menu bên trái
 	<select name="menunum">
 		<option value="5"$menunum[5]>5</option>
 		<option value="10"$menunum[10]>10</option>
@@ -90,37 +90,37 @@
 		<option value="20"$menunum[20]>20</option>
 		<option value="25"$menunum[25]>25</option>
 		<option value="30"$menunum[30]>30</option>
-		<option value="999"$menunum[999]>全部</option>
+		<option value="999"$menunum[999]>Tất cả</option>
 	</select> &nbsp;
-	<input type="submit" name="ordersubmit" value="保存设置" class="submit" /></center>
+	<input type="submit" name="ordersubmit" value="Lưu thiết lập" class="submit" /></center>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
 <!--{else}-->
-	<div class="c_form">还没有可以自定义的应用菜单，请先<a href="cp.php?ac=userapp&my_suffix=%2Fapp%2Flist">添加新应用</a></div>
+	<div class="c_form">Chưa có menu ứng dụng tùy chỉnh, vui lòng <a href="cp.php?ac=userapp&my_suffix=%2Fapp%2Flist">thêm ứng dụng mới</a></div>
 <!--{/if}-->
 </div>
 
 <div id="sidebar">
 	<div class="c_mgs"><div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
-		<strong>使用助手</strong>：
-		<br>1.您可以自由拖拽 <img src="image/drag.gif" /> 排列应用顺序；
-		<br>2.排列越上面的应用在菜单中显示的越靠前；
-		<br>3.您可以管理您已经添加的应用，可以设置某个应用的权限、移除某个应用；
-		<br>4.如果您要管理您的空间、日志、相册等隐私，请到您的空间隐私设置；
-		<br>5.默认应用只能进行相关设置与移除，但移除后仍然会显示在你的左侧菜单中。
+		<strong>Hướng dẫn sử dụng</strong>:
+		<br>1. Bạn có thể tự do kéo thả <img src="image/drag.gif" /> để sắp xếp thứ tự ứng dụng；
+		<br>2. Ứng dụng càng ở phía trên sẽ hiển thị càng ưu tiên trong menu；
+		<br>3. Bạn có thể quản lý các ứng dụng đã thêm, thiết lập quyền hạn hoặc gỡ bỏ ứng dụng；
+		<br>4. Nếu bạn muốn quản lý quyền riêng tư cho trang cá nhân, blog, album, v.v., vui lòng vào cài đặt quyền riêng tư；
+		<br>5. Ứng dụng mặc định chỉ có thể thiết lập hoặc gỡ bỏ liên quan, nhưng sau khi gỡ bỏ vẫn sẽ hiển thị ở menu bên trái của bạn.
 	</div></div></div></div></div>
 </div>
 
 <!--{elseif $_GET['op'] == 'deleteapp'}-->
 
-<h1>移除应用</h1>
-<a href="javascript:hideMenu();" class="float_del" title="关闭">关闭</a>
+<h1>Gỡ bỏ ứng dụng</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="$_GET[appId]">
 	<form id="reportform" name="reportform" method="post" action="cp.php?ac=userapp&my_suffix=%2Fuserapp%2Funinstall%3FappId%3D$_GET[appid]">
-		<p>移除后，您的个人主页、开始菜单、管理我的应用<br/>将不会显示此应用，您以后需要重新添加才能使用。<br>确定继续吗？</p>
+		<p>Sau khi gỡ bỏ, trang cá nhân, menu bắt đầu và mục quản lý ứng dụng của bạn<br/>sẽ không hiển thị ứng dụng này nữa. Bạn cần thêm lại nếu muốn sử dụng sau này.<br>Xác nhận tiếp tục chứ?</p>
 		<p class="btn_line">
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-			<input type="submit" name="delappsubmit" value="确定" class="submit" />
+			<input type="submit" name="delappsubmit" value="Xác nhận" class="submit" />
 		</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -171,10 +171,10 @@ function setTitle(x) {
 
 
 <div id="mx2note" style="display:none; padding:150px 0 150px 0; margin:1px; text-align:center; background-color:#FFFFBF;  font-size:12px; line-height:14px; color:#DB0000; letter-spacing:1px;">
-	本页面暂时不支持遨游2浏览器, 请您使用IE或Firefox, 我们对由此给您带来的不便深表歉意
+	Trang này hiện chưa hỗ trợ trình duyệt Maxthon 2, vui lòng sử dụng IE hoặc Firefox. Chúng tôi xin lỗi vì sự bất tiện này.
 </div>
 <div id="loading" style="display:block; padding:100px 0 100px 0;text-align:center;color:#999999;font-size:12px;">
-	<img src="image/my/loading.gif" alt="loading..." style="position:relative;top:11px;"/>  页面加载中...
+	<img src="image/my/loading.gif" alt="loading..." style="position:relative;top:11px;"/>  Đang tải trang...
 </div>
 
 <!--{/if}-->

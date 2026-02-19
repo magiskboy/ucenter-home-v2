@@ -10,11 +10,11 @@ if(!defined('IN_UCHOME')) {
 
 $_SGLOBAL['sourcelang'] = array (
 
-	'hour' => 'giờ',
-	'before' => 'trước',
-	'minute' => 'phút',
-	'second' => 'giây',
-	'now' => 'bây giờ',
+	'hour' => ' giờ',
+	'before' => ' trước',
+	'minute' => ' phút',
+	'second' => ' giây',
+	'now' => ' bây giờ',
 	'dot' => '、',
 	'mtag' => 'nhóm',
 	'poll' => 'bình chọn',
@@ -51,9 +51,9 @@ $_SGLOBAL['sourcelang'] = array (
 	'credit_unit' => 'điểm',
 	'man' => 'Nam',
 	'woman' => 'Nữ',
-	'year' => 'năm',
-	'month' => 'tháng',
-	'day' => 'ngày',
+	'year' => ' năm',
+	'month' => ' tháng',
+	'day' => ' ngày',
 	'unmarried' => 'Độc thân',
 	'married' => 'Đã kết hôn',
 	'hidden_username' => 'Ẩn danh'

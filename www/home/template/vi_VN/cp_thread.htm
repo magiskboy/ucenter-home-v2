@@ -11,7 +11,7 @@
 	<form id="editpostform_{$pid}" name="editpostform_{$pid}" method="post" action="cp.php?ac=thread&op=edit&pid=$pid&tagid=$tagid&eventid=$eventid">
 		<table>
 			<tr>
-				<th style="vertical-align: top;"><label for="message">Nội dung：</label></th>
+				<th style="vertical-align: top;"><label for="message">Nội dung: </label></th>
 				<td>
 					<a href="###" id="face_{$pid}" onclick="showFace(this.id, 'message_{$pid}');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 					<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('message_{$pid}', 1)">
@@ -21,7 +21,7 @@
 			</tr>
 			<tbody id="editwebimg">
 				<tr>
-					<th>Hình ảnh：</th>
+					<th>Hình ảnh: </th>
 					<td>
 						<input class="t_input" type="text" onfocus="if(this.value == 'http://')this.value='';" onblur="if(this.value=='')this.value='http://'" name="pics[]" value="http://" size="40" />&nbsp;
 						<a href="javascript:;" onclick="insertWebImg(this.previousSibling.previousSibling)">Chèn</a> &nbsp;
@@ -82,7 +82,7 @@
 <div class="popupmenu_inner">
 <form method="post" action="cp.php?ac=thread&op=edithot&tid=$tid">
 	<p class="btn_line">
-		Độ nóng mới：<input type="text" name="hot" value="$thread[hot]" size="5">
+		Độ nóng mới: <input type="text" name="hot" value="$thread[hot]" size="5">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="hotsubmit" value="true" />
 		<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
@@ -99,7 +99,7 @@
 <form id="reply_postform_{$post[pid]}" name="reply_postform_{$post[pid]}" method="post" action="cp.php?ac=thread&eventid=$eventid">
 	<table>
 		<tr>
-			<th><label for="message">内容：</label></th>
+			<th><label for="message">Nội dung: </label></th>
 			<td>
 				<a href="###" id="face_{$post[pid]}" onclick="showFace(this.id, 'message_{$post[pid]}');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 				<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('message_{$post[pid]}', 1)">
@@ -109,7 +109,7 @@
 		</tr>
 		<tbody id="replybimg">
 			<tr>
-				<td>Hình ảnh：</td>
+				<td>Hình ảnh: </td>
 				<td>
 					<input class="t_input" type="text" name="pics[]" onfocus="if(this.value == 'http://')this.value='';" onblur="if(this.value=='')this.value='http://'" value="http://" size="30" />&nbsp;
 					<a href="javascript:;" onclick="insertWebImg(this.previousSibling.previousSibling)">Chèn</a> &nbsp;

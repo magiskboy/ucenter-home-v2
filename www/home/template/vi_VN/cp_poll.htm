@@ -11,7 +11,7 @@
 				<tr>
 					<td>
 			
-						<label for="newoption">Vui lòng nhập mục bình chọn mới：</label><br />
+						<label for="newoption">Vui lòng nhập mục bình chọn mới: </label><br />
 						<input type="text" class="t_input" id="newoption" name="newoption" value="" size="50"/>
 					</td>
 				</tr>
@@ -67,7 +67,7 @@
 <div class="popupmenu_inner">
 <form method="post" action="cp.php?ac=poll&op=edithot&pid=$pid">
 	<p class="btn_line">
-		Độ nóng mới：<input type="text" name="hot" value="$poll[hot]" size="5"> 
+		Độ nóng mới: <input type="text" name="hot" value="$poll[hot]" size="5"> 
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="hotsubmit" value="true" />
 		<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
@@ -88,14 +88,14 @@
 					<td>
 			
 						<label for="addcredit">Tổng cộng thưởng thêm:</label>
-						<input type="text" class="t_input" id="addcredit" name="addcredit" value="" size="10"/> Phạm vi：0~$space[credit]
+						<input type="text" class="t_input" id="addcredit" name="addcredit" value="" size="10"/> Phạm vi: 0~$space[credit]
 					</td>
 				</tr>
 				<!--{if $maxreward}-->
 				<tr>
 					<td>
 						<label for="addpercredit">Thưởng thêm mỗi người:</label>
-						<input type="text" class="t_input" id="addpercredit" name="addpercredit" value="" size="10"/> Phạm vi：0~$maxreward
+						<input type="text" class="t_input" id="addpercredit" name="addpercredit" value="" size="10"/> Phạm vi: 0~$maxreward
 					</td>
 				</tr>
 				<!--{/if}-->
@@ -122,7 +122,7 @@
 <table>
 	<tr>
 		<td>
-			<label for="expiration">Vui lòng nhập thời gian kết thúc mới：</label><br />
+			<label for="expiration">Vui lòng nhập thời gian kết thúc mới:</label><br />
 			<input type="text" class="t_input" id="expiration" name="expiration" readonly value="<!--{date('Y-m-d', $poll[expiration]?$poll[expiration]:$_SGLOBAL[timestamp]+2592000)}-->" size="30" onclick="showcalendar(event, this, 0, '<!--{date('Y-m-d',$_SGLOBAL[timestamp])}-->')"/>
 		</td>
 	</tr>
@@ -149,7 +149,7 @@
 	<tr>
 		<td>
 
-			<label for="message">Vui lòng nhập tổng kết cho cuộc bình chọn：</label>
+			<label for="message">Vui lòng nhập tổng kết cho cuộc bình chọn: </label>
 			<a href="###" id="editface_{$pid}" onclick="showFace(this.id, 'summary');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 			<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('summary', 1)">
 
@@ -343,13 +343,13 @@
 				<tr>
 					<th>Tổng thưởng</th>
 					<td>
-						<input type="text" class="t_input" size="16" id="credit" name="credit" value="" maxlength="60"> Phạm vi：1~$space[credit]
+						<input type="text" class="t_input" size="16" id="credit" name="credit" value="" maxlength="60"> Phạm vi: 1~$space[credit]
 					</td>
 				</tr>
 				<tr>
 					<th>Thưởng mỗi người</th>
 					<td>
-						<input type="text" class="t_input" size="16" id="percredit" name="percredit" value="" maxlength="60"> Phạm vi：1~$_SCONFIG[maxreward]
+						<input type="text" class="t_input" size="16" id="percredit" name="percredit" value="" maxlength="60"> Phạm vi: 1~$_SCONFIG[maxreward]
 					</td>
 				</tr>
 			</tbody>

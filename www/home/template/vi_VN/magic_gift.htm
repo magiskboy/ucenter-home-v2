@@ -3,8 +3,8 @@
 <!--{if $op == "use"}-->
 
 	<!--{if !$frombuy}-->
-	<h1>使用道具</h1>
-	<a class="float_del" title="关闭" href="javascript:hideMenu();">关闭</a>
+	<h1>Sử dụng đạo cụ</h1>
+	<a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a>
 	<!--{/if}-->
 	<div class="toolly popupmenu_inner" id="__magicuse_form_$mid">
 		<form method="post" id="magicuse_form_$mid" action="magic.php?mid=$mid&idtype=$idtype&id=$id">
@@ -14,22 +14,22 @@
 			<div class="magic_info">
 				<h3>$magic[name]</h3>
 				<p class="gray">$magic[description]</p>
-				<p>拥有个数: $usermagic[count]</p>
+				<p>Số lượng đang có: $usermagic[count]</p>
 				<div>
-					<h4>设置红包</h4>
+					<h4>Cài đặt lì xì</h4>
 					<p>
-						您当前积分数为：$space[credit]
+						Điểm tích lũy hiện tại của bạn: $space[credit]
 					</p>
-					<label for="credit">总积分数：</label>
+					<label for="credit">Tổng số điểm:</label>
 					<input type="text" name="credit" id="credit" size="4" maxlength="4">
-					<font class="gray">不能超过当前积分数</font>
+					<font class="gray">Không được vượt quá số điểm hiện có</font>
 					<br />
-					<label for="chunk">每份积分：</label>
+					<label for="chunk">Điểm mỗi phần:</label>
 					<input type="text" name="chunk" id="chunk" size="4" maxlength="3">
-					<font class="gray">不能超过 $magic[custom][maxchunk]</font>
+					<font class="gray">Không được vượt quá $magic[custom][maxchunk]</font>
 					<!--{if $leftcredit}-->
 					<p style="color:#00663A; font-size:11px; padding:10px 0;">
-						提示：您上次埋下的红包还剩余 $leftcredit 个积分，将在此次红包设置后返还给您
+						Gợi ý: Lì xì bạn đặt lần trước còn dư $leftcredit điểm, sẽ được hoàn trả cho bạn sau khi cài đặt lì xì này
 					</p>
 					<!--{/if}-->
 				</div>
@@ -37,7 +37,7 @@
 					<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
 					<input type="hidden" name="refer" value="$_SGLOBAL[refer]"/>
 					<input type="hidden" name="usesubmit" value="1" />
-					<input type="button" name="usesubmit_btn" value="使用" class="submit" onclick="ajaxpost('magicuse_form_$mid', '', 1000)" />
+					<input type="button" name="usesubmit_btn" value="Sử dụng" class="submit" onclick="ajaxpost('magicuse_form_$mid', '', 1000)" />
 				</p>
 			</div>
 		</form>

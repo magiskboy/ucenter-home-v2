@@ -5,12 +5,12 @@
 
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2><!--{if $space[videostatus]}-->我的视频认证照片<!--{else}-->申请视频认证<!--{/if}--></h2>
+		<h2><!--{if $space[videostatus]}-->Ảnh xác thực video của tôi<!--{else}-->Đăng ký xác thực video<!--{/if}--></h2>
 		<p>
 		<!--{if $space[videostatus]}-->
-		以下是您认证的视频照片。如果站长允许重复认证，您可以<a href="userapp.php?id=1036584">重新进入视频认证程序</a>。
+		Dưới đây là ảnh xác thực video của bạn. Nếu quản trị viên cho phép xác thực lại, bạn có thể <a href="userapp.php?id=1036584">vào lại quy trình xác thực video</a>.
 		<!--{else}-->
-		您需要准备好摄像头，然后点击下面的按钮进行视频认证，通常认证通过后，是不允许重复认证的。
+		Bạn cần chuẩn bị camera, sau đó nhấn nút bên dưới để tiến hành xác thực video. Thông thường sau khi đã xác thực thành công, bạn sẽ không được phép xác thực lại.
 		<!--{/if}-->
 		</p>
 	</caption>
@@ -28,12 +28,12 @@
 <!--{if checkperm('managevideophoto')}-->
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>视频认证审核</h2>
-		<p>您可以进入视频认证平台，自行进行设置认证审核管理</p>
+		<h2>Kiểm duyệt xác thực video</h2>
+		<p>Bạn có thể vào nền tảng xác thực video để tự thiết lập quản lý kiểm duyệt xác thực.</p>
 	</caption>
 	<tr>
 		<td>
-			<a href="userapp.php?id=1036584" class="submit">视频认证审核管理</a>
+			<a href="userapp.php?id=1036584" class="submit">Quản lý kiểm duyệt xác thực video</a>
 		</td>
 	</tr>
 </table>

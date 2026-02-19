@@ -1,25 +1,25 @@
-<!--{eval $_TPL['titles'] = array($tpl_title, '分享');}-->
+<!--{eval $_TPL['titles'] = array($tpl_title, 'Chia sẻ');}-->
 <!--{template header}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/share.gif" />分享</h2>
+<h2 class="title"><img src="image/app/share.gif" />Chia sẻ</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=share"><span>好友的分享</span></a></li><!--{/if}-->
-		<li class="active"><a href="space.php?uid=$space[uid]&do=share&view=me"><span>我的分享</span></a></li>
-		<li$actives[all]><a href="space.php?uid=$space[uid]&do=share&view=all"><span>大家的分享</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=share"><span>Chia sẻ của bạn bè</span></a></li><!--{/if}-->
+		<li class="active"><a href="space.php?uid=$space[uid]&do=share&view=me"><span>Chia sẻ của tôi</span></a></li>
+		<li$actives[all]><a href="space.php?uid=$space[uid]&do=share&view=all"><span>Chia sẻ của mọi người</span></a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
 	<div class="r_option">
-		<a  href="$_SGLOBAL[refer]">&laquo; 返回上一页</a>
+		<a  href="$_SGLOBAL[refer]">&laquo; Quay lại trang trước</a>
 	</div>
 	<!--{/if}-->
 </div>
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "分享";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=share&view=me\">TA的所有分享</a>";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=share&id=$share[sid]\">查看分享</a>";
+	$_TPL['spacetitle'] = "Chia sẻ";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=share&view=me\">Tất cả chia sẻ của TA</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=share&id=$share[sid]\">Xem chia sẻ</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
@@ -28,19 +28,19 @@
 	<div class="title">
 		<div class="r_option">
 			<!--{if $_SGLOBAL[supe_uid] == $share[uid] || checkperm('manageshare')}-->
-			<a href="cp.php?ac=topic&op=join&id=$share[sid]&idtype=sid" id="a_topicjoin_$share[sid]" onclick="ajaxmenu(event, this.id)">凑热闹</a><span class="pipe">|</span>
-			<a href="cp.php?ac=share&sid=$share[sid]&op=delete&type=view" id="share_delete_$share[sid]" onclick="ajaxmenu(event, this.id)">删除</a><span class="pipe">|</span>
+			<a href="cp.php?ac=topic&op=join&id=$share[sid]&idtype=sid" id="a_topicjoin_$share[sid]" onclick="ajaxmenu(event, this.id)">Tham gia chủ đề</a><span class="pipe">|</span>
+			<a href="cp.php?ac=share&sid=$share[sid]&op=delete&type=view" id="share_delete_$share[sid]" onclick="ajaxmenu(event, this.id)">Xóa</a><span class="pipe">|</span>
 			<!--{/if}-->
 			<!--{if checkperm('manageshare')}-->
-			<a href="cp.php?ac=share&sid=$share[sid]&op=edithot" id="a_hot_$share[sid]" onclick="ajaxmenu(event, this.id)">热度</a><span class="pipe">|</span>
+			<a href="cp.php?ac=share&sid=$share[sid]&op=edithot" id="a_hot_$share[sid]" onclick="ajaxmenu(event, this.id)">Độ hot</a><span class="pipe">|</span>
 			<!--{/if}-->
-			<a href="cp.php?ac=common&op=report&idtype=sid&id=$share[sid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">举报</a>
+			<a href="cp.php?ac=common&op=report&idtype=sid&id=$share[sid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Báo cáo</a>
 		</div>
 		<h1>
 			$share[title_template]
 		</h1>
 		<p style="padding:5px 0;">
-			<!--{if $share[hot]}--><span class="hot"><em>热</em>$share[hot]</span><!--{/if}-->
+			<!--{if $share[hot]}--><span class="hot"><em>Hot</em>$share[hot]</span><!--{/if}-->
 			<!--{date('Y-m-d H:i',$share[dateline],1)}-->
 		</p>
 	</div>
@@ -49,7 +49,7 @@
 	<!--{if $topic}-->
 	<div class="r_option">
 		<img src="image/app/topic.gif" align="absmiddle">
-		<strong>凑个热闹</strong>：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
+		<strong>Tham gia chủ đề</strong>: <a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
 	</div>
 	<!--{/if}-->
 
@@ -86,7 +86,7 @@
 
 	<!--{if $cid}-->
 	<div class="notice">
-		当前只显示与你操作相关的单个评论，<a href="space.php?uid=$share[uid]&do=share&id=$share[sid]">点击此处查看全部评论</a>
+		Chỉ hiển thị bình luận liên quan đến thao tác của bạn, <a href="space.php?uid=$share[uid]&do=share&id=$share[sid]">nhấn vào đây để xem tất cả bình luận</a>
 	</div>
 	<!--{/if}-->
 
@@ -105,7 +105,7 @@
 		<td>
 			<a href="###" id="comment_face" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 			<!--{if $_SGLOBAL['magic']['doodle']}-->
-			<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+			<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ</a>
 			<!--{/if}-->
 			<br />
 			<textarea id="comment_message" name="message" rows="5" onkeydown="ctrlEnter(event, 'commentsubmit_btn');" style="width:380px;"></textarea>
@@ -117,7 +117,7 @@
 			<input type="hidden" name="id" value="$id">
 			<input type="hidden" name="idtype" value="sid">
 			<input type="hidden" name="commentsubmit" value="true" />
-			<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="评论" onclick="ajaxpost('quickcommentform_{$id}', 'comment_add')" />
+			<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="Bình luận" onclick="ajaxpost('quickcommentform_{$id}', 'comment_add')" />
 			<span id="__quickcommentform_{$id}"></span>
 		</td>
 	</tr>
@@ -130,7 +130,7 @@
 <!--{if $share['image']}-->
 resizeImg('share_image','500');
 <!--{/if}-->
-//彩虹炫
+//Hiệu ứng cầu vồng
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);

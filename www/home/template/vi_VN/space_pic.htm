@@ -48,11 +48,11 @@
 		<!--{if $topic}-->
 		<p>
 			<img src="image/app/topic.gif" align="absmiddle">
-			Tham gia cho vui：<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a></p>
+			Tham gia cho vui: <a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a></p>
 		<!--{/if}-->
 
 		<!--{if $do!='event' && $event[title]}-->
-		<p>Từ sự kiện：<a href="space.php?do=event&id=$event[eventid]&view=pic">$event[title]</a></p>
+		<p>Từ sự kiện: <a href="space.php?do=event&id=$event[eventid]&view=pic">$event[title]</a></p>
 		<!--{/if}-->
 
 		<p class="gray">
@@ -81,7 +81,7 @@
 		<!--{/if}-->
 	</td>
 	<td align="right">
-		<a href="cp.php?ac=share&type=pic&id=$pic[picid]" id="a_share_$pic[picid]" class="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">分享</a>
+		<a href="cp.php?ac=share&type=pic&id=$pic[picid]" id="a_share_$pic[picid]" class="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Chia sẻ</a>
 
 		<!--{if $pic[uid] == $_SGLOBAL[supe_uid]}-->
 		<!--{if $_SGLOBAL[magic][frame]}-->
@@ -213,7 +213,7 @@
 		$('title_form').style.display='';
 	}
 	
-	//彩虹炫
+	// Rainbow Dazzle
 	var elems = selector('div[class~=magicflicker]'); 
 	for(var i=0; i<elems.length; i++){
 		magicColor(elems[i]);

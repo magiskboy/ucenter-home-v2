@@ -246,7 +246,7 @@
 	<h1>Quản lý thành viên</h1>
 	<a href="javascript:hideMenu();" title="Đóng" class="float_del">Đóng</a>
 	<div id="$_GET[uid]" class="popupmenu_inner">
-	<p>Chọn một vai trò mới：</p>
+	<p>Chọn một vai trò mới:</p>
 	<p>
 		<select name="grade">
 			<option value="9"$grades[9]>Chủ nhóm chính</option>
@@ -298,8 +298,8 @@
 				<p><a href="space.php?do=mtag&tagid=$value[tagid]" target="_blank" style="font-size:14px;font-weight:bold;">$value[tagname]</a></p>
 				<div id="tag_$value[tagid]" style="padding:0.5em 0 0.5em 0;">
 					<p>Đã có $value[membernum] thành viên<!--{if $value[viewperm]}-->, chỉ thành viên mới được xem<!--{/if}-->, Phân loại: $value[title]</p>
-					Người mời：<a href="space.php?uid=$value[fromuid]" target="_blank">{$_SN[$value[fromuid]]}</a>
-					<br>Thời gian mời：<!--{date('Y-m-d H:i', $value[dateline], 1)}-->
+					Người mời: <a href="space.php?uid=$value[fromuid]" target="_blank">{$_SN[$value[fromuid]]}</a>
+					<br>Thời gian mời: <!--{date('Y-m-d H:i', $value[dateline], 1)}-->
 					<p style="padding:1em 0 0 0;">
 					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=1" class="submit" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Đồng ý</a> 
 					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=0" class="button" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Bỏ qua</a>

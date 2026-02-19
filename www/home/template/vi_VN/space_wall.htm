@@ -1,24 +1,24 @@
-<!--{eval $_TPL['titles'] = array('留言');}-->
+<!--{eval $_TPL['titles'] = array('Tường nhà');}-->
 <!--{template header}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/icon/wall.gif">留言板</h2>
+<h2 class="title"><img src="image/icon/wall.gif">Tường nhà</h2>
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "留言";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=wall&view=me\">TA的所有留言</a>";
+	$_TPL['spacetitle'] = "Tường nhà";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=wall&view=me\">Tất cả bài viết trên tường của TA</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
 
 <div class="h_status">
-	给<!--{if $space[self]}-->自己<!--{else}-->{$_SN[$space[uid]]}<!--{/if}-->留言
+	Viết lên tường của <!--{if $space[self]}-->mình<!--{else}-->{$_SN[$space[uid]]}<!--{/if}-->
 </div>
 <div class="space_wall_post">
 	<form action="cp.php?ac=comment" id="commentform_{$space[uid]}" name="commentform_{$space[uid]}" method="post">
 		<a href="###" id="message_face" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 		<!--{if $_SGLOBAL['magic']['doodle']}-->
-		<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />涂鸦板</a>
+		<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ</a>
 		<!--{/if}-->
 		<br />
 		<textarea name="message" id="comment_message" rows="5" cols="60" onkeydown="ctrlEnter(event, 'commentsubmit_btn');"></textarea>
@@ -27,7 +27,7 @@
 		<input type="hidden" name="idtype" value="uid" />
 		<input type="hidden" name="commentsubmit" value="true" />
 		<br>
-		<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="留言" onclick="ajaxpost('commentform_{$space[uid]}', 'wall_add')" />
+		<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="Gửi" onclick="ajaxpost('commentform_{$space[uid]}', 'wall_add')" />
 		<span id="__commentform_{$space[uid]}"></span>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -37,7 +37,7 @@
 <div class="comments_list" id="comment">
 	<!--{if $cid}-->
 	<div class="notice">
-		当前只显示与你操作相关的单个留言，<a href="space.php?uid=$space[uid]&do=wall">点击此处查看全部留言</a>
+		Chỉ hiển thị bài viết liên quan đến thao tác của bạn, <a href="space.php?uid=$space[uid]&do=wall">nhấn vào đây để xem tất cả</a>
 	</div>
 	<!--{/if}-->
 
@@ -50,7 +50,7 @@
 <div class="page">$multi</div>
 
 <script type="text/javascript">
-//彩虹炫
+//Hiệu ứng cầu vồng
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);

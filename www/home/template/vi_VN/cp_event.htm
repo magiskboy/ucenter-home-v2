@@ -155,7 +155,7 @@
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 			<input type="hidden" name="uid" value="$userevent[uid]">
 			<p>
-				Đặt thành：
+				Đặt thành:
 				<select name="status">
 					<option value="2">Thành viên thường</option>
 					<!--{if $_SGLOBAL[supe_uid]==$event[uid]}-->
@@ -176,7 +176,7 @@
 		<br clear="both" />
 		<form method="post" target="_blank" name="eventform" action="cp.php?ac=event&op=print&id=$eventid">
 			<h2>Cài đặt in ấn</h2>
-			<p>Nội dung：
+			<p>Nội dung: 
 				<input type="checkbox" id="ckavatarbig" name="avatarsmall" checked="checked" /> <lable for="ckavatarsmall">Ảnh đại diện</lable>
 				<input type="checkbox" id="ckusername" name="username" checked="checked" /> <lable for="ckusername">Họ tên</lable>
 				<!--{if $event[allowfellow]}-->
@@ -186,7 +186,7 @@
 				<input type="checkbox" id="cktemplate" name="template" checked="checked" /> <lable for="cktemplate">Thông tin đăng ký</lable>
 				<!--{/if}-->
 			</p>
-			<p>Tùy chọn：
+			<p>Tùy chọn:
 				<input type="checkbox" id="ckadmin" name="admin" /> <lable for="ckadmin">Bao gồm người tổ chức</lable>
 			</p>
 			<p class="btn_line">
@@ -334,9 +334,9 @@
 							<p><a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a></p>
 						</td>
 						<td>
-							<!--{if $event[allowfellow]}--><h2>Số người đi cùng：<!--{eval echo intval($value[fellow])}--></h2><!--{/if}-->
+							<!--{if $event[allowfellow]}--><h2>Số người đi cùng: <!--{eval echo intval($value[fellow])}--></h2><!--{/if}-->
 							<!--{if $event[template]}-->
-							<h2>Thông tin đăng ký：</h2>
+							<h2>Thông tin đăng ký: </h2>
 							<p><!--{eval echo nl2br(htmlspecialchars($value[template]))}--></p>
 							<!--{/if}-->
 						</td>
@@ -351,7 +351,7 @@
 			</div>
 			<p>
 				<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')"><label for="chkall">Chọn tất cả</label> &nbsp;
-				Đặt thành：
+				Đặt thành:
 				<select name="status">
 					<option value="2">Thành viên thường</option>
 					<!--{if $_SGLOBAL[supe_uid]==$event[uid]}-->
@@ -425,7 +425,7 @@
 <div class="popupmenu_inner">
 	<form method="post" action="cp.php?ac=event&op=edithot&id=$eventid">
 		<p class="btn_line">
-			Độ nóng mới：<input type="text" name="hot" value="$event[hot]" size="5"> 
+			Độ nóng mới: <input type="text" name="hot" value="$event[hot]" size="5"> 
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 			<input type="hidden" name="hotsubmit" value="true" />
 			<input type="submit" name="btnsubmit" value="Xác nhận" class="submit" />
@@ -489,17 +489,17 @@
 			<td class="h_status">
 				<p><a href="space.php?do=event&id=$value[eventid]" target="_blank" style="font-size:14px;font-weight:bold;">
 				$value[title]</a></p>
-				<br>Thời gian：<!--{eval echo sgmdate("d/m G:i", $value[starttime])}--> - <!--{eval echo sgmdate("d/m G:i", $value[endtime])}-->
+						<br>Thời gian: <!--{eval echo sgmdate("d/m G:i", $value[starttime])}--> - <!--{eval echo sgmdate("d/m G:i", $value[endtime])}-->
 							<!--{if $value[endtime]<$_SGLOBAL[timestamp]}-->
 							<span class="event_state"> Đã kết thúc</span>
 							<!--{elseif $value[deadline]<$_SGLOBAL[timestamp]}-->
 							<span class="event_state"> Hết hạn đăng ký</span>
 							<!--{/if}-->
-				<br>Địa điểm：$value[province] - $value[city] $value[location]
-				<br>Người tạo：<a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a>
+				<br>Địa điểm: $value[province] - $value[city] $value[location]
+				<br>Người tạo: <a href="space.php?uid=$value[uid]">$_SN[$value[uid]]</a>
 				<div id="eventinvite_$value[eventid]" style="padding:0.5em 0 0.5em 0;">
-					Mời bạn bè：<a href="space.php?uid=$value[uid]" target="_blank">{$_SN[$value[uid]]}</a>
-					<br>Thời gian mời：<!--{eval echo sgmdate('Y-m-d H:i', $value[invitetime], 1)}-->
+					Mời bạn bè: <a href="space.php?uid=$value[uid]" target="_blank">{$_SN[$value[uid]]}</a>
+					<br>Thời gian mời: <!--{eval echo sgmdate('Y-m-d H:i', $value[invitetime], 1)}-->
 					<p style="padding:1em 0 0 0;">
 						<a id="a_accept" href="cp.php?ac=event&op=acceptinvite&id=$value[eventid]" class="submit" onclick="ajaxget(this.href, 'eventinvite_$value[eventid]'); return false;">Chấp nhận</a>
 						<a href="cp.php?ac=event&op=eventinvite&id=$value[eventid]&r=1" class="button">Bỏ qua</a>

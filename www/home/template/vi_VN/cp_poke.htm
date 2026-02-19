@@ -49,7 +49,7 @@ $icons = array(
 		<!--{/if}-->
 			<td>
 				<!--{if $tospace[uid]}-->
-					Chào hỏi <strong>{$_SN[$tospace[uid]]}</strong>：<br />
+					Chào hỏi <strong>{$_SN[$tospace[uid]]}</strong>: <br />
 				<!--{/if}-->
 				<ul class="list2col" style="width:300px;">
 					<!--{loop $icons $k $v}-->
@@ -108,7 +108,7 @@ $icons = array(
 				
 				<div style="padding:10px 0 10px 0;font-size:14px;">
 				<!--{if $value[iconid]}-->{$icons[$value[iconid]]}<!--{else}-->Chào hỏi<!--{/if}-->
-				<!--{if $value[note]}-->，và nói với bạn：$value[note]<!--{/if}-->
+				<!--{if $value[note]}-->, và nói với bạn: $value[note]<!--{/if}-->
 				</div>
 				<div style="padding:10px 0 10px 0;">
 				<a href="cp.php?ac=poke&op=reply&uid=$value[uid]" id="a_p_r_$value[uid]" onclick="ajaxmenu(event, this.id, 1)" class="submit">Chào lại</a> 
