@@ -59,7 +59,17 @@ class base {
 		define('FORMHASH', $this->formhash());
 		$_GET['page'] =  max(1, intval(getgpc('page')));
 
-		include_once UC_ROOT.'./view/default/main.lang.php';
+		if (file_exists(UC_DATADIR.'config_lang.php')) {
+			include_once UC_DATADIR.'config_lang.php';
+		}
+		if (!defined('UC_LANG')) {
+			define('UC_LANG', 'zh_CN');
+		}
+		$uc_lang_dir = UC_ROOT.'./view/default/lang/'.UC_LANG.'/';
+		if (!file_exists($uc_lang_dir.'main.lang.php')) {
+			$uc_lang_dir = UC_ROOT.'./view/default/lang/zh_CN/';
+		}
+		include_once $uc_lang_dir.'main.lang.php';
 		$this->lang = &$lang;
 	}
 
@@ -273,7 +283,11 @@ class base {
 	}
 
 	function message($message, $redirect = '', $type = 0, $vars = array()) {
-		include_once UC_ROOT.'view/default/messages.lang.php';
+		$uc_lang_dir = UC_ROOT.'view/default/lang/'.(defined('UC_LANG') ? UC_LANG : 'zh_CN').'/';
+		if (!file_exists($uc_lang_dir.'messages.lang.php')) {
+			$uc_lang_dir = UC_ROOT.'view/default/lang/zh_CN/';
+		}
+		include_once $uc_lang_dir.'messages.lang.php';
 		if(isset($lang[$message])) {
 			$message = $lang[$message] ? str_replace(array_keys($vars), array_values($vars), $lang[$message]) : $message;
 		}

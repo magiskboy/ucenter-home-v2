@@ -81,7 +81,9 @@ function cpmessage($msgkey, $url_forward='', $second=1, $values=array()) {
 	//去掉广告
 	$_SGLOBAL['ad'] = array();
 
-	include_once(S_ROOT.'./language/lang_cpmessage.php');
+	global $_SC;
+	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_cpmessage.php') ? $_SC['language'] : 'zh_CN';
+	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_cpmessage.php');
 	if(isset($_SGLOBAL['cplang'][$msgkey])) {
 		$message = lang_replace($_SGLOBAL['cplang'][$msgkey], $values);
 	} else {

@@ -227,8 +227,10 @@ function showmessage($msgkey, $url_forward='', $second=1, $values=array()) {
 	//去掉广告
 	$_SGLOBAL['ad'] = array();
 	
-	//语言
-	include_once(S_ROOT.'./language/lang_showmessage.php');
+	//语言 (i18n: language/zh_CN|vi_VN/)
+	global $_SC;
+	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_showmessage.php') ? $_SC['language'] : 'zh_CN';
+	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_showmessage.php');
 	if(isset($_SGLOBAL['msglang'][$msgkey])) {
 		$message = lang_replace($_SGLOBAL['msglang'][$msgkey], $values);
 	} else {
@@ -1594,11 +1596,12 @@ function checklogin() {
 	}
 }
 
-//获得前台语言
+//获得前台语言 (i18n: language/zh_CN|vi_VN/)
 function lang($key, $vars=array()) {
-	global $_SGLOBAL;
+	global $_SGLOBAL, $_SC;
 
-	include_once(S_ROOT.'./language/lang_source.php');
+	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_source.php') ? $_SC['language'] : 'zh_CN';
+	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_source.php');
 	if(isset($_SGLOBAL['sourcelang'][$key])) {
 		$result = lang_replace($_SGLOBAL['sourcelang'][$key], $vars);
 	} else {
@@ -1607,11 +1610,12 @@ function lang($key, $vars=array()) {
 	return $result;
 }
 
-//获得后台语言
+//获得后台语言 (i18n: language/zh_CN|vi_VN/)
 function cplang($key, $vars=array()) {
-	global $_SGLOBAL;
+	global $_SGLOBAL, $_SC;
 
-	include_once(S_ROOT.'./language/lang_cp.php');
+	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_cp.php') ? $_SC['language'] : 'zh_CN';
+	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_cp.php');
 	if(isset($_SGLOBAL['cplang'][$key])) {
 		$result = lang_replace($_SGLOBAL['cplang'][$key], $vars);
 	} else {

@@ -173,7 +173,12 @@ class control extends adminbase {
 
 	function onls() {
 
-		include_once UC_ROOT.'view/default/admin.lang.php';
+		$uc_lang = defined('UC_LANG') ? UC_LANG : 'zh_CN';
+		$uc_lang_dir = UC_ROOT.'view/default/lang/'.$uc_lang.'/';
+		if (!file_exists($uc_lang_dir.'admin.lang.php')) {
+			$uc_lang_dir = UC_ROOT.'view/default/lang/zh_CN/';
+		}
+		include_once $uc_lang_dir.'admin.lang.php';
 
 		$status = 0;
 		if(!empty($_POST['addname']) && $this->submitcheck()) {

@@ -171,7 +171,12 @@ class control extends adminbase {
 	}
 
 	function _parent_js($extid, $message, $vars = array()) {
-		include UC_ROOT.'view/default/messages.lang.php';
+		$uc_lang = defined('UC_LANG') ? UC_LANG : 'zh_CN';
+		$uc_lang_dir = UC_ROOT.'view/default/lang/'.$uc_lang.'/';
+		if (!file_exists($uc_lang_dir.'messages.lang.php')) {
+			$uc_lang_dir = UC_ROOT.'view/default/lang/zh_CN/';
+		}
+		include $uc_lang_dir.'messages.lang.php';
  		if(isset($lang[$message])) {
  			$message = $lang[$message] ? str_replace(array_keys($vars), array_values($vars), $lang[$message]) : $message;
  		}

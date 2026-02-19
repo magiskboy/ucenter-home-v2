@@ -53,6 +53,10 @@ $_DCOOKIE = $_DSESSION = $_DCACHE = $_DPLUGIN = $advlist = array();
 
 require_once DISCUZ_ROOT.'./config.inc.php';
 
+if (!defined('DZZ_LANG')) {
+	define('DZZ_LANG', isset($dzz_lang) && is_string($dzz_lang) ? $dzz_lang : 'zh_CN');
+}
+
 if($urlxssdefend && !empty($_SERVER['REQUEST_URI'])) {
 	$temp = urldecode($_SERVER['REQUEST_URI']);
 	if(strpos($temp, '<') !== false || strpos($temp, '"') !== false)

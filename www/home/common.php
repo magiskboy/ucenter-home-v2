@@ -91,6 +91,12 @@ if($_SCOOKIE['mytemplate']) {
 		ssetcookie('mytemplate', '', 365000);
 	}
 }
+// i18n: khi ngôn ngữ là vi_VN thì luôn dùng bộ template vi_VN (nếu có), để giao diện hiển thị tiếng Việt
+$uchome_lang = isset($_SC['language']) ? trim($_SC['language']) : '';
+$vi_vn_tpl = S_ROOT.'template/vi_VN/style.css';
+if($uchome_lang === 'vi_VN' && file_exists($vi_vn_tpl)) {
+	$_SCONFIG['template'] = 'vi_VN';
+}
 
 //处理REQUEST_URI
 if(!isset($_SERVER['REQUEST_URI'])) {  

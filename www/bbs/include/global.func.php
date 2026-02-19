@@ -706,10 +706,20 @@ function language($file, $templateid = 0, $tpldir = '') {
 	$tpldir = $tpldir ? $tpldir : TPLDIR;
 	$templateid = $templateid ? $templateid : TEMPLATEID;
 
+	$dzz_lang = defined('DZZ_LANG') ? DZZ_LANG : 'zh_CN';
+	$languagepack = DISCUZ_ROOT.'./'.$tpldir.'/lang/'.$dzz_lang.'/'.$file.'.lang.php';
+	if(file_exists($languagepack)) {
+		return $languagepack;
+	}
+	$languagepack = DISCUZ_ROOT.'./'.$tpldir.'/lang/zh_CN/'.$file.'.lang.php';
+	if(file_exists($languagepack)) {
+		return $languagepack;
+	}
 	$languagepack = DISCUZ_ROOT.'./'.$tpldir.'/'.$file.'.lang.php';
 	if(file_exists($languagepack)) {
 		return $languagepack;
-	} elseif($templateid != 1 && $tpldir != './templates/default') {
+	}
+	if($templateid != 1 && $tpldir != './templates/default') {
 		return language($file, 1, './templates/default');
 	} else {
 		return FALSE;

@@ -121,9 +121,10 @@ function getexif($img) {
 }
 
 function exif_lang($langkey) {
-	global $_SGLOBAL;
-	
-	include_once(S_ROOT.'./language/lang_exif.php');
+	global $_SGLOBAL, $_SC;
+
+	$uchome_lang = !empty($_SC['language']) && file_exists(S_ROOT.'./language/'.$_SC['language'].'/lang_exif.php') ? $_SC['language'] : 'zh_CN';
+	include_once(S_ROOT.'./language/'.$uchome_lang.'/lang_exif.php');
 	return empty($_SGLOBAL['exiflang'][$langkey])?$langkey:$_SGLOBAL['exiflang'][$langkey];
 }
 

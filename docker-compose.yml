@@ -35,6 +35,11 @@ services:
       - /Users/nkthanh/code/zingme/data/uchome.com/admin/UploadFiles/:/var/www/admin/UploadFiles/:rw
       # Mount config so DB host/password changes take effect without rebuilding image (rw so installer can write)
       - ./www/home/config.php:/var/www/home/config.php
+      # Mount i18n: template + language so vi_VN is available (style.css + lang files); required for $_SC['language']=vi_VN
+      - ./www/home/template:/var/www/home/template:ro
+      - ./www/home/language:/var/www/home/language:ro
+      # Mount i18n check script (optional; remove in production)
+      - ./www/home/check_i18n.php:/var/www/home/check_i18n.php
     environment:
       - HTTPS_METHOD=noredirect
     env_file:

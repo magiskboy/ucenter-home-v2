@@ -35,7 +35,9 @@ class template {
 		$this->defaulttpldir = UC_ROOT.'./view/default';
 		$this->tpldir = UC_ROOT.'./view/default';
 		$this->objdir = UC_DATADIR.'./view';
-		$this->langfile = UC_ROOT.'./view/default/templates.lang.php';
+		$uc_lang = defined('UC_LANG') ? UC_LANG : 'zh_CN';
+		$uc_lang_dir = UC_ROOT.'./view/default/lang/'.$uc_lang.'/';
+		$this->langfile = file_exists($uc_lang_dir.'templates.lang.php') ? $uc_lang_dir.'templates.lang.php' : UC_ROOT.'./view/default/lang/zh_CN/templates.lang.php';
 		if (version_compare(PHP_VERSION, '5') == -1) {
 			register_shutdown_function(array(&$this, '__destruct'));
 		}

@@ -28,6 +28,9 @@ $_SC['siteurl']			= ''; //站点的访问URL地址(http:// 开头的绝对地址
 
 $_SC['tplrefresh']		= 0; //判断模板是否更新的效率等级，数值越大，效率越高; 设置为0则永久不判断
 
+// i18n: ngôn ngữ giao diện. zh_CN = Tiếng Trung, vi_VN = Tiếng Việt. File lang trong language/zh_CN/ và language/vi_VN/
+$_SC['language']		= 'vi_VN';
+
 //Ucenter Home安全相关
 $_SC['founder'] 		= '1'; //创始人 UID, 可以支持多个创始人，之间使用 “,” 分隔。部分管理功能只有创始人才可操作。
 $_SC['allowedittpl']	= 0; //是否允许在线编辑模板。为了服务器安全，强烈建议关闭
@@ -41,7 +44,7 @@ define('UC_DBNAME', 'uchome'); // UCenter 数据库名称
 define('UC_DBCHARSET', 'utf8'); // UCenter 数据库字符集
 define('UC_DBTABLEPRE', '`uchome`.uc_'); // UCenter 数据库表前缀
 define('UC_DBCONNECT', '0'); // UCenter 数据库持久连接 0=关闭, 1=打开
-define('UC_KEY', 'e7V4e3hfNb9bQe5du2K6e3H98eGfZ680N0E0z3G36bn66dk0MeJ7Q1z6LaRda8rc'); // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
+define('UC_KEY', 'e4u8n621n4pcRckcd2Vfk96dwenb9cT5Gb24max7v9c3g7K1s2sbW7Y428meo7Sc'); // 与 UCenter 的通信密钥, 要与 UCenter 保持一致
 define('UC_API', 'http://127.0.0.1/ucenter'); // UCenter 的 URL 地址, 在调用头像时依赖此常量
 define('UC_CHARSET', 'utf-8'); // UCenter 的字符集
 define('UC_IP', '127.0.0.1'); // UCenter 的 IP, 当 UC_CONNECT 为非 mysql 方式时, 并且当前应用服务器解析域名有问题时, 请设置此值

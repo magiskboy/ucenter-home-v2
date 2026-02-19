@@ -66,5 +66,8 @@
 	$admincp['runquery'] = 1;		// 是否允许后台运行 SQL 语句 1=是 0=否[安全]
 	$admincp['dbimport'] = 1;		// 是否允许后台恢复论坛数据  1=是 0=否[安全]
 
+// i18n: ngôn ngữ giao diện. zh_CN = Tiếng Trung, vi_VN = Tiếng Việt. File lang trong templates/default/lang/zh_CN|vi_VN/
+	$dzz_lang = 'vi_VN';
+
 // ============================================================================
 
