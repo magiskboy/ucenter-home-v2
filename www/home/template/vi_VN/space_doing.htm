@@ -1,11 +1,11 @@
-<!--{eval $_TPL['titles'] = array('记录');}-->
+<!--{eval $_TPL['titles'] = array('Ghi chép');}-->
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_doing">
 		<h3 class="feed_header">
-			<a href="space.php?do=doing&view=me" class="r_option" target="_blank">一句话记录</a>
-			记录(共 $count 条)
+			<a href="space.php?do=doing&view=me" class="r_option" target="_blank">Ghi chép một câu</a>
+			Ghi chép (Tổng $count mục)
 		</h3><br>
 
 		<!--{if $dolist}-->
@@ -17,8 +17,8 @@
 					<div class="doing">
 						<div class="doingcontent"><a href="space.php?uid=$dv[uid]">{$_SN[$dv[uid]]}</a>: <span>$dv[message]</span>
 						<span class="gray">(<!--{date('m-d H:i',$dv[dateline],1)}-->)</span>
-						<!--{if $dv[uid]==$_SGLOBAL[supe_uid]}--> <a href="cp.php?ac=doing&op=delete&doid=$doid&id=$dv[id]" id="doing_delete_{$doid}_{$dv[id]}" onclick="ajaxmenu(event, this.id)" class="re gray">删除</a> &nbsp;<!--{/if}-->
-						<a href="javascript:;" onclick="docomment_form($doid, 0);">回复</a>
+						<!--{if $dv[uid]==$_SGLOBAL[supe_uid]}--> <a href="cp.php?ac=doing&op=delete&doid=$doid&id=$dv[id]" id="doing_delete_{$doid}_{$dv[id]}" onclick="ajaxmenu(event, this.id)" class="re gray">Xóa</a> &nbsp;<!--{/if}-->
+						<a href="javascript:;" onclick="docomment_form($doid, 0);">Trả lời</a>
 						</div>
 						
 						<!--{eval $list = $clist[$doid];}-->
@@ -34,29 +34,29 @@
 			<div class="page">$multi</div>
 		</div>
 		<!--{else}-->
-		<div class="c_form">现在还没有记录</div>
+		<div class="c_form">Hiện chưa có ghi chép nào</div>
 		<!--{/if}-->
 	</div><br>
 	
 <!--{else}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/doing.gif">记录</h2>
+<h2 class="title"><img src="image/app/doing.gif">Ghi chép</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>最新好友记录</span></a></li><!--{/if}-->
-		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>大家的记录</span></a></li>
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>我的记录</span></a></li>
-		<li$actives[mood]><a href="space.php?uid=$space[uid]&do=mood"><span>同心情的朋友</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Ghi chép mới nhất của bạn bè</span></a></li><!--{/if}-->
+		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>Ghi chép của mọi người</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Ghi chép của tôi</span></a></li>
+		<li$actives[mood]><a href="space.php?uid=$space[uid]&do=mood"><span>Bạn bè cùng tâm trạng</span></a></li>
 	</ul>
 </div>
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "记录";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=doing&view=me\">TA的所有记录</a>";
+	$_TPL['spacetitle'] = "Ghi chép";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=doing&view=me\">Tất cả ghi chép của TA</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">按照发布时间排序</div>
+<div class="h_status">Sắp xếp theo thời gian đăng</div>
 <!--{/if}-->
 
 <div id="content">	
@@ -77,8 +77,8 @@
 				<div class="doing">
 					<div class="doingcontent"><a href="space.php?uid=$dv[uid]">{$_SN[$dv[uid]]}</a>: <span>$dv[message]</span>
 					<span class="gray">(<!--{date('m-d H:i',$dv[dateline],1)}-->)</span>
-					<!--{if $dv[uid]==$_SGLOBAL[supe_uid]}--> <a href="cp.php?ac=doing&op=delete&doid=$doid&id=$dv[id]" id="doing_delete_{$doid}_{$dv[id]}" onclick="ajaxmenu(event, this.id)" class="re gray">删除</a> &nbsp;<!--{/if}-->
-					<a href="javascript:;" onclick="docomment_form($doid, 0);">回复</a>
+					<!--{if $dv[uid]==$_SGLOBAL[supe_uid]}--> <a href="cp.php?ac=doing&op=delete&doid=$doid&id=$dv[id]" id="doing_delete_{$doid}_{$dv[id]}" onclick="ajaxmenu(event, this.id)" class="re gray">Xóa</a> &nbsp;<!--{/if}-->
+					<a href="javascript:;" onclick="docomment_form($doid, 0);">Trả lời</a>
 					</div>
 					
 					<!--{eval $list = $clist[$doid];}-->
@@ -95,7 +95,7 @@
 	</div>
 	
 	<!--{else}-->
-	<div class="c_form">现在还没有记录。<!--{if $space[self]}-->你可以用一句话记录下这一刻在做什么。<!--{/if}--></div>
+	<div class="c_form">Hiện chưa có ghi chép nào. <!--{if $space[self]}-->Bạn có thể dùng một câu để ghi lại khoảnh khắc này đang làm gì.<!--{/if}--></div>
 	<!--{/if}-->
 	
 </div>
@@ -104,15 +104,15 @@
 	<!--{if $moodlist}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<p class="r_option"><a href="space.php?uid=$space[uid]&do=mood">全部</a></p>
-			跟<!--{if $space[self]}-->我<!--{else}-->{$_SN[$space[uid]]}<!--{/if}-->同心情的朋友
+			<p class="r_option"><a href="space.php?uid=$space[uid]&do=mood">Tất cả</a></p>
+			Bạn bè cùng tâm trạng với <!--{if $space[self]}-->tôi<!--{else}-->{$_SN[$space[uid]]}<!--{/if}-->
 		</h2>
 		<ul class="avatar_list">
 			<!--{loop $moodlist $key $value}-->
 			<li>
 				<div class="avatar48"><a href="space.php?uid=$value[uid]&do=doing"><!--{avatar($value[uid],small)}--></a></div>
 				<p><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-				<p class="gray"><!--{date('n月j日',$value[updatetime],1)}--></p>
+				<p class="gray"><!--{date('d/m',$value[updatetime],1)}--></p>
 			</li>
 			<!--{/loop}-->
 		</ul>
