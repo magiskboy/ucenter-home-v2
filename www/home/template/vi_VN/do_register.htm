@@ -15,12 +15,12 @@
 <form id="registerform" name="registerform" action="do.php?ac=$_SCONFIG[register_action]&$url_plus&ref" method="post" class="c_form">
 <table cellpadding="0" cellspacing="0" class="formtable">
 	<caption>
-		<h2>注册本站帐号</h2>
-		<p>请完整填写以下信息进行注册。<br>注册完成后，该帐号将作为您在本站的通行帐号，您可以享受本站提供的各种服务。</p>
+		<h2>Đăng ký tài khoản</h2>
+		<p>Vui lòng điền đầy đủ các thông tin dưới đây để đăng ký.<br>Sau khi hoàn tất, tài khoản này sẽ được sử dụng để truy cập và trải nghiệm tất cả các dịch vụ của chúng tôi.</p>
 	</caption>
 	<!--{if $invitearr}-->
 	<tr>
-		<th width="100">好友邀请</th>
+		<th width="100">Lời mời kết bạn</th>
 		<td>
 			<a href="space.php?$url_plus" target="_blank"><!--{avatar($invitearr[uid],small)}--></a>
 			<a href="space.php?$url_plus" target="_blank">{$_SN[$invitearr[uid]]}</a>
@@ -31,7 +31,7 @@
 	<!--{if $_SCONFIG['seccode_register']}-->
 	<!--{if $_SCONFIG['questionmode']}-->
 	<tr>
-		<th style="vertical-align: top;">请先回答问题</th>
+		<th style="vertical-align: top;">Câu hỏi bảo mật</th>
 		<td>
 			<p><!--{eval question();}--></p>
 			<input type="text" id="seccode" name="seccode" value="" class="t_input" onBlur="checkSeccode()" tabindex="1" autocomplete="off" />&nbsp;<span id="checkseccode">&nbsp;</span>
@@ -39,19 +39,19 @@
 	</tr>
 	<!--{else}-->
 	<tr>
-		<th style="vertical-align: top;">验证码</th>
+		<th style="vertical-align: top;">Mã xác nhận</th>
 		<td>
 			<script>seccode();</script>
-			<p>请输入上面的4位字母或数字，看不清可<a href="javascript:updateseccode()">更换一张</a></p>
+			<p>Nhập 4 ký tự trên, nếu không nhìn rõ <a href="javascript:updateseccode()">đổi hình khác</a></p>
 			<input type="text" id="seccode" name="seccode" value="" class="t_input" onBlur="checkSeccode()" tabindex="1" autocomplete="off" />&nbsp;<span id="checkseccode">&nbsp;</span>
 		</td>
 	</tr>
 	<!--{/if}-->
 	<!--{/if}-->
 	
-	<tr><th width="100">用户名</th><td><input type="text" id="username" name="username" value="" class="t_input" onBlur="checkUserName()" tabindex="2" />&nbsp;<span id="checkusername">&nbsp;</span></td></tr>
+	<tr><th width="100">Tên đăng nhập</th><td><input type="text" id="username" name="username" value="" class="t_input" onBlur="checkUserName()" tabindex="2" />&nbsp;<span id="checkusername">&nbsp;</span></td></tr>
 	<tr>
-		<th>注册密码</th>
+		<th>Mật khẩu</th>
 		<td>
 			<input type="password" name="password" id="password" value="" class="t_input" onBlur="checkPassword()" onkeyup="checkPwd(this.value);" tabindex="3" />&nbsp;<span id="checkpassword">&nbsp;</span><br/>
 			<style>
@@ -73,27 +73,26 @@
 				.psdiv4 .strong{ width:100%;background-color:#063}
 			</style>
 			<div class="psdiv0" id="chkpswd">
-				<div class="strongdepict">密码安全程度：<span id="chkpswdcnt">太短</span></div>
+				<div class="strongdepict">Mức độ an toàn: <span id="chkpswdcnt">Quá ngắn</span></div>
 				<div class="strongbg">
 					<div class="strong"></div>			
 				</div>		
 			</div>
 		</td>
 	</tr>
-	<tr><th>再次输入密码</th><td><input type="password" id="password2" name="password2" value="" class="t_input"  onBlur="checkPassword2()" tabindex="4" />&nbsp;<span id="checkpassword2">&nbsp;</span></td></tr>
-	<tr><th>邮箱</th><td><input type="text" id="email" name="email" value="@" class="t_input" tabindex="5" />
-		<br>请准确填入您的邮箱，在忘记密码，或者您使用邮件通知功能时，会发送邮件到该邮箱。</td></tr>
+	<tr><th>Nhập lại mật khẩu</th><td><input type="password" id="password2" name="password2" value="" class="t_input"  onBlur="checkPassword2()" tabindex="4" />&nbsp;<span id="checkpassword2">&nbsp;</span></td></tr>
+	<tr><th>Email</th><td><input type="text" id="email" name="email" value="@" class="t_input" tabindex="5" />
+		<br>Vui lòng nhập chính xác email của bạn. Email này dùng để khôi phục mật khẩu hoặc nhận các thông báo từ hệ thống.</td></tr>
 	
-	<!--{if $register_rule}-->
-	<tr><th>服务条款</th>
+	<tr><th>Điều khoản</th>
 		<td><div name="rule" style="border:1px solid #C3C3C3;width:500px;height:100px;overflow:auto;padding:5px;">$register_rule</div>
-		<input type="checkbox" name="accede" id="accede" value="1">我已阅读，并同意以上服务条款
+		<input type="checkbox" name="accede" id="accede" value="1">Tôi đã đọc và đồng ý với các điều khoản dịch vụ trên
 		<script type="text/javascript">
 			function checkClause() {
 				if($('accede').checked) {
 					return true;
 				} else {
-					alert("您必须同意服务条款后才能注册");
+					alert("Bạn phải đồng ý với điều khoản dịch vụ trước khi đăng ký");
 					return false;
 				}
 			}
@@ -105,7 +104,7 @@
 	<tr><th>&nbsp;</th>
 		<td>
 		<input type="hidden" name="refer" value="space.php?do=home" />
-		<input type="submit" id="registersubmit" name="registersubmit" value="注册新用户" class="submit" onclick="<!--{if $register_rule}-->if(!checkClause()){return false;}<!--{/if}-->ajaxpost('registerform', 'register');" tabindex="6" />
+		<input type="submit" id="registersubmit" name="registersubmit" value="Đăng ký tài khoản" class="submit" onclick="<!--{if $register_rule}-->if(!checkClause()){return false;}<!--{/if}-->ajaxpost('registerform', 'register');" tabindex="6" />
 		</td>
 	</tr>
 	<tr><th>&nbsp;</th><td id="__registerform" style="color:red; font-weight:bold;"></td></tr>
@@ -127,7 +126,7 @@
 		var unLen = userName.replace(/[^\x00-\xff]/g, "**").length;
 
 		if(unLen < 3 || unLen > 15) {
-			warning(cu, unLen < 3 ? '用户名小于3个字符' : '用户名超过 15 个字符');
+			warning(cu, unLen < 3 ? 'Tên đăng nhập tối thiểu 3 ký tự' : 'Tên đăng nhập tối đa 15 ký tự');
 			return;
 		}
 		ajaxresponse('checkusername', 'op=checkusername&username=' + (is_ie && document.charset == 'utf-8' ? encodeURIComponent(userName) : userName));
@@ -141,7 +140,7 @@
 		}
 		var cp = $('checkpassword');
 		if(password == '' || /[\'\"\\]/.test(password)) {
-			warning(cp, '密码空或包含非法字符');
+			warning(cp, 'Mật khẩu trống hoặc chứa ký tự không hợp lệ');
 			return false;
 		} else {
 			cp.style.display = '';
@@ -164,7 +163,7 @@
 			return;
 		}
 		if(password != password2) {
-			warning(cp2, '两次输入的密码不一致');
+			warning(cp2, 'Mật khẩu nhập lại không khớp');
 		} else {
 			cp2.style.display = '';
 			cp2.innerHTML = '<img src="image/check_right.gif" width="13" height="13">';
@@ -209,7 +208,7 @@
 			$("chkpswdcnt").innerHTML = "";
 		} else if (pwd.length < 3) {
 			$("chkpswd").className = "psdiv1";
-			$("chkpswdcnt").innerHTML = "太短";
+			$("chkpswdcnt").innerHTML = "Quá ngắn";
 		} else if(!isPassword(pwd) || !/^[^%&]*$/.test(pwd)) {
 			$("chkpswd").className = "psdiv0";
 			$("chkpswdcnt").innerHTML = "";
@@ -217,15 +216,15 @@
 			var csint = checkStrong(pwd);
 			switch(csint) {
 				case 1:
-					$("chkpswdcnt").innerHTML = "很弱";
+					$("chkpswdcnt").innerHTML = "Rất yếu";
 					$( "chkpswd" ).className = "psdiv"+(csint + 1);
 					break;
 				case 2:
-					$("chkpswdcnt").innerHTML = "一般";
+					$("chkpswdcnt").innerHTML = "Trung bình";
 					$( "chkpswd" ).className = "psdiv"+(csint + 1);
 					break;
 				case 3:		
-					$("chkpswdcnt").innerHTML = "很强";
+					$("chkpswdcnt").innerHTML = "Rất mạnh";
 					$("chkpswd").className = "psdiv"+(csint + 1);
 					break;
 			}
