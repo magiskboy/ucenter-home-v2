@@ -1,38 +1,22 @@
-UCenter/UCenter Home/Discuz! 集成安装包
+# Installation
 
-本集成包集成了以下Comsenz正式版产品：
+## UC Center
 
-UCenter 1.5.1 （用户中心）
-UCenter Home 2.0 （个人空间）
-Discuz! 7.2 （论坛）
+1. Goto http://localhost:8080/ucenter/install
+    DB host: db
+    DB user: root
+    DB pass: uchome
+    DB name: uchome
 
-通过本集成安装包，您可以立即全新安装上述产品到您的站点。
+## UC Home
 
--------------------------------------------
-安装方法
--------------------------------------------
+1. Goto http://localhost:8080/home/install
+    - Connect to UC Center
+        UC Center URL: http://127.0.0.1/ucenter
+        UC Admin pass: uchome
 
-注意：
-
-本集成包仅适合您的站点没有安装过上述产品情况下的全新安装。
-如果您的站点曾经安装过上述产品之一，则不能使用本集成包进行安装、升级等操作。
-否则，集成包的安装行为，将可能会清空您现有上述产品的数据库！
-
-请参考下面的步骤进行集成包的安装：
-
-1. 通过ftp工具，将 ./upload 目录中的所有文件上传到服务器上。
-
-2. 在浏览器中访问: http://本程序访问URL/install/index.php
-
-3. 请根据向导，填入必要的信息，开始安装。
-特别注意的是，要根据安装向导的提示，正确设置各个目录的读写属性。
-
-4. 安装完毕后，为了数据安全，请务必将 install 目录删除。
-
-
-
-祝您使用愉快
-
-
-(C) Comsenz Inc
-http://www.comsenz.com
+    - Connect to DB
+        DB host: db
+        DB user: root
+        DB pass: uchome
+        DB name: uchome

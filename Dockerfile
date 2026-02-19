@@ -1,5 +1,5 @@
-FROM bylexus/apache-php56
-MAINTAINER Huan <zixia@zixia.net>
+FROM nguyenkhacthanh/apache-php56:latest
+LABEL maintainer="Nguyen Khac Thanh <ask@nkthanh.dev>"
 
 COPY conf/000-default.conf /etc/apache2/sites-available/
 
@@ -8,6 +8,7 @@ COPY www /var/www
 COPY VERSION /var/www
 
 RUN chmod -R 777 \
+  /var/www/install/ \
   /var/www/home/config.php \
   /var/www/ucenter/data/ \
   /var/www/home/attachment/ \
@@ -25,7 +26,4 @@ EXPOSE 80/tcp
 
 VOLUME [\
   "/var/www/admin/UploadFiles/" \
-]
-
-LABEL maintainer="Huan LI <zixia@zixia.net>"
-LABEL org.opencontainers.image.source="https://github.com/zixia/17salsa.com"
+  ]
