@@ -2,18 +2,18 @@
 
 <!--{if $_GET['op'] == 'delete'}-->
 
-<h1>Delete share</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Xóa chia sẻ</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="__shareform_{$sid}">
 <form id="shareform_{$sid}" name="shareform_{$sid}" method="post" action="cp.php?ac=share&op=delete&sid=$sid&type=$_GET[type]">
-	<p>Are you sure do you want to delete this share?</p>
+	<p>Bạn có chắc chắn muốn xóa lượt chia sẻ này không?</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<!--{if $_SGLOBAL[inajax] && $_GET[type]!='view'}-->
 		<input type="hidden" name="deletesubmit" value="true">
-		<input type="button" name="deletesubmit_btn" value="Delete" class="submit" onclick="ajaxpost('shareform_{$sid}', 'share_delete', 2000)" />
+		<input type="button" name="deletesubmit_btn" value="Xóa" class="submit" onclick="ajaxpost('shareform_{$sid}', 'share_delete', 2000)" />
 		<!--{else}-->
-		<input type="submit" name="deletesubmit" value="Delete" class="submit" />
+		<input type="submit" name="deletesubmit" value="Xóa" class="submit" />
 		<!--{/if}-->
 	</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -22,15 +22,15 @@
 
 <!--{elseif $_GET['op'] == 'edithot'}-->
 
-<h1>Alter the Hot Point</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Thay đổi độ nóng</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner">
 <form method="post" action="cp.php?ac=share&op=edithot&sid=$sid">
 	<p class="btn_line">
-		New Value for Hot Point��<input type="text" name="hot" value="$share[hot]" size="5">
+		Độ nóng mới:<input type="text" name="hot" value="$share[hot]" size="5">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="hotsubmit" value="true" />
-		<input type="submit" name="btnsubmit" value="Submit" class="submit" />
+		<input type="submit" name="btnsubmit" value="Xác nhận" class="submit" />
 	</p>
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>
@@ -45,9 +45,9 @@
 	<div class="c_form">
 	<form id="shareform" name="shareform" action="cp.php?ac=share&type=link" method="post">
 	<table cellspacing="2" cellpadding="2" width="100%">
-		<tr><td><strong>Sharing Website,Blog,Topics,forum URL, video, music,Flash:</strong></td></tr>
+		<tr><td><strong>Chia sẻ liên kết Website, Blog, Thảo luận, URL diễn đàn, video, nhạc, Flash:</strong></td></tr>
 		<tr><td><input type="text" class="t_input" name="link" onfocus="javascript:if('http://'==this.value)this.value='';" onblur="javascript:if(''==this.value)this.value='http://'" id="share_link" style="width:98%;" value="http://" /></td></tr>
-		<tr><td><strong>Description:</strong></td></tr>
+		<tr><td><strong>Mô tả:</strong></td></tr>
 		<tr>
 			<td>
 				<textarea id="share_general" name="general" style="width:98%;" rows="3" onkeydown="ctrlEnter(event, 'sharesubmit_btn')"></textarea>
@@ -62,7 +62,7 @@
 					<p><input type="text" id="seccode" name="seccode" value="" size="15" class="t_input"></p>
 			<!--{else}-->
 					<p><script>seccode();</script></p>
-					<p>Type Verification code��Can not view <a href="javascript:updateseccode()">Change New Code</a></p>
+					<p>Nhập mã xác minh: Không nhìn rõ? <a href="javascript:updateseccode()">Thay đổi mã khác</a></p>
 					<p><input type="text" id="seccode" name="seccode" value="" size="15" class="t_input"></p>
 			<!--{/if}-->
 			</td>
@@ -71,7 +71,7 @@
 		<tr><td>
 		<input type="hidden" name="refer" value="space.php?uid=$space[uid]&do=share&view=me" />
 		<input type="hidden" name="topicid" value="$_GET[topicid]" />
-		<input type="submit" name="sharesubmit" value="Submit" class="submit" />
+		<input type="submit" name="sharesubmit" value="Gửi" class="submit" />
 		</td></tr>
 		<tr><td id="__shareform"></td></tr>
 	</table>
@@ -81,14 +81,14 @@
 
 <!--{else}-->
 
-	<h1>Share</h1>
-	<a href="javascript: hideMenu();" class="float_del" title="Close">Close</a>
+	<h1>Chia sẻ</h1>
+	<a href="javascript: hideMenu();" class="float_del" title="Đóng">Đóng</a>
 	<div id="__shareform_{$id}" class="popupmenu_inner">
 
 	<form method="post" id="shareform_{$id}" name="shareform_{$id}" action="cp.php?ac=share&type=$type&id=$id">
 	<table>
 	<tr>
-		<td>Description:
+		<td>Mô tả:
 			<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('general', 1)">
 			<img src="image/zoomout.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('general', 0)"><br />
 			<textarea id="general" name="general" style="width:380px;" rows="5" onkeydown="ctrlEnter(event, 'sharesubmit_btn')" onkeyup="showPreview(this.value, 'quote')"></textarea>

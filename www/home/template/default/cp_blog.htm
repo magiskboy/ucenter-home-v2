@@ -10,7 +10,7 @@
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="deletesubmit" value="true" />
-		<input type="submit" name="btnsubmit" value="OK" class="submit" />
+		<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
 	</p>
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>
@@ -26,7 +26,7 @@
 		Độ Nóng:<input type="text" name="hot" value="$blog[hot]" size="5"> 
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="hotsubmit" value="true" />
-		<input type="submit" name="btnsubmit" value="OK" class="submit" />
+		<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
 	</p>
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>
@@ -40,7 +40,7 @@
 <!--{if $topic}-->
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
-	<h2 class="title"><img src="image/app/blog.gif" />Đăng nhập</h2>
+	<h2 class="title"><img src="image/app/blog.gif" />Blog</h2>
 	<div class="tabs_header">
 		<ul class="tabs">
 			<!--{if $blog[blogid]}-->
@@ -163,12 +163,12 @@
 			<tr>
 				<th width="100">Tùy chọn Tin tức</th>
 				<td>
-					<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('blog', 1)}--> checked<!--{/if}-->> Generate dynamic (<a href="cp.php?ac=privacy#feed" target="_blank">Thay đổi các thiết lập mặc định</a>)
+					<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('blog', 1)}--> checked<!--{/if}-->> Đăng lên bảng tin (<a href="cp.php?ac=privacy#feed" target="_blank">Thay đổi thiết lập mặc định</a>)
 				</td>
 			</tr>			
 		</table>
 		<input type="hidden" name="blogsubmit" value="true" />
-		<input type="button" id="blogbutton" name="blogbutton" value="Trình phát hành" onclick="validate(this);" style="display: none;" />
+		<input type="button" id="blogbutton" name="blogbutton" value="Công bố" onclick="validate(this);" style="display: none;" />
 		<input type="hidden" name="topicid" value="$_GET[topicid]" />
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -176,8 +176,8 @@
 	<!--{if !$_SGLOBAL[inajax] && (!$blog['uid'] || $blog['uid']==$_SGLOBAL['supe_uid'])}-->
 	<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
 		<tr><th width="100">Chèn Ảnh</th><td>
-		<input type="button" name="clickbutton[]" value="Upload Image" class="button" onclick="edit_album_show('pic')">
-		<input type="button" name="clickbutton[]" value="Insert Image" class="button" onclick="edit_album_show('album')">
+		<input type="button" name="clickbutton[]" value="Tải ảnh lên" class="button" onclick="edit_album_show('pic')">
+		<input type="button" name="clickbutton[]" value="Chèn ảnh từ album" class="button" onclick="edit_album_show('album')">
 		</td></tr>
 	</table>
 	<!--{/if}-->
@@ -227,7 +227,7 @@
 		<tr>
 			<th width="100">&nbsp;</th>
 			<td>
-				Chọnt Album: <select name="view_albumid" onchange="picView(this.value)">
+				Chọn Album: <select name="view_albumid" onchange="picView(this.value)">
 					<option value="none">Chọn 1 Album</option>
 					<option value="0">Album mặc định</option>
 					<!--{loop $albums $value}-->

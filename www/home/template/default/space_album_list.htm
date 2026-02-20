@@ -6,8 +6,8 @@
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_photo">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=upload" class="r_option" target="_blank">Photo Album</a>
-			tổng cộng $count)</h3>
+			<a href="cp.php?ac=upload" class="r_option" target="_blank">Album ảnh</a>
+			(Tổng cộng $count)</h3>
 		<!--{if $count}-->
 		<table cellspacing="4" cellpadding="4" width="100%">
 		<tr>
@@ -16,7 +16,7 @@
 			<td width="165">
 				<h6><a href="space.php?uid=$space[uid]&do=album&id=$value[albumid]" target="_blank" title="$value[albumname]">$value[albumname]</a></h6>
 				<p class="gray">$value[picnum] hình ảnh</p>
-				<p class="gray">Cập nhật <!--{date('m-d',$value[dateline],1)}--></p>
+				<p class="gray">Cập nhật <!--{date('d-m',$value[dateline],1)}--></p>
 			</td>
 			<!--{if $key%2==1}--></tr><tr><!--{/if}-->
 			<!--{/loop}-->
@@ -46,9 +46,9 @@
 <div class="tabs_header">
 	<ul class="tabs">
 		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Hình ảnh mới nhất</span></a></li><!--{/if}-->
-		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>Tổng quan</span></a></li>
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Ảnh của tôi</span></a></li>
-		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>Trở lại mục chính</span></a></li>
+		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>Xem tất cả</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Album của tôi</span></a></li>
+		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>Đã bày tỏ thái độ</span></a></li>
 		<li class="null"><a href="cp.php?ac=upload">Tải hình ảnh mới</a></li>
 	</ul>
 </div>
@@ -130,8 +130,8 @@ Các hình ảnh tải lên sẽ được lưu trữ trong các <a href="space.p
 			<div class="album_bg"><a href="space.php?uid=$value[uid]&do=$do&id=$value[albumid]"><img src="$value[pic]" alt="$value[albumname]" /></a></div>
 			<p><a href="space.php?uid=$value[uid]&do=$do&id=$value[albumid]"><!--{if $value[albumname]}-->$value[albumname]<!--{else}-->Album mặc định<!--{/if}--></a> <!--{if $value[picnum]}--><span class="gray">($value[picnum])</span><!--{/if}--></p>
 			<!--{if $_GET[view]!='me'}--><p><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></p><!--{/if}-->
-			<!--{if $value[uid]==$_SGLOBAL[supe_uid]}--><p class="gray"><a href="cp.php?ac=album&op=editpic&albumid=$value[albumid]">Quản lý</a><span class="pipe">|</span><a href="cp.php?ac=upload&albumid=$value[albumid]">Upload</a></p><!--{/if}-->
-			<!--{if $_GET[view]!='me'}--><p class="gray">Cập nhật: <!--{date('m-d H:i', $value[updatetime], 1)}--></p><!--{/if}-->
+			<!--{if $value[uid]==$_SGLOBAL[supe_uid]}--><p class="gray"><a href="cp.php?ac=album&op=editpic&albumid=$value[albumid]">Quản lý</a><span class="pipe">|</span><a href="cp.php?ac=upload&albumid=$value[albumid]">Thêm ảnh</a></p><!--{/if}-->
+			<!--{if $_GET[view]!='me'}--><p class="gray">Cập nhật: <!--{date('d-m H:i', $value[updatetime], 1)}--></p><!--{/if}-->
 		</td>
 		<!--{if $key%4==3}--></tr><tr><!--{/if}-->
 		<!--{/loop}-->
@@ -186,7 +186,7 @@ Các hình ảnh tải lên sẽ được lưu trữ trong các <a href="space.p
 		<li$all_actives[dateline]><a href="space.php?do=album&view=all&orderby=dateline">Mới nhất</a></li>
 		<li$all_actives[hot]><a href="space.php?do=album&view=all&orderby=hot&day=$_GET[hotday]">Hôm nay</a></li>
 		<!--{loop $clicks $value}-->
-		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=album&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">{$value[name]}Top</a></li>
+		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=album&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">Top {$value[name]}</a></li>
 		<!--{/loop}-->
 	</ul>
 	</div>

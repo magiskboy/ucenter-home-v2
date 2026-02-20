@@ -1,5 +1,5 @@
 <!--{if empty($_TPL['getmore'])}-->	
-<!--{eval $_TPL['titles'] = array('Home');}-->
+<!--{eval $_TPL['titles'] = array('Trang chủ');}-->
 <!--{template header}-->
 
 <div id="content">
@@ -11,35 +11,35 @@
 				<div class="ar_r_t"><div class="ar_l_t"><div class="ar_r_b"><div class="ar_l_b"><!--{avatar($_SGLOBAL[supe_uid],middle)}--></div></div></div></div>
 
 				<ul class="u_setting">
-					<li class="dropmenu" id="usettingli" onclick="showMenu(this.id)"><a href="javascript:;">My Setting <img src="image/more.gif" align="absmiddle"></a></li>
+					<li class="dropmenu" id="usettingli" onclick="showMenu(this.id)"><a href="javascript:;">Thiết lập của tôi <img src="image/more.gif" align="absmiddle"></a></li>
 				</ul>
 				<ul id="usettingli_menu" class="dropmenu_drop" style="display:none;">
-					<li><a href="cp.php?ac=avatar">Change Avatar</a></li>
-		<li><a href="cp.php?ac=profile">Edit Profile</a></li>
-		<li><a href="cp.php?ac=theme">Change Theme</a></li>
-		<li><a href="cp.php?ac=credit">My Points</a></li>
+					<li><a href="cp.php?ac=avatar">Thay đổi ảnh đại diện</a></li>
+		<li><a href="cp.php?ac=profile">Chỉnh sửa hồ sơ</a></li>
+		<li><a href="cp.php?ac=theme">Thay đổi giao diện</a></li>
+		<li><a href="cp.php?ac=credit">Điểm của tôi</a></li>
 					<!--{if $_SCONFIG[sendmailday]}-->
-	<li><a href="cp.php?ac=sendmail">Email Remind</a></li>
+	<li><a href="cp.php?ac=sendmail">Nhắc nhở Email</a></li>
 					<!--{/if}-->
-		<li><a href="cp.php?ac=privacy">Set Privacy</a></li>
+		<li><a href="cp.php?ac=privacy">Thiết lập quyền riêng tư</a></li>
 					<!--{if checkperm('admin')}-->
-			<li><a href="admincp.php">CP</a></li>
+			<li><a href="admincp.php">Bảng quản trị</a></li>
 					<!--{/if}-->
 					<!--{if checkperm('allowstat')}-->
-					<li><a href="do.php?ac=stat">Statistics</a></li>
+					<li><a href="do.php?ac=stat">Thống kê</a></li>
 					<!--{/if}-->
 				</ul>
 			</td>
 			<td valign="top">
 				<h3 class="index_name">
 					<div class="r_option">
-						<!--{if $_SGLOBAL[session][magichidden]}-->Invisible<!--{else}-->Now Online<!--{/if}-->
+						<!--{if $_SGLOBAL[session][magichidden]}-->Ẩn danh<!--{else}-->Đang trực tuyến<!--{/if}-->
 
 						<!--{if $_SGLOBAL[magic][invisible]}-->
 							<!--{if $_SGLOBAL[session][magichidden]}-->
-							<img src="image/magic/invisible.small.gif" class="magicicon"><a id="a_magic_appear" href="cp.php?ac=magic&op=appear" onclick="ajaxmenu(event,this.id)" class="gray">Show me online</a>
+							<img src="image/magic/invisible.small.gif" class="magicicon"><a id="a_magic_appear" href="cp.php?ac=magic&op=appear" onclick="ajaxmenu(event,this.id)" class="gray">Hiện trạng thái trực tuyến</a>
 							<!--{else}-->
-							<img src="image/magic/invisible.small.gif" alt="{$_SGLOBAL[magic][invisible]}" class="magicicon"><a id="a_magic_invisible" href="magic.php?mid=invisible" onclick="ajaxmenu(event,this.id,1)" class="gray">Take me Offline</a>
+							<img src="image/magic/invisible.small.gif" alt="{$_SGLOBAL[magic][invisible]}" class="magicicon"><a id="a_magic_invisible" href="magic.php?mid=invisible" onclick="ajaxmenu(event,this.id,1)" class="gray">Ẩn trạng thái</a>
 							<!--{/if}-->
 						<!--{/if}-->
 					</div>
@@ -50,7 +50,7 @@
 				</h3>
 				
 				<div class="index_note">
-					Hits $space[viewnum], Points $space[credit],Level $space[experience]
+					Lượt xem $space[viewnum], Điểm $space[credit], Cấp độ $space[experience]
 				</div>
 
 				<!--{template space_status}-->
@@ -60,16 +60,16 @@
 
 	<!--{if $space[allnum]}-->
 	<div class="mgs_list">
-		<!--{if $space[notenum]}--><div><img src="image/icon/notice.gif"><a href="space.php?do=notice"><strong>$space[notenum]</strong> New notice</a></div><!--{/if}-->
-		<!--{if $space[addfriendnum]}--><div><img src="image/icon/friend.gif" alt="" /><a href="cp.php?ac=friend&op=request"><strong>$space[addfriendnum]</strong> friend request</a></div><!--{/if}-->
-		<!--{if $space[mtaginvitenum]}--><div><img src="image/icon/mtag.gif" alt="" /><a href="cp.php?ac=mtag&op=mtaginvite"><strong>$space[mtaginvitenum]</strong> group invitation</a></div><!--{/if}-->
-		<!--{if $space[eventinvitenum]}--><div><img src="image/icon/event.gif" alt="" /><a href="cp.php?ac=event&op=eventinvite"><strong>$space[eventinvitenum]</strong> event invitation</a></div><!--{/if}-->
-		<!--{if $space[myinvitenum]}--><div><img src="image/icon/userapp.gif" alt="" /><a href="space.php?do=notice&view=userapp"><strong>$space[myinvitenum]</strong> Apps info</a></div><!--{/if}-->
-		<!--{if $space[pmnum]}--><div><img src="image/icon/pm.gif" alt="" /><a href="space.php?do=pm"><strong>$space[pmnum]</strong> new PM</a></div><!--{/if}-->
-		<!--{if $space[pokenum]}--><div><img src="image/icon/poke.gif" alt="" /><a href="cp.php?ac=poke"><strong> $space[pokenum]</strong> new poke</a></div><!--{/if}-->
-		<!--{if $space[reportnum]}--><div><img src="image/icon/report.gif" alt="" /><a href="admincp.php?ac=report"><strong>$space[reportnum]</strong> Abuse</a></div><!--{/if}-->
-		<!--{if $space[namestatusnum]}--><div><img src="image/icon/profile.gif" alt="" /><a href="admincp.php?ac=space&perpage=20&namestatus=0&searchsubmit=1"><strong>$space[namestatusnum]</strong> Verify User</a></div><!--{/if}-->
-		<!--{if $space[eventverifynum]}--><div><img src="image/icon/event.gif" alt="" /><a href="admincp.php?ac=event&perpage=20&grade=0&searchsubmit=1"><strong>$space[eventverifynum]</strong> Verfy Event</a></div><!--{/if}-->
+		<!--{if $space[notenum]}--><div><img src="image/icon/notice.gif"><a href="space.php?do=notice"><strong>$space[notenum]</strong> thông báo mới</a></div><!--{/if}-->
+		<!--{if $space[addfriendnum]}--><div><img src="image/icon/friend.gif" alt="" /><a href="cp.php?ac=friend&op=request"><strong>$space[addfriendnum]</strong> yêu cầu kết bạn</a></div><!--{/if}-->
+		<!--{if $space[mtaginvitenum]}--><div><img src="image/icon/mtag.gif" alt="" /><a href="cp.php?ac=mtag&op=mtaginvite"><strong>$space[mtaginvitenum]</strong> lời mời tham gia nhóm</a></div><!--{/if}-->
+		<!--{if $space[eventinvitenum]}--><div><img src="image/icon/event.gif" alt="" /><a href="cp.php?ac=event&op=eventinvite"><strong>$space[eventinvitenum]</strong> lời mời tham gia sự kiện</a></div><!--{/if}-->
+		<!--{if $space[myinvitenum]}--><div><img src="image/icon/userapp.gif" alt="" /><a href="space.php?do=notice&view=userapp"><strong>$space[myinvitenum]</strong> thông tin ứng dụng</a></div><!--{/if}-->
+		<!--{if $space[pmnum]}--><div><img src="image/icon/pm.gif" alt="" /><a href="space.php?do=pm"><strong>$space[pmnum]</strong> tin nhắn mới</a></div><!--{/if}-->
+		<!--{if $space[pokenum]}--><div><img src="image/icon/poke.gif" alt="" /><a href="cp.php?ac=poke"><strong> $space[pokenum]</strong> lời chào mới</a></div><!--{/if}-->
+		<!--{if $space[reportnum]}--><div><img src="image/icon/report.gif" alt="" /><a href="admincp.php?ac=report"><strong>$space[reportnum]</strong> Báo cáo vi phạm</a></div><!--{/if}-->
+		<!--{if $space[namestatusnum]}--><div><img src="image/icon/profile.gif" alt="" /><a href="admincp.php?ac=space&perpage=20&namestatus=0&searchsubmit=1"><strong>$space[namestatusnum]</strong> Xác minh người dùng</a></div><!--{/if}-->
+		<!--{if $space[eventverifynum]}--><div><img src="image/icon/event.gif" alt="" /><a href="admincp.php?ac=event&perpage=20&grade=0&searchsubmit=1"><strong>$space[eventverifynum]</strong> Xác minh sự kiện</a></div><!--{/if}-->
 	</div>
 	<!--{/if}-->
 
@@ -77,10 +77,10 @@
 	<div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
 		<div class="task_notice">
 			<div class="task_notice_body">
-				<div class="notice">Hello {$_SN[$space[uid]]}, Welcome, There are new tasks waiting for you��quite simple.</div>
+				<div class="notice">Chào {$_SN[$space[uid]]}, chào mừng bạn, có các nhiệm vụ mới đang chờ bạn, rất đơn giản.</div>
 				<img src="$task[image]" alt="" class="icon" />
 				<h3><a href="cp.php?ac=task&op=do&taskid=$task[taskid]">$task[name]</a></h3>
-				<p>Available <span class="num">$task[credit]</span> points</p>
+				<p>Phần thưởng <span class="num">$task[credit]</span> điểm</p>
 			</div>
 		</div>
 	</div></div></div></div><br>
@@ -89,7 +89,7 @@
 	<!--{if empty($_SCOOKIE['closefeedbox']) && $_SGLOBAL['ad']['feedbox']}-->
 	<div id="feed_box" class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
 		<div class="task_notice">
-			<a title="ignore" class="float_cancel" href="javascript:;" onclick="close_feedbox();">ignore</a>
+			<a title="Bỏ qua" class="float_cancel" href="javascript:;" onclick="close_feedbox();">Bỏ qua</a>
 			<div class="task_notice_body">
 			<!--{ad/feedbox}-->
 			</div>
@@ -104,17 +104,17 @@
 		<!--{/if}-->
 
 		<ul class="tabs">
-			<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?do=home&view=we"><span>Friend's Feed</span></a></li><!--{/if}-->
-			<li$actives[hot]><a href="space.php?do=home&view=hot"><span>Top Recommended</span></a></li>
-			<li$actives[me]><a href="space.php?do=home&view=me"><span>My Feed</span></a></li>
-			<li$actives[all]><a href="space.php?do=home&view=all"><span>All Feed</span></a></li>
+			<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?do=home&view=we"><span>Tin mới của bạn bè</span></a></li><!--{/if}-->
+			<li$actives[hot]><a href="space.php?do=home&view=hot"><span>Gợi ý nổi bật</span></a></li>
+			<li$actives[me]><a href="space.php?do=home&view=me"><span>Tin mới của tôi</span></a></li>
+			<li$actives[all]><a href="space.php?do=home&view=all"><span>Tất cả tin mới</span></a></li>
 		</ul>
 	</div>
 <!--{elseif $space[uid]}-->
 
 <!--{eval
-	$_TPL['spacetitle'] = "RSS Feed";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=feed&view=me\">All Friend's RSS Feed</a>";
+	$_TPL['spacetitle'] = "Tin mới";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=feed&view=me\">Tất cả tin mới của bạn bè</a>";
 }-->
 	<!--{template space_menu}-->
 <!--{/if}-->
@@ -123,8 +123,8 @@
 	<div id="feed_div" class="enter-content">
 	
 	<!--{if $hotlist}-->
-		<a href="space.php?do=home&view=hot" class="r_option">&raquo; view more Top</a>
-		<h4 class="feedtime" style="margin-top:5px;">Recent Top recommended</h4>
+		<a href="space.php?do=home&view=hot" class="r_option">&raquo; xem thêm nội dung nổi bật</a>
+		<h4 class="feedtime" style="margin-top:5px;">Nội dung nổi bật gần đây</h4>
 		<ul>
 		<!--{loop $hotlist $value}-->
 		<!--{eval $value = mkfeed($value);}-->
@@ -139,9 +139,9 @@
 	<!--{loop $list $day $values}-->
 		<!--{if $_GET['view']!='hot'}-->
 		<h4 class="feedtime">
-			<!--{if $day=='yesterday'}-->Yesterday
-			<!--{elseif $day=='today'}-->Today
-			<!--{elseif $day=='app'}-->What other playing
+			<!--{if $day=='yesterday'}-->Hôm qua
+			<!--{elseif $day=='today'}-->Hôm nay
+			<!--{elseif $day=='app'}-->Hoạt động khác
 			<!--{else}-->$day
 			<!--{/if}-->
 		</h4>
@@ -155,22 +155,22 @@
 	
 	<!--{else}-->
 		<ul>
-			<li>No RSS Feed</li>
+			<li>Không có tin mới</li>
 		</ul>
 	<!--{/if}-->
 	
 	<!--{if $filtercount}-->
 	<div class="notice" id="feed_filter_notice_{$start}">
-		As per your <a href="cp.php?ac=privacy&op=view">setting</a>��$filtercount RSS Feeds ignored  (<a href="javascript:;" onclick="filter_more($start);" id="a_feed_privacy_more"> Click to view</a>)
+		Theo thiết lập của bạn, tin mới đã bị ẩn  (<a href="javascript:;" onclick="filter_more($start);" id="a_feed_privacy_more"> Nhấn để xem</a>)
 	</div>
 	<div id="feed_filter_div_{$start}" class="enter-content" style="display:none;">
-		<h4 class="feedtime">The following are ignored Feed</h4>
+		<h4 class="feedtime">Các tin mới bị ẩn sau đây</h4>
 		<ul>
 		<!--{loop $filter_list $value}-->
 		<!--{eval $value = mkfeed($value);}-->
 		<!--{template space_feed_li}-->
 		<!--{/loop}-->
-		<li><a href="javascript:;" onclick="filter_more($start);">&laquo; Grasp</a></li>
+		<li><a href="javascript:;" onclick="filter_more($start);">&laquo; Thu gọn</a></li>
 		</ul>
 	</div>
 	<!--{/if}-->
@@ -180,7 +180,7 @@
 
 	<!--{if $count==$perpage}-->
 	<div class="page" style="padding-top:20px;">
-		<a href="javascript:;" onclick="feed_more();" id="a_feed_more">View More Feed</a>
+		<a href="javascript:;" onclick="feed_more();" id="a_feed_more">Xem thêm tin mới</a>
 	</div>
 	<!--{/if}-->
 
@@ -194,11 +194,11 @@
 	<!--{if !$isnewer && $task}-->
 	<div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
 		<div class="task_notice" style="width:230px;">
-			<a title="ignore" class="float_cancel" href="cp.php?ac=task&taskid=$task[taskid]&op=ignore">ignore</a>
+			<a title="Bỏ qua" class="float_cancel" href="cp.php?ac=task&taskid=$task[taskid]&op=ignore">Bỏ qua</a>
 			<div class="task_notice_body">
 				<img src="$task[image]" alt="" class="icon" />
 				<h3><a href="cp.php?ac=task&op=do&taskid=$task[taskid]">$task[name]</a></h3>
-				<p>Available <span class="num">$task[credit]</span> Points</p>
+				<p>Có thể nhận <span class="num">$task[credit]</span> điểm</p>
 			</div>
 		</div>
 	</div></div></div></div>
@@ -216,7 +216,7 @@
 					<img src="image/app/topic.gif" align="absmiddle">
 					<a href="space.php?do=topic&topicid=$value[topicid]">$value[subject]</a>
 				</h3>
-				<div class="gray">Participating <span class="num">$value[joinnum]</span></div>
+				<div class="gray">Đang tham gia <span class="num">$value[joinnum]</span></div>
 			</div>
 			<!--{/loop}-->
 		</div>
@@ -227,16 +227,16 @@
 	<div class="sidebox">
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?do=top">Popular</a>
+				<a href="space.php?do=top">Nổi bật</a>
 			</p>
-			Your Warm Welcome!
+			Thành viên mới
 		</h2>
 		<ul class="avatar_list">
 			<!--{loop $newspacelist $key $value}-->
 			<li>
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
-				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="Online"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-				<p class="gray"><!--{date('n��j��',$value[dateline],1)}--></p>
+				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="Trực tuyến"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
+				<p class="gray"><!--{date('d/m',$value[dateline],1)}--></p>
 			</li>
 			<!--{/loop}-->
 		</ul>
@@ -247,9 +247,9 @@
 	<div class="sidebox">
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?uid=$space[uid]&do=friend&view=visitor">All</a>
+				<a href="space.php?uid=$space[uid]&do=friend&view=visitor">Tất cả</a>
 			</p>
-			Recent Visitor
+			Khách thăm gần đây
 			<!--{if $_SGLOBAL[magic][detector]}-->
 			<span class="gray"><img src="image/magic/detector.small.gif" title="{$_SGLOBAL[magic][detector]}" /><a id="a_magic_detector" href="magic.php?mid=detector" onclick="ajaxmenu(event,this.id,1)">{$_SGLOBAL[magic][detector]}</a></span>
 			<!--{/if}-->
@@ -258,13 +258,13 @@
 			<!--{loop $visitorlist $key $value}-->
 			<li>
 				<!--{if $value[vusername] == ''}-->
-				<div class="avatar48"><img src="image/magic/hidden.gif" alt="Anonymous" /></a></div>
-				<p>Hidden</p>
-				<p class="gray"><!--{date('n��j��',$value[dateline],1)}--></p>
+				<div class="avatar48"><img src="image/magic/hidden.gif" alt="Ẩn danh" /></a></div>
+				<p>Ẩn danh</p>
+				<p class="gray"><!--{date('d/m',$value[dateline],1)}--></p>
 				<!--{else}-->
 				<div class="avatar48"><a href="space.php?uid=$value[vuid]"><!--{avatar($value[vuid],small)}--></a></div>
-				<p<!--{if $ols[$value[vuid]]}--> class="online_icon_p" title="Online"<!--{/if}-->><a href="space.php?uid=$value[vuid]" title="{$_SN[$value[vuid]]}">{$_SN[$value[vuid]]}</a></p>
-				<p class="gray"><!--{date('n��j��',$value[dateline],1)}--></p>
+				<p<!--{if $ols[$value[vuid]]}--> class="online_icon_p" title="Trực tuyến"<!--{/if}-->><a href="space.php?uid=$value[vuid]" title="{$_SN[$value[vuid]]}">{$_SN[$value[vuid]]}</a></p>
+				<p class="gray"><!--{date('d/m',$value[dateline],1)}--></p>
 				<!--{/if}-->
 			</li>
 			<!--{/loop}-->
@@ -276,9 +276,9 @@
 	<div class="sidebox">
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?uid=$space[uid]&do=friend">All</a>
+				<a href="space.php?uid=$space[uid]&do=friend">Tất cả</a>
 			</p>
-			My Friends
+			Bạn bè của tôi
 			<!--{if $_SGLOBAL[magic][visit]}-->
 			<span class="gray"><img src="image/magic/visit.small.gif" title="{$_SGLOBAL[magic][visit]}" /><a id="a_magic_visit" href="magic.php?mid=visit" onclick="ajaxmenu(event,this.id,1)">{$_SGLOBAL[magic][visit]}</a></span>
 			<!--{/if}-->
@@ -287,8 +287,8 @@
 			<!--{loop $olfriendlist $key $value}-->
 			<li>
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
-				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="Online"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-				<p class="gray"><!--{if $value[lastactivity]}--><!--{date('H:i',$value[lastactivity],1)}--><!--{else}-->Poplar($value[num])<!--{/if}--></p>
+				<p<!--{if $ols[$value[uid]]}--> class="online_icon_p" title="Trực tuyến"<!--{/if}-->><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
+				<p class="gray"><!--{if $value[lastactivity]}--><!--{date('H:i',$value[lastactivity],1)}--><!--{else}-->Phổ biến ($value[num])<!--{/if}--></p>
 			</li>
 			<!--{/loop}-->
 		</ul>
@@ -298,13 +298,13 @@
 	<!--{if $birthlist}-->
 	<div class="searchfriend">
 		<div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
-			<h3>Birthday Reminder</h3>
+			<h3>Nhắc nhở sinh nhật</h3>
 			<div class="box">
 			<table cellpadding="2" cellspacing="4">
 			<!--{loop $birthlist $key $values}-->
 			<tr>
 				<td align="right" valign="top" style="padding-left:10px;">
-				<!--{if $values[0]['istoday']}--> Today <!--{else}-->{$values[0][birthmonth]}-{$values[0][birthday]}<!--{/if}-->
+				<!--{if $values[0]['istoday']}--> Hôm nay <!--{else}-->{$values[0][birthmonth]}-{$values[0][birthday]}<!--{/if}-->
 				</td>
 				<td style="padding-left:10px;">
 				<ul>
@@ -323,18 +323,18 @@
 
 	<div class="searchfriend">
 		<div class="ye_r_t"><div class="ye_l_t"><div class="ye_r_b"><div class="ye_l_b">
-			<h3>Search Users</h3>
+			<h3>Tìm kiếm người dùng</h3>
 			<form method="get" action="cp.php" style="padding:10px 0 5px 0;">
 				<input name="searchkey" value="" size="20" class="t_input" type="text">
-				<input name="searchsubmit" value="Find people" class="submit" type="submit">
+				<input name="searchsubmit" value="Tìm người" class="submit" type="submit">
 				<input type="hidden" name="searchmode" value="1" />
 				<input type="hidden" name="ac" value="friend" />
 				<input type="hidden" name="op" value="search" />
 			</form>
 			<p>
-				<a href="cp.php?ac=friend&op=search">Advanced Search</a><span class="pipe">|</span>
-				<a href="cp.php?ac=invite">Invite Friends</a><span class="pipe">|</span>
-<a href="cp.php?ac=friend&op=find">Peoples May be You know them</a></p>
+				<a href="cp.php?ac=friend&op=search">Tìm kiếm nâng cao</a><span class="pipe">|</span>
+				<a href="cp.php?ac=invite">Mời bạn bè</a><span class="pipe">|</span>
+<a href="cp.php?ac=friend&op=find">Những người bạn có thể biết</a></p>
 		</div></div></div></div>
 	</div>
 
@@ -349,7 +349,7 @@
 		var html = '';
 		next = next + $perpage;
 		x.get('cp.php?ac=feed&op=get&start='+next+'&view=$_GET[view]&appid=$_GET[appid]&icon=$_GET[icon]&filter=$_GET[filter]&day=$_GET[day]', function(s){
-			html = '<h4 class="feedtime">Unread new Feed</h4>' + s;
+			html = '<h4 class="feedtime">Tin mới chưa đọc</h4>' + s;
 			$('feed_div').innerHTML += html;
 		});
 	}

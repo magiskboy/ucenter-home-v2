@@ -2,19 +2,19 @@
 <!--{template cp_header}-->
 
 <div class="l_status c_form">
-	<a href="cp.php?ac=credit"$cat_actives[base]>Credits</a><span class="pipe">|</span>
-	<a href="cp.php?ac=credit&op=rule"$cat_actives[rule]>Credits Rule</a><span class="pipe">|</span>
-	<a href="cp.php?ac=credit&op=usergroup"$cat_actives[usergroup]>Credits System</a><span class="pipe">|</span>
-	<a href="cp.php?ac=credit&op=exchange"$cat_actives[exchange]>Exchange Points</a>
+	<a href="cp.php?ac=credit"$cat_actives[base]>Điểm thưởng</a><span class="pipe">|</span>
+	<a href="cp.php?ac=credit&op=rule"$cat_actives[rule]>Quy tắc điểm</a><span class="pipe">|</span>
+	<a href="cp.php?ac=credit&op=usergroup"$cat_actives[usergroup]>Hệ thống điểm</a><span class="pipe">|</span>
+	<a href="cp.php?ac=credit&op=exchange"$cat_actives[exchange]>Đổi điểm</a>
 </div>
 
 <!--{eval
 	$_TPL['cycletype'] = array(
-		'0' => 'Once',
-		'1' => 'Daily',
-		'2' => 'Random',
-		'3' => 'Hourly',
-		'4' => 'Unlimted'
+		'0' => 'Một lần',
+		'1' => 'Hàng ngày',
+		'2' => 'Ngẫu nhiên',
+		'3' => 'Hàng giờ',
+		'4' => 'Không giới hạn'
 	);
 }-->
 
@@ -23,57 +23,57 @@
 
 	<table cellspacing="0" cellpadding="0" class="formtable">
 		<tr>
-			<th width="150">My Status</th>
+			<th width="150">Trạng thái của tôi</th>
 			<td><span style="color:green;font-size:14px;">$space[experience]</span> <!--{eval echo getstar($space[experience]);}--></td>
 		</tr>
 		<tr><th width="150">&nbsp;</th><td class="gray">
-			After each <strong>$_SCONFIG[starcredit]</strong> points��it will add one <img src="image/star_level1.gif" align="absmiddle"><br>
-			After each <strong>$_SCONFIG[starlevelnum]</strong> icons of the same level,you will get <strong>1</strong> level-up icon <br>
-			Level Icons are��<!--{eval for($i=1;$i<11;$i++){}--><img src="image/star_level{$i}.gif"><!--{eval }}--></td></tr>
+			Sau mỗi <strong>$_SCONFIG[starcredit]</strong> điểm sẽ thêm một <img src="image/star_level1.gif" align="absmiddle"><br>
+			Sau mỗi <strong>$_SCONFIG[starlevelnum]</strong> biểu tượng cùng cấp, bạn sẽ nhận được <strong>1</strong> biểu tượng thăng cấp <br>
+			Biểu tượng cấp độ: <!--{eval for($i=1;$i<11;$i++){}--><img src="image/star_level{$i}.gif"><!--{eval }}--></td></tr>
 		<tr>
-			<th width="150">User Group</th>
+			<th width="150">Nhóm người dùng</th>
 			<td>
 				<span<!--{eval g_color($space[groupid]);}-->>$space[grouptitle]</span>
 				<!--{eval g_icon($space[groupid]);}-->
 			</td>
 		</tr>
 		<tr>
-			<th width="150">Caredit</th>
+			<th width="150">Điểm thưởng</th>
 			<td>
 			<img src="image/credit.gif">
 			<span style="color:red;font-size:14px;">$space[credit]</span>
-			<span class="gray">(<a href="space.php?do=top&view=credit">Ranking</a>)</span>
+			<span class="gray">(<a href="space.php?do=top&view=credit">Xếp hạng</a>)</span>
 			</td>
 		</tr>
-		<tr><th>Visits:</th>
+		<tr><th>Lượt xem:</th>
 			<td>$space[viewnum] 
-			<span class="gray">(<a href="space.php?do=top&view=viewnum">�鿴����</a>)</span>
+			<span class="gray">(<a href="space.php?do=top&view=viewnum">Xem bảng xếp hạng</a>)</span>
 			</td></tr>
-		<tr><th>Created:</th><td><!--{date('Y-m-d',$space[dateline],1)}--></td></tr>
-		<tr><th>Last Logged:</th><td><!--{date('Y-m-d',$space[lastlogin],1)}--></td></tr>
-		<tr><th>Last Updated:</th><td><!--{date('Y-m-d',$space[updatetime],1)}--></td></tr>
+		<tr><th>Ngày tạo:</th><td><!--{date('Y-m-d',$space[dateline],1)}--></td></tr>
+		<tr><th>Đăng nhập cuối:</th><td><!--{date('Y-m-d',$space[lastlogin],1)}--></td></tr>
+		<tr><th>Cập nhật cuối:</th><td><!--{date('Y-m-d',$space[updatetime],1)}--></td></tr>
 
 		<tr>
-			<th>Space Range:</th>
-			<td> Total Space $maxattachsize, $space[attachsize] is already used ({$percent}%)</td>
+			<th>Dung lượng lưu trữ:</th>
+			<td> Tổng dung lượng $maxattachsize, đã sử dụng $space[attachsize] ({$percent}%)</td>
 		</tr>
-		<!--{if $space[haveattachsize]}--><tr><th>Remaining space::</th><td>$space[haveattachsize]</td></tr><!--{/if}-->
+		<!--{if $space[haveattachsize]}--><tr><th>Dung lượng còn lại:</th><td>$space[haveattachsize]</td></tr><!--{/if}-->
 	</table>
 	<br>
 
 	<table cellspacing="0" cellpadding="0" class="listtable">
 		<caption>
-			<h2>Credits & Award Center</h2>
-			<p>Award and Credit History and Below actions will help you to earn credits, increase your levels:</p>
+			<h2>Trung tâm Điểm thưởng & Giải thưởng</h2>
+			<p>Lịch sử Giải thưởng và Điểm thưởng. Các hoạt động dưới đây sẽ giúp bạn kiếm thêm điểm, tăng cấp độ:</p>
 		</caption>
 		<thead>
 		<tr class="title">
-			<td>Action Name</td>
-			<td align="center">Number of Log-in</td>
-			<td align="center">Periodicity</td>
-			<td align="center">Each module point</td>
-			<td align="center">Each module Credit</td>
-			<td align="center">Last Scored</td>
+			<td>Tên hoạt động</td>
+			<td align="center">Số lần thực hiện</td>
+			<td align="center">Chu kỳ</td>
+			<td align="center">Kinh nghiệm</td>
+			<td align="center">Điểm thưởng</td>
+			<td align="center">Lần thực hiện cuối</td>
 		</tr>
 		</thead>
 		<!--{if $list}-->
@@ -89,7 +89,7 @@
 		<!--{/loop}-->
 		<!--{else}-->
 		<tr>
-			<td colspan="6">You do not have scored any credit!</td>
+			<td colspan="6">Bạn chưa nhận được bất kỳ điểm thưởng nào!</td>
 		</tr>
 		<!--{/if}-->
 		<!--{if $multi}-->
@@ -104,20 +104,20 @@
 	<form method="post" action="cp.php?ac=credit&op=exchange">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>Exchange/Transfer cradit</h2>
-		<p>Exchange/transfer your credits to other applications in the community (e.g. forum).</p>
+		<h2>Đổi điểm thưởng</h2>
+		<p>Trao đổi hoặc chuyển điểm thưởng của bạn sang các ứng dụng khác trong cộng đồng (ví dụ: diễn đàn).</p>
 	</caption>
-	<tr><th width="150">Your Credits:</th><td> $space[credit]</td></tr>
+	<tr><th width="150">Điểm hiện có:</th><td> $space[credit]</td></tr>
 	<tr>
-		<th><label for="password">Password</label>:</th>
+		<th><label for="password">Mật khẩu</label>:</th>
 		<td><input type="password" name="password" class="t_input" /></td>
 	</tr>
 	<tr>
-		<th>Use Credits:</th>
+		<th>Sử dụng điểm:</th>
 		<td><input type="text" id="amount" name="amount" value="0" class="t_input" onkeyup="calcredit();" /></td>
 	</tr>
 	<tr>
-		<th>Exchange:</th>
+		<th>Chuyển đổi:</th>
 		<td>
 			<input type="text" id="desamount" value="0" class="t_input" disabled />&nbsp;&nbsp;
 			<select name="tocredits" id="tocredits" onChange="calcredit();">
@@ -130,10 +130,10 @@
 		</td>
 	</tr>
 	<tr>
-		<th>Exchange Rate:</th>
-		<td><span class="bold">1</span>&nbsp;<span id="orgcreditunit">����</span><span id="orgcredittitle"></span>&nbsp;�һ�&nbsp;<span class="bold" id="descreditamount"></span>&nbsp;<span id="descreditunit"></span><span id="descredittitle"></span></td>
+		<th>Tỷ lệ đổi:</th>
+		<td><span class="bold">1</span>&nbsp;<span id="orgcreditunit">điểm</span><span id="orgcredittitle"></span>&nbsp;đổi được&nbsp;<span class="bold" id="descreditamount"></span>&nbsp;<span id="descreditunit"></span><span id="descredittitle"></span></td>
 	</tr>
-	<tr><th>&nbsp;</th><td><input type="submit" name="exchangesubmit" value="Exchange Credits" class="submit"></td></tr>
+	<tr><th>&nbsp;</th><td><input type="submit" name="exchangesubmit" value="Xác nhận đổi" class="submit"></td></tr>
 	</table>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -162,20 +162,20 @@
 	<!--{if $list}-->
 	<table cellspacing="0" cellpadding="0" class="listtable">
 		<caption>
-			<h2>Important Award Rules</h2>
-			<p>Participate below activities to get the points, but for some activity there is limited number of rewards, first come and first get</p>
+			<h2>Quy tắc nhận thưởng quan trọng</h2>
+			<p>Tham gia các hoạt động dưới đây để nhận điểm, nhưng đối với một số hoạt động sẽ có giới hạn về số lượng phần thưởng, ai đến trước sẽ nhận trước</p>
 		</caption>
 		<tr class="title">
-			<td>Action Name</td>
-			<td align="center">Range</td>
-			<td align="center">Maximum Prize</td>
-			<td align="center" width="100">Each module point</td>
+			<td>Tên hoạt động</td>
+			<td align="center">Phạm vi</td>
+			<td align="center">Phần thưởng tối đa</td>
+			<td align="center" width="100">Điểm kinh nghiệm</td>
 		</tr>
 		<!--{loop $list $key $value}-->
 		<tr<!--{if $key%2==0}--> class="line"<!--{/if}-->>
 			<td>$value[rulename]</td>
 			<td align="center">$_TPL[cycletype][$value[cycletype]]</td>
-			<td align="center"><!--{if $value[rewardnum]}-->$value[rewardnum]<!--{else}-->Unlimited Times<!--{/if}--></td>
+			<td align="center"><!--{if $value[rewardnum]}-->$value[rewardnum]<!--{else}-->Không giới hạn số lần<!--{/if}--></td>
 			<td align="center">$value[credit]</td>
 		</tr>
 		<!--{/loop}-->
@@ -186,12 +186,12 @@
 	<br>
 	<table cellspacing="0" cellpadding="0" class="listtable">
 		<caption>
-			<h2>Losing/Subtraction Credits</h2>
-			<p>Any of below action will lead you to reduce your credit, delete your any published content for what you have get the credit, Avoid to loose your credit/score</p>
+			<h2>Điểm bị trừ</h2>
+			<p>Bất kỳ hành động nào dưới đây sẽ khiến bạn bị trừ điểm, xóa nội dung đã đăng mà bạn đã nhận điểm, hãy tránh để bị trừ điểm của bạn</p>
 		</caption>
 		<tr class="title">
-			<th>Action Name</th>
-			<th align="center">Reduce from One Module</th>
+			<th>Tên hoạt động</th>
+			<th align="center">Trừ kinh nghiệm</th>
 		</tr>
 		<!--{loop $list2 $key $value}-->
 		<tr<!--{if $key%2==0}--> class="line"<!--{/if}-->>
@@ -206,12 +206,12 @@
 
 	<table cellspacing="0" cellpadding="0" class="listtable">
 	<caption>
-		<h2>Value of User Group and Credit</h2>
-		<p>A higher user group(your level) will allow more access and rights</p>
+		<h2>Cấp độ Nhóm người dùng và Điểm thưởng</h2>
+		<p>Nhóm người dùng cao hơn (cấp độ của bạn) sẽ được hưởng nhiều quyền lợi hơn</p>
 	</caption>
 	<tr class="title">
-		<th width="150">User Group Name</th>
-		<td>Credit range</td>
+		<th width="150">Tên nhóm người dùng</th>
+		<td>Phạm vi điểm</td>
 	</tr>
 	<!--{loop $groups $value}-->
 	<tr>
@@ -223,12 +223,12 @@
 	
 	<table cellspacing="0" cellpadding="0" class="listtable">
 	<caption>
-		<h2>VIP User Group</h2>
-		<p>VIP Special User Group</p>
+		<h2>Nhóm người dùng VIP</h2>
+		<p>Nhóm người dùng đặc biệt VIP</p>
 	</caption>
 	<tr class="title">
-		<th width="150">User group name</th>
-		<td>Experience ranges</td>
+		<th width="150">Tên nhóm người dùng</th>
+		<td>Phạm vi kinh nghiệm</td>
 	</tr>
 	<!--{loop $s_groups $value}-->
 	<tr>

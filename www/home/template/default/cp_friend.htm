@@ -4,25 +4,25 @@
 <div class="searchbar floatright">
 <form method="get" action="cp.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="Find People" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm kiếm" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="ac" value="friend" />
 	<input type="hidden" name="op" value="search" />
 </form>
 </div>
-<h2 class="title"><img src="image/icon/friend.gif">Friends</h2>
+<h2 class="title"><img src="image/icon/friend.gif">Bạn bè</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?uid=$space[uid]&do=friend"><span>My Friends</span></a></li>
-		<li$actives[search]><a href="cp.php?ac=friend&op=search"><span>Find Friends</span></a></li>
-		<li$actives[find]><a href="cp.php?ac=friend&op=find"><span>Peoples May You Know</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=friend"><span>Bạn bè của tôi</span></a></li>
+		<li$actives[search]><a href="cp.php?ac=friend&op=search"><span>Tìm bạn bè</span></a></li>
+		<li$actives[find]><a href="cp.php?ac=friend&op=find"><span>Người bạn có thể biết</span></a></li>
 		<!--{if empty($_SCONFIG['closeinvite'])}-->
-		<li><a href="cp.php?ac=invite"><span>Invite friends</span></a></li>
+		<li><a href="cp.php?ac=invite"><span>Mời bạn bè</span></a></li>
 		<!--{/if}-->
-		<li$actives[request]><a href="cp.php?ac=friend&op=request"><span>Friend Requests</span></a></li>
-		<li><a href="space.php?do=top"><span>Popular</span></a></li>
+		<li$actives[request]><a href="cp.php?ac=friend&op=request"><span>Yêu cầu kết bạn</span></a></li>
+		<li><a href="space.php?do=top"><span>Nổi bật</span></a></li>
 		<!--{if $op=='group'}-->
-		<li$actives[group]><a href="cp.php?ac=friend&op=group"><span>Friends Groups</span></a></li>
+		<li$actives[group]><a href="cp.php?ac=friend&op=group"><span>Nhóm bạn bè</span></a></li>
 		<!--{/if}-->
 	</ul>
 </div>
@@ -30,18 +30,18 @@
 
 <!--{if $op =='ignore'}-->
 
-<h1>Blocked List</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Danh sách chặn</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="__friendform_{$uid}">
 <form method="post" id="friendform_{$uid}" name="friendform_{$uid}" action="cp.php?ac=friend&op=ignore&uid=$uid&confirm=1">
-	<p>Are you sure you wanna ignore?</p>
+	<p>Bạn có chắc chắn muốn chặn người này?</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 		<!--{if $_SGLOBAL[inajax]}-->
 		<input type="hidden" name="friendsubmit" value="true" />
-		<button name="friendsubmit_btn" type="button" class="submit" value="true" onclick="ajaxpost('friendform_{$uid}', 'friend_delete', 2000)">Continue</button>
+		<button name="friendsubmit_btn" type="button" class="submit" value="true" onclick="ajaxpost('friendform_{$uid}', 'friend_delete', 2000)">Tiếp tục</button>
 		<!--{else}-->
-		<button name="friendsubmit" type="submit" class="submit" value="true">Sure</button>
+		<button name="friendsubmit" type="submit" class="submit" value="true">Chắc chắn</button>
 		<!--{/if}-->
 	</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -52,13 +52,13 @@
 
 <!--{if $nearlist}-->
 <div class="c_form">
-	<h2 class="l_status title">Surprise!, They are within in your neighborhood!</h2>
+	<h2 class="l_status title">Thật bất ngờ! Những người này ở gần khu vực của bạn.</h2>
 	<ul class="avatar_list">
 		<!--{loop $nearlist $key $value}-->
 		<li>
 			<div class="avatar48"><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}" target="_blank"><!--{avatar($value[uid],small)}--></a></div>
 			<p><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_near_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Add Friend</a></p>
+			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_near_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Kết bạn</a></p>
 		</li>
 		<!--{/loop}-->
 	</ul>
@@ -67,13 +67,13 @@
 
 <!--{if $friendlist}-->
 <div class="c_form">
-	<h2 class="l_status title">They are your friend's friends, Might be you know them!, Add them, Expand friend circle.</h2>
+	<h2 class="l_status title">Họ là bạn của bạn bè bạn, có thể bạn đã biết họ! Hãy kết bạn để mở rộng vòng tròn quan hệ.</h2>
 	<ul class="avatar_list">
 		<!--{loop $friendlist $key $value}-->
 		<li>
 			<div class="avatar48"><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}" target="_blank"><!--{avatar($value[uid],small)}--></a></div>
 			<p><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Add Friend</a></p>
+			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_friend_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Kết bạn</a></p>
 		</li>
 		<!--{/loop}-->
 	</ul>
@@ -82,13 +82,13 @@
 
 <!--{if $onlinelist}-->
 <div class="c_form">
-	<h2 class="l_status title">These people are currently online. Once you add them, you will able to interact.</h2>
+	<h2 class="l_status title">Những người dùng này hiện đang trực tuyến. Khi bạn kết bạn, bạn sẽ có thể tương tác với họ.</h2>
 	<ul class="avatar_list">
 		<!--{loop $onlinelist $key $value}-->
 		<li>
 			<div class="avatar48"><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}" target="_blank"><!--{avatar($value[uid],small)}--></a></div>
 			<p><a href="space.php?uid=$value[uid]" title="{$_SN[$value[uid]]}">{$_SN[$value[uid]]}</a></p>
-			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_online_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Add Friend</a></p>
+			<p class="gray"><a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="a_online_friend_$key" onclick="ajaxmenu(event, this.id, 1)" class="addfriend">Kết bạn</a></p>
 		</li>
 		<!--{/loop}-->
 	</ul>
@@ -102,9 +102,9 @@
 	<!--{if !empty($_GET['searchsubmit'])}-->
 	
 	<!--{if empty($list)}-->
-		<div class="c_form">Sorry, no results found <a href="cp.php?ac=friend&op=search">Expand Search Criteria or use advance search</a></div>
+		<div class="c_form">Xin lỗi, không tìm thấy kết quả nào. <a href="cp.php?ac=friend&op=search">Mở rộng tiêu chí hoặc sử dụng tìm kiếm nâng cao</a></div>
 	<!--{else}-->
-		<div style="padding:0 0 20px 0;">We found these users (Showing max 500),You can also <a href="cp.php?ac=friend&op=search">use Advance Search</a>��</div>
+		<div style="padding:0 0 20px 0;">Chúng tôi tìm thấy những người dùng này (Hiển thị tối đa 500), bạn cũng có thể <a href="cp.php?ac=friend&op=search">Sử dụng Tìm kiếm nâng cao</a>.</div>
 		<!--{template space_list}-->
 	<!--{/if}-->
 	
@@ -116,57 +116,57 @@
 		<td>
 		<form action="cp.php" method="get">
 		<table>
-		<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td align="right">User UID��</td><td><input type="text" name="uid" value="" class="t_input"></td></tr>
+		<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td align="right">UID người dùng: </td><td><input type="text" name="uid" value="" class="t_input"></td></tr>
 		<tr>
-			<td align="right" width="100">Sex: </td>
+			<td align="right" width="100">Giới tính: </td>
 			<td>
 				<select id="sex" name="sex">
-					<option value="0">Random</option>
-					<option value="1">Male</option>
-					<option value="2">Female</option>
+					<option value="0">Ngẫu nhiên</option>
+					<option value="1">Nam</option>
+					<option value="2">Nữ</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Marriage Staus��</td>
+			<td align="right">Tình trạng hôn nhân: </td>
 			<td>
 				<select id="marry" name="marry">
-					<option value="0">Any</option>
-					<option value="1">Single</option>
-					<option value="2">Married</option>
+					<option value="0">Bất kỳ</option>
+					<option value="1">Độc thân</option>
+					<option value="2">Đã kết hôn</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Age: </td>
+			<td align="right">Tuổi: </td>
 			<td>
 				<input type="text" name="startage" value="" size="10" class="t_input" /> ~ <input type="text" name="endage" value="" size="10" class="t_input" />
 			</td>
 		</tr>
 		<!--{if $_SCONFIG['videophoto']}-->
 		<tr>
-			<td align="right">WebCam Verification: </td>
+			<td align="right">Xác minh Webcam: </td>
 			<td>
-				<input type="checkbox" name="videostatus" value="1">Verification through the video
+				<input type="checkbox" name="videostatus" value="1">Đã xác minh qua video
 			</td>
 		</tr>
 		<!--{/if}-->
 		<tr>
-			<td align="right">Profile Photo</td>
+			<td align="right">Ảnh đại diện</td>
 			<td>
-				<input type="checkbox" name="avatar" value="1">Profile has photo
+				<input type="checkbox" name="avatar" value="1">Người dùng có ảnh đại diện
 			</td>
 		</tr>
 		
 		<tr>
-			<td align="right">Current City:</td>
+			<td align="right">Thành phố hiện tại:</td>
 			<td id="residecitybox"></td>
 		</tr>
 		
 		<tr>
-			<td align="right">Native Place: </td>
+			<td align="right">Quê quán: </td>
 			<td id="birthcitybox"></td>
 		</tr>
 		
@@ -181,38 +181,38 @@
 		</script>	
 		
 		<tr>
-			<td align="right">DOB: </td>
+			<td align="right">Ngày sinh: </td>
 			<td>
 			<select id="birthyear" name="birthyear" onchange="showbirthday();">
 				<option value="0">&nbsp;</option>
 				$birthyeayhtml
-			</select> Year 
+			</select> Năm 
 			<select id="birthmonth" name="birthmonth" onchange="showbirthday();">
 				<option value="0">&nbsp;</option>
 				$birthmonthhtml
-			</select> month 
+			</select> Tháng 
 			<select id="birthday" name="birthday">
 				<option value="0">&nbsp;</option>
 				$birthdayhtml
-			</select> Day
+			</select> Ngày
 			</td>
 		</tr>
 		
-		<tr><td align="right">School/University: </td><td><input type="text" name="title" value="" class="t_input"> <select name="startyear">
-			<option value="">Academic Year: </option>
+		<tr><td align="right">Trường học: </td><td><input type="text" name="title" value="" class="t_input"> <select name="startyear">
+			<option value="">Năm học: </option>
 			$yearhtml
 			</select></td></tr>
-		<tr><td align="right">Major/Grade: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
+		<tr><td align="right">Chuyên ngành/Lớp: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
 	
-		<tr><td align="right">Company: </td><td><input type="text" name="title" value="" class="t_input"></td></tr>
-		<tr><td align="right">Dept: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
+		<tr><td align="right">Công ty: </td><td><input type="text" name="title" value="" class="t_input"></td></tr>
+		<tr><td align="right">Phòng ban: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
 			
 		
 		<tr>
-			<td align="right">Blood Type: </td>
+			<td align="right">Nhóm máu: </td>
 			<td>
 				<select id="blood" name="blood">
-					<option value="">Any</option>
+					<option value="">Bất kỳ</option>
 					$bloodhtml
 				</select>
 			</td>
@@ -220,13 +220,13 @@
 	
 		
 		<tr>
-			<td align="right">QQ��</td>
+			<td align="right">QQ:</td>
 			<td>
 				<input type="text" name="qq" value="" class="t_input" />
 			</td>
 		</tr>
 		<tr>
-			<td align="right">MSN/YM��</td>
+			<td align="right">MSN/YM:</td>
 			<td>
 				<input type="text" name="msn" value="" class="t_input" />
 			</td>
@@ -235,7 +235,7 @@
 		<!--{loop $fields $fkey $fvalue}-->
 		<!--{if $fvalue[allowsearch]}-->
 		<tr>
-			<td align="right">{$fvalue[title]}��</td>
+			<td align="right">{$fvalue[title]}:</td>
 			<td>
 				$fvalue[html]
 			</td>
@@ -243,7 +243,7 @@
 		<!--{/if}-->
 		<!--{/loop}-->
 		
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -253,7 +253,7 @@
 <!--{else}-->
 	<tr>
 		<th style="border-top: none;"><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('sex');">Search by Sex</a></th>
+			<a href="javascript:;" onclick="showtbody('sex');">Tìm theo giới tính</a></th>
 	</tr>
 	<tbody id="s_sex" style="display:none;">
 	<tr>
@@ -261,48 +261,48 @@
 		<form action="cp.php" method="get">
 		<table>
 		<tr>
-			<td align="right" width="100">Sex: </td>
+			<td align="right" width="100">Giới tính: </td>
 			<td>
 				<select id="sex" name="sex">
-					<option value="0">Any</option>
-					<option value="1"$sexarr[1]>Male</option>
-					<option value="2"$sexarr[2]>Female</option>
+					<option value="0">Bất kỳ</option>
+					<option value="1"$sexarr[1]>Nam</option>
+					<option value="2"$sexarr[2]>Nữ</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Marital Status:</td>
+			<td align="right">Tình trạng hôn nhân:</td>
 			<td>
 				<select id="marry" name="marry">
-					<option value="0">Any</option>
-					<option value="1"$marryarr[1]>Single</option>
-					<option value="2"$marryarr[2]>Married</option>
+					<option value="0">Bất kỳ</option>
+					<option value="1"$marryarr[1]>Độc thân</option>
+					<option value="2"$marryarr[2]>Đã kết hôn</option>
 				</select>
 			</td>
 		</tr>
 		<tr>
-			<td align="right">Age: </td>
+			<td align="right">Tuổi: </td>
 			<td>
 				<input type="text" name="startage" value="" size="10" class="t_input" /> ~ <input type="text" name="endage" value="" size="10" class="t_input" />
 			</td>
 		</tr>
 		<!--{if $_SCONFIG['videophoto']}-->
 		<tr>
-			<td align="right" width="100">WebCam Verified</td>
+			<td align="right" width="100">Đã xác minh Webcam</td>
 			<td>
-				<input type="checkbox" name="videostatus" value="1">Verification through the WebCam Video feed
+				<input type="checkbox" name="videostatus" value="1">Xác minh qua Webcam
 			</td>
 		</tr>
 		<!--{/if}-->
 		<tr>
-			<td align="right" width="100">Profile Photo:</td>
+			<td align="right" width="100">Ảnh đại diện:</td>
 			<td>
-				<input type="checkbox" name="avatar" value="1">Who have profile photo
+				<input type="checkbox" name="avatar" value="1">Những người có ảnh đại diện
 			</td>
 		</tr>
-		<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -315,7 +315,7 @@
 	
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('reside');">Find the people by City</a></th>
+			<a href="javascript:;" onclick="showtbody('reside');">Tìm người theo thành phố</a></th>
 	</tr>
 	<tbody id="s_reside" style="display:none;">
 	<tr>
@@ -323,12 +323,12 @@
 		<form action="cp.php" method="get">
 		<table>
 		<tr>
-			<td align="right" width="150">Current City��</td>
+			<td align="right" width="150">Thành phố hiện tại:</td>
 			<td id="residecitybox"></td>
 		</tr>
-		<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<script type="text/javascript" src="source/script_city.js"></script>
 		<script type="text/javascript">
@@ -348,7 +348,7 @@
 
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('birth');">Find fellow</a></th>
+			<a href="javascript:;" onclick="showtbody('birth');">Tìm đồng hương</a></th>
 	</tr>
 	<tbody id="s_birth" style="display:none;">
 	<tr>
@@ -356,12 +356,12 @@
 		<form action="cp.php" method="get">
 		<table>
 		<tr>
-			<td align="right" width="150">Birthplace:</td>
+			<td align="right" width="150">Quê quán:</td>
 			<td id="birthcitybox"></td>
 		</tr>
-		<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<script type="text/javascript" src="source/script_city.js"></script>
 		<script type="text/javascript">
@@ -381,7 +381,7 @@
 	
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('birthyear');">Find Jodiac/Star Sign or same DOB</a></th>
+			<a href="javascript:;" onclick="showtbody('birthyear');">Tìm theo ngày sinh / Cung hoàng đạo</a></th>
 	</tr>
 	<tbody id="s_birthyear" style="display:none;">
 	<tr>
@@ -389,25 +389,25 @@
 		<form action="cp.php" method="get">
 		<table>
 		<tr>
-			<td align="right" width="150">DOB: </td>
+			<td align="right" width="150">Ngày sinh: </td>
 			<td>
 			<select id="birthyear" name="birthyear" onchange="showbirthday();">
 				<option value="0">&nbsp;</option>
 				$birthyeayhtml
-			</select> Year 
+			</select> Năm 
 			<select id="birthmonth" name="birthmonth" onchange="showbirthday();">
 				<option value="0">&nbsp;</option>
 				$birthmonthhtml
-			</select> Month
+			</select> Tháng
 			<select id="birthday" name="birthday">
 				<option value="0">&nbsp;</option>
 				$birthdayhtml
-			</select> Day
+			</select> Ngày
 			</td>
 		</tr>
-		<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -420,7 +420,7 @@
 	<tr>
 		<th>
 			<img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('edu');">Find your Classmates</a>
+			<a href="javascript:;" onclick="showtbody('edu');">Tìm bạn học</a>
 		</th>
 	</tr>
 	<tbody id="s_edu" style="display:none;">
@@ -428,14 +428,14 @@
 		<td>
 		<form action="cp.php" method="get">
 		<table>
-			<tr><td align="right" width="150">School/University: </td><td><input type="text" name="title" value="" class="t_input"> <select name="startyear">
-				<option value="">Academic Year</option>
+			<tr><td align="right" width="150">Trường học: </td><td><input type="text" name="title" value="" class="t_input"> <select name="startyear">
+				<option value="">Năm học</option>
 				$yearhtml
 				</select></td></tr>
-			<tr><td align="right">Grade/Major: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
-			<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-			<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-			<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+			<tr><td align="right">Lớp/Chuyên ngành: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
+			<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+			<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+			<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -447,18 +447,18 @@
 	
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('work');">Find your colleagues</a></th>
+			<a href="javascript:;" onclick="showtbody('work');">Tìm đồng nghiệp</a></th>
 	</tr>
 	<tbody id="s_work" style="display:none;">
 	<tr>
 		<td>
 		<form action="cp.php" method="get">
 		<table>
-			<tr><td align="right" width="150">Orgnization: </td><td><input type="text" name="title" value="" class="t_input"></td></tr>
-			<tr><td align="right">Dept: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
-			<tr><td align="right">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-			<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-			<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+			<tr><td align="right" width="150">Tổ chức: </td><td><input type="text" name="title" value="" class="t_input"></td></tr>
+			<tr><td align="right">Phòng ban: </td><td><input type="text" name="subtitle" value="" class="t_input"></td></tr>
+			<tr><td align="right">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+			<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+			<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -471,17 +471,17 @@
 	
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="javascript:;" onclick="showtbody('name');">Exact Match</a></th>
+			<a href="javascript:;" onclick="showtbody('name');">Tìm kiếm chính xác</a></th>
 	</tr>
 	<tbody id="s_name" style="display:none;">
 	<tr>
 		<td>
 		<form action="cp.php" method="get">
 		<table>
-		<tr><td align="right" width="150">Name: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
-		<tr><td align="right">Username: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
-		<tr><td align="right">Member No./ UID��</td><td><input type="text" name="uid" value="" class="t_input"></td></tr>
-		<tr><td></td><td><input type="submit" name="searchsubmit" value="Search" class="submit"></td></tr>
+		<tr><td align="right" width="150">Họ và tên: </td><td><input type="text" name="name" value="" class="t_input"></td></tr>
+		<tr><td align="right">Tên đăng nhập: </td><td><input type="text" name="username" value="" class="t_input"></td></tr>
+		<tr><td align="right">Số thành viên/ UID: </td><td><input type="text" name="uid" value="" class="t_input"></td></tr>
+		<tr><td></td><td><input type="submit" name="searchsubmit" value="Tìm kiếm" class="submit"></td></tr>
 		</table>
 		<input type="hidden" name="ac" value="friend">
 		<input type="hidden" name="op" value="search">
@@ -493,7 +493,7 @@
 	
 	<tr>
 		<th><img src="image/search.gif" align="absmiddle">
-			<a href="cp.php?ac=friend&op=search&all=yes">Search All/Advance Setting</a></th>
+			<a href="cp.php?ac=friend&op=search&all=yes">Tìm kiếm tất cả / Nâng cao</a></th>
 	</tr>
 <!--{/if}-->
 
@@ -515,17 +515,17 @@ function showtbody(id) {
 
 <!--{elseif $op=='changenum'}-->
 
-<h1>Friends Ranking/Hot Friend</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Xếp hạng bạn bè / Bạn thân</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="__changenumform_{$uid}">
 <form method="post" id="changenumform_{$uid}" name="changenumform_{$uid}" action="cp.php?ac=friend&op=changenum&uid=$uid">
-	<p>Alter Friends Hot points</p>
+	<p>Thay đổi độ thân thiết</p>
 	<p>
-		Hot Value: <input type="text" name="num" value="$friend[num]" size="5"> (0~9999֮���һ�����֣�
+		Độ thân thiết: <input type="text" name="num" value="$friend[num]" size="5"> (Một số từ 0 ~ 9999)
 	</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-		<button name="changenumsubmit" type="submit" class="submit" value="true">Confirm</button>
+		<button name="changenumsubmit" type="submit" class="submit" value="true">Xác nhận</button>
 	</p>
 	
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -534,11 +534,11 @@ function showtbody(id) {
 
 <!--{elseif $op=='changegroup'}-->
 
-<h1>Friend Category</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Phân loại bạn bè</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="__changegroupform_{$uid}">
 <form method="post" id="changegroupform_{$uid}" name="changegroupform_{$uid}" action="cp.php?ac=friend&op=changegroup&uid=$uid">
-	<p>Create/Alter Friend Groups</p>
+	<p>Tạo/Thay đổi nhóm bạn bè</p>
 	<table cellspacing="2" cellpadding="2"><tr>
 	<!--{eval $i=0;}-->
 	<!--{loop $groups $key $value}-->
@@ -552,9 +552,9 @@ function showtbody(id) {
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 		<!--{if $_SGLOBAL[inajax]}-->
 		<input type="hidden" name="changegroupsubmit" value="true" />
-		<button name="changegroupsubmit_btn" type="button" class="submit" value="true" onclick="ajaxpost('changegroupform_{$uid}', 'friend_changegroup', 2000)">Continue</button>
+		<button name="changegroupsubmit_btn" type="button" class="submit" value="true" onclick="ajaxpost('changegroupform_{$uid}', 'friend_changegroup', 2000)">Tiếp tục</button>
 		<!--{else}-->
-		<button name="changegroupsubmit" type="submit" class="submit" value="true">Ok</button>
+		<button name="changegroupsubmit" type="submit" class="submit" value="true">Đồng ý</button>
 		<!--{/if}-->
 	</p>
 	
@@ -565,7 +565,7 @@ function showtbody(id) {
 <!--{elseif $op=='group'}-->
 
 <div class="h_status">
-Category of selected friends, heat, number of times you interact with your friends.
+Các nhóm bạn bè đã chọn, độ thân thiết, và số lần tương tác với bạn bè.
 </div>
 
 <div id="content" style="width: 640px;">
@@ -577,7 +577,7 @@ Category of selected friends, heat, number of times you interact with your frien
 			<li>
 				<div class="avatar48"><a href="space.php?uid=$value[uid]"><!--{avatar($value[uid],small)}--></a></div>
 				<div class="thumbTitle"><input type="checkbox" name="fuids[]" value="$value[uid]" /><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></div>
-				<div class="gray">Heat: $value[num]</div>
+				<div class="gray">Độ thân thiết: $value[num]</div>
 				<div class="gray">$value[group]</div>
 			</li>
 		<!--{/loop}-->
@@ -585,17 +585,17 @@ Category of selected friends, heat, number of times you interact with your frien
 	</div>
 	<div class="page">$multi</div>
 	<div style="padding:20px 0 0 0;">
-		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'fuids')" /><label for="chkall">Select</label></td>
-		Category: <select name="group">
+		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'fuids')" /><label for="chkall">Chọn tất cả</label></td>
+		Nhóm: <select name="group">
 			<!--{loop $groups $key $value}-->
 				<option value="$key">$value</option>
 			<!--{/loop}-->
 			</select>
-			<input type="submit" name="btnsubmit" value="Ok" class="submit" />
+			<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
 	</div>
 <!--{else}-->
 	<div class="c_form">
-		No relevant list of users.
+		Không có người dùng nào liên quan.
 	</div>
 <!--{/if}-->
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -605,9 +605,9 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <div id="sidebar" style="width: 150px;">
 	<div class="cat">
-	<h3>Friends Group</h3>
+	<h3>Nhóm bạn bè</h3>
 	<ul class="post_list line_list">
-		<li<!--{if !isset($_GET[group])}--> class="current"<!--{/if}-->><a href="cp.php?ac=friend&op=group">All Friends</a></li>
+		<li<!--{if !isset($_GET[group])}--> class="current"<!--{/if}-->><a href="cp.php?ac=friend&op=group">Tất cả bạn bè</a></li>
 		<!--{loop $groups $key $value}-->
 		<li<!--{if isset($_GET[group]) && $_GET[group]==$key}--> class="current"<!--{/if}-->><a href="cp.php?ac=friend&op=group&group=$key">$value</a></li>
 		<!--{/loop}-->
@@ -617,19 +617,19 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <!--{elseif $op=='groupname'}-->
 
-<h1>Friends Group</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Nhóm bạn bè</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="__groupnameform_{$group}">
 <form method="post" id="groupnameform_{$group}" name="groupnameform_{$group}" action="cp.php?ac=friend&op=groupname&group=$group">
-	<p>Create a new Category/Group</p>
+	<p>Tạo một nhóm/danh mục mới</p>
 	<div class="c_form">
-		New Category: <input type="text" name="groupname" value="$groups[$group]" size="15" class="t_input">
+		Nhóm mới: <input type="text" name="groupname" value="$groups[$group]" size="15" class="t_input">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 		<!--{if $_SGLOBAL[inajax]}-->
 		<input type="hidden" name="groupnamesubmit" value="true" />
-		<input type="button" name="groupnamesubmit_btn" value="Continue" class="submit" onclick="ajaxpost('groupnameform_{$group}', 'friend_changegroupname', 2000)" />
+		<input type="button" name="groupnamesubmit_btn" value="Tiếp tục" class="submit" onclick="ajaxpost('groupnameform_{$group}', 'friend_changegroupname', 2000)" />
 		<!--{else}-->
-		<input type="submit" name="groupnamesubmit" value="Ok" class="submit" />
+		<input type="submit" name="groupnamesubmit" value="Đồng ý" class="submit" />
 		<!--{/if}-->
 	</div>
 	
@@ -640,22 +640,22 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <!--{elseif $op=='groupignore'}-->
 
-<h1>RSS Feed Settings</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Cài đặt tin tức</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="$group">
 <form method="post" id="groupignoreform" name="groupignoreform" action="cp.php?ac=friend&op=groupignore&group=$group">
 	<!--{if !isset($space['privacy']['filter_gid'][$group])}-->
-	<p>Do not display RSS Feed on my home page</p>
+	<p>Không hiển thị tin tức của nhóm này trên trang chủ</p>
 	<!--{else}-->
-	<p>This Category all RSS Feed display on my home page</p>
+	<p>Hiển thị tin tức của nhóm này trên trang chủ</p>
 	<!--{/if}-->
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 		<!--{if $_SGLOBAL[inajax]}-->
 		<input type="hidden" name="groupignoresubmit" value="true" />
-		<button name="groupignoresubmit_btn" type="submit" class="submit" value="true">Ok</button>
+		<button name="groupignoresubmit_btn" type="submit" class="submit" value="true">Đồng ý</button>
 		<!--{else}-->
-		<button name="groupignoresubmit" type="submit" class="submit" value="true">Ok</button>
+		<button name="groupignoresubmit" type="submit" class="submit" value="true">Đồng ý</button>
 		<!--{/if}-->
 	</p>
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -666,17 +666,17 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <div class="l_status">
 	<div class="r_option">
-		<a href="cp.php?ac=friend&op=ignore&confirm=1&key=$space[key]" onclick="return confirm('Are you sure do you want to ignore all friend requests?');">Ignore all friend requests</a>
-		 | <a href="cp.php?ac=friend&op=addconfirm&key=$space[key]">Accept all requests</a>
+		<a href="cp.php?ac=friend&op=ignore&confirm=1&key=$space[key]" onclick="return confirm('Bạn có chắc chắn muốn bỏ qua tất cả yêu cầu kết bạn?');">Bỏ qua tất cả yêu cầu kết bạn</a>
+		 | <a href="cp.php?ac=friend&op=addconfirm&key=$space[key]">Chấp nhận tất cả</a>
 	</div>
-	<span id="add_friend_div">Reply friends requests</span>
+	<span id="add_friend_div">Phản hồi yêu cầu kết bạn</span>
 	<!--{if $maxfriendnum}-->
-	(You can add max $maxfriendnum friend)
+	(Bạn có thể kết bạn tối đa $maxfriendnum người)
 	<p>
 		<!--{if $_SGLOBAL[magic][friendnum]}-->
 		<img src="image/magic/friendnum.small.gif" class="magicicon" />
-		<a id="a_magic_friendnum" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">I want to expand my Circle</a>
-		(You can buy props ��{$_SGLOBAL[magic][friendnum]}�� to increase, your space/access)
+		<a id="a_magic_friendnum" href="magic.php?mid=friendnum" onclick="ajaxmenu(event, this.id, 1)">Tôi muốn mở rộng vòng kết nối</a>
+		(Bạn có thể dùng đạo cụ "{$_SGLOBAL[magic][friendnum]}" để tăng giới hạn bạn bè)
 		<!--{/if}-->
 	</p>
 	<!--{/if}-->
@@ -699,16 +699,16 @@ Category of selected friends, heat, number of times you interact with your frien
 					<h6 class="l_status">
 						<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a>
 						<!--{if $value['videostatus']}-->
-						<img src="image/videophoto.gif" align="absmiddle"> <span class="gray">WebCam Certified User</span>
+						<img src="image/videophoto.gif" align="absmiddle"> <span class="gray">Dùng Webcam để xác minh</span>
 						<!--{/if}-->
 					</h6>
 					<div id="friend_$value[uid]">
 					<!--{if $value[note]}--><div class="quote"><span id="quote" class="q">$value[note]</span></div><!--{/if}-->
-					<p><!--{date('m-d H:i',$value[dateline],1)}--></p>
-					<!--{if $value['cfcount']}--><p><a href="cp.php?ac=friend&op=getcfriend&fuid=$value[cfriend]" id="a_cfriend_$key" onclick="ajaxmenu(event, this.id, 1)">You have $value[cfcount] common friend</a></p><!--{/if}-->
+					<p><!--{date('d-m H:i',$value[dateline],1)}--></p>
+					<!--{if $value['cfcount']}--><p><a href="cp.php?ac=friend&op=getcfriend&fuid=$value[cfriend]" id="a_cfriend_$key" onclick="ajaxmenu(event, this.id, 1)">Bạn có $value[cfcount] bạn chung</a></p><!--{/if}-->
 					<p style="margin-top:1em;">
-						<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="afr_$value[uid]" onclick="ajaxmenu(event, this.id, 1)" class="submit a">Accept</a>
-						<a href="cp.php?ac=friend&op=ignore&uid=$value[uid]&confirm=1" id="afi_$value[uid]" onclick="ajaxmenu(event, this.id, 1)" class="button a">Ignore</a>
+						<a href="cp.php?ac=friend&op=add&uid=$value[uid]" id="afr_$value[uid]" onclick="ajaxmenu(event, this.id, 1)" class="submit a">Chấp nhận</a>
+						<a href="cp.php?ac=friend&op=ignore&uid=$value[uid]&confirm=1" id="afi_$value[uid]" onclick="ajaxmenu(event, this.id, 1)" class="button a">Bỏ qua</a>
 					</p>
 					</div>
 				</td>
@@ -724,17 +724,17 @@ Category of selected friends, heat, number of times you interact with your frien
 <div class="page">$multi</div>
 <!--{else}-->
 <div class="c_form">
-	No new friend requests.
+	Không có yêu cầu kết bạn mới.
 </div>
 <!--{/if}-->
 
 <!--{elseif $op=='getcfriend'}-->
 
 
-<h1>Common Friends</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Bạn chung</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="cfriend">
-	<div class="h_status">Showing max 15 common friends</div>
+	<div class="h_status">Hiển thị tối đa 15 bạn chung</div>
 	<ul class="avatar_list">
 		<!--{loop $list $key $value}-->
 		<li>
@@ -747,22 +747,22 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <!--{elseif $op=='add'}-->
 
-<h1>Accept Friend</h1>
-<a href="javascript:hideMenu();" title="Close" class="float_del">Close</a>
+<h1>Kết bạn</h1>
+<a href="javascript:hideMenu();" title="Đóng" class="float_del">Đóng</a>
 <div class="popupmenu_inner" id="__addform_{$tospace[uid]}">
 <form method="post" id="addform_{$tospace[uid]}" name="addform_{$tospace[uid]}" action="cp.php?ac=friend&op=add&uid=$tospace[uid]">
 	<table cellspacing="0" cellpadding="3">
 		<tr>
 			<th width="52"><a href="space.php?uid=$tospace[uid]"><!--{avatar($tospace[uid],small)}--></th>
-			<td> <strong>{$_SN[$tospace[uid]]}</strong> Message: <br />
+			<td> <strong>{$_SN[$tospace[uid]]}</strong> Lời nhắn: <br />
 				<input type="text" name="note" value="" size="20" class="t_input" style="width: 300px;"  onkeydown="ctrlEnter(event, 'addsubmit_btn', 1);" />
-				<p class="gray">(Optional: {$_SN[$tospace[uid]]} will see this message (max 50char))</p>
+				<p class="gray">(Tùy chọn: {$_SN[$tospace[uid]]} sẽ thấy lời nhắn này (tối đa 50 ký tự))</p>
 			</td>
 		</tr>
 		<tr>
 			<th>&nbsp;</th>
 			<td>
-				Groups: <select name="gid">
+				Nhóm: <select name="gid">
 				<!--{loop $groups $key $value}-->
 				<option value="$key">$value</option>
 				<!--{/loop}-->
@@ -770,9 +770,9 @@ Category of selected friends, heat, number of times you interact with your frien
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 				<input type="hidden" name="addsubmit" value="true" />
 				<!--{if $_SGLOBAL[inajax]}-->
-				<input type="button" name="addsubmit_btn" id="addsubmit_btn" value="Continue" class="submit" onclick="ajaxpost('addform_{$tospace[uid]}','',2000)" />
+				<input type="button" name="addsubmit_btn" id="addsubmit_btn" value="Tiếp tục" class="submit" onclick="ajaxpost('addform_{$tospace[uid]}','',2000)" />
 				<!--{else}-->
-				<input type="submit" name="addsubmit_btn" id="addsubmit_btn" value="Ok" class="submit" />
+				<input type="submit" name="addsubmit_btn" id="addsubmit_btn" value="Đồng ý" class="submit" />
 				<!--{/if}-->
 			</td>
 	</table>
@@ -784,15 +784,15 @@ Category of selected friends, heat, number of times you interact with your frien
 
 <!--{elseif $op=='add2'}-->
 
-<h1>Accept Request</h1>
-<a href="javascript:hideMenu();" title="Close" class="float_del">Close</a>
+<h1>Chấp nhận yêu cầu</h1>
+<a href="javascript:hideMenu();" title="Đóng" class="float_del">Đóng</a>
 <div class="popupmenu_inner" id="__addratifyform_{$tospace[uid]}">
 <form method="post" id="addratifyform_{$tospace[uid]}" name="addratifyform_{$tospace[uid]}" action="cp.php?ac=friend&op=add&uid=$tospace[uid]">
 	<table cellspacing="0" cellpadding="3">
 		<tr>
 			<th width="52"><a href="space.php?uid=$tospace[uid]"><!--{avatar($tospace[uid],small)}--></th>
 			<td>
-			<div class="l_status">Accept <strong>{$_SN[$tospace[uid]]}</strong> request��select group��</div>
+			<div class="l_status">Chấp nhận yêu cầu từ <strong>{$_SN[$tospace[uid]]}</strong>, chọn nhóm:</div>
 				<table cellspacing="2" cellpadding="2"><tr>
 				<!--{eval $i=0;}-->
 				<!--{loop $groups $key $value}-->
@@ -806,9 +806,9 @@ Category of selected friends, heat, number of times you interact with your frien
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 				<!--{if $_SGLOBAL[inajax]}-->
 				<input type="hidden" name="add2submit" value="true" />
-				<input type="button" name="add2submit_btn" value="Ok" class="submit" onclick="ajaxpost('addratifyform_{$tospace[uid]}', 'myfriend_post', 2000)" />
+				<input type="button" name="add2submit_btn" value="Đồng ý" class="submit" onclick="ajaxpost('addratifyform_{$tospace[uid]}', 'myfriend_post', 2000)" />
 				<!--{else}-->
-				<input type="submit" name="add2submit" value="Ok" class="submit" />
+				<input type="submit" name="add2submit" value="Đồng ý" class="submit" />
 				<!--{/if}-->
 				</p>
 			</td>

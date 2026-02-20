@@ -1,43 +1,43 @@
-<!--{eval $_TPL['titles'] = array($album['albumname'], 'Albums');}-->
-<!--{eval $friendsname = array(1 => 'Only Friends',2 => 'Selected People',3 => 'Only Me',4 => 'Password Protected');}-->
+<!--{eval $_TPL['titles'] = array($album['albumname'], 'Album');}-->
+<!--{eval $friendsname = array(1 => 'Chỉ bạn bè', 2 => 'Những người được chọn', 3 => 'Chỉ mình tôi', 4 => 'Bảo vệ bằng mật khẩu');}-->
 <!--{template header}-->
 
 <!--{if $space[self]}-->
 <div class="searchbar floatright">
 	<input name="key" value="" size="26" class="t_input" type="text">
-	<input name="searchsubmit" value="Search Image" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm kiếm ảnh" class="submit" type="submit">
 </div>
 <h2 class="title"><img src="image/app/album.gif">Album - $album[albumname]</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li class="active"><a href="space.php?uid=$album[uid]&do=album&id=$album[albumid]"><span>Image List</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>My Album</span></a></li>
-		<li class="null"><a href="cp.php?ac=album&op=edit&albumid=$album[albumid]">Manage Album</a></li>
-		<li class="null"><a href="cp.php?ac=upload&albumid=$album[albumid]">Upload Image</a></li>
+		<li class="active"><a href="space.php?uid=$album[uid]&do=album&id=$album[albumid]"><span>Danh sách ảnh</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>Album của tôi</span></a></li>
+		<li class="null"><a href="cp.php?ac=album&op=edit&albumid=$album[albumid]">Quản lý Album</a></li>
+		<li class="null"><a href="cp.php?ac=upload&albumid=$album[albumid]">Tải ảnh lên</a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
 	<div class="r_option">
-		<a  href="$_SGLOBAL[refer]">&laquo; Prev Page</a>
+		<a  href="$_SGLOBAL[refer]">&laquo; Trang trước</a>
 	</div>
 	<!--{/if}-->
 </div>
 <!--{else}-->
 <!--{eval
 	$_TPL['spacetitle'] = "Album - $album[albumname]";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=album&view=me\">Share to my wall</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=album&view=me\">Album của tôi</a>";
 	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=album&id=$_GET[id]\">$album[albumname]</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
 
 <div class="h_status">
-	<a href="cp.php?ac=share&type=album&id=$album[albumid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Share</a>
+	<a href="cp.php?ac=share&type=album&id=$album[albumid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Chia sẻ</a>
 	<div class="r_option">
-		<!--{if $_SGLOBAL[supe_uid] == $album[uid] || checkperm('managealbum')}--><a href="admincp.php?ac=album&albumid=$album[albumid]" target="_blank">Manage</a><span class="pipe">|</span><!--{/if}-->
-		<a href="cp.php?ac=common&op=report&idtype=albumid&id=$album[albumid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Abuse</a><span class="pipe">|</span>
+		<!--{if $_SGLOBAL[supe_uid] == $album[uid] || checkperm('managealbum')}--><a href="admincp.php?ac=album&albumid=$album[albumid]" target="_blank">Quản lý</a><span class="pipe">|</span><!--{/if}-->
+		<a href="cp.php?ac=common&op=report&idtype=albumid&id=$album[albumid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Báo cáo</a><span class="pipe">|</span>
 	</div>
 	$album[albumname] -
-	<!--{if $album[picnum]}-->There are total $album[picnum] iamges<!--{/if}-->
+	<!--{if $album[picnum]}-->Có tổng cộng $album[picnum] hình ảnh<!--{/if}-->
 	<!--{if $album['friend']}-->
 	<span class="locked gray">{$friendsname[$value[friend]]}</span>
 	<!--{/if}-->
@@ -57,7 +57,7 @@
 </table>
 <div class="page">$multi</div>
 <!--{else}-->
-<div class="c_form">There is no image in this album.</div>
+<div class="c_form">Không có hình ảnh nào trong album này.</div>
 <!--{/if}-->
 
 <!--{template footer}-->

@@ -1,28 +1,28 @@
-<!--{eval $_TPL['titles'] = array($poll['subject'], 'Poll');}-->
+<!--{eval $_TPL['titles'] = array($poll['subject'], 'Thăm dò');}-->
 <!--{template header}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/poll.gif" />Poll</h2>
+<h2 class="title"><img src="image/app/poll.gif" />Thăm dò</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>Latest Poll</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>Hottest Poll</span></a></li>
-		<li><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>Poll Points</span></a></li>
-		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>Friends Poll</span></a></li><!--{/if}-->
-		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Poll</span></a></li>
-		<li class="null"><a href="cp.php?ac=poll">Vote to new poll</a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=new"><span>Mới nhất</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=hot"><span>Sôi nổi</span></a></li>
+		<li><a href="space.php?uid=$space[uid]&do=$do&view=reward"><span>Điểm thưởng</span></a></li>
+		<!--{if $space[friendnum]}--><li$actives[friend]><a href="space.php?uid=$space[uid]&do=$do&view=friend"><span>Bạn bè</span></a></li><!--{/if}-->
+		<li class="active"><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Của tôi</span></a></li>
+		<li class="null"><a href="cp.php?ac=poll">Tạo thăm dò mới</a></li>
 	</ul>
 	<!--{if $_SGLOBAL[refer]}-->
 	<div class="r_option">
-		<a  href="$_SGLOBAL[refer]">&laquo; Prev Page</a>
+		<a  href="$_SGLOBAL[refer]">&laquo; Quay lại</a>
 	</div>
 	<!--{/if}-->
 </div>
 <!--{else}-->
 <!--{eval
-	$_TPL['spacetitle'] = "Poll";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">Friends all Poll</a>";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=poll&pid=$pid\">View detials</a>";
+	$_TPL['spacetitle'] = "Thăm dò";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">Tất cả thăm dò</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=poll&pid=$pid\">Xem chi tiết</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
@@ -30,25 +30,29 @@
 <div id="content">
 	<div class="poll_header">
 		<div class="floatleft">
-			<p>Created: <!--{date('d-m-Y H:i',$poll[dateline],1)}--></p>
-			<p>Participant: <strong>$poll[voternum]</strong></p>
+			<p>Ngày tạo: <!--{date('d-m-Y H:i',$poll[dateline],1)}--></p>
+			<p>Người tham gia: <strong>$poll[voternum]</strong></p>
 			<!--{if $space[self] && $poll[credit]}-->
-			<p>Remaining Point: <strong>$poll[credit]</strong></p>
+			<p>Điểm thưởng còn lại: <strong>$poll[credit]</strong></p>
 			<!--{/if}-->
-			<!--{if $poll[expiration]}--><p>Last date: <!--{date('d-m-Y',$poll[expiration])}--></p><!--{/if}-->
+			<!--{if $poll[expiration]}--><p>Ngày kết thúc: <!--{date('d-m-Y',$poll[expiration])}--></p><!--{/if}-->
 		</div>
 		<!--{if $space[self]}-->
 		<div class="floatright">
 			<script type="text/javascript" src="source/script_calendar.js"></script>
-			<!--{if $poll[credit]}-->
-			<p><a href="cp.php?ac=poll&op=endreward&pid=$poll[pid]" id="poll_reward_$poll[pid]" onclick="ajaxmenu(event, this.id)">Cancel Reward</a></p>
+			<!--{if $space[self] && $poll[credit]}-->
+			<p>Điểm thưởng còn lại: <strong>$poll[credit]</strong></p>
 			<!--{/if}-->
-			<p><a href="cp.php?ac=poll&op=addreward&pid=$poll[pid]" id="add_new_reward" onclick="ajaxmenu(event, this.id)">Add Reward</a></p>
-			<p><a href="cp.php?ac=poll&op=addopt&pid=$poll[pid]" id="addnewoption" onclick="ajaxmenu(event, this.id, 1)">Add Options: </a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=delete" id="poll_delete_$poll[pid]" onclick="ajaxmenu(event, this.id)">Delete Poll:</a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=modify" id="poll_modify_$poll[pid]" onclick="ajaxmenu(event, this.id)">Change Time:</a></p>
-			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=summary" id="poll_summary_$poll[pid]" onclick="ajaxmenu(event, this.id, 1)">Poll Summary:</a></p>
-		</div>
+			<!--{if $poll[credit]}-->
+			<p>Mỗi bình chọn thưởng <strong>$poll[percredit]</strong> điểm</p>
+			<!--{/if}-->
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=delete" id="poll_delete_$poll[pid]" onclick="ajaxmenu(event, this.id)">Xóa khảo sát</a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=modify" id="poll_modify_$poll[pid]" onclick="ajaxmenu(event, this.id)">Sửa đổi thời gian</a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=addoption" id="poll_addoption_$poll[pid]" onclick="ajaxmenu(event, this.id)">Thêm tùy chọn</a></p>
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=addreward" id="poll_addreward_$poll[pid]" onclick="ajaxmenu(event, this.id)">Thêm điểm thưởng</a></p>
+		<!--{if $poll[endreward]}-->
+			<p><a href="cp.php?ac=poll&pid=$poll[pid]&op=endreward" id="poll_endreward_$poll[pid]" onclick="ajaxmenu(event, this.id)">Dừng thưởng</a></p>
+		<!--{/if}-->
 		<!--{else}-->
 
 		<!--{/if}-->
@@ -60,11 +64,11 @@
 		<!--{elseif $poll[percredit]}-->
 		<div class="print guerdon">[points]</div>
 		<!--{/if}-->
-		<!--{if $poll[hot]}--><span class="hot"><em>Popular </em>$poll[hot]</span><!--{/if}--><h3><img src="image/poll_icon.gif" /> $poll[subject]</h3><!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex'] || $poll[multiple]}--> (<!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex']}--> Only <strong><!--{if $poll['sex']==1}-->Male <!--{else}--> Female <!--{/if}--></strong>Participation <!--{/if}--><!--{if $poll[multiple]}-->optional {$poll[maxchoice]}<!--{/if}-->) <!--{/if}-->
+		<!--{if $poll[hot]}--><span class="hot"><em>Sôi nổi </em>$poll[hot]</span><!--{/if}--><h3><img src="image/poll_icon.gif" /> $poll[subject]</h3><!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex'] || $poll[multiple]}--> (<!--{if $poll['sex'] && $poll['sex'] != $_SGLOBAL['member']['sex']}--> Chỉ cho phép <strong><!--{if $poll['sex']==1}-->Nam <!--{else}--> Nữ <!--{/if}--></strong> tham gia <!--{/if}--><!--{if $poll[multiple]}-->có thể chọn {$poll[maxchoice]} mục<!--{/if}-->) <!--{/if}-->
 		<!--{if $_GET[reward]}-->
-		<p style="color: #F30">Congratulations! You got <strong>$_GET[reward]</strong> points.</p>
+		<p style="color: #F30">Chúc mừng! Bạn đã nhận được <strong>$_GET[reward]</strong> điểm.</p>
 		<!--{elseif $poll[percredit]}-->
-		<p style="color: #F30"><strong>$poll[percredit]</strong> point for each Vote</p>
+		<p style="color: #F30">Thưởng <strong>$poll[percredit]</strong> điểm cho mỗi người bình chọn</p>
 		<!--{/if}-->
 	</div>
 	<!--{if $poll[message]}--><p class="poll_depiction">$poll[message]</p><!--{/if}-->
@@ -97,8 +101,8 @@
 	<div class="poll_submit">
 		<!--{if $allowedvote && !$hasvoted}-->
 		<input type="hidden" name="votesubmit" value="true" />
-		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="Vote" /><br />
-		<label><input type="checkbox" name="anonymous" value="1">Hide me</label>
+		<input type="submit"  class="submit" id="votebutton" name="votebutton" value="Bình chọn" /><br />
+		<label><input type="checkbox" name="anonymous" value="1">Bình chọn ẩn danh</label>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 		<!--{/if}-->
 	</div>
@@ -107,28 +111,28 @@
 
 	<!--{if $poll[summary]}-->
 	<div class="poll_summary">
-	<h3 class="poll_sumuptitle">{$_SN[$poll[uid]]}Poll Summary</h3>
+	<h3 class="poll_sumuptitle">Tổng kết thăm dò của {$_SN[$poll[uid]]}</h3>
 	<p class="poll_sumup">$poll[summary]</p>
 	</div>
 	<!--{/if}-->
 
 	<div class="poll_htitle">
 
-	<a href="cp.php?ac=share&type=poll&id=$poll[pid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Share</a>
+	<a href="cp.php?ac=share&type=poll&id=$poll[pid]" id="a_share" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Chia sẻ</a>
 		<div class="r_option">
 			<!--{if $_SGLOBAL[supe_uid] == $poll[uid] || checkperm('managepoll')}-->
-			<a href="cp.php?ac=topic&op=join&id=$poll[pid]&idtype=pid" id="a_topicjoin_$poll[pid]" onclick="ajaxmenu(event, this.id)">Join Fun</a><span class="pipe">|</span>
-			<a href="admincp.php?ac=poll&pid=$poll[pid]" target="_blank">Delete</a><span class="pipe">|</span>
+			<a href="cp.php?ac=topic&op=join&id=$poll[pid]&idtype=pid" id="a_topicjoin_$poll[pid]" onclick="ajaxmenu(event, this.id)">Tham gia chủ đề</a><span class="pipe">|</span>
+			<a href="admincp.php?ac=poll&pid=$poll[pid]" target="_blank">Xóa</a><span class="pipe">|</span>
 			<!--{/if}-->
 			<!--{if checkperm('managepoll')}-->
-			<a href="cp.php?ac=poll&pid=$poll[pid]&op=edithot" id="a_hot_$poll[pid]" onclick="ajaxmenu(event, this.id)">Heat</a><span class="pipe">|</span>
+			<a href="cp.php?ac=poll&pid=$poll[pid]&op=edithot" id="a_hot_$poll[pid]" onclick="ajaxmenu(event, this.id)">Độ sôi nổi</a><span class="pipe">|</span>
 			<!--{/if}-->
-			<a href="cp.php?ac=common&op=report&idtype=pid&id=$poll[pid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Abuse</a><span class="pipe">|</span>
-			<a href="cp.php?uid=$poll[uid]&ac=poll&op=invite&pid=$poll[pid]"/>Invite Fiends</a><span class="pipe">|</span>
+			<a href="cp.php?ac=common&op=report&idtype=pid&id=$poll[pid]" id="a_report" onclick="ajaxmenu(event, this.id, 1)">Báo cáo</a><span class="pipe">|</span>
+			<a href="cp.php?uid=$poll[uid]&ac=poll&op=invite&pid=$poll[pid]"/>Mời bạn bè</a><span class="pipe">|</span>
 		</div>
 		<div class="custom">
-		<a id="newvoter" href="javascript:;" onclick="showVoter('new');">Latest Poll</a>
-		<a id="wevoter" href="javascript:;" onclick="showVoter('we');">Voters</a>
+		<a id="newvoter" href="javascript:;" onclick="showVoter('new');">Mới nhất</a>
+		<a id="wevoter" href="javascript:;" onclick="showVoter('we');">Danh sách bình chọn</a>
 		</div>
 	</div>
 	<div id="showvoter"></div>
@@ -161,7 +165,7 @@
 		}
 		<!--{/if}-->
 
-		//Ч��
+		//Ð§²é
 		var optionNum = <!--{eval echo count($option)}-->;
 		var maxLength = [0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19];
 
@@ -197,12 +201,12 @@
 	<!--{if $isfriend}-->
 	<div class="comments" id="div_main_content" style="padding: 0 0 20px;">
 
-		<h3 class="feed_header"> <div class="r_option"><span id="comment_replynum">$poll[replynum]</span> Comments</div>comment</h3>
+		<h3 class="feed_header"> <div class="r_option"><span id="comment_replynum">$poll[replynum]</span> bình luận</div>Bình luận</h3>
 		<div class="page">$multi</div>
 		<div class="comments_list" id="comment">
 			<!--{if $cid}-->
 			<div class="notice">
-				Your comment<a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">View all comments</a>
+				Bình luận của bạn <a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">Xem tất cả các bình luận</a>
 			</div>
 			<!--{/if}-->
 			<ul id="comment_ul">
@@ -217,9 +221,9 @@
 			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td>
-						<a href="###" id="face" title="Inser Mood" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
+						<a href="###" id="face" title="Chèn biểu tượng" onclick="showFace(this.id, 'comment_message');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 						<!--{if $_SGLOBAL['magic']['doodle']}-->
-						<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Graffiti Zone</a>
+						<a id="a_magic_doodle" href="magic.php?mid=doodle&showid=comment_doodle&target=comment_message" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ Graffiti</a>
 						<!--{/if}-->
 						<br />
 						<textarea id="comment_message" onkeydown="ctrlEnter(event, 'commentsubmit_btn');" name="message" rows="5" style="width:500px;"></textarea>
@@ -231,7 +235,7 @@
 						<input type="hidden" name="id" value="$pid">
 						<input type="hidden" name="idtype" value="pid">
 						<input type="hidden" name="commentsubmit" value="true" />
-						<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="����" onclick="ajaxpost('quickcommentform_{$pid}', 'comment_add')" />
+						<input type="button" id="commentsubmit_btn" name="commentsubmit_btn" class="submit" value="Bình luận" onclick="ajaxpost('quickcommentform_{$pid}', 'comment_add')" />
 						<span id="__quickcommentform_{$pid}"></span>
 					</td>
 				</tr>
@@ -249,32 +253,32 @@
 	<!--{if $topic}-->
 	<div class="affiche">
 		<img src="image/app/topic.gif" align="absmiddle">
-		<strong>Intereted</strong>��<a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
+		<strong>Chủ đề</strong>: <a href="space.php?do=topic&topicid=$topic[topicid]">$topic[subject]</a>
 	</div>
 	<!--{/if}-->
 
 	<div class="sidebox">
-		<h2 class="title">Latest Poll</h2>
+		<h2 class="title">Thăm dò mới nhất</h2>
 		<ul class="news_list poll_new">
 			<!--{if $newpoll}-->
 			<!--{loop $newpoll $key $value}-->
 			<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">$value[subject]</a></li>
 			<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">No new Poll</li>
+				<li style="height:auto;">Không có cuộc thăm dò mới</li>
 			<!--{/if}-->
 		</ul>
 	</div>
 
 	<div class="sidebox">
-		<h2 class="title">Hottest Poll</h2>
+		<h2 class="title">Thăm dò sôi nổi nhất</h2>
 		<ul class="news_list poll_new">
 			<!--{if $hotpoll}-->
 				<!--{loop $hotpoll $key $value}-->
 				<li style="height:auto;"><a href="space.php?uid=$value[uid]&do=$do&pid=$value[pid]">$value[subject]</a></li>
 				<!--{/loop}-->
 			<!--{else}-->
-				<li style="height:auto;">There is no popular vote this month</li>
+				<li style="height:auto;">Không có cuộc thăm dò sôi nổi nào trong tháng này</li>
 			<!--{/if}-->
 		</ul>
 	</div>
@@ -282,7 +286,7 @@
 </div>
 
 <script type="text/javascript">
-//�ʺ���
+//²ÊºçìÅ
 var elems = selector('div[class~=magicflicker]'); 
 for(var i=0; i<elems.length; i++){
 	magicColor(elems[i]);

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=$_SC[charset]" />
 <meta http-equiv="x-ua-compatible" content="ie=7" />
-	<title>$event[title] Attending</title>
+	<title>$event[title] - Danh sách tham gia</title>
 	<style type="text/css">
 		body{font-size: 12px;}
 		h1{text-align:center; font-size: 18px;}
@@ -14,26 +14,25 @@
 	</style>
 </head>
 <body>
-	<h1>$event[title] Attending</h1>
+	<h1>$event[title] - Danh sách tham gia</h1>
 	<table border="0" cellpadding="5" cellspacing="1">
 		<tbody>
 			<tr>
-				<!--{if $_POST[avatarbig]}-->
-				<th>Avatar</th>
+				<th>Ảnh đại diện</th>
 				<!--{/if}-->
 				<!--{if $_POST[avatarsmall]}-->
-				<th>Avatar</th>
+				<th>Ảnh đại diện</th>
 				<!--{/if}-->
 				<!--{if $_POST[username]}-->
-				<th>Name</th>
+				<th>Họ tên</th>
 				<!--{/if}-->
 				<!--{if $_POST[fellow]}-->
-				<th>Attending</th>
+				<th>Tham gia</th>
 				<!--{/if}-->
 				<!--{if $_POST[template]}-->
-				<th>Registration</th>
+				<th>Đăng ký</th>
 				<!--{/if}-->
-				<th>Attending</th>
+				<th>Tham gia</th>
 			</tr>
 			<!--{loop $members $value}-->
 			<tr>
@@ -44,7 +43,7 @@
 				<td><!--{avatar($value[uid])}--></td>
 				<!--{/if}-->
 				<!--{if $_POST[username]}-->
-				<td>$_SN[$value[uid]]<!--{if $value[status]>=3}-->��Organizer��<!--{/if}--></td>
+				<td>$_SN[$value[uid]]<!--{if $value[status]>=3}--> (Người tổ chức)<!--{/if}--></td>
 				<!--{/if}-->
 				<!--{if $_POST[fellow]}-->
 				<td>$value[fellow]</td>

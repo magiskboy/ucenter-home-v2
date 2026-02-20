@@ -3,20 +3,20 @@
 <!--{if $_GET[op]=='manage'}-->
 
 	<!--{if $_GET['subop'] != 'member'}-->
-	<h2 class="title"><img src="image/app/mtag.gif" /> Groups - $mtag[tagname]</h2>
+	<h2 class="title"><img src="image/app/mtag.gif" /> Nhóm - $mtag[tagname]</h2>
 	<div class="tabs_header">
 		<ul class="tabs">
 		<!--{if $mtag['grade'] >= 8}-->
-			<li$actives[base]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=base"><span>Basic Setting</span></a></li>
+			<li$actives[base]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=base"><span>Cài đặt cơ bản</span></a></li>
 		<!--{/if}-->
 		<!--{if $mtag['allowinvite']}-->
-			<li$actives[invite]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=invite"><span>Invite Friend</span></a></li>
+			<li$actives[invite]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=invite"><span>Mời bạn bè</span></a></li>
 		<!--{/if}-->
 		<!--{if $mtag['grade'] >= 8}-->
-			<li$actives[members]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members"><span>Manage</span></a></li>
-			<li$actives[thread]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=thread"><span>Bulk Manage</span></a></li>
+			<li$actives[members]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members"><span>Quản lý thành viên</span></a></li>
+			<li$actives[thread]><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=thread"><span>Quản lý thảo luận</span></a></li>
 		<!--{/if}-->
-		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>Back to Group</span></a></li>
+		<li><a href="space.php?do=mtag&tagid=$mtag[tagid]"><span>Quay lại nhóm</span></a></li>
 		</ul>
 		<!--{if ($actives[members] || $mtag['allowinvite']) && ($_GET['subop'] == 'invite' || $_GET['subop'] == 'members')}-->
 		<script>
@@ -28,8 +28,8 @@
 			<div style="float:right;margin:0 6px 5px 0;">
 				<table cellspacing="0" cellpadding="0">
 					<tr>
-						<td style="padding: 0;"><input type="text" id="key" name="key" value="Search" onfocus="if(this.value=='Members')this.value='';" class="t_input" tabindex="1" style="width: 160px; border-right: none;" /></td>
-						<td style="padding: 0;"><a href="javascript:searchUser();"><img src="image/search_btn.gif" alt="Search" /></a></td>
+						<td style="padding: 0;"><input type="text" id="key" name="key" value="Tìm kiếm" onfocus="if(this.value=='Nhóm')this.value='';" class="t_input" tabindex="1" style="width: 160px; border-right: none;" /></td>
+						<td style="padding: 0;"><a href="javascript:searchUser();"><img src="image/search_btn.gif" alt="Tìm kiếm" /></a></td>
 					</tr>
 				</table>
 			</div>
@@ -51,75 +51,75 @@
 	
 	<table cellspacing="4" cellpadding="4" class="formtable">
 	<tr>
-		<th width="100">Group Name</th>
+		<th width="100">Tên nhóm</th>
 		<td>$mtag[tagname]</td>
 	</tr>
 	<tr>
-		<th width="100"><label for="pic">Group Logo</label></th>
-		<td><input id="pic" type="text" name="pic" value="$mtag[pic]" size="80" class="t_input" /><br />Enter Image URL begin http:// ) Tip: Upload the image in your album, copy the url (right click on image then find the image Location or use property, which should end with .jpg .png .gif)</td>
+		<th width="100"><label for="pic">Logo nhóm</label></th>
+		<td><input id="pic" type="text" name="pic" value="$mtag[pic]" size="80" class="t_input" /><br />Nhập URL hình ảnh bắt đầu bằng http:// ) Gợi ý: Tải lên hình ảnh trong album của bạn, sao chép url (nhấp chuột phải vào hình ảnh, sau đó tìm Vị trí hình ảnh hoặc sử dụng thuộc tính, URL phải kết thúc bằng .jpg .png .gif)</td>
 	</tr>
 	<tr>
 		<th>
-			<label for="announcement">Groups Bulletins</label>
+			<label for="announcement">Thông báo của nhóm</label>
 		</th>
 		<td>
 			<textarea id="announcement" name="announcement" cols="80" rows="5">$mtag[announcement]</textarea>
-			<p class="gray">Max <strong>10000</strong> Characters</p>	
+			<p class="gray">Tối đa <strong>10000</strong> ký tự</p>	
 		</td>
 	</tr>
 	
 	<!--{if $mtag[grade]==9}-->
 	<!--{if $field['manualmember']}-->
 	<tr>
-		<th width="100">Privacy Setting</th>
+		<th width="100">Cài đặt quyền riêng tư</th>
 		<td>
 			<select name="joinperm">
-			<option value="0"$joinperms[0]>Open (any one can join)</option>
-			<option value="1"$joinperms[1]>Moderated Membership</option>
-			<option value="2"$joinperms[2]>Private (Only Invited people)</option>
+			<option value="0"$joinperms[0]>Công khai (ai cũng có thể tham gia)</option>
+			<option value="1"$joinperms[1]>Cần duyệt thành viên</option>
+			<option value="2"$joinperms[2]>Riêng tư (Chỉ những người được mời)</option>
 			</select>
 		</td>
 	</tr>
 	<!--{else}-->
 	<tr>
-		<th width="100">Permissions</th>
-		<td>Open (member can add each other)</td>
+		<th width="100">Quyền hạn</th>
+		<td>Công khai (thành viên có thể thêm nhau)</td>
 	</tr>
 	<!--{/if}-->
 	<tr>
-		<th width="100">View Permissions</th>
+		<th width="100">Quyền xem</th>
 		<td>
 			<select name="viewperm">
-			<option value="0"$viewperms[0]>Public (anyone can view the contents)</option>
-			<option value="1"$viewperms[1]>Private (Only members can view)</option>
+			<option value="0"$viewperms[0]>Công khai (bất kỳ ai cũng có thể xem nội dung)</option>
+			<option value="1"$viewperms[1]>Riêng tư (Chỉ thành viên mới có thể xem)</option>
 			</select>
-			<br>In order to protect the privacy, if it's private, the topics and other relavent things will be not display in members Feed.
+			<br>Để bảo vệ quyền riêng tư, nếu là riêng tư, các chủ đề và những nội dung liên quan khác sẽ không hiển thị trong Bản tin của thành viên.
 		</td>
 	</tr>
 	<tr>
-		<th width="100">Discussions</th>
+		<th width="100">Thảo luận</th>
 		<td>
 			<select name="threadperm">
-			<option value="0"$threadperms[0]>Just Group owner can create new topic</option>
-			<option value="1"$threadperms[1]>Any member can create New Topic</option>
+			<option value="0"$threadperms[0]>Chỉ chủ nhóm mới có thể tạo chủ đề mới</option>
+			<option value="1"$threadperms[1]>Bất kỳ thành viên nào cũng có thể tạo chủ đề mới</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
-		<th width="100">Replies</th>
+		<th width="100">Trả lời</th>
 		<td>
 			<select name="postperm">
-			<option value="0"$postperms[0]>Just member can reply</option>
-			<option value="1"$postperms[1]>Any one can reply</option>
+			<option value="0"$postperms[0]>Chỉ thành viên mới có thể trả lời</option>
+			<option value="1"$postperms[1]>Bất kỳ ai cũng có thể trả lời</option>
 			</select>
 		</td>
 	</tr>
 	
 	<tr>
-		<th>Group For new members</th>
+		<th>Mở đăng ký thành viên mới</th>
 		<td>
-			<input type="radio" name="closeapply" value="0" $closeapply[0]/> Open
-			<input type="radio" name="closeapply" value="1" $closeapply[1]/> Close
+			<input type="radio" name="closeapply" value="0" $closeapply[0]/> Mở
+			<input type="radio" name="closeapply" value="1" $closeapply[1]/> Đóng
 		</td>
 	</tr>
 	<!--{/if}-->
@@ -127,7 +127,7 @@
 	<tr>
 		<th>&nbsp;</th>
 		<td>
-		<input type="submit" name="basesubmit" value="Save Changes" class="submit" />&nbsp;
+		<input type="submit" name="basesubmit" value="Lưu thay đổi" class="submit" />&nbsp;
 		</td>
 	</tr>
 	</table>
@@ -137,9 +137,9 @@
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<tr>
 		<td>
-		Login to Group Control Panel to mange the group content in bulk,<br>
-		<br><a href="admincp.php?ac=thread&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" class="submit">Manage Topic</a> &nbsp; 
-		<a href="admincp.php?ac=post&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" class="submit">Manage Replies</a>
+		Đăng nhập vào Bảng điều khiển admin để quản lý nội dung nhóm hàng loạt,<br>
+		<br><a href="admincp.php?ac=thread&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" class="submit">Quản lý chủ đề</a> &nbsp; 
+		<a href="admincp.php?ac=post&&perpage=20&tagid=$mtag[tagid]&searchsubmit=1" class="submit">Quản lý trả lời</a>
 		</td>
 	</tr>
 	</table>
@@ -148,7 +148,7 @@
 	
 	<div id="content" style="width: 640px;">
 		<div class="h_status">
-			You can invite your friends to join this group, who are not in this group!
+			Bạn có thể mời những người bạn chưa tham gia nhóm này tham gia!
 		</div>
 	
 	<!--{if $list}-->
@@ -157,28 +157,27 @@
 			<!--{loop $list $value}-->
 				<li><div class="avatar48"><a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}"><!--{avatar($value[fuid],small)}--></a></div>
 					<p><a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}">{$_SN[$value[fuid]]}</a></p>
-					<p><!--{if empty($joins[$value[fuid]])}--><input type="checkbox" name="ids[]" value="$value[fuid]">Checked<!--{else}--> already invited<!--{/if}--></p>
+					<p><!--{if empty($joins[$value[fuid]])}--><input type="checkbox" name="ids[]" value="$value[fuid]">Chọn<!--{else}--> Đã mời<!--{/if}--></p>
 				</li>
 			<!--{/loop}-->
 			</ul>
 			<div class="page">$multi</div>
 		</div>
 		<p>
-			<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Select All &nbsp;			<input type="submit" name="invitesubmit" value="Invite" class="submit" />
-			<input type="submit" name="invitesubmit" value="����" class="submit" />
+			<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Chọn tất cả &nbsp;			<input type="submit" name="invitesubmit" value="Mời" class="submit" />
 		</p>
 	
 	<!--{else}-->
-		<div class="c_form">No friends!</div>
+		<div class="c_form">Không có bạn bè!</div>
 	<!--{/if}-->
 
 	</div>
 	
 	<div id="sidebar" style="width: 150px;">
 	<div class="cat">
-		<h3>Friends Category</h3>
+		<h3>Danh mục bạn bè</h3>
 		<ul class="post_list line_list">
-			<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&tagid=$mtag[tagid]&op=manage&subop=invite&group=-1">All Friends</a></li>
+			<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&tagid=$mtag[tagid]&op=manage&subop=invite&group=-1">Tất cả bạn bè</a></li>
 			<!--{loop $groups $key $value}-->
 			<li<!--{if $_GET[group]==$key}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&tagid=$mtag[tagid]&op=manage&subop=invite&group=$key">$value</a></li>
 			<!--{/loop}-->
@@ -191,7 +190,7 @@
 	<div id="content" style="width: 640px;">
 	
 	<div class="h_status">
-		Select the user to change their level!
+		Chọn người dùng để thay đổi cấp độ của họ!
 	</div>
 	
 	<div class="h_status">
@@ -200,67 +199,67 @@
 		<!--{loop $list $value}-->
 			<li><div class="avatar48"><a href="space.php?uid=$value[uid]" target="_blank"><!--{avatar($value[uid],small)}--></a></div>
 				<p><a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a></p>
-				<p><input type="checkbox" name="ids[]" value="$value[uid]">Selected</p>
+				<p><input type="checkbox" name="ids[]" value="$value[uid]">Đã chọn</p>
 			</li>
 		<!--{/loop}-->
 		</ul>
 		<div class="page">$multi</div>
 		<!--{else}-->
-		<div class="c_form">Nothing found to related this</div>
+		<div class="c_form">Không tìm thấy kết quả liên quan</div>
 		<!--{/if}-->
 	</div>
 	<p>
-		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Select &nbsp;
-		Create��
+		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Chọn &nbsp;
+		Thiết lập:
 		<select name="newgrade">
 			<!--{if $mtag[grade]==9}-->
-			<option value="9">Group Admin</option>
-			<option value="8">Moderator</option>
+			<option value="9">Chủ nhóm</option>
+			<option value="8">Người điều hành</option>
 			<!--{/if}-->
-			<option value="1">Star Member</option>
-			<option value="0">Member</option>
-			<option value="-1">Banned</option>
-			<option value="-2">Pending</option>
-			<option value="-9">Remove</option>
+			<option value="1">Thành viên ưu tú</option>
+			<option value="0">Thành viên</option>
+			<option value="-1">Bị cấm</option>
+			<option value="-2">Chờ duyệt</option>
+			<option value="-9">Xóa</option>
 		</select>  &nbsp;
-		<input type="submit" name="memberssubmit" value="Submit" class="submit" />
+		<input type="submit" name="memberssubmit" value="Xác nhận" class="submit" />
 	</p>
 	</div>
 	
 	<div id="sidebar" style="width: 150px;">
 	<div class="cat">
-		<h3>Member Level</h3>
+		<h3>Cấp độ thành viên</h3>
 		<ul class="post_list line_list">
-			<li<!--{if $_GET[grade]==-2}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-2">Pending</a></li>
-			<li<!--{if $_GET[grade]==0}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=0">Member</a></li>
-			<li<!--{if $_GET[grade]==9}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=9">Group Admin</a></li>
-			<li<!--{if $_GET[grade]==8}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=8">Moderator</a></li>
-			<li<!--{if $_GET[grade]==1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=1">Star members</a></li>
-			<li<!--{if $_GET[grade]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-1">Banned</a></li>
+			<li<!--{if $_GET[grade]==-2}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-2">Chờ duyệt</a></li>
+			<li<!--{if $_GET[grade]==0}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=0">Thành viên</a></li>
+			<li<!--{if $_GET[grade]==9}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=9">Chủ nhóm</a></li>
+			<li<!--{if $_GET[grade]==8}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=8">Người điều hành</a></li>
+			<li<!--{if $_GET[grade]==1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=1">Thành viên ưu tú</a></li>
+			<li<!--{if $_GET[grade]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=mtag&op=manage&tagid=$mtag[tagid]&subop=members&grade=-1">Bị cấm</a></li>
 		</ul>
 	</div>
 	</div>
 	
 	<!--{elseif $_GET['subop'] == 'member'}-->
 	
-	<h1>Manage Member</h1>
-	<a href="javascript:hideMenu();" title="Close" class="float_del">Close</a>
+	<h1>Quản lý thành viên</h1>
+	<a href="javascript:hideMenu();" title="Đóng" class="float_del">Đóng</a>
 	<div id="$_GET[uid]" class="popupmenu_inner">
-	<p>Mane User: {$_SN[$tagspace[uid]]}</p>
-	<p>Set Level��
+	<p>Tên người dùng: {$_SN[$tagspace[uid]]}</p>
+	<p>Thiết lập cấp độ:
 		<select name="grade">
-			<option value="9"$grades[9]>Admin</option>
-			<option value="8"$grades[8]>Moderator</option>
-			<option value="1"$grades[1]>Star Member</option>
-			<option value="0"$grades[0]>Member</option>
-			<option value="-1"$grades[-1]>Ban</option>
-			<option value="-2"$grades[-2]>Pending</option>
-			<option value="-9">Remove</option>
+			<option value="9"$grades[9]>Chủ nhóm</option>
+			<option value="8"$grades[8]>Người điều hành</option>
+			<option value="1"$grades[1]>Thành viên ưu tú</option>
+			<option value="0"$grades[0]>Thành viên</option>
+			<option value="-1"$grades[-1]>Bị cấm</option>
+			<option value="-2"$grades[-2]>Chờ duyệt</option>
+			<option value="-9">Xóa</option>
 		</select>
 	</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
-		<button name="membersubmit" type="submit" class="submit" value="true">Save</button>
+		<button name="membersubmit" type="submit" class="submit" value="true">Lưu</button>
 	</p>
 	</div>
 	
@@ -271,19 +270,19 @@
 
 <!--{elseif $_GET[op]=='mtaginvite'}-->
 	
-	<h2 class="title"><img src="image/app/mtag.gif" />Gourp Invite</h2>
+	<h2 class="title"><img src="image/app/mtag.gif" /> Mời vào nhóm</h2>
 	<div class="tabs_header">
 		<ul class="tabs">
-			<li class="active"><a href="cp.php?ac=mtag&op=mtaginvite"><span>Invatation from Group</span></a></li>
-			<li><a href="space.php?do=mtag&view=me"><span>Back to my Group</span></a></li>
+			<li class="active"><a href="cp.php?ac=mtag&op=mtaginvite"><span>Lời mời vào nhóm</span></a></li>
+			<li><a href="space.php?do=mtag&view=me"><span>Quay lại nhóm của tôi</span></a></li>
 		</ul>
 	</div>
 	
 	<div class="h_status">
-		Your friends invite you to join the following group
+		Bạn bè mời bạn tham gia các nhóm sau
 		<!--{if $invites}-->
 			<span class="pipe">|</span>
-			<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=0&r=0"><span>Ignore all</span></a>
+			<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=0&r=0"><span>Bỏ qua tất cả</span></a>
 		<!--{/if}-->
 	</div>
 	
@@ -297,12 +296,12 @@
 			<td class="h_status">
 				<p><a href="space.php?do=mtag&tagid=$value[tagid]" target="_blank" style="font-size:14px;font-weight:bold;">$value[tagname]</a></p>
 				<div id="tag_$value[tagid]" style="padding:0.5em 0 0.5em 0;">
-					<p>$value[membernum] Members<!--{if $value[viewperm]}-->, Just member can browse <!--{/if}-->, Category: $value[title]</p>
-					Invite friends: <a href="space.php?uid=$value[fromuid]" target="_blank">{$_SN[$value[fromuid]]}</a>
-					<br>Invite time: <!--{date('d-m-Y H:i', $value[dateline], 1)}-->
+					<p>$value[membernum] Thành viên<!--{if $value[viewperm]}-->, Chỉ thành viên có thể xem <!--{/if}-->, Danh mục: $value[title]</p>
+					Người mời: <a href="space.php?uid=$value[fromuid]" target="_blank">{$_SN[$value[fromuid]]}</a>
+					<br>Thời gian mời: <!--{date('d-m-Y H:i', $value[dateline], 1)}-->
 					<p style="padding:1em 0 0 0;">
-					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=1" class="submit" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Confirm the invitition</a> 
-					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=0" class="button" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Ignore</a>
+					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=1" class="submit" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Chấp nhận lời mời</a> 
+					<a href="cp.php?ac=mtag&op=inviteconfirm&tagid=$value[tagid]&r=0" class="button" onclick="ajaxget(this.href, 'tag_$value[tagid]');return false;">Bỏ qua</a>
 					</p>
 				</div>
 			</td>
@@ -310,21 +309,21 @@
 		<!--{/loop}-->
 		</table>
 		<!--{else}-->
-		Do not invite the new peoples!
+		Hiện không có lời mời nào!
 		<!--{/if}-->
 	
 	</div>	
 
 <!--{elseif $_GET[op]=='join'}-->
 	
-	<h1>Join Group</h1>
-	<a href="javascript:hideMenu();" class="float_del" title="Close">close</a>
+	<h1>Tham gia nhóm</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 	<div class="popupmenu_inner" id="__joinform_{$tagid}">
 	<form id="joinform_{$tagid}" name="joinform_{$tagid}" method="post" action="cp.php?ac=mtag&op=join&tagid=$tagid">
-		<p>Are you sure do you want to join this group?</p>
+		<p>Bạn có chắc chắn muốn tham gia nhóm này không?</p>
 		<p class="btn_line">
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-			<input type="submit" name="joinsubmit" value="Join" class="submit" />
+			<input type="submit" name="joinsubmit" value="Tham gia" class="submit" />
 		</p>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -332,14 +331,14 @@
 
 <!--{elseif $_GET[op]=='out'}-->
 	
-	<h1>Leave This Group</h1>
-	<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+	<h1>Rời khỏi nhóm</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 	<div class="popupmenu_inner" id="__outform">
 	<form id="outform" name="outform" method="post" action="cp.php?ac=mtag&op=out&tagid=$mtag[tagid]">
-		<p>Are you sure do you want to quit this group?</p>
+		<p>Bạn có chắc chắn muốn rời khỏi nhóm này không?</p>
 		<p class="btn_line">
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-			<input type="submit" name="outsubmit" value="Quit" class="submit" />
+			<input type="submit" name="outsubmit" value="Rời khỏi" class="submit" />
 		</p>
 		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
@@ -347,12 +346,12 @@
 
 <!--{elseif $_GET[op]=='apply'}-->
 	
-	<h1>Apply for Group Admin</h1>
-	<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+	<h1>Đăng ký làm quản trị viên nhóm</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 	<div class="popupmenu_inner" id="__pmapplyform_{$tagid}">
 	<form id="pmapplyform_{$tagid}" name="pmapplyform_{$tagid}" method="post" action="cp.php?ac=mtag&op=apply&tagid=$tagid">
 		<table cellspacing="0" cellpadding="3">
-			<tr><td>Please give the reason and tell us, why should be give you this role, your application will sent one short message to Admin</td></tr>
+			<tr><td>Vui lòng đưa ra lý do và cho chúng tôi biết tại sao bạn nên đảm nhận vai trò này, đơn đăng ký của bạn sẽ được gửi dưới dạng tin nhắn ngắn cho quản trị viên</td></tr>
 			<tr>
 				<td><textarea id="message" name="message" cols="40" rows="4" tabindex="3" style="width: 400px; height: 150px;" onkeydown="ctrlEnter(event, 'pmsubmit_btn');"></textarea></td>
 			</tr>
@@ -362,9 +361,9 @@
 				<input type="hidden" name="pmsubmit" value="true" />
 				<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 				<!--{if $_SGLOBAL[inajax]}-->
-				<input type="button" name="pmsubmit_btn" id="pmsubmit_btn" value="Apply" class="submit" onclick="ajaxpost('pmapplyform_{$tagid}','',2000)" />
+				<input type="button" name="pmsubmit_btn" id="pmsubmit_btn" value="Đăng ký" class="submit" onclick="ajaxpost('pmapplyform_{$tagid}','',2000)" />
 				<!--{else}-->
-				<input type="submit" name="pmsubmit_btn" id="pmsubmit_btn" value="Apply" class="submit" />
+				<input type="submit" name="pmsubmit_btn" id="pmsubmit_btn" value="Đăng ký" class="submit" />
 				<!--{/if}-->
 				</td>
 			</tr>
@@ -375,11 +374,11 @@
 
 <!--{else}-->
 	
-	<h2 class="title"><img src="image/app/mtag.gif" />Groups</h2>
+	<h2 class="title"><img src="image/app/mtag.gif" /> Nhóm</h2>
 	<div class="tabs_header">
 		<ul class="tabs">
-			<li class="active"><a href="cp.php?ac=mtag"><span>Create New Group</span></a></li>
-			<li><a href="space.php?do=mtag&view=me"><span>My Groups</span></a></li>
+			<li class="active"><a href="cp.php?ac=mtag"><span>Tạo nhóm mới</span></a></li>
+			<li><a href="space.php?do=mtag&view=me"><span>Nhóm của tôi</span></a></li>
 		</ul>
 	</div>
 
@@ -388,15 +387,15 @@
 	<div class="c_form">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 		<caption>
-			<h2>You have successfully joined the group</h2>
-			<p>Now you can visit the group and meet the same interest people, create some topic or poke the members and let them know you're here too!</p>
+			<h2>Bạn đã tham gia nhóm thành công</h2>
+			<p>Bây giờ bạn có thể ghé thăm nhóm và gặp gỡ những người cùng sở thích, tạo chủ đề hoặc làm quen với các thành viên khác!</p>
 		</caption>
 		<!--{loop $mtags $value}-->
 		<tr>
 			<td><a href="space.php?do=mtag&tagid=$value[tagid]" target="_blank">$value[tagname]</a></td>
 			<td>{$value[title]}</td>
-			<td>$value[membernum] Memebers</td>
-			<td><a href="space.php?do=mtag&tagid=$value[tagid]" class="submit">Immediate access to this group</a></td>
+			<td>$value[membernum] Thành viên</td>
+			<td><a href="space.php?do=mtag&tagid=$value[tagid]" class="submit">Truy cập ngay vào nhóm này</a></td>
 		</tr>
 		<!--{/loop}-->
 	</table>
@@ -474,15 +473,15 @@
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	<table cellspacing="6" cellpadding="6" class="formtable">
 	<caption>
-		<h2>Create your own new group!</h2>
-		<p>You are free to create a group of your own and invite friends to join to discuss the share the stuff.</p>
+		<h2>Tạo nhóm mới của bạn!</h2>
+		<p>Bạn có thể tự do tạo một nhóm của riêng mình và mời bạn bè tham gia để thảo luận và chia sẻ công việc.</p>
 	</caption>
 	<tr>
-		<th width="120">Group Name</th>
+		<th width="120">Tên nhóm</th>
 		<td><input type="text" name="tagname" value="" class="t_input"></td>
 	</tr>
 	<tr>
-		<th>Group Type</th>
+		<th>Loại nhóm</th>
 		<td>
 		<select name="fieldid">
 		<!--{loop $textarr $value}-->
@@ -493,7 +492,7 @@
 	</tr>
 	<tr>
 		<th>&nbsp;</th>
-		<td><input type="submit" name="textsubmit" value="Create Group" class="submit"></td>
+		<td><input type="submit" name="textsubmit" value="Tạo nhóm" class="submit"></td>
 	</tr>
 	</table>
 	</form>
@@ -504,8 +503,8 @@
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	<table cellspacing="6" cellpadding="6" class="formtable">
 	<caption>
-		<h2>Join the Default Group</h2>
-		<p>You can select to join the interest group created on site if you don't wanna create your own, with more like-minded friends together to discuss relevant topics.<br> Please visit the Group's home page and select which one you want!</p>
+		<h2>Tham gia nhóm mặc định</h2>
+		<p>Bạn có thể chọn tham gia nhóm sở thích được tạo trên trang web nếu bạn không muốn tạo nhóm riêng của mình, với nhiều bạn bè cùng chí hướng hơn để cùng thảo luận về các chủ đề liên quan.<br> Vui lòng truy cập trang chủ của Nhóm và chọn nhóm bạn muốn!</p>
 	</caption>
 	<!--{loop $choicearr $fid $value}-->
 	<tr>
@@ -531,7 +530,7 @@
 	<!--{/loop}-->
 	<tr>
 		<th>&nbsp;</th>
-		<td><input type="submit" name="choicesubmit" value="Join Group" class="submit"></td>
+		<td><input type="submit" name="choicesubmit" value="Tham gia nhóm" class="submit"></td>
 	</tr>
 	</table>
 	</form>
@@ -540,18 +539,18 @@
 	<form method="get" action="space.php" class="c_form">
 	<table cellspacing="6" cellpadding="6" class="formtable">
 	<caption>
-		<h2>Search the existing group</h2>
-		<p>You can try search your interest group</p>
+		<h2>Tìm kiếm nhóm hiện có</h2>
+		<p>Bạn có thể thử tìm kiếm nhóm quan tâm của mình</p>
 	</caption>
 	<tr>
-		<th width="120">Search group members</th>
+		<th width="120">Tìm kiếm thành viên nhóm</th>
 		<td>
 		<input name="searchkey" value="" class="t_input" type="text">
 		</td>
 	</tr>
 	<tr>
 		<th>&nbsp;</th>
-		<td><input name="searchsubmit" value="Search Groups" class="submit" type="submit"></td>
+		<td><input name="searchsubmit" value="Tìm kiếm nhóm" class="submit" type="submit"></td>
 	</tr>
 	</table>
 	<input type="hidden" name="searchmode" value="1" />

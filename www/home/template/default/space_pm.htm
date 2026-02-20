@@ -22,7 +22,7 @@
 	<a href="space.php?do=pm&subop=ignore"$actives[ignore]>Danh sách cấm</a>
 	<!--{if $touid}-->
 	<br>
-		Your history:
+		Lịch sử tin nhắn:
 		<a href="space.php?do=pm&subop=view&touid=$touid&daterange=1"$actives[1]>Cách đây 1 ngày</a> | 
 		<a href="space.php?do=pm&subop=view&touid=$touid&daterange=2"$actives[2]>Cách đây 2 ngày</a> | 
 		<a href="space.php?do=pm&subop=view&touid=$touid&daterange=3"$actives[3]>Cách đây 3 ngày</a> | 
@@ -47,7 +47,7 @@
 			<!--{/if}-->
 		</div>
 		<div class="pm_body"><div class="pm_h"><div class="pm_f">
-			<p><!--{if $value[msgfromid]}--><a href="space.php?uid=$value[msgfromid]">{$_SN[$value[msgfromid]]}</a> <!--{/if}--><span class="gray"><!--{date('Y-m-d H:i',$value[dateline],1)}--></span></p>		
+			<p><!--{if $value[msgfromid]}--><a href="space.php?uid=$value[msgfromid]">{$_SN[$value[msgfromid]]}</a> <!--{/if}--><span class="gray"><!--{date('d-m-Y H:i',$value[dateline],1)}--></span></p>		
 			<div class="pm_c">
 				$value[message]
 			</div>
@@ -73,7 +73,7 @@
 				<form id="pmform" name="pmform" method="post" action="cp.php?ac=pm&op=send&touid=$touid&pmid=$pmid&daterange=$daterange">
 				<textarea id="pm_message" name="message" cols="40" rows="4" style="width: 95%;" onkeydown="ctrlEnter(event, 'pmsubmit');"></textarea><br>
 				<p style="padding-top:5px;">
-					<input type="submit" name="pmsubmit" id="pmsubmit" value="Reply" class="submit" />
+					<input type="submit" name="pmsubmit" id="pmsubmit" value="Gửi tin" class="submit" />
 				</p>
 				<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 				</form>
@@ -97,7 +97,7 @@
 			<td><textarea id="ignorelist" name="ignorelist" cols="40" rows="6" style="width: 98%;" onkeydown="ctrlEnter(event, 'ignoresubmit');">$ignorelist</textarea></td>
 		</tr>
 		<tr>
-			<td><input type="submit" name="ignoresubmit" id="ignoresubmit" value="Save" class="submit" /></td>
+			<td><input type="submit" name="ignoresubmit" id="ignoresubmit" value="Lưu lại" class="submit" /></td>
 		</tr>
 	</table>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
@@ -121,7 +121,7 @@
 			<!--{if $value[touid]}-->
 			<a href="space.php?uid=$value[touid]">{$_SN[$value[touid]]}</a> 
 			<!--{/if}-->
-			<span class="gray"><!--{date('n-j H:i',$value[dateline],1)}--></span></p>		
+			<span class="gray"><!--{date('d-m H:i',$value[dateline],1)}--></span></p>		
 			<div class="pm_c">
 				$value[message]
 				<p>

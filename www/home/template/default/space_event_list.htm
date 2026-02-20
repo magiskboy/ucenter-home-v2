@@ -1,37 +1,37 @@
-<!--{eval $_TPL['titles'] = array('Event');}-->
+<!--{eval $_TPL['titles'] = array('Sự kiện');}-->
 <!--{template header}-->
 
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_event">
 		<h3 class="feed_header">
-			<a href="cp.php?ac=event" class="r_option" target="_blank">Events</a>
-			Total ($count Events)</h3>
+			<a href="cp.php?ac=event" class="r_option" target="_blank">Sự kiện</a>
+			Tổng cộng ($count sự kiện)</h3>
 		<!--{if $eventlist}-->
 		<ul class="line_list">
 		<!--{loop $eventlist $event}-->
 			<li>
 				<p class="r_option">
 					<!--{if $event[grade] == 0}-->
-					<span class="event_state">Pending</span>
+					<span class="event_state">Đang chờ</span>
 					<!--{/if}-->
 					<!--{if $event[endtime]<$_SGLOBAL[timestamp]}-->
-					<span class="event_state">Finished</span>
+					<span class="event_state">Đã kết thúc</span>
 					<!--{elseif $event[deadline]<$_SGLOBAL[timestamp]}-->
-					<span class="event_state">Participate Last Date</span>
+					<span class="event_state">Hạn chót tham gia</span>
 					<!--{/if}-->
 				</p>
 				<h4><a href="space.php?do=event&id=$event[eventid]" target="_blank">$event[title]</a><span class="gray">[<!--{$_SGLOBAL[eventclass][$event[classid]][classname]}-->]</span></h4>
 	
-				<p><span class="gray">Time:</span> 	<!--{eval echo sgmdate("m��d�� H:i", $event[starttime])}--> - <!--{eval echo sgmdate("m��d�� H:i", $event[endtime])}--></p>
-				<p><span class="gray">Location:</span> 	$event[province] $event[city] $event[location]</p>
+				<p><span class="gray">Thời gian:</span> 	<!--{eval echo sgmdate("d/m H:i", $event[starttime])}--> - <!--{eval echo sgmdate("d/m H:i", $event[endtime])}--></p>
+				<p><span class="gray">Địa điểm:</span> 	$event[province] $event[city] $event[location]</p>
 			</li>
 		<!--{/loop}-->
 		</ul>
 		<div class="page">$multi</div>
 		
 		<!--{else}-->
-		<div class="c_form">Not-related activities.</div>
+		<div class="c_form">Không có hoạt động liên quan.</div>
 		<!--{/if}-->
 	</div><br>
 <!--{else}-->
@@ -40,65 +40,65 @@
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="Search Event" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm sự kiện" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="event" />
 	<input type="hidden" name="view" value="all" />
 </form>
 </div>
-<h2 class="title"><img src="image/app/event.gif" />Event</h2>
+<h2 class="title"><img src="image/app/event.gif" />Sự kiện</h2>
 <div class="tabs_header">
     <ul class="tabs">
-        <li $menu[all]><a href="space.php?do=event&view=all"><span>All Event</span></a></li>
-        <li $menu[recommend]><a href="space.php?do=event&view=recommend"><span>Recommended Event</span></a></li>
-        <li $menu[city]><a href="space.php?do=event&view=city"><span>Local Event</span></a></li>
+        <li $menu[all]><a href="space.php?do=event&view=all"><span>Tất cả sự kiện</span></a></li>
+        <li $menu[recommend]><a href="space.php?do=event&view=recommend"><span>Sự kiện gợi ý</span></a></li>
+        <li $menu[city]><a href="space.php?do=event&view=city"><span>Sự kiện địa phương</span></a></li>
         <!--{if $space[friendnum]}-->
-        <li $menu[friend]><a href="space.php?do=event&view=friend"><span>Friend's Event</span></a></li>
+        <li $menu[friend]><a href="space.php?do=event&view=friend"><span>Sự kiện của bạn bè</span></a></li>
         <!--{/if}-->
-		<li $menu[me]><a href="space.php?uid=$space[uid]&do=event&view=me"><span>My Event</span></a></li>
-		<li class="null"><a href="cp.php?ac=event" class="t_button">Create New Event</a></li>
+		<li $menu[me]><a href="space.php?uid=$space[uid]&do=event&view=me"><span>Sự kiện của tôi</span></a></li>
+		<li class="null"><a href="cp.php?ac=event" class="t_button">Tạo sự kiện mới</a></li>
     </ul>
 </div>
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "Event";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=event&view=me\">Friends all Event</a>";
+	$_TPL['spacetitle'] = "Sự kiện";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=event&view=me\">Tất cả sự kiện của bạn bè</a>";
 }-->
 <!--{template space_menu}-->
 <!--{/if}-->
 <div class="h_status">
 	<!--{if $menu[all]}-->
-	<a $submenus[going] href="space.php?do=event&view=all&type=going">Going on</a>
-	<span class="pipe">|</span><a $submenus[over] href="space.php?do=event&view=all&type=over">Finished</a>
+	<a $submenus[going] href="space.php?do=event&view=all&type=going">Đang diễn ra</a>
+	<span class="pipe">|</span><a $submenus[over] href="space.php?do=event&view=all&type=over">Đã kết thúc</a>
 	<!--{elseif $menu[recommend]}-->
-	<a $submenus[hot] href="space.php?do=event&view=recommend&type=hot">Top Event</a>
-	<span class="pipe">|</span><a $submenus[admin] href="space.php?do=event&view=recommend&type=admin">Best of Best</a>
+	<a $submenus[hot] href="space.php?do=event&view=recommend&type=hot">Sự kiện nổi bật</a>
+	<span class="pipe">|</span><a $submenus[admin] href="space.php?do=event&view=recommend&type=admin">Tiêu biểu</a>
 	<!--{elseif $menu[city]}-->	
-	<a $submenus[going] href="space.php?do=event&view=city&type=going">Going on Event</a>
-	<span class="pipe">|</span><a $submenus[over] href="space.php?do=event&view=city&type=over">Finished</a>
+	<a $submenus[going] href="space.php?do=event&view=city&type=going">Sự kiện đang diễn ra</a>
+	<span class="pipe">|</span><a $submenus[over] href="space.php?do=event&view=city&type=over">Đã kết thúc</a>
 	<!--{elseif $menu[friend]}-->
-	<a $submenus[all] href="space.php?do=event&view=friend&type=all">All</a>
-	<span class="pipe">|</span><a $submenus[join] href="space.php?do=event&view=friend&type=join">Join Event</a>
-	<span class="pipe">|</span><a $submenus[follow] href="space.php?do=event&view=friend&type=follow">May be join</a>
-	<span class="pipe">|</span><a $submenus[org] href="space.php?do=event&view=friend&type=org">Organizations</a>
+	<a $submenus[all] href="space.php?do=event&view=friend&type=all">Tất cả</a>
+	<span class="pipe">|</span><a $submenus[join] href="space.php?do=event&view=friend&type=join">Tham gia sự kiện</a>
+	<span class="pipe">|</span><a $submenus[follow] href="space.php?do=event&view=friend&type=follow">Có thể tham gia</a>
+	<span class="pipe">|</span><a $submenus[org] href="space.php?do=event&view=friend&type=org">Tổ chức</a>
 	<!--{elseif $menu[me]}-->
-	<a $submenus[all] href="space.php?uid=$space[uid]&do=event&view=me&type=all">All</a>
-	<span class="pipe">|</span><a $submenus[join] href="space.php?uid=$space[uid]&do=event&view=me&type=join">Join Event</a>
-	<span class="pipe">|</span><a $submenus[follow] href="space.php?uid=$space[uid]&do=event&view=me&type=follow">May be Join</a>
-	<span class="pipe">|</span><a $submenus[org] href="space.php?uid=$space[uid]&do=event&view=me&type=org">Organizations</a>
+	<a $submenus[all] href="space.php?uid=$space[uid]&do=event&view=me&type=all">Tất cả</a>
+	<span class="pipe">|</span><a $submenus[join] href="space.php?uid=$space[uid]&do=event&view=me&type=join">Tham gia sự kiện</a>
+	<span class="pipe">|</span><a $submenus[follow] href="space.php?uid=$space[uid]&do=event&view=me&type=follow">Có thể tham gia</a>
+	<span class="pipe">|</span><a $submenus[org] href="space.php?uid=$space[uid]&do=event&view=me&type=org">Tổ chức</a>
 	<!--{/if}-->
 </div>
 
 <!--{if $searchkey}-->
-<div class="h_status">Event search <span style="color:red;font-weight:bold;">$searchkey</span> results</div>
+<div class="h_status">Kết quả tìm kiếm sự kiện <span style="color:red;font-weight:bold;">$searchkey</span></div>
 <!--{/if}-->
 
 <div id="content">
 	<!--{if $view == "all" && !empty($recommendevents)}-->
 	<div class="rec_event_list">
 		<h2>
-			<div class="r_option"><a href="space.php?do=event&view=recommend&type=admin">More</a></div>
-			Best of Best
+			<div class="r_option"><a href="space.php?do=event&view=recommend&type=admin">Xem thêm</a></div>
+			Tiêu biểu
 		</h2>
 		<ol>
 			<!--{loop $recommendevents $key $value}-->
@@ -108,7 +108,7 @@
 				</div>
 				<div class="event_content">
 					<h4><a href="space.php?do=event&id=$value[eventid]">$value[title]</a> <span class="gray">[<!--{$_SGLOBAL[eventclass][$value[classid]][classname]}-->]</span></h4>
-					<p>Time: <!--{eval echo sgmdate("m��d�� H:i", $value[starttime])}--> - <!--{eval echo sgmdate("m��d�� H:i", $value[endtime])}--></p>
+					<p>Thời gian: <!--{eval echo sgmdate("d/m H:i", $value[starttime])}--> - <!--{eval echo sgmdate("d/m H:i", $value[endtime])}--></p>
 				</div>
 			</li>
 			<!--{/loop}-->
@@ -119,14 +119,14 @@
 	<!--{if $view == "city"}-->
 	<div>
 		<!--{if $_GET[city]}-->
-			Now! You can browse <b>$_GET[province] - $_GET[city]</b> Events.
-			<a href="#" onclick="$('viewcityevents').style.display=''; this.blur(); return false;">Browse other city.</a>
+			Đang xem sự kiện tại <b>$_GET[province] - $_GET[city]</b>.
+			<a href="#" onclick="$('viewcityevents').style.display=''; this.blur(); return false;">Tìm tỉnh thành khác.</a>
 		<!--{elseif $_GET[province]}-->
-			You can now browse the $_GET[province] event.
+			Đang xem sự kiện tại $_GET[province].
 			<!--{if $space[province] == $_GET[province] && $space[city]}-->
-			You can also just browse <a href="space.php?do=event&view=city&province=$space[province]&city=$space[city]">$space[city]</a> events.
+			Bạn cũng có thể xem sự kiện tại <a href="space.php?do=event&view=city&province=$space[province]&city=$space[city]">$space[city]</a>.
 			<!--{/if}-->
-			<a href="#" onclick="$('viewcityevents').style.display=''; this.blur(); return false;">Browse other cities.</a>
+			<a href="#" onclick="$('viewcityevents').style.display=''; this.blur(); return false;">Tìm tỉnh thành khác.</a>
 		<!--{/if}-->
 		<script type="text/javascript" src="source/script_city.js"></script>
 		<form id="viewcityevents" action="space.php" method="GET" style="display:none;">
@@ -137,11 +137,11 @@
 				showprovince('province', 'city', '$_GET[province]', 'eventcitybox');
                 showcity('city', '$_GET[city]', 'province', 'eventcitybox');
             </script>
-			<input class="submit" type="submit" value="Browse" />
+			<input class="submit" type="submit" value="Duyệt" />
 		</form>
 		<!--{if !$space[resideprovince]}-->
 		<div class="c_form">
-			You have not set any default city, <a href="cp.php?ac=profile" target="_blank">click here to set</a> your city.
+			Bạn chưa thiết lập tỉnh thành mặc định, <a href="cp.php?ac=profile" target="_blank">nhấn vào đây để thiết lập</a>.
 		</div>
 		<!--{/if}-->
 	</div>
@@ -163,36 +163,36 @@
 					<h4 class="event_title"><a href="space.php?do=event&id=$event[eventid]">$event[title]</a><span class="gray">[<!--{$_SGLOBAL[eventclass][$event[classid]][classname]}-->]</span></h4>
 					<ul>
 						<li>
-							<span class="gray">Time: </span> 	<!--{eval echo sgmdate("m��d�� H:i", $event[starttime])}--> - <!--{eval echo sgmdate("m��d�� H:i", $event[endtime])}-->
+							<span class="gray">Thời gian: </span> 	<!--{eval echo sgmdate("d/m H:i", $event[starttime])}--> - <!--{eval echo sgmdate("d/m H:i", $event[endtime])}-->
 							<!--{if $event[grade] == 0}-->
-							<span class="event_state"> Pending</span>
+							<span class="event_state"> Đang chờ</span>
 							<!--{/if}-->
 							<!--{if $event[endtime]<$_SGLOBAL[timestamp]}-->
-							<span class="event_state"> finished</span>
+							<span class="event_state"> Đã kết thúc</span>
 							<!--{elseif $event[deadline]<$_SGLOBAL[timestamp]}-->
-							<span class="event_state"> Last entry date:</span>
+							<span class="event_state"> Hạn chót tham gia:</span>
 							<!--{/if}-->						
 						</li>
-						<li><span class="gray">Location:</span>
+						<li><span class="gray">Địa điểm:</span>
 							<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&classid=$_GET[classid]&province=$event[province]&date=$_GET[date]">$event[province]</a>
 							<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&classid=$_GET[classid]&province=$event[province]&city=$event[city]&date=$_GET[date]">$event[city]</a>
 							$event[location]
 						</li>
-						<li><span class="gray">Posted:</span> <a href="space.php?uid=$event[uid]">$_SN[$event[uid]]</a></li>
+						<li><span class="gray">Người đăng:</span> <a href="space.php?uid=$event[uid]">$_SN[$event[uid]]</a></li>
 						<!--{if $fevents[$event[eventid]]}-->
-						<li><span class="gray">Friends:</span> 
+						<li><span class="gray">Bạn bè:</span> 
 							<!--{loop $fevents[$event[eventid]] $value}-->
 							<a href="space.php?uid=$value[fuid]">$_SN[$value[fuid]]</a>
-							<!--{if $value[status] == 2}--><span class="gray">Attending</span>
-							<!--{elseif $value[status] == 3}--><span class="gray">Organizers</span>
-							<!--{elseif $value[status] == 4}--><span class="gray">Creator</span>
-							<!--{else}--><span class="gray">interested</span>
+							<!--{if $value[status] == 2}--><span class="gray">Tham gia</span>
+							<!--{elseif $value[status] == 3}--><span class="gray">Tổ chức</span>
+							<!--{elseif $value[status] == 4}--><span class="gray">Người tạo</span>
+							<!--{else}--><span class="gray">Quan tâm</span>
 							<!--{/if}-->
 							&nbsp;
 							<!--{/loop}-->
 						</li>
 						<!--{/if}-->
-						<li style="margin: 5px 0 0;">$event[viewnum] Views&nbsp; $event[membernum] Attending&nbsp; $event[follownum] interested</li>
+						<li style="margin: 5px 0 0;">$event[viewnum] Lượt xem&nbsp; $event[membernum] Tham gia&nbsp; $event[follownum] Quan tâm</li>
 					</ul>
 				</div>
 			</li>
@@ -200,21 +200,21 @@
 			<!--{/loop}-->
 		</ol>
 		<!--{if $hiddencount}-->
-		<div>This page has $hiddencount events, due to privacy settings.</div>
+		<div>Trang này có $hiddencount sự kiện bị ẩn do thiết lập bảo mật.</div>
 		<!--{/if}-->
 		<div class="page">$multi</div>		
 	</div>
 	<!--{else}-->
 	<div class="c_form">
 		<!--{if $view == "me"}-->
-		There is no related activities.
+		Chưa có hoạt động liên quan.
 		<!--{else}-->
 		<br/>
-		Not-related activities. You can <a href="cp.php?ac=event">create new event</a>		
+		Chưa có hoạt động liên quan. Bạn có thể <a href="cp.php?ac=event">tạo sự kiện mới</a>		
 		<!--{/if}-->
 	</div>
 	<!--{/if}-->
-</div><!--//������ݽ���//-->
+</div><!--//左侧内容结束//-->
 
 <div id="sidebar">
 
@@ -222,9 +222,9 @@
 	<div class="sidebox">			
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&classid=$_GET[classid]&province=$_GET[province]&city=$_GET[city]">All</a>
+				<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&classid=$_GET[classid]&province=$_GET[province]&city=$_GET[city]">Tất cả</a>
 			</p>
-			Calender
+			Lịch
 		</h2>
 		<div class="calendarbox" id="eventcalendar"></div>
 	</div>
@@ -241,9 +241,9 @@
 	<div class="sidebox">
 		<h2 class="title">
 			<p class="r_option">
-				<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&date=$_GET[date]&uid=$_GET[uid]">All</a>
+				<a href="space.php?uid=$_GET[uid]&do=event&view=$view&type=$type&date=$_GET[date]&uid=$_GET[uid]">Tất cả</a>
 			</p>
-			Categories
+			Phân loại
 		</h2>
 		<ul class="event_cat">
 		<!--{loop $_SGLOBAL[eventclass] $value}-->			
@@ -257,8 +257,8 @@
 	<!--{if $followevents}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<div class="r_option"><a href="space.php?do=event&view=me&type=follow">����</a></div>
-			I am Interested in 
+			<div class="r_option"><a href="space.php?do=event&view=me&type=follow">Xem thêm</a></div>
+			Tôi quan tâm
 		</h2>
 		<ul class="attention">
 			<!--{loop $followevents $value}-->
@@ -268,22 +268,22 @@
 				</p>
 				<p class="gray" style="text-align:left">
 					<!--{if $_SGLOBAL[timestamp] > $value[endtime]}-->
-						Finished
+						Đã kết thúc
 					<!--{else}-->
-						<!--{eval echo sgmdate("n��j��",$value[starttime])}-->
+						<!--{eval echo sgmdate("j/n",$value[starttime])}-->
 					<!--{/if}-->&nbsp;		
-					$value[membernum] Attending /				
-					$value[follownum] interested
+					$value[membernum] Tham gia /				
+					$value[follownum] Quan tâm
 				</p>
 				<p>
 					<!--{if $value[threadnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=thread">
-						$value[threadnum] Topic
+						$value[threadnum] Thảo luận
 					</a> &nbsp;
 					<!--{/if}-->
 					<!--{if $value[picnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=pic">
-						$value[picnum] Photos
+						$value[picnum] Ảnh
 					</a>
 					<!--{/if}-->
 				</p>
@@ -296,8 +296,8 @@
 	<!--{if $friendevents}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<div class="r_option"><a href="space.php?do=event&view=friend">More</a></div>
-			Friends recentely visited Event list
+			<div class="r_option"><a href="space.php?do=event&view=friend">Xem thêm</a></div>
+			Sự kiện bạn bè ghé thăm
 		</h2>
 		<ul class="attention">			
 			<!--{loop $friendevents $value}-->
@@ -306,29 +306,29 @@
 					<a href="space.php?do=event&id=$value[eventid]">$value[title]</a>					
 				</p>
 				<p class="gray" style="text-align:left">
-					Friends:
+					Bạn bè:
 					<!--{loop $value[friends] $fuid}-->
 					<a href="space.php?uid=$fuid" target="_blank">$_SN[$fuid]</a>&nbsp;
 					<!--{/loop}-->
 				</p>
 				<p class="gray" style="text-align:left">
 					<!--{if $_SGLOBAL[timestamp] > $value[endtime]}-->
-						Closed
+						Đã đóng
 					<!--{else}-->
-						<!--{eval echo sgmdate("n��j��",$value[starttime])}-->
+						<!--{eval echo sgmdate("d/m",$value[starttime])}-->
 					<!--{/if}-->&nbsp;		
-					$value[membernum] Attending /				
-					$value[follownum] Interested
+					$value[membernum] Tham gia /				
+					$value[follownum] Quan tâm
 				</p>
 				<p>
 					<!--{if $value[threadnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=thread">
-						$value[threadnum] Discussion
+						$value[threadnum] Thảo luận
 					</a> &nbsp;
 					<!--{/if}-->
 					<!--{if $value[picnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=pic">
-						$value[picnum] Photos
+						$value[picnum] Ảnh
 					</a>
 					<!--{/if}-->
 				</p>
@@ -341,8 +341,8 @@
 	<!--{if $hotevents}-->
 	<div class="sidebox">
 		<h2 class="title">
-			<div class="r_option"><a href="space.php?do=event&view=recommend&type=hot">More</a></div>
-			Popular Events
+			<div class="r_option"><a href="space.php?do=event&view=recommend&type=hot">Xem thêm</a></div>
+			Sự kiện phổ biến
 		</h2>
 		<ul class="attention">
 			<!--{loop $hotevents $value}-->
@@ -352,22 +352,22 @@
 				</p>
 				<p class="gray" style="text-align:left">
 					<!--{if $_SGLOBAL[timestamp] > $value[endtime]}-->
-						Finished
+						Đã kết thúc
 					<!--{else}-->
-						<!--{eval echo sgmdate("n��j��",$value[starttime])}-->
+						<!--{eval echo sgmdate("d/m",$value[starttime])}-->
 					<!--{/if}-->&nbsp;		
-					$value[membernum] attending /				
-					$value[follownum] interested
+					$value[membernum] Tham gia /				
+					$value[follownum] Quan tâm
 				</p>
 				<p>
 					<!--{if $value[threadnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=thread">
-						$value[threadnum] Topic
+						$value[threadnum] Chủ đề
 					</a> &nbsp;
 					<!--{/if}-->
 					<!--{if $value[picnum]}-->
 					<a href="space.php?do=event&id=$value[eventid]&view=pic">
-						$value[picnum] Photos
+						$value[picnum] Ảnh
 					</a>
 					<!--{/if}-->
 				</p>

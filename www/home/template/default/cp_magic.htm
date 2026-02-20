@@ -2,8 +2,8 @@
 
 <!--{if $op == "buy"}-->
 
-	<h1>Buy Props/Gifts</h1>
-	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
+	<h1>Mua Đạo cụ/Quà tặng</h1>
+	<a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a>
 	<div class="toolly" id="__magicbuy_$mid">
 	<!--{if $ac=='magic'}-->	
 		<form id="magicbuy_$mid" action="cp.php?ac=magic&mid=$mid&op=buy" method="post">
@@ -17,20 +17,20 @@
 				<h3>$magic[name]</h3>
 				<p class="gray">$magic[description]</p>
 				<!--{if $magic[experience]}-->
-				<p>Go to next Level: <span>$magic[experience]</span></p>
+				<p>Tăng cấp tiếp theo: <span>$magic[experience]</span></p>
 				<!--{/if}-->
 				<p>
-					Props Price: <span>$magic[charge]</span> points
+					Giá đạo cụ: <span>$magic[charge]</span> điểm
 					<!--{if $discount > 0}-->
-					 (Enjoy the Discount of $discount <span>$charge</span> points ��
+					 (Hưởng chiết khấu $discount <span>$charge</span> điểm )
 					<!--{elseif $discount < 0}-->
-					��Enjoy <span> Free</span> Discount ��
+					 (Được <span> Miễn phí</span> )
 					<!--{/if}-->				
 				</p>
-				<p>Your active storage : <span>$magicstore[storage]</span> </p>
-				<p>You bought: <input type="text" name="buynum" value="1" style="width:40px;" /> ��currently max you can buy: $magicstore[maxbuy] ��</p>
+				<p>Kho chứa hiện tại của bạn: <span>$magicstore[storage]</span> </p>
+				<p>Số lượng mua: <input type="text" name="buynum" value="1" style="width:40px;" /> (Số lượng tối đa có thể mua hiện tại: $magicstore[maxbuy])</p>
 				<!--{if $coupon[count]}-->
-				<p>Use coupon <input type="text" name="coupon" value="0" style="width:40px;" /> (Each coupon can exchange for 100 points, Now value is {$coupon[count]})</p>
+				<p>Sử dụng phiếu giảm giá <input type="text" name="coupon" value="0" style="width:40px;" /> (Mỗi phiếu giảm giá có thể đổi 100 điểm, giá trị hiện tại là {$coupon[count]})</p>
 				<!--{/if}-->
 				<p class="btn_line">
 					<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
@@ -38,12 +38,12 @@
 					<input type="hidden" name="buysubmit" value="1" />
 				<!--{if $_SGLOBAL[inajax]}-->
 					<!--{if $ac=='magic'}-->
-					<input type="button" class="submit" id="buysubmit_btn" value="Buy" onclick="ajaxpost('magicbuy_$mid', 'magicBought', 2000)" />
+					<input type="button" class="submit" id="buysubmit_btn" value="Mua" onclick="ajaxpost('magicbuy_$mid', 'magicBought', 2000)" />
 					<!--{else}-->
-					<input type="button" class="submit" id="buysubmit_btn" value="Buy" onclick="ajaxpost('magicbuy_$mid')" />
+					<input type="button" class="submit" id="buysubmit_btn" value="Mua" onclick="ajaxpost('magicbuy_$mid')" />
 					<!--{/if}-->
 				<!--{else}-->
-					<input type="submit" class="submit" id="buysubmit_btn" value="Buy">
+					<input type="submit" class="submit" id="buysubmit_btn" value="Mua">
 				<!--{/if}-->
 				</p>
 			</div>
@@ -52,15 +52,15 @@
 
 <!--{elseif $op == "present"}-->
 
-	<h1>Gifted Props</h1>
-	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
+	<h1>Tặng đạo cụ</h1>
+	<a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a>
 	<div class="popupmenu_inner" id="__magicpresent_$mid">
 		<form id="magicpresent_$mid" action="cp.php?ac=magic&mid=$mid" method="post">
 			<p>
-				Gifted to: $magic[name]
+				Tặng cho: $magic[name]
 			</p>
 			<p>
-				Friends Username: 
+				Tên đăng nhập của bạn bè: 
 				<input type="text" name="fusername" />
 			</p>
 			<p class="btn_line">
@@ -68,35 +68,35 @@
 				<input type="hidden" name="refer" value="$_SGLOBAL[refer]"/>
 				<input type="hidden" name="presentsubmit" value="1" />
 				<!--{if $_SGLOBAL[inajax]}-->
-				<input type="button" class="submit" name="presentsubmit_btn" value="Gifted" onclick="ajaxpost('magicpresent_$mid', 'magicPresent', 2000)" />
+				<input type="button" class="submit" name="presentsubmit_btn" value="Tặng" onclick="ajaxpost('magicpresent_$mid', 'magicPresent', 2000)" />
 				<!--{else}-->
-				<input type="submit" class="submit" name="presentsubmit_btn" value="Gifted">
+				<input type="submit" class="submit" name="presentsubmit_btn" value="Tặng">
 				<!--{/if}-->
 			</p>
 		</form>
 	</div>
 <!--{elseif $op == "showusage"}-->
 
-	<h1>Example Plans to use props</h1>
-	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
+	<h1>Hướng dẫn sử dụng đạo cụ</h1>
+	<a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a>
 	<div class="popupmenu_inner">
 		<img src="image/magic/usage/{$mid}.gif" />		
 	</div>
 	
 <!--{elseif $op == 'appear'}-->
 
-	<h1>Back to online status</h1>
-	<a class="float_del" title="Close" href="javascript:hideMenu();">Close</a>
+	<h1>Quay lại trạng thái trực tuyến</h1>
+	<a class="float_del" title="Đóng" href="javascript:hideMenu();">Đóng</a>
 	<div class="popupmenu_inner" id="__appearform">
 	<form action="cp.php?ac=magic&op=$op" method="post" id="appearform">
 		<p>
-			Are you sure to return to online status, Please Restore online status��
+			Bạn có chắc chắn muốn quay lại trạng thái trực tuyến không?
 		</p>
 		<p class="btn_line">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
 			<input type="hidden" name="refer" value="$_SGLOBAL[refer]"/>
 			<input type="hidden" name="appearsubmit" value="1" />
-			<input type="submit" class="submit" value="Submit" />
+			<input type="submit" class="submit" value="Xác nhận" />
 		</p>
 	</form>
 	</div>
@@ -108,7 +108,7 @@
 	<div class="popupmenu_inner" id="__retrieveform">
 	<form action="cp.php?ac=magic&op=$op" method="post" id="retrieveform">
 		<p>
-			At present the remaining Credit points $leftcredit ��Are you sure you want to recovery��
+			At present the remaining Credit points $leftcredit £¬Are you sure you want to recovery£¿
 		</p>
 		<p class="btn_line">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
@@ -126,7 +126,7 @@
 	<div class="popupmenu_inner" id="__cancelform">
 	<form action="cp.php?ac=magic&op=$op&id=$_GET[id]&idtype=$_GET[idtype]" method="post" id="cancelform">
 		<p>
-			Are you sure you want to cancel props $_SGLOBAL[magic][$mid] Effect��
+			Are you sure you want to cancel props $_SGLOBAL[magic][$mid] Effect£¿
 		</p>
 		<p class="btn_line">
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash()}-->" />
@@ -174,7 +174,7 @@
 					</p>
 					<p>
 						<a id="a_present_$key" href="cp.php?ac=magic&op=present&mid=$key" onclick="ajaxmenu(event, this.id, 1)" class="m_button<!--{if $key=='license'}--> m_off<!--{/if}-->">Gifted </a>
-						 reamining <span id="magiccount_$key">$value[count]</span> ��
+						 reamining <span id="magiccount_$key">$value[count]</span> ¸ö
 					</p>
 				</div>
 			</li>
@@ -217,7 +217,7 @@
 						$_SGLOBAL[magic][$value[mid]]
 					</a>
 					$value[count]
-					��
+					¸ö
 					<span class="gray">(<!--{eval echo sgmdate('m-d H:i', $value[dateline], true)}-->)</span>
 				</li>
 				<!--{/loop}-->
@@ -274,7 +274,7 @@
 
 	<!--{else}-->
 		<div class="h_status">
-		����
+		ÅÅÐò£º
 		<a $orders['default'] href="cp.php?ac=magic&view=$view&order=defalut">Default</a>
 		<span class="pipe">|</span>
 		<a $orders['hot'] href="cp.php?ac=magic&view=$view&order=hot">Top</a>

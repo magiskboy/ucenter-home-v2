@@ -1,30 +1,32 @@
 <!--{template header}-->
 <!--{template cp_header}-->
 
-<div class="l_status c_form">
-	<a href="cp.php?ac=profile&op=base"$cat_actives[base]>Basic Info</a><span class="pipe">|</span>
-	<a href="cp.php?ac=profile&op=contact"$cat_actives[contact]>Contacts</a><span class="pipe">|</span>
-	<a href="cp.php?ac=profile&op=edu"$cat_actives[edu]>Educational</a><span class="pipe">|</span>
-	<a href="cp.php?ac=profile&op=work"$cat_actives[work]>Work</a><span class="pipe">|</span>
-	<a href="cp.php?ac=profile&op=info"$cat_actives[info]>Personal</a>
+<div class="tabs_header">
+	<ul class="tabs">
+		<li$actives[base]><a href="cp.php?ac=profile&op=base"><span>Thông tin cơ bản</span></a></li>
+		<li$actives[contact]><a href="cp.php?ac=profile&op=contact"><span>Thông tin liên hệ</span></a></li>
+		<li$actives[edu]><a href="cp.php?ac=profile&op=edu"><span>Giáo dục</span></a></li>
+		<li$actives[work]><a href="cp.php?ac=profile&op=work"><span>Công việc</span></a></li>
+		<li$actives[info]><a href="cp.php?ac=profile&op=info"><span>Thông tin khác</span></a></li>
+	</ul>
 </div>
 
-<!--{eval $farr = array(0=>'Public','1'=>'Friends Only','3'=>'Only Me');}-->
+<!--{eval $farr = array(0=>'Công khai','1'=>'Chỉ bạn bè','3'=>'Riêng tư');}-->
 <form method="post" action="$theurl&ref" class="c_form">
 
 <!--{if $_GET['op'] == 'base'}-->
 
 <table cellspacing="0" cellpadding="0" class="formtable">
 <tr>
-	<th style="width:10em;">Username:</th>
+	<th style="width:10em;">Tên đăng nhập:</th>
 	<td>
-		<!--{eval echo stripslashes($space['username']);}--> (<a href="cp.php?ac=password">Change password</a>)
+		<!--{eval echo stripslashes($space['username']);}--> (<a href="cp.php?ac=password">Đổi mật khẩu</a>)
 	</td>
 	<td></td>
 </tr>
 <!--{if !$_SCONFIG['realname']}-->
 <tr>
-	<th style="width:10em;">Real name:</th>
+	<th style="width:10em;">Họ và tên:</th>
 	<td>
 		<input type="text" id="name" name="name" value="<!--{eval echo stripslashes($space['name']);}-->" class="t_input" />
 	</td>
@@ -32,81 +34,80 @@
 </tr>
 <!--{else}-->
 <tr>
-	<th style="width:10em;">Real Name:</th>
+	<th style="width:10em;">Họ và tên:</th>
 	<td>
 	<!--{if $space[name] && empty($_GET['namechange'])}-->
 	<span style="font-weight:bold;"><!--{eval echo stripslashes($space['name']);}--></span>
-	<!--{if $_SCONFIG['namechange']}-->[<a href="$theurl&namechange=1">Update</a>]<!--{/if}-->
-	<!--{if $space[namestatus]}-->[<font color="red">Certificate</font>]<!--{else}--><br>approval pending,Just you can use some function!<!--{/if}-->
+	<!--{if $_SGLOBAL['namechange']}-->[<a href="$theurl&namechange=1">Thay đổi</a>]<!--{/if}-->
+	<!--{if $space[namestatus]}-->[<font color="red">Đã chứng thực</font>]<!--{else}--><br>Chờ duyệt, hiện chỉ dùng được một số chức năng!<!--{/if}-->
 	<input type="hidden" name="name" value="<!--{eval echo stripslashes($space['name']);}-->" />
 	<!--{else}-->
-	<!--{if $rncredit && $_GET['namechange']}--><img src="image/credit.gif" align="absmiddle"> Need to pay $rncredit points��You have $space[credit] points��<br><!--{/if}-->
-	<!--{if empty($_SCONFIG['namechange'])}-->Your real name have been confirm,now it cannot change, Note: provide real name<br><!--{/if}-->
-	<!--{if $_SCONFIG['namecheck']}-->If you update your real name, it require confirmation from our team till then you do not have full access<br><!--{/if}-->
-	<input type="text" id="name" name="name" value="<!--{eval echo stripslashes($space['name']);}-->" class="t_input" /> (max 4��10 letters)
+	<!--{if $rncredit && $_GET['namechange']}--><img src="image/credit.gif" align="absmiddle"> Cần trả $rncredit điểm, bạn đang có $space[credit] điểm.<br><!--{/if}-->
+	<!--{if empty($_SCONFIG['namechange'])}-->Họ tên thật đã xác nhận thì không thể thay đổi.<br><!--{/if}-->
+	<!--{if $_SCONFIG['namecheck']}-->Nếu cập nhật họ tên thật, cần chờ quản trị viên duyệt trước khi có đầy đủ quyền hạn.<br><!--{/if}-->
+	<input type="text" id="name" name="name" value="<!--{eval echo stripslashes($space['name']);}-->" class="t_input" /> (tối đa 4-10 ký tự)
 	<!--{/if}-->
 	</td>
 	<td>&nbsp;</td>
 </tr>
 <!--{/if}-->
 <tr>
-	<th style="width:10em;">Sex:</th>
+	<th style="width:10em;">Giới tính:</th>
 	<td>
 	<!--{if empty($space[sex])}-->
-		<label for="sexm"><input id="sexm" type="radio" value="1" name="sex"$sexarr[1] />Male</label> 
-		<label for="sexw"><input id="sexw" type="radio" value="2" name="sex"$sexarr[2] />Female</label>
-		<span style="font-weight:bold;color:red;">(Sex can not be change)</span>
+		<label for="sexm"><input id="sexm" type="radio" value="1" name="sex"$sexarr[1] />Nam</label> 
+		<label for="sexw"><input id="sexw" type="radio" value="2" name="sex"$sexarr[2] />Nữ</label>
+		<span style="font-weight:bold;color:red;">(Giới tính không thể thay đổi sau khi chọn)</span>
 	<!--{else}-->
-		<!--{if $space[sex]==1}-->Male<!--{else}-->Female<!--{/if}-->
+		<!--{if $space[sex]==1}-->Nam<!--{else}-->Nữ<!--{/if}-->
 	<!--{/if}-->
 	</td>
 	<td>&nbsp;</td>
 </tr>
 <tr>
-	<th style="width:10em;">Marital Status:</th>
+	<th style="width:10em;">Tình trạng hôn nhân:</th>
 	<td>
 		<select id="marry" name="marry">
 			<option value="0">&nbsp;</option>
-			<option value="1"$marryarr[1]>Single</option>
-			<option value="2"$marryarr[2]>Married</option>
+			<option value="1"$marryarr[1]>Độc thân</option>
+			<option value="2"$marryarr[2]>Đã kết hôn</option>
 		</select>
-		<a href="cp.php?ac=friend&op=search&view=sex" target="_blank">&raquo; Find Your Match</a>
+		<a href="cp.php?ac=friend&op=search&view=sex" target="_blank">&raquo; Tìm một nửa của bạn</a>
 	</td>
 	<td>
 		<select name="friend[marry]">
-			<option value="0"{$friendarr[marry][0]}>Public</option>
-			<option value="1"{$friendarr[marry][1]}>Friends only </option>
-			<option value="3"{$friendarr[marry][3]}>Just Me</option>
+			<option value="0"{$friendarr[marry][0]}>Công khai</option>
+			<option value="1"{$friendarr[marry][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[marry][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
 <tr>
-	<th>Birthday:</th>
+	<th>Ngày sinh:</th>
 	<td>
-		Day:<select id="birthday" name="birthday">
+		Ngày:<select id="birthday" name="birthday">
 			<option value="0">&nbsp;</option>
 			$birthdayhtml
 		</select> 
-		Month:<select id="birthmonth" name="birthmonth" onchange="showbirthday();">
+		Tháng:<select id="birthmonth" name="birthmonth" onchange="showbirthday();">
 			<option value="0">&nbsp;</option>
 			$birthmonthhtml
 		</select>  
-		Year <select id="birthyear" name="birthyear" onchange="showbirthday();">
+		Năm <select id="birthyear" name="birthyear" onchange="showbirthday();">
 			<option value="0">&nbsp;</option>
 			$birthyeayhtml
-		</select> 
-		<a href="cp.php?ac=friend&op=search&view=birthyear" target="_blank">&raquo; Find Zodiac compatibility</a>
+		</select>
 	</td>
 	<td>
 		<select name="friend[birth]">
-			<option value="0"{$friendarr[birth][0]}>Public</option>
-			<option value="1"{$friendarr[birth][1]}>Friends only </option>
-			<option value="3"{$friendarr[birth][3]}>Just Me</option>
+			<option value="0"{$friendarr[birth][0]}>Công khai</option>
+			<option value="1"{$friendarr[birth][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[birth][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
 <tr>
-	<th>Blood Type:</th>
+	<th>Nhóm máu:</th>
 	<td>
 		<select id="blood" name="blood">
 			<option value="">&nbsp;</option>
@@ -115,14 +116,14 @@
 	</td>
 	<td>
 		<select name="friend[blood]">
-			<option value="0"{$friendarr[blood][0]}>Public</option>
-			<option value="1"{$friendarr[blood][1]}>Friends only </option>
-			<option value="3"{$friendarr[blood][3]}>Just Me</option>
+			<option value="0"{$friendarr[blood][0]}>Công khai</option>
+			<option value="1"{$friendarr[blood][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[blood][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
 <tr>
-	<th>Native Place</th>
+	<th>Quê quán:</th>
 	<td id="birthcitybox">
 		<script type="text/javascript" src="source/script_city.js"></script>
 		<script type="text/javascript">
@@ -132,18 +133,18 @@
 		
 		//-->
 		</script>
-		<a href="cp.php?ac=friend&op=search&view=birth" target="_blank">&raquo; Find fellow-villager</a>
+		<a href="cp.php?ac=friend&op=search&view=birth" target="_blank">&raquo; Tìm đồng hương</a>
 	</td>
 	<td>
 		<select name="friend[birthcity]">
-			<option value="0"{$friendarr[birthcity][0]}>Public</option>
-			<option value="1"{$friendarr[birthcity][1]}>Friends only </option>
-			<option value="3"{$friendarr[birthcity][3]}>Just Me</option>
+			<option value="0"{$friendarr[birthcity][0]}>Công khai</option>
+			<option value="1"{$friendarr[birthcity][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[birthcity][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
 <tr>
-	<th>Current Location: </th>
+	<th>Nơi ở hiện tại: </th>
 	<td id="residecitybox">
 		<script type="text/javascript">
 		<!--
@@ -151,13 +152,13 @@
 		showcity('residecity', '$space[residecity]', 'resideprovince', 'residecitybox');
 		//-->
 		</script>
-		<a href="cp.php?ac=friend&op=search&view=reside" target="_blank">&raquo; Find peoples from your city</a>
+		<a href="cp.php?ac=friend&op=search&view=reside" target="_blank">&raquo; Tìm những người sống trong thành phố của bạn</a>
 	</td>
 	<td>
 		<select name="friend[residecity]">
-			<option value="0"{$friendarr[residecity][0]}>Public</option>
-			<option value="1"{$friendarr[residecity][1]}>Friends only </option>
-			<option value="3"{$friendarr[residecity][3]}>Just Me</option>
+			<option value="0"{$friendarr[residecity][0]}>Công khai</option>
+			<option value="1"{$friendarr[residecity][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[residecity][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -171,9 +172,9 @@
 	<td>
 		<select name="friend[field_{$value[fieldid]}]">
 		<!--{eval $field_friendarr = $friendarr["field_$value[fieldid]"];}-->
-			<option value="0"{$field_friendarr[0]}>Public</option>
-			<option value="1"{$field_friendarr[1]}>Friends only </option>
-			<option value="3"{$field_friendarr[3]}>Just Me</option>
+			<option value="0"{$field_friendarr[0]}>Công khai</option>
+			<option value="1"{$field_friendarr[1]}>Chỉ bạn bè</option>
+			<option value="3"{$field_friendarr[3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -182,8 +183,8 @@
 <tr>
 	<th style="width:10em;">&nbsp;</th>
 	<td>
-	<input type="submit" name="nextsubmit" value="Next" class="submit" />
-	<input type="submit" name="profilesubmit" value="Save" class="submit" />
+	<input type="submit" name="nextsubmit" value="Tiếp theo" class="submit" />
+	<input type="submit" name="profilesubmit" value="Lưu" class="submit" />
 	</td>
 	<td>&nbsp;</td>
 </tr>
@@ -200,19 +201,19 @@
 <table cellspacing="0" cellpadding="0" class="formtable">
 <tbody>
 <tr>
-	<th style="width:10em;">Password:</th>
+	<th style="width:10em;">Mật khẩu:</th>
 	<td>
 		<input type="password" id="password" name="password" value="" class="t_input" />
-		<br>For account safety,please input your password to change the email account.
+		<br>Vì an toàn tài khoản, vui lòng nhập mật khẩu của bạn để thay đổi tài khoản email.
 	</td>
 	<td></td>
 </tr>
 <tr>
-	<th style="width:10em;">New Email Id:</th>
+	<th style="width:10em;">Email mới:</th>
 	<td>
 		<input type="text" id="email" class="t_input" name="email" value="$space[email]" />
 		<!--{if $space['emailcheck']}-->
-		<br>Note:New Email Id need to activate.
+		<br>Lưu ý: Email mới cần được kích hoạt.
 		<!--{/if}-->
 	</td>
 	<td></td>
@@ -225,10 +226,10 @@
 <!--{else}-->
 <!--{if !$space[email]}-->
 <tr>
-	<th style="width:10em;" valign="top">Password:</th>
+	<th style="width:10em;" valign="top">Mật khẩu:</th>
 	<td>
 		<input type="password" id="password" name="password" value="" class="t_input" />
-		<br>For account safety,verify password to change the E-mail ID.
+		<br>Vì an toàn tài khoản, vui lòng xác minh mật khẩu để thay đổi địa chỉ E-mail.
 	</td>
 	<td></td>
 </tr>
@@ -239,34 +240,34 @@
 		<!--{if $space[email]}-->
 			$space[email]<br>
 			<!--{if $space['emailcheck']}-->
-				This Email have been activated:(<a href="$theurl&editemail=1"> Change</a>)
+				Email này đã được kích hoạt: (<a href="$theurl&editemail=1"> Thay đổi</a>)
 			<!--{else}-->
-				Wating for verify from you.....<br>
-				System have sent to you one activation link in your Email inbox, please check your Email and click on the activation link, if link can not open then please copy the activation link and paste it in your browser.<br><br
-				If you don't recieve the Email,you can<a href="$theurl&editemail=1"> Change Email ID</a>��or<a href="$theurl&resend=1"> click here rerecieve activation email</a>
+				Đang chờ bạn xác nhận.....<br>
+				Hệ thống đã gửi một liên kết kích hoạt vào hộp thư Email của bạn, vui lòng kiểm tra Email và nhấp vào liên kết kích hoạt. Nếu không thể mở liên kết, vui lòng sao chép liên kết kích hoạt và dán vào trình duyệt của bạn.<br><br>
+				Nếu bạn không nhận được Email, bạn có thể <a href="$theurl&editemail=1">Thay đổi Email</a> hoặc <a href="$theurl&resend=1">nhấn vào đây để gửi lại email kích hoạt</a>
 			<!--{/if}-->
 		<!--{else}-->
 			<input type="text" id="email" class="t_input" name="email" value="" />
-			<br><font size="1">Provide your frequently using E-mail id, in case you lost your password or for communicaton. Meanwhile, System will send you an email with activation link, Click on the link and follow the step</font><br>
+			<br><font size="1">Cung cấp địa chỉ E-mail bạn thường xuyên sử dụng, đề phòng trường hợp bạn quên mật khẩu hoặc dùng để liên lạc. Hệ thống sẽ gửi một email kèm liên kết kích hoạt, vui lòng nhấp vào liên kết đó và làm theo các bước.</font><br>
 		<!--{/if}-->
 		<!--{if $space[newemail]}-->
-			<p>This new Email Id��<strong>$space[newemail]</strong> require to activate, after that this Email account will be validate.<br>
-			If you don't recieve any Email,you can <a href="$theurl&resend=1"> click here to rerecieve activatation Email</a></p>
+			<p>Email mới này: <strong>$space[newemail]</strong> cần được kích hoạt, sau đó tài khoản Email này sẽ được xác thực.<br>
+			Nếu bạn không nhận được bất kỳ Email nào, bạn có thể <a href="$theurl&resend=1">nhấn vào đây để gửi lại Email kích hoạt</a></p>
 		<!--{/if}-->
 	</td>
 	<td></td>
 </tr>
 <!--{/if}-->
 <tr>
-	<th style="width:10em;">Mobile:</th>
+	<th style="width:10em;">Điện thoại:</th>
 	<td>
 		<input type="text" class="t_input" name="mobile" value="$space[mobile]" /> 
 	</td>
 	<td>
 		<select name="friend[mobile]">
-			<option value="0"{$friendarr[mobile][0]}>Public</option>
-			<option value="1"{$friendarr[mobile][1]}>Friends only </option>
-			<option value="3"{$friendarr[mobile][3]}>Just Me</option>
+			<option value="0"{$friendarr[mobile][0]}>Công khai</option>
+			<option value="1"{$friendarr[mobile][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[mobile][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -277,9 +278,9 @@
 	</td>
 	<td>
 		<select name="friend[qq]">
-			<option value="0"{$friendarr[qq][0]}>Public</option>
-			<option value="1"{$friendarr[qq][1]}>Friends only </option>
-			<option value="3"{$friendarr[qq][3]}>Just Me</option>
+			<option value="0"{$friendarr[qq][0]}>Công khai</option>
+			<option value="1"{$friendarr[qq][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[qq][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -290,9 +291,9 @@
 	</td>
 	<td>
 		<select name="friend[msn]">
-			<option value="0"{$friendarr[msn][0]}>Public</option>
-			<option value="1"{$friendarr[msn][1]}>Friends only </option>
-			<option value="3"{$friendarr[msn][3]}>Just Me</option>
+			<option value="0"{$friendarr[msn][0]}>Công khai</option>
+			<option value="1"{$friendarr[msn][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friendarr[msn][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -300,8 +301,8 @@
 <tr>
 	<th style="width:10em;">&nbsp;</th>
 	<td>
-	<input type="submit" name="nextsubmit" value="Next Item" class="submit" />
-	<input type="submit" name="profilesubmit" value="Save" class="submit" />
+	<input type="submit" name="nextsubmit" value="Tiếp theo" class="submit" />
+	<input type="submit" name="profilesubmit" value="Lưu" class="submit" />
 	</td>
 	<td>&nbsp;</td>
 </tr>
@@ -312,17 +313,17 @@
 <!--{if $list}-->
 <table cellspacing="0" cellpadding="0" class="listtable">
 <tr class="title">
-	<td>institution/College</td>
-	<td>Entry Year</td>
-	<td>Privacy</td>
-	<td>Manage</td>
+	<td>Trường học/Đại học</td>
+	<td>Năm nhập học</td>
+	<td>Quyền riêng tư</td>
+	<td>Quản lý</td>
 </tr>
 <!--{loop $list $key $value}-->
 <!--{if $key%2==1}--><tr class="line"><!--{else}--><tr><!--{/if}-->
 	<td>$value[title]<br>$value[subtitle]</td>
 	<td>$value[startyear]</td>
 	<td>{$farr[$value[friend]]}</td>
-	<td><a href="$theurl&subop=delete&infoid=$value[infoid]">Delete information</a><br><a href="cp.php?ac=friend&op=search&searchmode=1&type=edu&title=$value[title_s]" target="_blank">Find Classmate</a></td>
+	<td><a href="$theurl&subop=delete&infoid=$value[infoid]">Xóa thông tin</a><br><a href="cp.php?ac=friend&op=search&searchmode=1&type=edu&title=$value[title_s]" target="_blank">Tìm bạn học</a></td>
 </tr>
 <!--{/loop}-->
 </table>
@@ -332,37 +333,37 @@
 <table cellspacing="0" cellpadding="0" class="formtable">
 <!--{if $list}-->
 <caption>
-	<h2>Add Institution/College</h2>
+	<h2>Thêm trường học/Đại học</h2>
 </caption>
 <!--{/if}-->
 <tbody id="oldtbody">
 <tr>
-	<th style="width:10em;">Name:</th>
+	<th style="width:10em;">Tên trường:</th>
 	<td>
 		<input type="text" name="title[]" value="" class="t_input">
 	</td>
 </tr>
 <tr>
-	<th>Grade/Dept:</th>
+	<th>Chuyên ngành/Khoa:</th>
 	<td>
 		<input type="text" name="subtitle[]" value="" class="t_input">
 	</td>
 </tr>
 <tr>
-	<th>Entry Year:</th>
+	<th>Năm nhập học:</th>
 	<td>
 		<select name="startyear[]">
 		$yearhtml
-		</select> Year
+		</select> Năm
 	</td>
 </tr>
 <tr>
-	<th>Privacy:</th>
+	<th>Quyền riêng tư:</th>
 	<td>
 		<select name="friend[]">
-			<option value="0">Public</option>
-			<option value="1">Friends only </option>
-			<option value="3">Just Me</option>
+			<option value="0">Công khai</option>
+			<option value="1">Chỉ bạn bè</option>
+			<option value="3">Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -372,13 +373,13 @@
 
 <tr>
 	<th style="width:10em;">&nbsp;</th>
-	<td><a href="javascript:;" onclick="add_tbody();">Add new school/college information</a></td>
+	<td><a href="javascript:;" onclick="add_tbody();">Thêm thông tin trường học/Đại học mới</a></td>
 </tr>
 <tr>
 	<th style="width:10em;">&nbsp;</th>
 	<td>
-		<input type="submit" name="nextsubmit" value="Go to Next" class="submit" />
-		<input type="submit" name="profilesubmit" value="Save" class="submit" /></td>
+		<input type="submit" name="nextsubmit" value="Tiếp theo" class="submit" />
+		<input type="submit" name="profilesubmit" value="Lưu" class="submit" /></td>
 </tr>
 </table>
 
@@ -388,22 +389,22 @@
 <!--{if $list}-->
 <table cellspacing="0" cellpadding="0" class="listtable">
 <tr class="title">
-	<td>Company/Organization</td>
-	<td>Period</td>
-	<td>Privacy</td>
-	<td>Manage</td>
+	<td>Công ty/Tổ chức</td>
+	<td>Thời gian</td>
+	<td>Quyền riêng tư</td>
+	<td>Quản lý</td>
 </tr>
 <!--{loop $list $key $value}-->
 <!--{if $key%2==1}--><tr class="line"><!--{else}--><tr><!--{/if}-->
 	<td>$value[title]<br>$value[subtitle]</td>
 	<td>
-		{$value[startyear]}year{$value[startmonth]}month ~ 
-		<!--{if $value[endmonth]}-->{$value[endmonth]}month<!--{/if}-->
-		<!--{if $value[endyear]}-->{$value[endyear]}year<!--{/if}-->
-		<!--{if !$value[endyear] && !$value[endmonth]}-->Till Now<!--{/if}-->
+		Tháng {$value[startmonth]} Năm {$value[startyear]} ~ 
+		<!--{if $value[endmonth]}-->Tháng {$value[endmonth]}<!--{/if}-->
+		<!--{if $value[endyear]}--> Năm {$value[endyear]}<!--{/if}-->
+		<!--{if !$value[endyear] && !$value[endmonth]}-->Đến nay<!--{/if}-->
 	</td>
 	<td>{$farr[$value[friend]]}</td>
-	<td><a href="$theurl&subop=delete&infoid=$value[infoid]">Delete information</a><br><a href="cp.php?ac=friend&op=search&searchmode=1&type=work&title=$value[title_s]" target="_blank">Find colleague</a></td>
+	<td><a href="$theurl&subop=delete&infoid=$value[infoid]">Xóa thông tin</a><br><a href="cp.php?ac=friend&op=search&searchmode=1&type=work&title=$value[title_s]" target="_blank">Tìm đồng nghiệp</a></td>
 </tr>
 <!--{/loop}-->
 </table>
@@ -413,48 +414,48 @@
 <table cellspacing="0" cellpadding="0" class="formtable">
 <!--{if $list}-->
 <caption>
-	<h2>Add Company/Organization</h2>
+	<h2>Thêm công ty/Tổ chức</h2>
 </caption>
 <!--{/if}-->
 <tbody id="oldtbody">
 <tr>
-	<th style="width:10em;">Organization:</th>
+	<th style="width:10em;">Tên công ty:</th>
 	<td>
 		<input type="text" name="title[]" value="" class="t_input">
 	</td>
 </tr>
 <tr>
-	<th>Department:</th>
+	<th>Bộ phận:</th>
 	<td>
 		<input type="text" name="subtitle[]" value="" class="t_input">
 	</td>
 </tr>
 <tr>
-	<th>Period</th>
+	<th>Thời gian</th>
 	<td>
-		MM:<select name="startmonth[]">
+		Tháng:<select name="startmonth[]">
 		$monthhtml
 		</select>
-		YY:<select name="startyear[]">
+		Năm:<select name="startyear[]">
 		$yearhtml
 		</select> ~ 
-		MM:<select name="endmonth[]">
-		<option value="">Till Now</option>
+		Tháng:<select name="endmonth[]">
+		<option value="">Đến nay</option>
 		$monthhtml
 		</select>
-		YY:<select name="endyear[]">
+		Năm:<select name="endyear[]">
 		<option value=""></option>
 		$yearhtml
-		</select> year
+		</select> năm
 	</td>
 </tr>
 <tr>
-	<th>Privacy:</th>
+	<th>Quyền riêng tư:</th>
 	<td>
 		<select name="friend[]">
-			<option value="0">Public</option>
-			<option value="1">Friends only </option>
-			<option value="3">Just Me</option>
+			<option value="0">Công khai</option>
+			<option value="1">Chỉ bạn bè</option>
+			<option value="3">Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -464,13 +465,13 @@
 
 <tr>
 	<th style="width:10em;">&nbsp;</th>
-	<td><a href="javascript:;" onclick="add_tbody();">Add Company/Organization</a></td>
+	<td><a href="javascript:;" onclick="add_tbody();">Thêm Công ty/Tổ chức</a></td>
 </tr>
 <tr>
 	<th style="width:10em;">&nbsp;</th>
 	<td>
-		<input type="submit" name="nextsubmit" value="Go to Next" class="submit" />
-		<input type="submit" name="profilesubmit" value="Save" class="submit" /></td>
+		<input type="submit" name="nextsubmit" value="Tiếp theo" class="submit" />
+		<input type="submit" name="profilesubmit" value="Lưu" class="submit" /></td>
 </tr>
 </table>
 
@@ -479,24 +480,24 @@
 <table cellspacing="0" cellpadding="0" class="formtable">
 <!--{eval 
 $infoarr = array(
-	'trainwith' => 'I am looking for',
-	'interest' => 'Hobbies',
-	'book' => 'Favorite Books',
-	'movie' => 'Favorite movies',
-	'tv' => 'Favorite TV show',
-	'music' => 'Favorite Music',
-	'game' => 'Favorite Games',
-	'sport' => 'Sports',
-	'idol' => 'My Idol',
-	'motto' => 'My Fev. Quote',
-	'wish' => 'Wishlist',
-	'intro' => 'About Me'
+	'trainwith' => 'Tôi muốn tìm',
+	'interest' => 'Sở thích',
+	'book' => 'Sách yêu thích',
+	'movie' => 'Phim yêu thích',
+	'tv' => 'Chương trình TV yêu thích',
+	'music' => 'Âm nhạc yêu thích',
+	'game' => 'Trò chơi yêu thích',
+	'sport' => 'Thể thao',
+	'idol' => 'Thần tượng',
+	'motto' => 'Châm ngôn sống',
+	'wish' => 'Danh sách mong muốn',
+	'intro' => 'Giới thiệu bản thân'
 );
 }-->
 <tr>
-	<th>Item</th>
-	<td>Content</td>
-	<td>Privacy</td>
+	<th>Mục</th>
+	<td>Nội dung</td>
+	<td>Quyền riêng tư</td>
 </tr>
 
 <!--{loop $infoarr $key $value}-->
@@ -507,9 +508,9 @@ $infoarr = array(
 	</td>
 	<td>
 		<select name="info_friend[$key]">
-			<option value="0"{$friends[$key][0]}>Public</option>
-			<option value="1"{$friends[$key][1]}>Friends only </option>
-			<option value="3"{$friends[$key][3]}>Just Me</option>
+			<option value="0"{$friends[$key][0]}>Công khai</option>
+			<option value="1"{$friends[$key][1]}>Chỉ bạn bè</option>
+			<option value="3"{$friends[$key][3]}>Riêng tư</option>
 		</select>
 	</td>
 </tr>
@@ -517,7 +518,7 @@ $infoarr = array(
 
 <tr>
 	<th style="width:10em;">&nbsp;</th>
-	<td><input type="submit" name="profilesubmit" value="Save" class="submit" /></td>
+	<td><input type="submit" name="profilesubmit" value="Lưu" class="submit" /></td>
 </tr>
 </table>
 <!--{/if}-->

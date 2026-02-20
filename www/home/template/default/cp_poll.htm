@@ -2,108 +2,93 @@
 
 <!--{if $op == 'addopt'}-->
 
-<h1>Add poll item</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
-<div class="popupmenu_inner" id="$pid">
-	<form id="add_option_{$pid}" name="add_option_{$pid}" method="post" action="cp.php?ac=poll&op=addopt&pid=$pid">
-		<div id="__add_option_{$pid}">
-			<table>
-				<tr>
-					<td>
-			
-						<label for="newoption">Create New Poll</label><br />
-						<input type="text" class="t_input" id="newoption" name="newoption" value="" size="50"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-					<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-					<input type="hidden" name="addopt" value="true" />
-					<input type="submit" name="addopt_btn" id="addopt_btn" value="Submit" class="submit" />
-					</td>
-				</tr>
-			</table>
+	<h1>Thêm tùy chọn</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
+	<div class="popupmenu_inner" id="$pollid">
+		<form id="addoptionform_{$pollid}" name="addoptionform_{$pollid}" method="post" action="cp.php?ac=poll&op=addoption&pollid=$pollid">
+			<p>Cập nhật tùy chọn thăm dò mới:</p>
+			<p>
+				<input type="text" name="newoption" id="newoption" value="" class="t_input" />
+			</p>
+			<p class="btn_line">
+				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+				<input type="hidden" name="addoptionsubmit" value="true" />
+				<input type="submit" name="addoptionsubmit_btn" value="Thêm" class="submit" />
+			</p>
 			<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
-		</div>
-	</form>
+		</form>
 </div>
 
 <!--{elseif $op=='delete'}-->
 
-<h1>Delete Poll</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Cloese">Close</a>
-<div class="popupmenu_inner">
-	<form method="post" action="cp.php?ac=poll&op=delete&pid=$pid">
-		<p>Are you sure do you to delete this Poll��</p>
-		<p class="btn_line">
-			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-			<input type="hidden" name="deletesubmit" value="true" />
-			<input type="submit" name="btnsubmit" value="Confirm" class="submit" />
-		</p>
+	<h1>Xóa thăm dò</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
+	<div class="popupmenu_inner" id="$pollid">
+		<form id="deletepollform_{$pollid}" name="deletepollform_{$pollid}" method="post" action="cp.php?ac=poll&op=delete&pollid=$pollid">
+			<p>Bạn có chắc chắn muốn xóa cuộc thăm dò này không?</p>
+			<p class="btn_line">
+				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+				<input type="hidden" name="deletesubmit" value="true" />
+				<input type="submit" name="deletesubmit_btn" value="Xóa" class="submit" />
+			</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 	</form>
 </div>
 
 <!--{elseif $op=='endreward'}-->
 
-<h1>Disable Voting point/reward</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
-<div class="popupmenu_inner">
-	<form method="post" action="cp.php?ac=poll&op=endreward&pid=$pid">
-		<p>While you stop reward credit,These credit will be not deduct from your account<br>Do you want to Continue��</p>
-		<p class="btn_line">
-			<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-			<input type="hidden" name="endrewardsubmit" value="true" />
-			<input type="submit" name="btnsubmit" value="Confirm" class="submit" />
-		</p>
-	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
-	</form>
-</div>
+	<h1>Kết thúc khảo sát</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
+	<div class="popupmenu_inner" id="$pollid">
+		<form id="stoppollform_{$pollid}" name="stoppollform_{$pollid}" method="post" action="cp.php?ac=poll&op=stop&pollid=$pollid">
+			<p>Sau khi kết thúc điểm thưởng, những điểm này sẽ không bị trừ vào tài khoản của bạn.<br>Bạn có muốn tiếp tục không?</p>
+			<p class="btn_line">
+				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+				<input type="hidden" name="stoppollsubmit" value="true" />
+				<input type="submit" name="btnsubmit" value="Xác nhận" class="submit" />
+			</p>
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+		</form>
+	</div>
 
 <!--{elseif $op == 'edithot'}-->
 
-<h1>Adjust hot point</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
-<div class="popupmenu_inner">
-<form method="post" action="cp.php?ac=poll&op=edithot&pid=$pid">
-	<p class="btn_line">
-		New hot point��<input type="text" name="hot" value="$poll[hot]" size="5"> 
-		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-		<input type="hidden" name="hotsubmit" value="true" />
-		<input type="submit" name="btnsubmit" value="Confirm" class="submit" />
-	</p>
-<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
-</form>
-</div>
+	<h1>Thay đổi độ nóng</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
+	<div class="popupmenu_inner">
+		<form method="post" action="cp.php?ac=poll&op=edithot&pid=$pid">
+			<p>Nhập giá trị độ nóng mới: <input type="text" name="hot" value="$poll[hot]" size="5"></p>
+			<p class="btn_line">
+				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+				<input type="hidden" name="hotsubmit" value="true" />
+				<input type="submit" name="btnsubmit" value="Xác nhận" class="submit" />
+			</p>
+		<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
+		</form>
+	</div>
 
 <!--{elseif $op == 'addreward'}-->
 
-<h1>Additional reward to vote</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Thêm điểm thưởng bình chọn</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="$pid">
 	<form id="add_addreward_{$pid}" name="add_addreward_{$pid}" method="post" action="cp.php?ac=poll&op=addreward&pid=$pid">
 		<div id="__add_addreward_{$pid}">
 			<table>
 				<tr>
 					<td>
-			
-						<label for="addcredit">Additional reward to vote:</label>
-						<input type="text" class="t_input" id="addcredit" name="addcredit" value="" size="10"/> Range��0~$space[credit]
+						<label for="addcredit">Thêm điểm thưởng bình chọn:</label>
+						<input type="text" class="t_input" id="addcredit" name="addcredit" value="" size="10"/> Phạm vi: 0~$space[credit]
+						<br />
+						<label for="addpercredit">Điểm thưởng cho mỗi bình chọn:</label>
+						<input type="text" class="t_input" id="addpercredit" name="addpercredit" value="" size="10"/> Phạm vi: 0~$maxreward
 					</td>
 				</tr>
-				<!--{if $maxreward}-->
-				<tr>
-					<td>
-						<label for="addpercredit">Add reward credit for every one��</label>
-						<input type="text" class="t_input" id="addpercredit" name="addpercredit" value="" size="10"/> Range��0~$maxreward
-					</td>
-				</tr>
-				<!--{/if}-->
 				<tr>
 					<td>
 					<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 					<input type="hidden" name="addrewardsubmit" value="true" />
-					<input type="submit" name="addopt_btn" id="addopt_btn" value="Submit" class="submit" />
+					<input type="submit" name="addopt_btn" id="addopt_btn" value="Gửi" class="submit" />
 					</td>
 				</tr>
 			</table>
@@ -115,25 +100,21 @@
 <!--{elseif $op=='modify'}-->
 
 
-<h1>Update this vote end time</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
-<div class="popupmenu_inner" id="expiration_$pid">
-<form id="modify_expiration_{$pid}" name="modify_expiration_{$pid}" method="post" action="cp.php?ac=poll&op=modify&pid=$pid">
-<table>
-	<tr>
-		<td>
-			<label for="expiration">Modify Closing Time��</label><br />
-			<input type="text" class="t_input" id="expiration" name="expiration" readonly value="<!--{date('Y-m-d', $poll[expiration]?$poll[expiration]:$_SGLOBAL[timestamp]+2592000)}-->" size="30" onclick="showcalendar(event, this, 0, '<!--{date('Y-m-d',$_SGLOBAL[timestamp])}-->')"/>
-		</td>
-	</tr>
-	<tr>
-		<td>
-		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
-		<input type="hidden" name="modifysubmit" value="true" />
-		<input type="submit" name="modifysubmit_btn" id="modifysubmit_btn" value="Submit" class="submit" />
-		</td>
-	</tr>
-</table>
+	<h1>Thay đổi thăm dò</h1>
+	<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
+	<div class="popupmenu_inner" id="$pollid">
+		<form id="editpollform_{$pollid}" name="editpollform_{$pollid}" method="post" action="cp.php?ac=poll&op=edit&pollid=$pollid">
+			<p>Bạn có chắc chắn muốn thay đổi cài đặt của cuộc thăm dò này không?</p>
+			<p>Thay đổi thời gian kết thúc:</p>
+			<p>
+				<script type="text/javascript" src="source/script_calendar.js" charset="$_SC[charset]"></script>
+				<input type="text" class="t_input" size="16" id="expiration" readonly name="expiration" value="<!--{if $poll[expiration]}--><!--{date('Y-m-d H:i',$poll[expiration])}--><!--{/if}-->" onclick="showcalendar(event, this, 1, '<!--{date('Y-m-d H:i',$_SGLOBAL[timestamp])}-->')" />
+			</p>
+			<p class="btn_line">
+				<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
+				<input type="hidden" name="editsubmit" value="true" />
+				<input type="submit" name="editsubmit_btn" value="Thay đổi" class="submit" />
+			</p>
 <input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>
 </div>
@@ -141,15 +122,15 @@
 <!--{elseif $op=='summary'}-->
 
 
-<h1>Poll DEscription</h1>
-<a href="javascript:hideMenu();" class="float_del" title="Close">Close</a>
+<h1>Tóm tắt khảo sát</h1>
+<a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner" id="summary_$pid">
 <form id="edit_summary_{$pid}" name="edit_summary_{$pid}" method="post" action="cp.php?ac=poll&op=summary&pid=$pid">
 <table>
 	<tr>
 		<td>
 
-			<label for="message">Poll Summary:</label>
+			<label for="message">Tóm tắt khảo sát:</label>
 			<a href="###" id="editface_{$pid}" onclick="showFace(this.id, 'summary');return false;"><img src="image/facelist.gif" align="absmiddle" /></a>
 			<img src="image/zoomin.gif" onmouseover="this.style.cursor='pointer'" onclick="zoomTextarea('summary', 1)">
 
@@ -162,7 +143,7 @@
 		<td>
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="summarysubmit" value="true" />
-		<input type="submit" name="summarysubmit_btn" id="summarysubmit_btn" value="Submit" class="submit" />
+		<input type="submit" name="summarysubmit_btn" id="summarysubmit_btn" value="Gửi" class="submit" />
 		</td>
 	</tr>
 </table>
@@ -176,18 +157,18 @@
 	<!--{loop $voteresult $value}-->
 		<li>
 			<!--{if $value[uid]==$_SGLOBAL[supe_uid]}-->
-			<img class="meicon" alt="Myself" src="image/arrow.gif"/>
+			<img class="meicon" alt="Tôi" src="image/arrow.gif"/>
 			<!--{/if}-->
 			<!--{if empty($value[username])}-->
-			Anonymous
+			Ẩn danh
 			<!--{else}-->
 			<a href="space.php?uid=$value[uid]">{$_SN[$value[uid]]}</a>
 			<!--{/if}-->
-			<!--{date('Y-m-d H:i:s',$value[dateline],1)}--> vote for $value[option]
+			<!--{date('Y-m-d H:i:s',$value[dateline],1)}--> đã bình chọn cho $value[option]
 		</li>
 	<!--{/loop}-->
 	<!--{else}-->
-		<li>No relative<!--{if $_GET[filtrate]=='we'}-->Good friends<!--{/if}--> Poll log</li>
+		<li>Không có <!--{if $_GET[filtrate]=='we'}-->bạn thân<!--{/if}--> nhật ký bình chọn</li>
 	<!--{/if}-->
 	</ul>
 	<!--{if $multi}--><div class="page">$multi</div><br/><!--{/if}-->
@@ -196,17 +177,17 @@
 
 <form id="inviteform" name="inviteform" method="post" action="cp.php?ac=poll&op=invite&pid=$poll[pid]&uid=$_GET[uid]&grade=$_GET[grade]&group=$_GET[group]&page=$_GET[page]&start=$_GET[start]">
 
-<h2 class="title"><img src="image/app/poll.gif" />Vote</h2>
+<h2 class="title"><img src="image/app/poll.gif" />Thăm dò</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="cp.php?ac=poll"><span>Create New Poll</span></a></li>
-		<li class="active"><a href="cp.php?ac=poll&op=invite&pid=$poll[pid]"><span>Invite Friends</span></a></li>
-		<li><a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]"><span>Back to Poll</span></a></li>
+		<li><a href="cp.php?ac=poll"><span>Tạo thăm dò mới</span></a></li>
+		<li class="active"><a href="cp.php?ac=poll&op=invite&pid=$poll[pid]"><span>Mời bạn bè</span></a></li>
+		<li><a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]"><span>Quay lại thăm dò</span></a></li>
 	</ul>
 </div>
 <div id="content" style="width: 640px;">
 	<div class="h_status">
-		You can invite friends to vote for <a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">��$poll[subject]��</a> Poll
+		Bạn có thể mời bạn bè tham gia bình chọn <a href="space.php?uid=$poll[uid]&do=poll&pid=$poll[pid]">¡¶$poll[subject]¡·</a> Khảo sát
 	</div>
 	
 	<div class="h_status">
@@ -217,7 +198,7 @@
 				<p>
 				<a href="space.php?uid=$value[fuid]" title="{$_SN[$value[fuid]]}">{$_SN[$value[fuid]]}</a>
 				</p>
-				<p><!--{if empty($invitearr[$value[fuid]])}--><input type="checkbox" name="ids[]" value="$value[fuid]">Choose<!--{else}-->Invited<!--{/if}--></p>
+				<p><!--{if empty($invitearr[$value[fuid]])}--><input type="checkbox" name="ids[]" value="$value[fuid]">Chọn<!--{else}-->Đã mời<!--{/if}--></p>
 			</li>
 		<!--{/loop}-->
 		</ul>
@@ -227,16 +208,16 @@
 		<!--{/if}-->
 	</div>
 	<p>
-		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Select All&nbsp;
-		<input type="submit" name="invitesubmit" value="Invite" class="submit" />
+		<input type="checkbox" id="chkall" name="chkall" onclick="checkAll(this.form, 'ids')">Chọn tất cả&nbsp;
+		<input type="submit" name="invitesubmit" value="Mời" class="submit" />
 	</p>
 </div>
 
 <div id="sidebar" style="width: 150px;">
 	<div class="cat">
-		<h3>Friends Group</h3>
+		<h3>Nhóm bạn bè</h3>
 		<ul class="post_list line_list">
-			<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=poll&pid=$poll[pid]&op=invite&group=-1">All  Friend</a></li>
+			<li<!--{if $_GET[group]==-1}--> class="current"<!--{/if}-->><a href="cp.php?ac=poll&pid=$poll[pid]&op=invite&group=-1">Tất cả bạn bè</a></li>
 			<!--{loop $groups $key $value}-->
 			<li<!--{if $_GET[group]==$key}--> class="current"<!--{/if}-->><a href="cp.php?ac=poll&pid=$poll[pid]&op=invite&group=$key">$value</a></li>
 			<!--{/loop}-->
@@ -251,11 +232,11 @@
 <!--{if $topic}-->
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
-	<h2 class="title"><img src="image/app/poll.gif" />Poll</h2>
+	<h2 class="title"><img src="image/app/poll.gif" />Thăm dò</h2>
 	<div class="tabs_header">
 		<ul class="tabs">
-			<li class="active"><a href="cp.php?ac=poll"><span>Launch a vote</span></a></li>
-			<li><a href="space.php?do=poll&view=me"><span> My Poll</span></a></li>
+			<li class="active"><a href="cp.php?ac=poll"><span>Tạo thăm dò mới</span></a></li>
+			<li><a href="space.php?do=poll&view=me"><span>Thăm dò của tôi</span></a></li>
 		</ul>
 	</div>
 <!--{/if}-->
@@ -265,14 +246,14 @@
 	<form id="addnewpoll" name="addnewpoll" method="post" action="cp.php?ac=poll">
 		<table cellspacing="4" cellpadding="4" width="100%" class="infotable">
 			<tr>
-				<th width="80">Vote Title</th>
+				<th width="80">Tiêu đề</th>
 				<td>
 					<input type="text" class="t_input" style="width:450px;" id="subject" name="subject" value=""> <br/>
-					<a id="addtip" href="javascript:;" onclick="initIntro();" onfocus="this.blur();">Poll Details</a>
+					<a id="addtip" href="javascript:;" onclick="initIntro();" onfocus="this.blur();">Nội dung chi tiết</a>
 				</td>
 			</tr>
 			<tr id="intropoll" style="display:none">
-				<th>Details</th>
+				<th>Chi tiết</th>
 				<td><textarea id="message" style="padding: 3px 2px;width:450px;height:50px;" name="message"></textarea> </td>
 			</tr>
 			<tr>
@@ -284,26 +265,26 @@
 			<tbody id="moreoption" style="display: none;">
 			<!--{/if}-->
 			<tr>
-				<th>Option{$val}</th>
+				<th>Tùy chọn {$val}</th>
 				<td>
 					<input type="text" class="t_input"  style="width:450px;" name="option[]" value="" maxlength="120">
 					<!--{if $val==10}-->
-					<div><a id="moretip" href="javascript:;" onclick="showMoreOption();" onfocus="this.blur();">Add more option</a></div>
+					<div><a id="moretip" href="javascript:;" onclick="showMoreOption();" onfocus="this.blur();">Thêm nhiều tùy chọn khác</a></div>
 					<!--{/if}-->
 				</td>
 			</tr>
 			<!--{/loop}-->
 			</tbody>
 			<tr>
-				<th>Option</th>
+				<th>Kiểu chọn</th>
 				<td>
 					<select name="maxchoice">
 						<!--{loop $option $key $val}-->
 							<option value="$val">
 								<!--{if $val==1}-->
-								Select one
+								Chỉ chọn một
 								<!--{else}-->
-								Select Muti-Maxinum {$val} Choice
+								Chọn tối đa {$val} tùy chọn
 								<!--{/if}-->
 							</option>
 						<!--{/loop}-->
@@ -311,52 +292,52 @@
 				</td>
 			</tr>
 			<tr>
-				<th>End time</th>
+				<th>Thời hạn</th>
 				<td>
 					<script type="text/javascript" src="source/script_calendar.js" charset="$_SC[charset]"></script>
 					<input type="text" class="t_input" size="16" id="expiration" readonly name="expiration" value="" onclick="showcalendar(event, this, 0, '<!--{date('Y-m-d',$_SGLOBAL[timestamp])}-->')" />
 				</td>
 			</tr>
 			<tr>
-				<th>Vote limit</th>
+				<th>Giới hạn giới tính</th>
 				<td>
-					<input type="radio" name="sex" value="0" checked />Any one
-					<input type="radio" name="sex" value="1" />Male
-					<input type="radio" name="sex" value="2" />Female 
+					<input type="radio" name="sex" value="0" checked />Tất cả
+					<input type="radio" name="sex" value="1" />Nam
+					<input type="radio" name="sex" value="2" />Nữ 
 				</td>
 			</tr>
 			<tr>
-				<th>Blog limit</th>
+				<th>Giới hạn trả lời</th>
 				<td>
-					<input type="radio" name="noreply" value="0" checked />Unlimit 
-					<input type="radio" name="noreply" value="1" />Only friend
+					<input type="radio" name="noreply" value="0" checked />Không giới hạn 
+					<input type="radio" name="noreply" value="1" />Chỉ bạn bè
 				</td>
 			</tr>
 			<tr>
-				<th>Reward Vote</th>
+				<th>Thưởng</th>
 				<td>
-					<input type="radio" name="reward" value="0" checked onclick="initReward(this.value);" />No
-					<input type="radio" name="reward" value="1" onclick="initReward(this.value);" />Yes
+					<input type="radio" name="reward" value="0" checked onclick="initReward(this.value);" />Không
+					<input type="radio" name="reward" value="1" onclick="initReward(this.value);" />Có
 				</td>
 			</tr>
 			<tbody id="rewardlist" style="display: none;">
 				<tr>
-					<th>Reward Credit Total</th>
+					<th>Tổng điểm thưởng</th>
 					<td>
-						<input type="text" class="t_input" size="16" id="credit" name="credit" value="" maxlength="60"> Range��1~$space[credit]
+						<input type="text" class="t_input" size="16" id="credit" name="credit" value="" maxlength="60"> Phạm vi: 1~$space[credit]
 					</td>
 				</tr>
 				<tr>
-					<th>Reward for all</th>
+					<th>Thưởng cho mỗi người</th>
 					<td>
-						<input type="text" class="t_input" size="16" id="percredit" name="percredit" value="" maxlength="60"> Range��1~$_SCONFIG[maxreward]
+						<input type="text" class="t_input" size="16" id="percredit" name="percredit" value="" maxlength="60"> Phạm vi: 1~$_SCONFIG[maxreward]
 					</td>
 				</tr>
 			</tbody>
 			<!--{if checkperm('seccode')}-->
 				<!--{if $_SCONFIG['questionmode']}-->
 				<tr>
-					<th style="vertical-align: top;" width="90">Answer below question</th>
+					<th style="vertical-align: top;" width="90">Trả lời câu hỏi</th>
 					<td>
 						<p><!--{eval question();}--></p>
 						<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
@@ -364,10 +345,10 @@
 				</tr>
 				<!--{else}-->
 				<tr>
-					<th style="vertical-align: top;" width="90">Please fill in authentication code</th>
+					<th style="vertical-align: top;" width="90">Mã xác nhận</th>
 					<td>
 						<script>seccode();</script>
-						<p>Please input 4 letters or digits upper side��If you cannot see <a href="javascript:updateseccode()">update a new one</a></p>
+						<p>Vui lòng nhập 4 chữ cái hoặc số bên trên. Nếu không thấy rõ nhấn <a href="javascript:updateseccode()">vào đây</a> để đổi mã khác.</p>
 						<input type="text" id="seccode" name="seccode" value="" size="15" class="t_input" />
 					</td>
 				</tr>
@@ -375,9 +356,9 @@
 			<!--{/if}-->
 			
 			<tr>
-				<th>RSS Feed Option</th>
+				<th>Tùy chọn RSS Feed</th>
 				<td>
-					<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('poll', 1)}--> checked<!--{/if}-->> Create feed (<a href="cp.php?ac=privacy#feed" target="_blank">update default setting</a>)
+					<input type="checkbox" name="makefeed" id="makefeed" value="1"<!--{if ckprivacy('poll', 1)}--> checked<!--{/if}-->> Tạo nguồn cấp dữ liệu (<a href="cp.php?ac=privacy#feed" target="_blank">cập nhật cài đặt mặc định</a>)
 				</td>
 			</tr>
 			
@@ -387,7 +368,7 @@
 					<input type="hidden" name="pollsubmit" id="pollsubmit" value="true" />
 					<input type="hidden" name="topicid" value="$_GET[topicid]" />
 					<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
-					<input type="submit" name="addpollsubmit" id="addpollsubmit" value="Create New Poll" class="submit" onclick="validate(this);return false;" />
+					<input type="submit" name="addpollsubmit" id="addpollsubmit" value="Tạo thăm dò mới" class="submit" onclick="validate(this);return false;" />
 					<div id="__addnewpoll"></div>
 				</td>
 			</tr>
@@ -400,12 +381,12 @@
 			if(introObj.style.display == 'none') {
 				introObj.style.display = '';
 				
-				tipObj.innerHTML = "Hide vote details";
+				tipObj.innerHTML = "Ẩn chi tiết";
 			} else {
-				if (($('message').value.length == 0) || (confirm("Vote detail will be empty trash,Do you want to go on��"))) {
+				if (($('message').value.length == 0) || (confirm("Nội dung chi tiết sẽ bị xóa sạch, bạn có chắc chắn muốn tiếp tục không?"))) {
 					introObj.style.display = 'none';
 					$('message').value = '';
-					tipObj.innerHTML = "Add vote details";
+					tipObj.innerHTML = "Thêm chi tiết";
 				}
 			}
 		}
@@ -428,7 +409,7 @@
 		    if (subject) {
 		    	var slen = strlen(subject.value);
 		        if (slen < 1 || slen > 80) {
-		            alert("Title Length(1~80 letter),");
+		            alert("Độ dài tiêu đề từ 1 đến 80 ký tự.");
 		            subject.focus();
 		            return false;
 		        }
@@ -437,7 +418,7 @@
 		    var makefeed = $('makefeed');
 		    if(makefeed) {
 		    	if(makefeed.checked == false) {
-		    		if(!confirm("Note��Are you sure you do not want RSS Feed��\n")) {
+		    		if(!confirm("Chú ý: Bạn có chắc chắn không muốn tạo nguồn cấp dữ liệu (RSS Feed) không?")) {
 		    			return false;
 		    		}
 		    	}
@@ -451,29 +432,29 @@
 				}
 			}
 			if(optionCount<2) {
-				alert('Require minimum 2 opritons');
+				alert('Yêu cầu tối thiểu 2 tùy chọn.');
 				return false;
 			}
 			var maxCredit = $space[credit];
 			var maxPercredit = $_SCONFIG[maxreward];
-			//��֤����ͶƱ����
+			//ÑéÖ¤ÐüÉÍÍ¶Æ±ÉèÖÃ
 			var credit = parseInt($('credit').value.Trim());
 			var percredit = parseInt($('percredit').value.Trim());
 			if(credit || percredit) {
 				if(!credit) {
-					alert("Please input reward credit total");
+					alert("Vui lòng nhập tổng điểm thưởng.");
 					return false;
 				} else if(!percredit) {
-					alert("Please input point for each person");
+					alert("Vui lòng nhập điểm thưởng cho mỗi người.");
 					return false;
 				} else if(credit > maxCredit) {
-					alert("Reward credit total range:1~"+maxCredit+"");
+					alert("Tổng điểm thưởng phải trong phạm vi: 1~"+maxCredit+"");
 					return false;
 				} else if(maxPercredit && percredit > maxPercredit) {
-					alert("Credit range:1~"+maxPercredit+" for each Vote");
+					alert("Điểm thưởng cho mỗi người phải trong phạm vi: 1~"+maxPercredit+"");
 					return false;
 				} else if(credit < percredit) {
-					alert("Each Person credit can not be higher than reward credit total");
+					alert("Điểm thưởng cho mỗi người không được cao hơn tổng điểm thưởng.");
 					return false;
 				}
 			}
@@ -483,7 +464,7 @@
 			if($('expiration').value.Trim() != "") {
 				var expiration = parsedate($('expiration').value.Trim());
 				if(expiration < nowDate) {
-					alert("End time can not be less than the current time");
+					alert("Thời gian kết thúc không thể nhỏ hơn thời gian hiện tại.");
 					return false;
 				}
 			}

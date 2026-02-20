@@ -16,11 +16,11 @@
 <form method="post" id="theform" name="theform" action="cp.php?ac=album&op=edit&albumid=$albumid" class="c_form">
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<tr>
-		<th width="80"><label for="albumname">Album Name</label></th>
+		<th width="80"><label for="albumname">Tên Album</label></th>
 		<td><input type="text" id="albumname" name="albumname" value="$album[albumname]" size="20" class="t_input" /></td>
 	</tr>
 	<tr>
-		<th>Privacy Settings</th>
+		<th>Quyền riêng tư</th>
 		<td>
 			<select name="friend" onchange="passwordShow(this.value);">
 				<option value="0"$friendarr[0]>Tất cả xem được</option>
@@ -54,7 +54,7 @@
 		<td>
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="editsubmit" value="true" />
-		<button name="submit" type="submit" class="submit" value="true">OK</button>&nbsp;
+		<button name="submit" type="submit" class="submit" value="true">Đồng ý</button>&nbsp;
 		</td>
 	</tr>
 	<tr>
@@ -107,7 +107,7 @@ Mẹo: Bạn có thể chỉ định một hình ảnh như là ảnh bìa album
 				<!--{/loop}-->
 				<!--{if $albumid>0}--><option value="0">Album mặc định</option><!--{/if}-->
 				</select>
-				<br>Chú ý: Nếu bạn muốn xóa hình ảnh sẽ xuất hiện trong chủ đề đăng nhập, bạn xóa sẽ dẫn đến nội dung bên trong hình ảnh có thể không được hiển thị.
+				<br>Chú ý: Nếu bạn xóa hình ảnh đã được sử dụng trong bài viết, nội dung bài viết đó sẽ không hiển thị được hình ảnh này nữa.
 			</td>
 		</tr>
 	</table>
@@ -142,7 +142,7 @@ Mẹo: Bạn có thể chỉ định một hình ảnh như là ảnh bìa album
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="deletesubmit" value="true" />
-		<button name="submit" type="submit" class="submit" value="true">OK</button>&nbsp;
+		<button name="submit" type="submit" class="submit" value="true">Đồng ý</button>&nbsp;
 	</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>
@@ -150,7 +150,7 @@ Mẹo: Bạn có thể chỉ định một hình ảnh như là ảnh bìa album
 
 <!--{elseif $_GET['op'] == 'edittitle'}-->
 
-<h1>Chỉnh sửa ảnh Caption</h1>
+<h1>Chỉnh sửa chú thích ảnh</h1>
 <a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner">
 	<form id="titleform" name="titleform" action="cp.php?ac=album&op=editpic&subop=update&albumid=$pic[albumid]" method="post">
@@ -165,7 +165,7 @@ Mẹo: Bạn có thể chỉ định một hình ảnh như là ảnh bìa album
 
 <!--{elseif $_GET[op] == 'edithot'}-->
 
-<h1>Điều chỉnh ảnh</h1>
+<h1>Điều chỉnh độ nóng</h1>
 <a href="javascript:hideMenu();" class="float_del" title="Đóng">Đóng</a>
 <div class="popupmenu_inner">
 <form method="post" action="cp.php?ac=album&op=edithot&picid=$picid">
@@ -173,7 +173,7 @@ Mẹo: Bạn có thể chỉ định một hình ảnh như là ảnh bìa album
 		Ảnh nóng:<input type="text" name="hot" value="$pic[hot]" size="5"> 
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]" />
 		<input type="hidden" name="hotsubmit" value="true" />
-		<input type="submit" name="btnsubmit" value="OK" class="submit" />
+		<input type="submit" name="btnsubmit" value="Đồng ý" class="submit" />
 	</p>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />
 </form>

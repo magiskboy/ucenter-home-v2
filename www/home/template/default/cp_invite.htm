@@ -28,7 +28,7 @@
 <div class="popupmenu_inner" id="__deleteform_{$id}">
 <form method="post" id="deleteform_{$id}" name="deleteform_{$id}" action="cp.php?ac=invite&op=delete&id=$id">
 	<p>Bạn có chắc muốn xóa bản ghi các lời mời</p>
-	<p>Xóa các lời, bạn bè sẽ không thể sử dụng. <br/>Records link to the original invitation to register as your friend!</p>
+	<p>Bản ghi này liên kết đến lời mời gốc để đăng ký làm bạn của bạn!</p>
 	<p class="btn_line">
 		<input type="hidden" name="refer" value="$_SGLOBAL[refer]">
 		<!--{if $_SGLOBAL[inajax]}-->
@@ -195,9 +195,9 @@
 			<ul class="sendmail">
 				<!--{loop $maillist $key $value}-->
 				<li id="sendmail_$value[id]_li">
-					<a href="cp.php?ac=invite&op=resend&id=$value[id]" id="mail_invite_$value[id]" class="c_resend" onclick="ajaxmenu(event, this.id)" title="Retransmission">Gửi lại</a>
-					<a href="javascript:;" title="Link" class="c_link" onclick="javascript:setCopy('$value[url]');return false;">Link</a>
-					<a href="cp.php?ac=invite&op=delete&id=$value[id]" id="del_invite_$value[id]" class="c_delete" onclick="ajaxmenu(event, this.id)" title="Remove">Xóa</a>
+					<a href="cp.php?ac=invite&op=resend&id=$value[id]" id="mail_invite_$value[id]" class="c_resend" onclick="ajaxmenu(event, this.id)" title="Gửi lại">Gửi lại</a>
+					<a href="javascript:;" title="Liên kết" class="c_link" onclick="javascript:setCopy('$value[url]');return false;">Link</a>
+					<a href="cp.php?ac=invite&op=delete&id=$value[id]" id="del_invite_$value[id]" class="c_delete" onclick="ajaxmenu(event, this.id)" title="Xóa">Xóa</a>
 					$value[email]
 				</li>
 				<!--{/loop}-->

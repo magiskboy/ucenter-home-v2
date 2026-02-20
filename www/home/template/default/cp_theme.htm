@@ -1,37 +1,37 @@
 <!--{template header}-->
 <!--{if $op=='diy'}-->
 <!--{template cp_header}-->
-<div class="h_status"><a href="cp.php?ac=theme">Back to Homepage</a></div>
+<div class="h_status"><a href="cp.php?ac=theme">Quay lại trang chủ</a></div>
 
 <div class="d_content">
 	
 	<form method="post" action="cp.php?ac=theme" class="c_form">
 	
 	<!--{if !empty($_GET['view'])}-->
-	<div class="notice">Save the Previous: <!--{date('H:i:s',$_SGLOBAL[timestamp])}-->��<a href="space.php" target="_blank"> Preview Theme</a></div>
+	<div class="notice">Lưu lần trước: <!--{date('H:i:s',$_SGLOBAL[timestamp])}--> <a href="space.php" target="_blank"> Xem thử Giao diện</a></div>
 	<!--{/if}-->
 	
 	<table cellspacing="6" cellpadding="0" width="100%">
 	<!--{if $allowcss}-->
 	<tr>
-		<td>Design your own theme, Require CSS basis knwoledge<br>
+		<td>Tự thiết kế giao diện, yêu cầu kiến thức CSS cơ bản<br>
 		CSS:<br>
 		<textarea name="css" style="width:98%;" rows="20">$space[css]</textarea></td>
 	</tr>
 	<!--{else}-->
 	<tr>
-		<td>Not familiar with CSS, you can select from Templates or use others Theme, or <a href="cp.php?ac=theme">Return to Templates Homepage</a> to select our template as your profile theme</td>
+		<td>Nếu không quen với CSS, bạn có thể chọn từ Mẫu hoặc sử dụng các Giao diện khác, hoặc <a href="cp.php?ac=theme">Quay lại trang chủ Giao diện</a> để chọn mẫu của chúng tôi làm giao diện hồ sơ của bạn</td>
 	</tr>
 	<!--{/if}-->
 	<tr>
 		<td>
-		<input type="checkbox" name="nocss" value="1"<!--{if $space[nocss]}--> checked<!--{/if}-->> <strong>Ignore other Theme</strong>
+		<input type="checkbox" name="nocss" value="1"<!--{if $space[nocss]}--> checked<!--{/if}-->> <strong>Bỏ qua Giao diện khác</strong>
 		<br>
-		Somebody make a wrong choice cause the homepage display error.You can select this option, will see all memmbers homepage use the default setting.
+		Một số người chọn sai khiến trang chủ hiển thị lỗi. Bạn có thể chọn tùy chọn này để xem trang chủ của tất cả thành viên bằng cài đặt mặc định.
 		</td>
 	</tr>
 	<tr>
-		<td><input type="submit" name="csssubmit" id="csssubmit" value="Save Changes" class="submit" /> 
+		<td><input type="submit" name="csssubmit" id="csssubmit" value="Lưu thay đổi" class="submit" /> 
 		</td>
 	</tr>
 	</table>
@@ -45,8 +45,8 @@
 <div class="c_form">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>Theme Homepage</h2>
-		<p>Select your profile theme or design* your own (* Require CSS knweledge)</p>
+		<h2>Trang chủ Giao diện</h2>
+		<p>Chọn giao diện hồ sơ của bạn hoặc tự thiết kế* (* Yêu cầu kiến thức CSS)</p>
 	</caption>
 	<tr>
 	<!--{eval $i=0;}-->
@@ -68,9 +68,9 @@
 				<!--{/if}-->
 				<br>
 				<!--{if $value['dir']=='uchomediy'}-->
-				<a href="cp.php?ac=theme&op=diy">Go to setting page</a>
+				<a href="cp.php?ac=theme&op=diy">Đi đến trang cài đặt</a>
 				<!--{else}-->
-				<a href="space.php?theme=$value[dir]" target="_blank">Preview</a> | <a href="cp.php?ac=theme&op=use&dir=$value[dir]">Set</a>
+				<a href="space.php?theme=$value[dir]" target="_blank">Xem thử</a> | <a href="cp.php?ac=theme&op=use&dir=$value[dir]">Thiết lập</a>
 				<!--{/if}-->
 			</div>
 
@@ -84,13 +84,13 @@
 	<form method="post" action="cp.php?ac=theme">
 	<table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>My Time Zone</h2>
-		<p>If you see the System current time and your local time showing different then you need to change time zone</p>
+		<h2>Múi giờ của tôi</h2>
+		<p>Nếu bạn thấy thời gian hiện tại của hệ thống và thời gian địa phương của bạn khác nhau, bạn cần thay đổi múi giờ</p>
 	</caption>
 	<tr>
 	<tr>
 		<th width="120">
-		Current time
+		Thời gian hiện tại
 		</th>
 		<td>
 		<!--{date('d-m-Y H:i',$_SGLOBAL[timestamp])}-->
@@ -98,11 +98,11 @@
 	</tr>
 	<tr>
 		<th>
-			�ҵ�ʱ��
+			Múi giờ của tôi
 		</th>
 		<td>
 			<select name="timeoffset">
-			<option value="">Using the system default</option>
+			<option value="">Sử dụng mặc định hệ thống</option>
 			<option value="-12" $toselect[-12]>(GMT -12:00) Eniwetok, Kwajalein</option>
 			<option value="-11" $toselect[-11]>(GMT -11:00) Midway Island, Samoa</option>
 			<option value="-10" $toselect[-10]>(GMT -10:00) Hawaii</option>
@@ -140,7 +140,7 @@
 	</tr>
 	<tr>
 		<th>&nbsp;</th>
-		<td><input type="submit" name="timeoffsetsubmit" value="Save" class="submit" /></td>
+		<td><input type="submit" name="timeoffsetsubmit" value="Lưu" class="submit" /></td>
 	</tr>
 	</table>
 	<input type="hidden" name="formhash" value="<!--{eval echo formhash();}-->" />

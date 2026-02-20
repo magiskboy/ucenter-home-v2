@@ -1,36 +1,36 @@
-<!--{eval $_TPL['titles'] = array('Groups');}-->
+<!--{eval $_TPL['titles'] = array('Nhóm');}-->
 <!--{template header}-->
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="Search Group" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm kiếm nhóm" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="mtag" />
 	<input type="hidden" name="view" value="hot" />
 </form>
 </div>
-<h2 class="title"><img src="image/app/mtag.gif">Groups</h2>
+<h2 class="title"><img src="image/app/mtag.gif">Nhóm</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<li><a href="space.php?uid=$space[uid]&do=thread"><span>Group Topics</span></a></li>
-		<li$actives[me]><a href="space.php?do=mtag&view=me"><span>My Groups</span></a></li>
-		<li$actives[manage]><a href="space.php?do=mtag&view=manage"><span>Owned</span></a></li>
-		<li$actives[hot]><a href="space.php?do=mtag&view=hot"><span>Top Groups</span></a></li>
-		<li$actives[recommend]><a href="space.php?do=mtag&view=recommend"><span>Popular Groups</span></a></li>
-		<li class="null"><a href="cp.php?ac=thread">Create Topic</a></li>
-		<li class="null"><a href="cp.php?ac=mtag">Create Group</a></li>
+		<li><a href="space.php?uid=$space[uid]&do=thread"><span>Chủ đề nhóm</span></a></li>
+		<li$actives[me]><a href="space.php?do=mtag&view=me"><span>Nhóm của tôi</span></a></li>
+		<li$actives[manage]><a href="space.php?do=mtag&view=manage"><span>Nhóm quản lý</span></a></li>
+		<li$actives[hot]><a href="space.php?do=mtag&view=hot"><span>Nhóm sôi nổi</span></a></li>
+		<li$actives[recommend]><a href="space.php?do=mtag&view=recommend"><span>Nhóm gợi ý</span></a></li>
+		<li class="null"><a href="cp.php?ac=thread">Tạo chủ đề</a></li>
+		<li class="null"><a href="cp.php?ac=mtag">Tạo nhóm</a></li>
 	</ul>
 </div>
 
 <div class="h_status">
-	Sort by:
-	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=threadnum"$orderbyarr[threadnum]>Top Topics</a><span class="pipe">|</span>
-	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=postnum"$orderbyarr[postnum]>Back to Top Post</a><span class="pipe">|</span>
-	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=membernum"$orderbyarr[membernum]>Top Members</a>
+	Sắp xếp:
+	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=threadnum"$orderbyarr[threadnum]>Chủ đề nhiều nhất</a><span class="pipe">|</span>
+	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=postnum"$orderbyarr[postnum]>Bài viết nhiều nhất</a><span class="pipe">|</span>
+	<a href="space.php?do=mtag&view=$_GET[view]&fieldid=$_GET[fieldid]&orderby=membernum"$orderbyarr[membernum]>Thành viên nhiều nhất</a>
 </div>
 
 <!--{if $searchkey}-->
-<div class="h_status">There are search <span style="color:red;font-weight:bold;">$searchkey</span> redults</div>
+<div class="h_status">Kết quả tìm kiếm cho <span style="color:red;font-weight:bold;">$searchkey</span></div>
 <!--{/if}-->
 	
 <div id="content">
@@ -38,8 +38,8 @@
 <!--{if $rlist}-->
 	<div>
 		<h3 class="l_status">
-			<div class="r_option"><a href="space.php?do=mtag&view=recommend">More Recommended</a></div>
-			Recommended Groups
+			<div class="r_option"><a href="space.php?do=mtag&view=recommend">Xem thêm</a></div>
+			Nhóm gợi ý
 		</h3>
 		<table cellspacing="5" cellpadding="5"><tr>
 		<!--{loop $rlist $key $value}-->
@@ -49,9 +49,9 @@
 			<td width="200">
 				<a href="space.php?do=mtag&tagid=$value[tagid]" style="font-weight:bold;">$value[tagname]</a>
 				<div class="gray">$value[title]</div>
-				include <span class="num">$value[membernum]</span> Join
+				Có <span class="num">$value[membernum]</span> thành viên
 				<div class="gray">
-					Topics: $value[threadnum], Replies: $value[postnum]
+					Chủ đề: $value[threadnum], Bài viết: $value[postnum]
 				</div>
 			</td>
 		<!--{if $key%2==1}--></tr><tr><!--{/if}-->
@@ -65,7 +65,7 @@
 	<div>
 		<!--{if $rlist}-->
 		<h3 class="l_status">
-			My Groups
+			Nhóm của tôi
 		</h3>
 		<!--{/if}-->
 		<table cellspacing="5" cellpadding="5"><tr>
@@ -76,9 +76,9 @@
 			<td width="200">
 				<a href="space.php?do=mtag&tagid=$value[tagid]" style="font-weight:bold;">$value[tagname]</a>
 				<div class="gray">$value[title]</div>
-				inlcude <span class="num">$value[membernum]</span> Join
+				Có <span class="num">$value[membernum]</span> thành viên
 				<div class="gray">
-					Topics: $value[threadnum], Replies: $value[postnum]
+					Chủ đề: $value[threadnum], Bài viết: $value[postnum]
 				</div>
 			</td>
 		<!--{if $key%2==1}--></tr><tr><!--{/if}-->
@@ -89,7 +89,7 @@
 	<div class="page">$multi</div>
 
 <!--{else}-->
-	<div class="c_form">Does not exist</div>
+	<div class="c_form">Không tồn tại nhóm nào</div>
 <!--{/if}-->
 
 </div>
@@ -97,9 +97,9 @@
 <div id="sidebar">
 
 	<div class="sidebox">
-	<h2 class="title">Category</h2>
+	<h2 class="title">Phân loại</h2>
 	<ul class="post_list line_list">
-		<li$pro_actives[all]><a href="space.php?do=mtag&view=$_GET[view]&orderby=$_GET[orderby]">All</a>
+		<li$pro_actives[all]><a href="space.php?do=mtag&view=$_GET[view]&orderby=$_GET[orderby]">Tất cả</a>
 		<!--{loop $_SGLOBAL['profield'] $value}-->
 		<li{$pro_actives[$value[fieldid]]}><a href="space.php?do=mtag&view=$_GET[view]&fieldid=$value[fieldid]&orderby=$_GET[orderby]">$value[title]</a></li>
 		<!--{/loop}-->
@@ -109,13 +109,13 @@
 	
 	<!--{if $threadlist}-->
 	<div class="sidebox">
-	<h2 class="title">Latest Active Group</h2>
+	<h2 class="title">Nhóm hoạt động mới nhất</h2>
 	<ul class="line_list">
 		<!--{loop $threadlist $key $value}-->
 			<li>
 				<a href="space.php?uid=$value[uid]&do=thread&id=$value[tid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a>
 				<!--{if $value[hot]}-->
-				<br><span class="gray">$value[hot] Recommend</span>
+				<br><span class="gray">$value[hot] người gợi ý</span>
 				<!--{/if}-->
 			</li>
 		<!--{/loop}-->

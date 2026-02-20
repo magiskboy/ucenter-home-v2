@@ -1,11 +1,11 @@
-<!--{eval $_TPL['titles'] = array('Status');}-->
+<!--{eval $_TPL['titles'] = array('Trạng thái');}-->
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_doing">
 		<h3 class="feed_header">
-			<a href="space.php?do=doing&view=me" class="r_option" target="_blank">Words</a>
-			(Tổng cộng $count )
+			<a href="space.php?do=doing&view=me" class="r_option" target="_blank">Dòng trạng thái</a>
+			(Tổng cộng $count)
 		</h3><br>
 
 		<!--{if $dolist}-->
@@ -41,22 +41,22 @@
 <!--{else}-->
 
 <!--{if $space[self]}-->
-<h2 class="title"><img src="image/app/doing.gif">Status - Trạng thái bạn bè</h2>
+<h2 class="title"><img src="image/app/doing.gif">Dòng trạng thái - Tâm trạng bạn bè</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Cập nhập Status bạn bè</span></a></li><!--{/if}-->
+		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Trạng thái của bạn bè</span></a></li><!--{/if}-->
 		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>Tất cả Status</span></a></li>
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Status</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Trạng thái của tôi</span></a></li>
 		<li$actives[mood]><a href="space.php?uid=$space[uid]&do=mood"><span>Bạn bè cùng trạng thái</span></a></li>
 	</ul>
 </div>
 <!--{else}-->
 <!--{eval 
-	$_TPL['spacetitle'] = "Doing";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=doing&view=me\">My Status</a>";
+	$_TPL['spacetitle'] = "Dòng trạng thái";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=doing&view=me\">Trạng thái của tôi</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">Xắp xếp Status mới nhất</div>
+<div class="h_status">Sắp xếp theo trạng thái mới nhất</div>
 <!--{/if}-->
 
 <div id="content">	

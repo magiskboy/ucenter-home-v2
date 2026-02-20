@@ -1,19 +1,19 @@
 <!--{eval $_TPL['titles'] = array('Blog');}-->
-<!--{eval $friendsname = array(1 => 'Just Friend',2 => 'Selected Peoples',3 => 'Just Myself',4 => 'Password protected');}-->
+<!--{eval $friendsname = array(1 => 'Chỉ bạn bè',2 => 'Người được chọn',3 => 'Chỉ mình tôi',4 => 'Bảo vệ bằng mật khẩu');}-->
 
 <!--{template header}-->
 
 <!--{if !empty($_SGLOBAL[inajax])}-->
 	<div id="space_blog" class="feed">
 		<h3 class="feed_header">
-			<a href="space.php?uid=$space[uid]" class="r_option"> space</a> 
-			Blogs($count)
+			<a href="space.php?uid=$space[uid]" class="r_option">Trang cá nhân</a> 
+			Blog ($count)
 		</h3>
 		<!--{if $count}-->
 		<ul class="line_list">
 		<!--{loop $list $value}-->
 			<li>
-				<span class="gray r_option"><!--{date('m-d H:i',$value[dateline],1)}--></span>
+				<span class="gray r_option"><!--{date('d-m H:i',$value[dateline],1)}--></span>
 				<h4><a href="space.php?uid=$space[uid]&do=blog&id=$value[blogid]" target="_blank" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a></h4>
 				<div class="detail">
 					$value[message]
@@ -22,11 +22,11 @@
 		<!--{/loop}-->
 		</ul>
 		<!--{if $pricount}-->
-		<div class="c_form">This page has $pricount Blogs, may be some of them you can't view due to it's privacy setting</div>
+		<div class="c_form">Trang này có $pricount Blog, có thể một số blog bạn không xem được do thiết lập bảo mật.</div>
 		<!--{/if}-->
 		<div class="page">$multi</div>
 		<!--{else}-->
-		<div class="c_form">No Reatled blog found!</div>
+		<div class="c_form">Không tìm thấy blog liên quan!</div>
 		<!--{/if}-->
 	</div>
 <!--{else}-->
@@ -35,7 +35,7 @@
 <div class="searchbar floatright">
 <form method="get" action="space.php">
 	<input name="searchkey" value="" size="15" class="t_input" type="text">
-	<input name="searchsubmit" value="Search Blog" class="submit" type="submit">
+	<input name="searchsubmit" value="Tìm kiếm Blog" class="submit" type="submit">
 	<input type="hidden" name="searchmode" value="1" />
 	<input type="hidden" name="do" value="blog" />
 	<input type="hidden" name="view" value="all" />
@@ -45,38 +45,38 @@
 <h2 class="title"><img src="image/app/blog.gif" />Blog</h2>
 <div class="tabs_header">
 	<ul class="tabs">
-		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Friends latest Blog</span></a></li><!--{/if}-->
-		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>All Blog</span></a></li>
-		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>My Blog</span></a></li>
-		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>My stated Blog</span></a></li>
-		<li class="null"><a href="cp.php?ac=blog">Publish New Blog</a></li>
+		<!--{if $space[friendnum]}--><li$actives[we]><a href="space.php?uid=$space[uid]&do=$do&view=we"><span>Blog mới của bạn bè</span></a></li><!--{/if}-->
+		<li$actives[all]><a href="space.php?uid=$space[uid]&do=$do&view=all"><span>Tất cả Blog</span></a></li>
+		<li$actives[me]><a href="space.php?uid=$space[uid]&do=$do&view=me"><span>Blog của tôi</span></a></li>
+		<li$actives[click]><a href="space.php?uid=$space[uid]&do=$do&view=click"><span>Blog đã bày tỏ thái độ</span></a></li>
+		<li class="null"><a href="cp.php?ac=blog">Viết Blog mới</a></li>
 	</ul>
 </div>		
 <!--{else}-->
 <!--{eval 
 	$_TPL['spacetitle'] = "Blog";
-	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">List of blog</a>";
+	$_TPL['spacemenus'][] = "<a href=\"space.php?uid=$space[uid]&do=$do&view=me\">Danh sách Blog</a>";
 }-->
 <!--{template space_menu}-->
-<div class="h_status">Order by date/time</div>
+<div class="h_status">Sắp xếp theo thời gian</div>
 <!--{/if}-->
 		
 <div id="content" style="width:640px;">
 	<!--{if $_GET['orderby'] && $_GET['orderby'] != 'dateline'}-->
 	<div class="h_status">
-		Top Blog by Rank��
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]"{$day_actives[0]}>All</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=1"{$day_actives[1]}>Recently</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=2"{$day_actives[2]}>Last Two Days</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=7"{$day_actives[7]}>Winthin Last week</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=30"{$day_actives[30]}>Within One Month</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=90"{$day_actives[90]}>Within 3 months</a><span class="pipe">|</span>
-		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=120"{$day_actives[120]}>Within 6 months</a>
+		Blog hàng đầu theo xếp hạng:
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]"{$day_actives[0]}>Tất cả</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=1"{$day_actives[1]}>Gần đây</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=2"{$day_actives[2]}>2 ngày trước</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=7"{$day_actives[7]}>Trong tuần qua</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=30"{$day_actives[30]}>Trong 1 tháng</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=90"{$day_actives[90]}>Trong 3 tháng</a><span class="pipe">|</span>
+		<a href="space.php?do=blog&view=all&orderby=$_GET[orderby]&day=120"{$day_actives[120]}>Trong 6 tháng</a>
 	</div>
 	<!--{/if}-->
 	
 	<!--{if $searchkey}-->
-	<div class="h_status">The following blog <span style="color:red;font-weight:bold;">$searchkey</span> search results</div>
+	<div class="h_status">Kết quả tìm kiếm blog <span style="color:red;font-weight:bold;">$searchkey</span></div>
 	<!--{/if}-->
 	
 	<!--{if $count}-->
@@ -90,7 +90,7 @@
 				</div>
 				
 				<div class="title">
-					<a href="cp.php?ac=share&type=blog&id=$value[blogid]" id="a_share_$value[blogid]" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Share</a>
+					<a href="cp.php?ac=share&type=blog&id=$value[blogid]" id="a_share_$value[blogid]" onclick="ajaxmenu(event, this.id, 1)" class="a_share">Chia sẻ</a>
 					<h4><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]" <!--{if $value[magiccolor]}--> class="magiccolor$value[magiccolor]"<!--{/if}-->>$value[subject]</a></h4>
 					<div>
 					<!--{if $value['friend']}-->
@@ -104,15 +104,15 @@
 					$value[message]
 				</div>
 				<div class="gray">
-					<!--{if $classarr[$value[classid]]}-->Category: <a href="space.php?uid=$value[uid]&do=blog&classid=$value[classid]">{$classarr[$value[classid]]}</a><span class="pipe">|</span><!--{/if}-->
-					<!--{if $value[viewnum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]">$value[viewnum]  Views</a><span class="pipe">|</span><!--{/if}-->
-					<!--{if $value[replynum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]#comment">$value[replynum] Comments</a><!--{else}-->No Comments<!--{/if}-->
+					<!--{if $classarr[$value[classid]]}-->Phân loại: <a href="space.php?uid=$value[uid]&do=blog&classid=$value[classid]">{$classarr[$value[classid]]}</a><span class="pipe">|</span><!--{/if}-->
+					<!--{if $value[viewnum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]">$value[viewnum] Lượt xem</a><span class="pipe">|</span><!--{/if}-->
+					<!--{if $value[replynum]}--><a href="space.php?uid=$value[uid]&do=$do&id=$value[blogid]#comment">$value[replynum] Bình luận</a><!--{else}-->Chưa có bình luận<!--{/if}-->
 				</div>
 			</li>
 		<!--{/loop}-->
 		<!--{if $pricount}-->
 			<li>
-				<div class="title">This page has $pricount Blogs, because of privacy setting can not view</div>
+				<div class="title">Trang này có $pricount Blog, do thiết lập bảo mật nên không thể xem</div>
 			</li>
 		<!--{/if}-->
 		</ul>
@@ -121,7 +121,7 @@
 	<div class="page">$multi</div>
 	
 	<!--{else}-->
-	<div class="c_form">No related blog found.!</div>
+	<div class="c_form">Không tìm thấy blog liên quan!</div>
 	<!--{/if}-->
 
 </div>
@@ -130,12 +130,12 @@
 
 <!--{if $userlist}-->
 	<div class="cat">
-	<h3>By Just Friends View</h3>
+	<h3>Xem theo bạn bè</h3>
 	<ul class="post_list line_list">
 		<li>
-			Select Freinds: <br>
+			Chọn bạn bè: <br>
 			<select name="fuidsel" onchange="fuidgoto(this.value);">
-			<option value="">All Friends</option>
+			<option value="">Tất cả bạn bè</option>
 			<!--{loop $userlist $value}-->
 			<option value="$value[fuid]"{$fuid_actives[$value[fuid]]}>{$_SN[$value[fuid]]}</option>
 			<!--{/loop}-->
@@ -147,15 +147,15 @@
 	
 <!--{if $classarr}-->
 	<div class="cat">
-	<h3>BLog Categories</h3>
+	<h3>Phân loại Blog</h3>
 	<ul class="post_list line_list">
-		<li<!--{if !$_GET[classid]}--> class="current"<!--{/if}-->><a href="space.php?uid=$space[uid]&do=blog&view=me">All Blogs</a></li>
+		<li<!--{if !$_GET[classid]}--> class="current"<!--{/if}-->><a href="space.php?uid=$space[uid]&do=blog&view=me">Tất cả Blog</a></li>
 		<!--{loop $classarr $classid $classname}-->
 		<li<!--{if $_GET[classid]==$classid}--> class="current"<!--{/if}-->>
 			<a href="space.php?uid=$space[uid]&do=blog&classid=$classid&view=me">$classname</a>
 			<!--{if $space[self]}-->
-				<a href="cp.php?ac=class&op=edit&classid=$classid" id="c_edit_$classid" onclick="ajaxmenu(event, this.id)" class="c_edit">Edit</a>
-				<a href="cp.php?ac=class&op=delete&classid=$classid" id="c_delete_$classid" onclick="ajaxmenu(event, this.id)" class="c_delete">Delete</a>
+				<a href="cp.php?ac=class&op=edit&classid=$classid" id="c_edit_$classid" onclick="ajaxmenu(event, this.id)" class="c_edit">Sửa</a>
+				<a href="cp.php?ac=class&op=delete&classid=$classid" id="c_delete_$classid" onclick="ajaxmenu(event, this.id)" class="c_delete">Xóa</a>
 			<!--{/if}-->
 			<a href="space.php?uid=$space[uid]&do=blog&classid=$classid&view=me">$classname</a>
 		</li>
@@ -166,9 +166,9 @@
 
 <!--{if $_GET['view'] == 'click'}-->
 	<div class="cat">
-	<h3>Stated Action</h3>
+	<h3>Hoạt động đã bày tỏ</h3>
 	<ul class="post_list line_list">
-		<li$click_actives[all]><a href="space.php?do=blog&view=click">All Action</a></li>
+		<li$click_actives[all]><a href="space.php?do=blog&view=click">Tất cả hoạt động</a></li>
 		<!--{loop $clicks $value}-->
 		<li{$click_actives[$value[clickid]]}>
 			<a href="space.php?do=blog&view=click&clickid=$value[clickid]">$value[name]</a>
@@ -178,15 +178,15 @@
 	</div>
 <!--{elseif $_GET['view'] == 'all'}-->
 	<div class="cat">
-	<h3>Top</h3>
+	<h3>Hàng đầu</h3>
 	<ul class="post_list line_list">
-		<li$all_actives[all]><a href="space.php?do=blog&view=all">Recommended</a></li>
-		<li$all_actives[dateline]><a href="space.php?do=blog&view=all&orderby=dateline">Latest</a></li>
-		<li$all_actives[hot]><a href="space.php?do=blog&view=all&orderby=hot&day=$_GET[hotday]">Popular</a></li>
-		<li$all_actives[replynum]><a href="space.php?do=blog&view=all&orderby=replynum&day=$_GET[hotday]">Most Commented</a><li>
-		<li$all_actives[viewnum]><a href="space.php?do=blog&view=all&orderby=viewnum&day=$_GET[hotday]">In-Demand</a></li>
+		<li$all_actives[all]><a href="space.php?do=blog&view=all">Gợi ý</a></li>
+		<li$all_actives[dateline]><a href="space.php?do=blog&view=all&orderby=dateline">Mới nhất</a></li>
+		<li$all_actives[hot]><a href="space.php?do=blog&view=all&orderby=hot&day=$_GET[hotday]">Phổ biến</a></li>
+		<li$all_actives[replynum]><a href="space.php?do=blog&view=all&orderby=replynum&day=$_GET[hotday]">Bình luận nhiều nhất</a><li>
+		<li$all_actives[viewnum]><a href="space.php?do=blog&view=all&orderby=viewnum&day=$_GET[hotday]">Xem nhiều nhất</a></li>
 		<!--{loop $clicks $value}-->
-		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=blog&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">{$value[name]}Top List</a></li>
+		<li{$all_actives['click_'.$value[clickid]]}><a href="space.php?do=blog&view=all&orderby=click_$value[clickid]&day=$_GET[hotday]">Top {$value[name]}</a></li>
 		<!--{/loop}-->
 	</ul>
 	

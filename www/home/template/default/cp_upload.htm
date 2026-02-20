@@ -4,27 +4,27 @@
 	<!--{template cp_topic_menu}-->
 <!--{else}-->
 	<!--{if $eventid}-->
-	<h2 class="title"><img src="image/app/event.gif">Event-  <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
+	<h2 class="title"><img src="image/app/event.gif">Sự kiện -  <a href="space.php?do=event&id=$eventid">$event[title]</a></h2>
 	<!--{else}-->
-	<h2 class="title"><img src="image/app/album.gif">Albums</h2>
+	<h2 class="title"><img src="image/app/album.gif">Album</h2>
 	<!--{/if}-->
 	<div class="tabs_header">
 		<!--{if $_SGLOBAL['magic']['doodle']}-->
-		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Graffiti</a>
+		<a id="a_doodle" class="r_option" href="magic.php?mid=doodle&showid=album_doodle&target=album_message&from=album" onclick="ajaxmenu(event, this.id, 1)"><img src="image/magic/doodle.small.gif" class="magicicon" />Bảng vẽ Graffiti</a>
 		<!--{/if}-->
 		<ul class="tabs">
 		<!--{if $albumid}-->
-			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>Edit album</span></a></li>
-			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>Edit Image</span></a></li>
+			<li><a href="cp.php?ac=album&op=edit&albumid=$albumid"><span>Sửa album</span></a></li>
+			<li><a href="cp.php?ac=album&op=editpic&albumid=$albumid"><span>Sửa ảnh</span></a></li>
 		<!--{/if}-->
 		<!--{if $eventid}-->
-			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>Simple upload</span></a></li>
-			<li><a href="space.php?do=event&id=$eventid"><span>My events</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&eventid=$eventid"><span>Tải lên thông thường</span></a></li>
+			<li><a href="space.php?do=event&id=$eventid"><span>Sự kiện của tôi</span></a></li>
 		<!--{else}-->
-			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>Simple upload</span></a></li>
-			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>Bulk upload</span></a></li>
-			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>Thumbnail</span></a></li>
-			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>My Album</span></a></li>
+			<li$actives[js]><a href="cp.php?ac=upload&albumid=$albumid"><span>Tải lên từng ảnh</span></a></li>
+			<li$actives[flash]><a href="cp.php?ac=upload&op=flash&albumid=$albumid"><span>Tải lên hàng loạt</span></a></li>
+			<li$actives[cam]><a href="cp.php?ac=upload&op=cam&albumid=$albumid"><span>Chụp ảnh từ webcam</span></a></li>
+			<li><a href="space.php?uid=$space[uid]&do=album&view=me"><span>Album của tôi</span></a></li>
 		<!--{/if}-->
 		</ul>
 	</div>
@@ -34,12 +34,12 @@
 
 <!--{if $haveattachsize}-->
 <div class="borderbox">
-	You have remaining space <strong>$haveattachsize</strong> for upload!
+	Bạn còn trống <strong>$haveattachsize</strong> để tải lên!
 	<!--{if $_SGLOBAL[magic][attachsize]}-->
 	<p>
 		<img src="image/magic/attachsize.small.gif" class="magicicon"/>
-		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)"> I would like to increase the space</a>
-		(You can by this props ��{$_SGLOBAL[magic][attachsize]}�� to increase your space to upload more images)
+		<a id="a_magic_attachsize" href="magic.php?mid=attachsize" onclick="ajaxmenu(event, this.id, 1)"> Tôi muốn tăng dung lượng lưu trữ</a>
+		(Bạn có thể sử dụng đạo cụ "{$_SGLOBAL[magic][attachsize]}" để tăng dung lượng tải lên của mình)
 	</p>
 	<!--{/if}-->
 </div><br>
@@ -48,8 +48,8 @@
 <!--{if empty($_GET['op'])}-->
 <table cellspacing="0" cellpadding="0" class="formtable">
 	<caption>
-		<h2>Select image</h2>
-		<p><font size="1">Please select the picture,which you want to upload from computer,<br>You can also select the bulk uploader to upload multiple picture same time</font></p>
+		<h2>Chọn hình ảnh</h2>
+		<p><font size="1">Vui lòng chọn hình ảnh bạn muốn tải lên từ máy tính,<br>Bạn cũng có thể chọn tải lên hàng loạt để tải cùng lúc nhiều ảnh.</font></p>
 	</caption>
 	<tbody id="attachbodyhidden" style="display:none">
 		<tr>
@@ -92,8 +92,8 @@
 <!--{if $albums}-->
 	<caption>
 		<h2>
-		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">Add to existing album</label> &nbsp;
-		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">Creaate new album</label>
+		<input type="radio" id="albumop_selectalbum" name="albumop" value="selectalbum" checked onclick="album_op(this.value);"> <label for="albumop_selectalbum">Thêm vào album đã có</label> &nbsp;
+		<input type="radio" id="albumop_creatalbum" name="albumop" value="creatalbum" onclick="album_op(this.value);"> <label for="albumop_creatalbum">Tạo album mới</label>
 		</h2>
 	</caption>
 
@@ -101,7 +101,7 @@
 	<tr><td>
 		<table width="100%">
 		<tr>
-			<th width="60">Select Album</th>
+			<th width="60">Chọn Album</th>
 			<td>
 			<select name="albumid" id="uploadalbumid">
 			<!--{loop $albums $value}-->
@@ -122,7 +122,7 @@
 	<tbody id="creatalbum" style="display:none;">
 <!--{else}-->
 	<caption>
-		<h2Create New Album</h2>
+		<h2>Tạo Album mới</h2>
 		<input type="hidden" name="albumop" value="creatalbum">
 	</caption>
 	<tbody id="creatalbum">
@@ -130,39 +130,39 @@
 	<tr><td>
 		<table width="100%">
 			<tr>
-				<th width="80">Album Name</th>
-				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="My Album"></td>
+				<th width="80">Tên Album</th>
+				<td><input type="text" class="t_input" size="20" id="uploadalbumname" name="albumname" value="Album của tôi"></td>
 			</tr>
 			<tr>
-				<th>Privacy</th>
+				<th>Quyền riêng tư</th>
 				<td>
 					<select name="friend" id="uploadfriend" onchange="passwordShow(this.value);">
-						<option value="0">Public</option>
+						<option value="0">Công khai</option>
 						<!--{if empty($_GET[topicid])}-->
-						<option value="1">Friends</option>
-						<option value="2">Selected Friends</option>
-						<option value="3">Myself</option>
-						<option value="4">Password protected</option>
+						<option value="1">Bạn bè</option>
+						<option value="2">Bạn bè được chỉ định</option>
+						<option value="3">Chỉ mình tôi</option>
+						<option value="4">Bảo vệ mật khẩu</option>
 						<!--{/if}-->
 					</select>
-					<span id="span_password" style="display:none;">Password: <input type="text" id="uploadpassword" name="password" value="" size="10"></span>
+					<span id="span_password" style="display:none;">Mật khẩu: <input type="text" id="uploadpassword" name="password" value="" size="10"></span>
 				</td>
 			</tr>
 			<tbody id="tb_selectgroup" style="display:none;">
 			<tr>
-				<th>Selected Friends</th>
+				<th>Chọn bạn bè</th>
 				<td><select name="selectgroup" onchange="getgroup(this.value);">
-					<option value="">Select Friends from List</option>
+					<option value="">Chọn từ danh sách bạn bè</option>
 					<!--{loop $groups $key $value}-->
 					<option value="$key">$value</option>
 					<!--{/loop}-->
-					</select> Select the friends name multiple times, it will add below list.</td>
+					</select> Chọn tên nhiều bạn bè để thêm vào danh sách dưới đây.</td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
 				<td>
 				<textarea name="target_names" id="target_names" style="width:85%;" rows="3"></textarea>
-				<br>(Multiple friends name can be type, use space to separate)</td>
+				<br>(Có thể nhập nhiều tên bạn bè, dùng dấu cách để phân tách)</td>
 			</tr>
 		</table>
 	</td></tr>
@@ -173,7 +173,7 @@
 	<br>
 	<input type="hidden" name="albumsubmit" id="albumsubmit" value="true" />
 	<input type="hidden" name="topicid" value="$_GET[topicid]" />
-	<input type="submit" name="uploadsubmit" id="btnupload" value="Start Uploading" class="submit" />
+	<input type="submit" name="uploadsubmit" id="btnupload" value="Bắt đầu tải lên" class="submit" />
 	</td>
 	</tr>
 </table>
