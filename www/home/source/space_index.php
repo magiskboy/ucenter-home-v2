@@ -8,7 +8,7 @@ if(!defined('IN_UCHOME')) {
 	exit('Access Denied');
 }
 
-//实名认证
+//??????
 if($space['namestatus']) {
 	include_once(S_ROOT.'./source/function_cp.php');
 	if(!ckrealname('viewspace', 1)) {
@@ -18,27 +18,33 @@ if($space['namestatus']) {
 	}
 }
 
-//风格
+//???
 $_SGLOBAL['space_theme'] = $space['theme'];
 $_SGLOBAL['space_css'] = $space['css'];
 
-//是否好友
+//??????
 $space['isfriend'] = $space['self'];
 if($space['friends'] && in_array($_SGLOBAL['supe_uid'], $space['friends'])) {
-	$space['isfriend'] = 1;//是好友
+	$space['isfriend'] = 1;//?????
 }
 
-//个人资料
-//性别
+//????????
+//???
 $space['sex_org'] = $space['sex'];
 $space['sex'] = $space['sex']=='1'?'<a href="cp.php?ac=friend&op=search&sex=1&searchmode=1">'.lang('man').'</a>':($space['sex']=='2'?'<a href="cp.php?ac=friend&op=search&sex=2&searchmode=1">'.lang('woman').'</a>':'');
-$space['birth'] = ($space['birthyear']?"$space[birthyear]".lang('year'):'').($space['birthmonth']?"$space[birthmonth]".lang('month'):'').($space['birthday']?"$space[birthday]".lang('day'):'');
+// Format: ngay ... thang ... nam (day, month, year)
+$birth_parts = array();
+if (!empty($space['birthday'])) $birth_parts[] = lang('day').' '.$space['birthday'];
+if (!empty($space['birthmonth'])) $birth_parts[] = lang('month').' '.$space['birthmonth'];
+if (!empty($space['birthyear'])) $birth_parts[] = lang('year').' '.$space['birthyear'];
+$space['birth'] = implode(' ', $birth_parts);
 $space['marry'] = $space['marry']=='1'?'<a href="cp.php?ac=friend&op=search&marry=1&searchmode=1">'.lang('unmarried').'</a>':($space['marry']=='2'?'<a href="cp.php?ac=friend&op=search&marry=2&searchmode=1">'.lang('married').'</a>':'');
-$space['birthcity'] = trim(($space['birthprovince']?"<a href=\"cp.php?ac=friend&op=search&birthprovince=".rawurlencode($space['birthprovince'])."&searchmode=1\">$space[birthprovince]</a>":'').($space['birthcity']?" <a href=\"cp.php?ac=friend&op=search&birthcity=".rawurlencode($space['birthcity'])."&searchmode=1\">$space[birthcity]</a>":''));
-$space['residecity'] = trim(($space['resideprovince']?"<a href=\"cp.php?ac=friend&op=search&resideprovince=".rawurlencode($space['resideprovince'])."&searchmode=1\">$space[resideprovince]</a>":'').($space['residecity']?" <a href=\"cp.php?ac=friend&op=search&residecity=".rawurlencode($space['residecity'])."&searchmode=1\">$space[residecity]</a>":''));
+// Format: huyen, thanh pho (district then city)
+$space['birthcity'] = trim(($space['birthcity']?"<a href=\"cp.php?ac=friend&op=search&birthcity=".rawurlencode($space['birthcity'])."&searchmode=1\">$space[birthcity]</a>":'').($space['birthprovince']?" <a href=\"cp.php?ac=friend&op=search&birthprovince=".rawurlencode($space['birthprovince'])."&searchmode=1\">$space[birthprovince]</a>":''));
+$space['residecity'] = trim(($space['residecity']?"<a href=\"cp.php?ac=friend&op=search&residecity=".rawurlencode($space['residecity'])."&searchmode=1\">$space[residecity]</a>":'').($space['resideprovince']?" <a href=\"cp.php?ac=friend&op=search&resideprovince=".rawurlencode($space['resideprovince'])."&searchmode=1\">$space[resideprovince]</a>":''));
 $space['qq'] = empty($space['qq'])?'':"<a target=\"_blank\" href=\"http://wpa.qq.com/msgrd?V=1&Uin=$space[qq]&Site=$space[username]&Menu=yes\">$space[qq]</a>";
 
-//隐私
+//???
 $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('spaceinfo')." WHERE uid='$space[uid]' AND type IN ('base', 'contact')");
 while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$v_friend = ckfriend($value['uid'], $value['friend']);
@@ -47,14 +53,14 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 
 @include_once(S_ROOT.'./data/data_usergroup.php');
 
-//积分
+//????
 $space['star'] = getstar($space['experience']);
 
-//域名
+//????
 $space['domainurl'] = space_domain($space);
 
 
-//个人动态
+//??????
 $feedlist = array();
 if(ckprivacy('feed')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('feed')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,20");
@@ -67,7 +73,7 @@ if(ckprivacy('feed')) {
 	$feednum = count($feedlist);
 }
 
-//好友列表
+//?????潩?
 $oluids = array();
 $friendlist = array();
 if(ckprivacy('friend')) {
@@ -78,13 +84,13 @@ if(ckprivacy('friend')) {
 		$friendlist[] = $value;
 	}
 	if($friendlist && empty($space['friendnum'])) {
-		//更新好友缓存
+		//??????????
 		include_once(S_ROOT.'./source/function_cp.php');
 		friend_cache($space['uid']);
 	}
 }
 
-//最近访客列表
+//???????潩?
 $visitorlist = array();
 $query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('visitor')." WHERE uid='$space[uid]' ORDER BY dateline DESC LIMIT 0,16");
 while ($value = $_SGLOBAL['db']->fetch_array($query)) {
@@ -99,16 +105,16 @@ while ($value = $_SGLOBAL['db']->fetch_array($query)) {
 	$visitorlist[$value['vuid']] = $value;
 }
 
-//访问统计
+//???????
 $viewuids = $_SCOOKIE['viewuids']?explode('_', $_SCOOKIE['viewuids']):array();
 if($_SGLOBAL['supe_uid'] && !$space['self'] && !in_array($space['uid'], $viewuids)) {
 	$_SGLOBAL['db']->query("UPDATE ".tname('space')." SET viewnum=viewnum+1 WHERE uid='$space[uid]'");
-	//访刷新
+	//?????
 	$viewuids[$space['uid']] = $space['uid'];
 	ssetcookie('viewuids', implode('_', $viewuids));
 }
 
-//日志
+//???
 $bloglist = array();
 if($space['blognum'] && ckprivacy('blog')) {
 	$query = $_SGLOBAL['db']->query("SELECT b.uid, b.blogid, b.subject, b.dateline, b.pic, b.picflag, b.viewnum, b.replynum, b.friend, b.password, bf.message, bf.target_ids
@@ -126,7 +132,7 @@ if($space['blognum'] && ckprivacy('blog')) {
 	$blognum = count($bloglist);
 }
 
-//相册
+//???
 $albumlist = array();
 if($space['albumnum'] && ckprivacy('album')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('album')." WHERE uid='$space[uid]' ORDER BY updatetime DESC LIMIT 0,6");
@@ -138,7 +144,7 @@ if($space['albumnum'] && ckprivacy('album')) {
 	}
 }
 
-//留言板
+//?????
 $walllist = array();
 if(ckprivacy('wall')) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('comment')." WHERE id='$space[uid]' AND idtype='uid' ORDER BY dateline DESC LIMIT 0,5");
@@ -149,12 +155,12 @@ if(ckprivacy('wall')) {
 	}
 }
 
-//是否在线
+//???????
 $query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('session')." WHERE uid = '$space[uid]'");
 $value = $_SGLOBAL['db']->fetch_array($query);
 $isonline = (empty($value) || $value['magichidden']) ? 0 : sgmdate('H:i:s', $value['lastactivity'], 1);
 
-//风格
+//???
 $theme = empty($_GET['theme'])?'':preg_replace("/[^0-9a-z]/i", '', $_GET['theme']);
 if($theme == 'uchomedefault') {
 	$_SGLOBAL['space_theme'] = $_SGLOBAL['space_css'] = '';
@@ -170,7 +176,7 @@ if($theme == 'uchomedefault') {
 	}
 }
 
-//最近访客记录
+//????????
 if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 	$query = $_SGLOBAL['db']->query("SELECT dateline FROM ".tname('visitor')." WHERE uid='$space[uid]' AND vuid='$_SGLOBAL[supe_uid]'");
 	$visitor = $_SGLOBAL['db']->fetch_array($query);
@@ -183,20 +189,20 @@ if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 			'dateline' => $_SGLOBAL['timestamp']
 		);
 		inserttable('visitor', $setarr, 0, true);
-		show_credit();//竞价排名
+		show_credit();//????????
 	} else {
 		if($_SGLOBAL['timestamp'] - $visitor['dateline'] >= 300) {
 			updatetable('visitor', array('dateline'=>$_SGLOBAL['timestamp'], 'vusername'=>$is_anonymous ? '' : $_SGLOBAL['supe_username']), array('uid'=>$space['uid'], 'vuid'=>$_SGLOBAL['supe_uid']));
 		}
 		if($_SGLOBAL['timestamp'] - $visitor['dateline'] >= 3600) {
-			show_credit();//1小时后竞价排名
+			show_credit();//1潩????????
 		}
 	}
-	//奖励访客
+	//???????
 	getreward('visit', 1, 0, $space['uid']);
 }
 
-//红包道具
+//???????
 $space['magiccredit'] = 0;
 if($_SGLOBAL['magic']['gift'] && $_SGLOBAL['supe_uid']) {
 	$query = $_SGLOBAL['db']->query('SELECT * FROM '.tname('magicuselog')." WHERE uid='$space[uid]' AND mid='gift' LIMIT 1");
@@ -211,7 +217,7 @@ if($_SGLOBAL['magic']['gift'] && $_SGLOBAL['supe_uid']) {
 	}
 }
 	
-//是否在线
+//???????
 $ols = array();
 if($oluids) {
 	$query = $_SGLOBAL['db']->query("SELECT * FROM ".tname('session')." WHERE uid IN (".simplode($oluids).")");
@@ -224,7 +230,7 @@ if($oluids) {
 	}
 }
 
-//应用显示
+//??????
 $narrowlist = $widelist = $guidelist = $space['userapp'] = array();
 if ($_SCONFIG['my_status']) {
 	$query = $_SGLOBAL['db']->query("SELECT main.*, field.*
@@ -254,7 +260,7 @@ if($space['userapp']) {
 	}
 }
 
-//实名
+//???
 realname_get();
 
 //feed
@@ -262,13 +268,13 @@ foreach ($feedlist as $key => $value) {
 	$feedlist[$key] = mkfeed($value);
 }
 
-//更新好友热度
+//??????????
 if(!$space['self'] && $_SGLOBAL['supe_uid']) {
 	include_once(S_ROOT.'./source/function_cp.php');
 	addfriendnum($space['uid'], $space['username']);
 }
 
-//去掉广告
+//??????
 $_SGLOBAL['ad'] = array();
 
 $_GET['view'] = 'me';
@@ -276,13 +282,13 @@ $_GET['view'] = 'me';
 $_TPL['css'] = 'space';
 include_once template("space_index");
 
-//竞价排名
+//????????
 function show_credit() {
 	global $_SGLOBAL, $space;
 	$showcredit = getcount('show', array('uid'=>$space['uid']), 'credit');
 	if($showcredit>0) {
 		if($showcredit == 1) {
-			//下榜通知
+			//?潩???
 			notification_add($space['uid'], 'show', cplang('note_show_out'));
 		}
 		$_SGLOBAL['db']->query("UPDATE ".tname('show')." SET credit=credit-1 WHERE uid='$space[uid]' AND credit>0");

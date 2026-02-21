@@ -154,17 +154,21 @@ body { background: #FFF; }
 #space_mymenu em { font-style: normal; font-weight: normal; color:#999; padding-left: 5px; }
 #space_mymenu li img { margin: 0 5px 0 0; vertical-align: middle; } 
 
-#mood_statusinput{ position: absolute; margin: 0 0 0 -4px; width: 320px; height: 50px; overflow: hidden; }
-.statusinput,
-.statusinput2{ background: url(image/statusinputbg.gif) no-repeat }
-.statusinput{ background-position: 0 -50px; }
-.statusinput2{ background-position: 0 0; }
-#mood_statusinput textarea{ position: absolute; margin: 3px 0 0 7px; padding: 3px; width: 304px; height: 38px; font-size: 14px; color: #999; border: none; outline: none; }
-.statussubmit{ padding: 0 0 0 330px; width: 60px; height: 50px; overflow: hidden; z-index: 20003; }
-.statussubmit .submit{ position: absolute; margin: 0; padding: 0; width: 60px; height: 50px; background: url(image/statusinputbg.gif) no-repeat 0 -100px; font-weight: bold; text-align: center; font-size: 14px; z-index: 20003; }
+/* Status input: layout flex, chat-bubble border (no background image) */
+#mood_form{ display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+#mood_addform { width: 100%; padding: 0 1px; }
+#mood_statusinput{ position: relative; flex: 1; min-width: 0; min-height: 50px; padding: 6px 10px 8px 14px; border: 1px solid #a8d4f0; border-radius: 10px; background: #fff; box-sizing: border-box; }
+#mood_statusinput::before{ content: ''; position: absolute; left: 0; top: 0; width: 0; height: 0; border: 8px solid transparent; border-right-color: #a8d4f0; border-left: 0; margin-left: -8px; margin-top: 12px; }
+#mood_statusinput::after{ content: ''; position: absolute; left: 0; top: 0; width: 0; height: 0; border: 7px solid transparent; border-right-color: #fff; border-left: 0; margin-left: -6px; margin-top: 13px; }
+.statusinput2{ border-color: #7ec8f0; box-shadow: 0 0 0 1px #7ec8f0; }
+.statusinput2::before{ border-right-color: #7ec8f0; }
+#mood_statusinput textarea{ display: block; width: 100%; min-height: 36px; margin: 0; padding: 0; font-size: 14px; color: #999; border: none; outline: none; resize: vertical; box-sizing: border-box; background: transparent; }
+.statussubmit{ flex-shrink: 0; width: 60px; height: 50px; z-index: 20003; }
+.statussubmit .submit{ display: block; width: 60px; height: 50px; margin: 0; padding: 0; border: 1px solid #c5d8e8; border-radius: 8px; background: #e8f4fc; font-weight: bold; text-align: center; font-size: 14px; line-height: 48px; cursor: pointer; color: #333; }
+.statussubmit .submit:hover{ background: #d4ebf9; border-color: #a8d4f0; }
 
 .u_setting { padding: 5px 0 10px 0; width: 150px;clear: both; overflow: hidden; }
-  .u_setting li { float: left; padding-left: 35px; }
+  .u_setting li { float: left; text-align: center; }
 
 .mgs_list { width: 100%; overflow: hidden; clear: both; padding: 5px 0 10px 0; }
 .mgs_list div { float: left; margin: 0 10px 5px 0; padding: 5px 10px 5px 10px; width: 140px; border: 1px solid #EBE6C9; line-height: 20px; }

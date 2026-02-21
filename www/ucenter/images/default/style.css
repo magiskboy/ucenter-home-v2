@@ -52,7 +52,7 @@ h1 { height: 32px; line-height: 32px; background: url(headerbg.gif) repeat-x 50%
 			.ava { width: 60px; }
 			.newpm td.ava { vertical-align: top; }
 				td.ava img { margin-left: 6px;width: 48px; height: 48px; }
-			.pef { width: 160px; vertical-align: top; }
+			.pef { width: 170px; vertical-align: top; }
 			.title { width: 490px;}
 				.title ul { list-style-position : inside; }
 				.title .pages { float: right; }
